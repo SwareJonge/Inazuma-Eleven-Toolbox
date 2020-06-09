@@ -15,3 +15,9 @@ Drag and drop the `unitstat.dat` and `unitbase.dat` in `"/Inazuma-Eleven-Stats-E
 XXX for Inazuma Eleven 1, 2 or 3 (IE, IE2, IE3)
 
 When loading the program make sure you select the correct game version and region, Japanese is not supported as of now.
+
+## Notes
+Unobtainable players and NPCs are also present in this list.
+
+## Preview
+https://prnt.sc/suz5sl
