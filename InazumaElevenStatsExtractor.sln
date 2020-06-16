@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InazumaElevenStatsExtractor", "WindowsFormsApp5\InazumaElevenStatsExtractor.csproj", "{86D716DB-BFD2-48C8-8265-0C7FB36BEA9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InazumaElevenStatsExtractor", "InazumaElevenStatsExtractor\InazumaElevenStatsExtractor.csproj", "{86D716DB-BFD2-48C8-8265-0C7FB36BEA9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
