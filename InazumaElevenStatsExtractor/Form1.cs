@@ -20,7 +20,7 @@ namespace InazumaElevenStatsExtractor
             InitializeComponent();
         }
 
-        private void AddValuesFromUnitbase(int UnitBaseEndOffset, int UnitBaseBlockLength, int UnitStatBlockLength, string Game)
+        private void AddValuesFromUnitbase(int UnitBaseEndOffset, int UnitBaseBlockLength, int UnitStatBlockLength, string Game, string region)
         {
             IDictionary<int, string> ElementToStr = new Dictionary<int, string>()
                 {
@@ -37,22 +37,20 @@ namespace InazumaElevenStatsExtractor
                      {1,"Male"},
                      {2,"Female"}
                 };
-            IDictionary<int, string> PosToString = new Dictionary<int, string>()
+            string SizeToString(byte size)
+            {
+                switch (size)
                 {
-                {0,"NPC"},
-                     {0x60,"MF"},
-                     {0x80,"FW"},
-                     {100,"Garbage"},
-                     {130,"Garbage"},
-                     {0x40,"DF"},
-                     {0x20,"GK"}
-                };
-            IDictionary<int, string> SizeToString = new Dictionary<int, string>()
-                {
-                {0,"Medium"},
-                     {1,"Large"},
-                     {2,"Small"}
-                };
+                    case 0:
+                        return "Medium";
+                    case 1:
+                        return "Large";
+                    case 2:
+                        return "Small";
+                    default:
+                        return "NPC";
+                }
+            }
 
             IDictionary<int, string> MoveToStr = new Dictionary<int, string>()
                 {
@@ -489,6 +487,28 @@ namespace InazumaElevenStatsExtractor
 { 0x1D8,"Devil Ball" }
                 };
 
+            string PosByteToString(byte Pos)
+            {
+                if (Pos >= 0x80 && Pos <= 0x88)
+                {
+                    return "FW";
+                }
+                else if (Pos >= 0x60 && Pos <= 0x68)
+                {
+                    return "MF";
+                }
+                else if (Pos >= 0x40 && Pos <= 0x48)
+                {
+                    return "DF";
+                }
+                else if (Pos >= 0x20 && Pos <= 0x28)
+                {
+                    return "GK";
+                }
+                else return "NPC";
+
+
+            }
             ushort calcLevelDone(ushort GrowthRate)
             {
                 if (GrowthRate == 1)
@@ -505,13 +525,12 @@ namespace InazumaElevenStatsExtractor
             dataGridView1.Rows.Clear();
             //int Teams = 0x26C0 / 0x140;
             int Players = (UnitBaseEndOffset / UnitBaseBlockLength) + 1;
-            ImporterClass.Player[] Player = new ImporterClass.Player[Players];
+            ImporterClass.Player Player = new ImporterClass.Player();
 
             //string TeamNamesFile = @"Include\team.pkb";
-            string PlayerNamesFile = @"Include/" + Game + "/unitbase.dat";
-            string StatsFile = @"Include/" + Game + "/unitstat.dat";
-            //for (int i = 0; i <= 0x26C0; i += 0x140)
-            //{
+            string PlayerNamesFile = @"Include/" + region + "/" + Game + "/unitbase.dat";
+            string StatsFile = @"Include/" + region + "/" + Game + "/unitstat.dat";
+            //string TeamFile = @"Include/" + region + "/" + Game + "/team.pkb";
             for (int J = UnitBaseBlockLength; J <= UnitBaseEndOffset; J += UnitBaseBlockLength)
             {
                 int k = 0;
@@ -525,31 +544,70 @@ namespace InazumaElevenStatsExtractor
                 }
                 int K = k * UnitStatBlockLength;
                 byte[] StatsBlock = File.ReadAllBytes(StatsFile).Skip(K).Take(UnitStatBlockLength).ToArray();
+                byte NicknameStartPosJAP = 0x10;
                 byte StringLength = 0x20;
                 byte NickNameLength = 0x20;
-                byte ScoutIDOffset = 0x44;
+                byte ScoutIDOffset = 0x42;
                 byte ElementOffset = 0x5A;
                 byte GenderOffset = 0x52;
+                // byte TeamIDOffset = 0x41;
+                //short TeamBlockLength = 0x140;
                 if (Game == "IE3")
                 {
                     Encryption.Decrypt(ref StatsBlock);
                     StringLength = 0x1C;
-                    ScoutIDOffset = 0x50;
+                    ScoutIDOffset = 0x4E;
                     ElementOffset = 0x62;
                     NickNameLength = 0x10;
                     GenderOffset = 0x5A;
-                }             
+                    NicknameStartPosJAP = 0x1C;
+                    //TeamBlockLength = 0x160;
+                    //TeamIDOffset = 0x4D;
+                }
 
-                string FullPlayerName = Encoding.Default.GetString(File.ReadAllBytes(PlayerNamesFile).Skip(J).Take(StringLength).ToArray());
+
+
+
+                // WIP
+                /*int TeamID = File.ReadAllBytes(PlayerNamesFile).Skip(J + TeamIDOffset).ToArray()[0];
+                string TeamName = "";
+                for (int I = 0; I < File.ReadAllBytes(TeamFile).Length; I += TeamBlockLength)
+                {
+                    if (File.ReadAllBytes(TeamFile).Skip(0x20 + I).ToArray()[0] == TeamID)
+                    {
+                        TeamName = Encoding.Default.GetString(File.ReadAllBytes(TeamFile).Skip(I).Take(0x20).ToArray());
+                        TeamName = TeamName.Replace("\0", "");
+                        break;
+                    }                    
+                }*/
+                string FullPlayerName = "";
+                string PlayerNickName = "";
+                switch (region)
+                {
+                    case "EUR":
+                        {
+                            // Currently using SJIS as text encoding
+                            // Still need a better text encoding for IE3, German, Spanish and some French names are incorrect
+                            FullPlayerName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(J).Take(0x1C).ToArray());
+                            PlayerNickName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(J + StringLength).Take(NickNameLength).ToArray());
+                            break;
+                        }
+                    case "JAP":
+                        {
+                            FullPlayerName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(J).Take(0x10).ToArray());
+                            PlayerNickName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(J + NicknameStartPosJAP).Take(0x10).ToArray());
+                            break;
+                        }
+
+                }
                 FullPlayerName = FullPlayerName.Replace("\0", "");
-                string PlayerNickName = Encoding.Default.GetString(File.ReadAllBytes(PlayerNamesFile).Skip(J + StringLength).Take(NickNameLength).ToArray());
                 PlayerNickName = PlayerNickName.Replace("\0", "");
-                ushort ScoutHexID = (ushort)(BitConverter.ToUInt16(new byte[2] { File.ReadAllBytes(PlayerNamesFile).Skip(J + ScoutIDOffset).Take(2).ToArray()[0], File.ReadAllBytes(PlayerNamesFile).Skip(J + ScoutIDOffset).Take(0x2).ToArray()[1] }, 0));
+                ushort ScoutHexID = (BitConverter.ToUInt16(new byte[2] { File.ReadAllBytes(PlayerNamesFile).Skip(J + ScoutIDOffset).Take(2).ToArray()[0], File.ReadAllBytes(PlayerNamesFile).Skip(J + ScoutIDOffset).Take(0x2).ToArray()[1] }, 0));
                 byte Gender = File.ReadAllBytes(PlayerNamesFile).Skip(J + GenderOffset).Take(4).ToArray()[0];
                 byte Position = File.ReadAllBytes(PlayerNamesFile).Skip(J + GenderOffset).Take(4).ToArray()[3];
                 byte PlayerSize = File.ReadAllBytes(PlayerNamesFile).Skip(J + GenderOffset).Take(4).ToArray()[2]; ;
                 /*                   StatsBlock Layout
-                 *           Length: 0x50 in IE & IE2, 0x48 in IE3
+                 *           Length: 0x40 in IE(JAP) 0x50 in IE(EUR) & IE2, 0x48 in IE3
                  *            IE3 doesn't have the garbage values
                  * (short[3]) TP: 0x0 - MinTP, 0x2 - MaxTP, 0x4 - TPGrowthRate
                  * short 0x6 - unk
@@ -562,69 +620,68 @@ namespace InazumaElevenStatsExtractor
                  * (byte[2]) Speed: 0x20 - Min, 0x21 - Max, short 0x22 - GrowthRate
                  * (byte[2]) Guts: 0x24 - Min, 0x25 - Max, short 0x26 - GrowthRate
                  * (byte[2]) Stamina: 0x28 - Min, 0x29 - Max, short 0x2A - GrowthRate
-                 * (short[8]) Moves: 0x2C - MoveID_Slot1, 0x2E UnlockLevel, 0x30 - MoveID_Slot2, 0x32 UnlockLevel,
+                 * (short[8]) Moves: 0x2C - MoveID_Slot1, 0x2E UnlockLevel, 0x30 - MoveID_Slot2, 0x32 UnlockLevel, (byte[8]) in IE(JAP)!!
                  * 0x34 MoveID_Slot3, 0x36 UnlockLevel, 0x38 MoveID_Slot4, 0x3A UnlockLevel
                  * (short[5]) 0x3C - Max totaal, unk, unk, unk, unk
-                 * Garbage data most likely
-                 */
+                 * Garbage data most likely */
+
+
+
 
                 // FP
-                Player[k].PlayerStatsStruct.MinFP = BitConverter.ToUInt16(new byte[2] { StatsBlock[0], StatsBlock[1] }, 0);
-                Player[k].PlayerStatsStruct.MaxFP = BitConverter.ToUInt16(new byte[2] { StatsBlock[2], StatsBlock[3] }, 0);
-                Player[k].PlayerStatsStruct.FPGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[4], StatsBlock[5] }, 0);
-                ushort FPMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.FPGrowthRate);
-                float FPPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxFP - Player[k].PlayerStatsStruct.MinFP) / (float)(FPMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinFP = BitConverter.ToUInt16(new byte[2] { StatsBlock[0], StatsBlock[1] }, 0);
+                Player.PlayerStatsStruct.MaxFP = BitConverter.ToUInt16(new byte[2] { StatsBlock[2], StatsBlock[3] }, 0);
+                Player.PlayerStatsStruct.FPGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[4], StatsBlock[5] }, 0);
+                ushort FPMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.FPGrowthRate);
+                float FPPerLevel = ((Player.PlayerStatsStruct.MaxFP - Player.PlayerStatsStruct.MinFP) / (float)(FPMaxOpLevel - 1));
                 // TP
-                Player[k].PlayerStatsStruct.MinTP = BitConverter.ToUInt16(new byte[2] { StatsBlock[8], StatsBlock[9] }, 0);
-                Player[k].PlayerStatsStruct.MaxTP = BitConverter.ToUInt16(new byte[2] { StatsBlock[0xA], StatsBlock[0xB] }, 0);
-                Player[k].PlayerStatsStruct.TPGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0xC], StatsBlock[0xD] }, 0);
-                ushort TPMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.TPGrowthRate);
-                float TPPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxTP - Player[k].PlayerStatsStruct.MinTP) / (float)(TPMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinTP = BitConverter.ToUInt16(new byte[2] { StatsBlock[8], StatsBlock[9] }, 0);
+                Player.PlayerStatsStruct.MaxTP = BitConverter.ToUInt16(new byte[2] { StatsBlock[0xA], StatsBlock[0xB] }, 0);
+                Player.PlayerStatsStruct.TPGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0xC], StatsBlock[0xD] }, 0);
+                ushort TPMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.TPGrowthRate);
+                float TPPerLevel = ((Player.PlayerStatsStruct.MaxTP - Player.PlayerStatsStruct.MinTP) / (float)(TPMaxOpLevel - 1));
                 // Kick
-                Player[k].PlayerStatsStruct.MinKick = StatsBlock[0x10];
-                Player[k].PlayerStatsStruct.MaxKick = StatsBlock[0x11];
-                Player[k].PlayerStatsStruct.KickGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x12], StatsBlock[0x13] }, 0);
-                ushort KickMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.KickGrowthRate);
-                float KickPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxKick - Player[k].PlayerStatsStruct.MinKick) / (float)(KickMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinKick = StatsBlock[0x10];
+                Player.PlayerStatsStruct.MaxKick = StatsBlock[0x11];
+                Player.PlayerStatsStruct.KickGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x12], StatsBlock[0x13] }, 0);
+                ushort KickMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.KickGrowthRate);
+                float KickPerLevel = ((Player.PlayerStatsStruct.MaxKick - Player.PlayerStatsStruct.MinKick) / (float)(KickMaxOpLevel - 1));
                 // Body
-                Player[k].PlayerStatsStruct.MinBody = StatsBlock[0x14];
-                Player[k].PlayerStatsStruct.MaxBody = StatsBlock[0x15];
-                Player[k].PlayerStatsStruct.BodyGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x16], StatsBlock[0x17] }, 0);
-                ushort BodyMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.BodyGrowthRate);
-                float BodyPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxBody - Player[k].PlayerStatsStruct.MinBody) / (float)(BodyMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinBody = StatsBlock[0x14];
+                Player.PlayerStatsStruct.MaxBody = StatsBlock[0x15];
+                Player.PlayerStatsStruct.BodyGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x16], StatsBlock[0x17] }, 0);
+                ushort BodyMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.BodyGrowthRate);
+                float BodyPerLevel = ((Player.PlayerStatsStruct.MaxBody - Player.PlayerStatsStruct.MinBody) / (float)(BodyMaxOpLevel - 1));
                 // Guard
-                Player[k].PlayerStatsStruct.MinGuard = StatsBlock[0x18];
-                Player[k].PlayerStatsStruct.MaxGuard = StatsBlock[0x19];
-                Player[k].PlayerStatsStruct.GuardGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x1A], StatsBlock[0x1B] }, 0);
-                ushort GuardMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.GuardGrowthRate);
-                float GuardPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxGuard - Player[k].PlayerStatsStruct.MinGuard) / (float)(GuardMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinGuard = StatsBlock[0x18];
+                Player.PlayerStatsStruct.MaxGuard = StatsBlock[0x19];
+                Player.PlayerStatsStruct.GuardGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x1A], StatsBlock[0x1B] }, 0);
+                ushort GuardMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.GuardGrowthRate);
+                float GuardPerLevel = ((Player.PlayerStatsStruct.MaxGuard - Player.PlayerStatsStruct.MinGuard) / (float)(GuardMaxOpLevel - 1));
                 // Control
-                Player[k].PlayerStatsStruct.MinControl = StatsBlock[0x1C];
-                Player[k].PlayerStatsStruct.MaxControl = StatsBlock[0x1D];
-                Player[k].PlayerStatsStruct.ControlGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x1E], StatsBlock[0x1F] }, 0);
-                ushort ControlMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.ControlGrowthRate);
-                float ControlPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxControl - Player[k].PlayerStatsStruct.MinControl) / (float)(ControlMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinControl = StatsBlock[0x1C];
+                Player.PlayerStatsStruct.MaxControl = StatsBlock[0x1D];
+                Player.PlayerStatsStruct.ControlGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x1E], StatsBlock[0x1F] }, 0);
+                ushort ControlMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.ControlGrowthRate);
+                float ControlPerLevel = ((Player.PlayerStatsStruct.MaxControl - Player.PlayerStatsStruct.MinControl) / (float)(ControlMaxOpLevel - 1));
                 // Speed
-                Player[k].PlayerStatsStruct.MinSpeed = StatsBlock[0x20];
-                Player[k].PlayerStatsStruct.MaxSpeed = StatsBlock[0x21];
-                Player[k].PlayerStatsStruct.SpeedGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x22], StatsBlock[0x23] }, 0);
-                ushort SpeedMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.SpeedGrowthRate);
-                float SpeedPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxSpeed - Player[k].PlayerStatsStruct.MinSpeed) / (float)(SpeedMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinSpeed = StatsBlock[0x20];
+                Player.PlayerStatsStruct.MaxSpeed = StatsBlock[0x21];
+                Player.PlayerStatsStruct.SpeedGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x22], StatsBlock[0x23] }, 0);
+                ushort SpeedMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.SpeedGrowthRate);
+                float SpeedPerLevel = ((Player.PlayerStatsStruct.MaxSpeed - Player.PlayerStatsStruct.MinSpeed) / (float)(SpeedMaxOpLevel - 1));
                 // Guts
-                Player[k].PlayerStatsStruct.MinGuts = StatsBlock[0x24];
-                Player[k].PlayerStatsStruct.MaxGuts = StatsBlock[0x25];
-                Player[k].PlayerStatsStruct.GutsGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x26], StatsBlock[0x27] }, 0);
-                ushort GutsMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.GutsGrowthRate);
-                float GutsPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxGuts - Player[k].PlayerStatsStruct.MinGuts) / (float)(GutsMaxOpLevel - 1));
+                Player.PlayerStatsStruct.MinGuts = StatsBlock[0x24];
+                Player.PlayerStatsStruct.MaxGuts = StatsBlock[0x25];
+                Player.PlayerStatsStruct.GutsGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x26], StatsBlock[0x27] }, 0);
+                ushort GutsMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.GutsGrowthRate);
+                float GutsPerLevel = ((Player.PlayerStatsStruct.MaxGuts - Player.PlayerStatsStruct.MinGuts) / (float)(GutsMaxOpLevel - 1));
                 // Stamina
-                Player[k].PlayerStatsStruct.MinStamina = StatsBlock[0x28];
-                Player[k].PlayerStatsStruct.MaxStamina = StatsBlock[0x29];
-                Player[k].PlayerStatsStruct.StaminaGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x2A], StatsBlock[0x2B] }, 0);
-                ushort StaminaMaxOpLevel = calcLevelDone(Player[k].PlayerStatsStruct.StaminaGrowthRate);
-                float StaminaPerLevel = Math.Abs((float)(Player[k].PlayerStatsStruct.MaxStamina - Player[k].PlayerStatsStruct.MinStamina) / (float)(StaminaMaxOpLevel - 1));
-
-                //Max Stats
-                Player[k].PlayerStatsStruct.Maxtotal = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x3C], StatsBlock[0x3D] }, 0);
+                Player.PlayerStatsStruct.MinStamina = StatsBlock[0x28];
+                Player.PlayerStatsStruct.MaxStamina = StatsBlock[0x29];
+                Player.PlayerStatsStruct.StaminaGrowthRate = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x2A], StatsBlock[0x2B] }, 0);
+                ushort StaminaMaxOpLevel = calcLevelDone(Player.PlayerStatsStruct.StaminaGrowthRate);
+                float StaminaPerLevel = ((Player.PlayerStatsStruct.MaxStamina - Player.PlayerStatsStruct.MinStamina) / (float)(StaminaMaxOpLevel - 1));                
 
                 // Moves
                 string MoveObtainLevel(ushort ObtainLevel)
@@ -636,59 +693,64 @@ namespace InazumaElevenStatsExtractor
                     else return "Lv." + ObtainLevel.ToString();
                 }
 
-                Player[k].PlayerStatsStruct.MovesStruct.Move1 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x2C], StatsBlock[0x2D] }, 0);
-                Player[k].PlayerStatsStruct.MovesStruct.Move1ObtainLevel = StatsBlock[0x2E];
-                Player[k].PlayerStatsStruct.MovesStruct.Move2 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x30], StatsBlock[0x31] }, 0);
-                Player[k].PlayerStatsStruct.MovesStruct.Move2ObtainLevel = StatsBlock[0x32];
-                Player[k].PlayerStatsStruct.MovesStruct.Move3 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x34], StatsBlock[0x35] }, 0);
-                Player[k].PlayerStatsStruct.MovesStruct.Move3btainLevel = StatsBlock[0x36];
-                Player[k].PlayerStatsStruct.MovesStruct.Move4 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x38], StatsBlock[0x39] }, 0);
-                Player[k].PlayerStatsStruct.MovesStruct.Move4ObtainLevel =StatsBlock[0x3A];
-
-                //int j = 0;
-                /*if (i > 0)
+                if(Game == "IE" && region == "JAP")
                 {
-                    j = i / 0x140 - 1;
+                    Player.PlayerStatsStruct.MovesStruct.Move1 = StatsBlock[0x2C];
+                    Player.PlayerStatsStruct.MovesStruct.Move1ObtainLevel = StatsBlock[0x2D];
+                    Player.PlayerStatsStruct.MovesStruct.Move2 = StatsBlock[0x2E];
+                    Player.PlayerStatsStruct.MovesStruct.Move2ObtainLevel = StatsBlock[0x2F];
+                    Player.PlayerStatsStruct.MovesStruct.Move3 = StatsBlock[0x30];
+                    Player.PlayerStatsStruct.MovesStruct.Move3btainLevel = StatsBlock[0x31];
+                    Player.PlayerStatsStruct.MovesStruct.Move4 = StatsBlock[0x32];
+                    Player.PlayerStatsStruct.MovesStruct.Move4ObtainLevel = StatsBlock[0x33];
+                    Player.PlayerStatsStruct.Maxtotal = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x34], StatsBlock[0x35] }, 0);
                 }
                 else
                 {
-                    j = 0;
-                }*/
+                    Player.PlayerStatsStruct.MovesStruct.Move1 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x2C], StatsBlock[0x2D] }, 0);
+                    Player.PlayerStatsStruct.MovesStruct.Move1ObtainLevel = StatsBlock[0x2E];
+                    Player.PlayerStatsStruct.MovesStruct.Move2 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x30], StatsBlock[0x31] }, 0);
+                    Player.PlayerStatsStruct.MovesStruct.Move2ObtainLevel = StatsBlock[0x32];
+                    Player.PlayerStatsStruct.MovesStruct.Move3 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x34], StatsBlock[0x35] }, 0);
+                    Player.PlayerStatsStruct.MovesStruct.Move3btainLevel = StatsBlock[0x36];
+                    Player.PlayerStatsStruct.MovesStruct.Move4 = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x38], StatsBlock[0x39] }, 0);
+                    Player.PlayerStatsStruct.MovesStruct.Move4ObtainLevel = StatsBlock[0x3A];
+                    Player.PlayerStatsStruct.Maxtotal = BitConverter.ToUInt16(new byte[2] { StatsBlock[0x3C], StatsBlock[0x3D] }, 0);
+                }
 
 
-                //Team[j].TeamName = Encoding.Default.GetString(File.ReadAllBytes(TeamNamesFile).Skip(i).Take(0x20).ToArray());
+                //Player.TeamName = TeamName;
+                Player.FullName = FullPlayerName;
+                Player.NickName = PlayerNickName;
+                Player.HEXid = ScoutHexID;
+                Player.Element = File.ReadAllBytes(PlayerNamesFile).Skip(J + ElementOffset).Take(1).ToArray()[0];
 
-                Player[k].FullName = FullPlayerName;
-                Player[k].NickName = PlayerNickName;
-                Player[k].HEXid = ScoutHexID;
-                Player[k].Element = File.ReadAllBytes(PlayerNamesFile).Skip(J + ElementOffset).Take(1).ToArray()[0];
+                dataGridView1.Rows.Add(Player.FullName, Player.NickName, //Player.TeamName,
+                    PosByteToString(Position),
+                    ElementToStr[Player.Element],
+                    GenderToString[Gender], SizeToString(PlayerSize),
 
-                //dataGridView1.Columns[6].DefaultCellStyle.Format = "N3";
-                dataGridView1.Rows.Add(Player[k].FullName, Player[k].NickName, ElementToStr[Player[k].Element],
-                    GenderToString[Gender], SizeToString[PlayerSize],
+                    Player.PlayerStatsStruct.MaxFP, "Lv." + FPMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxTP, "Lv." + TPMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxKick, "Lv." + KickMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxBody, "Lv." + BodyMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxControl, "Lv." + ControlMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxGuard, "Lv." + GuardMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxSpeed, "Lv." + SpeedMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxStamina, "Lv." + StaminaMaxOpLevel,
+                    Player.PlayerStatsStruct.MaxGuts, "Lv." + GutsMaxOpLevel,
+                    Player.PlayerStatsStruct.Freedom(),  Player.PlayerStatsStruct.StatsTotal(), Player.PlayerStatsStruct.Maxtotal,
 
-                    Player[k].PlayerStatsStruct.MaxFP, "Lv." + FPMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxTP, "Lv." + TPMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxKick, "Lv." + KickMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxBody, "Lv." + BodyMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxControl, "Lv." + ControlMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxGuard, "Lv." + GuardMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxSpeed, "Lv." + SpeedMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxStamina, "Lv." + StaminaMaxOpLevel,
-                    Player[k].PlayerStatsStruct.MaxGuts, "Lv." + GutsMaxOpLevel,
-                    Player[k].PlayerStatsStruct.Freedom(),  Player[k].PlayerStatsStruct.StatsTotal(), Player[k].PlayerStatsStruct.Maxtotal,
-
-                    Player[k].PlayerStatsStruct.MinFP, Player[k].PlayerStatsStruct.MinTP, Player[k].PlayerStatsStruct.MinKick,
-                    Player[k].PlayerStatsStruct.MinBody, Player[k].PlayerStatsStruct.MinControl, Player[k].PlayerStatsStruct.MinGuard,
-                    Player[k].PlayerStatsStruct.MinSpeed, Player[k].PlayerStatsStruct.MinStamina, Player[k].PlayerStatsStruct.MinGuts,
+                    Player.PlayerStatsStruct.MinFP, Player.PlayerStatsStruct.MinTP, Player.PlayerStatsStruct.MinKick,
+                    Player.PlayerStatsStruct.MinBody, Player.PlayerStatsStruct.MinControl, Player.PlayerStatsStruct.MinGuard,
+                    Player.PlayerStatsStruct.MinSpeed, Player.PlayerStatsStruct.MinStamina, Player.PlayerStatsStruct.MinGuts,
 
                     FPPerLevel, TPPerLevel, KickPerLevel, BodyPerLevel, ControlPerLevel, GuardPerLevel, SpeedPerLevel, StaminaPerLevel, GutsPerLevel,
-                    MoveToStr[Player[k].PlayerStatsStruct.MovesStruct.Move1], MoveObtainLevel(Player[k].PlayerStatsStruct.MovesStruct.Move1ObtainLevel),
-                    MoveToStr[Player[k].PlayerStatsStruct.MovesStruct.Move2], MoveObtainLevel(Player[k].PlayerStatsStruct.MovesStruct.Move2ObtainLevel),
-                    MoveToStr[Player[k].PlayerStatsStruct.MovesStruct.Move3], MoveObtainLevel(Player[k].PlayerStatsStruct.MovesStruct.Move3btainLevel),
-                    MoveToStr[Player[k].PlayerStatsStruct.MovesStruct.Move4], MoveObtainLevel(Player[k].PlayerStatsStruct.MovesStruct.Move4ObtainLevel),
-                    "0x" + Player[k].HEXid.ToString("X2"));
-
+                    MoveToStr[Player.PlayerStatsStruct.MovesStruct.Move1], MoveObtainLevel(Player.PlayerStatsStruct.MovesStruct.Move1ObtainLevel),
+                    MoveToStr[Player.PlayerStatsStruct.MovesStruct.Move2], MoveObtainLevel(Player.PlayerStatsStruct.MovesStruct.Move2ObtainLevel),
+                    MoveToStr[Player.PlayerStatsStruct.MovesStruct.Move3], MoveObtainLevel(Player.PlayerStatsStruct.MovesStruct.Move3btainLevel),
+                    MoveToStr[Player.PlayerStatsStruct.MovesStruct.Move4], MoveObtainLevel(Player.PlayerStatsStruct.MovesStruct.Move4ObtainLevel),
+                    "0x" + Player.HEXid.ToString("X2"));
             }
         }
 
@@ -704,51 +766,65 @@ namespace InazumaElevenStatsExtractor
             bool isGameSelected = true;
             if (GameVersion != "Inazuma Eleven" && GameVersion != "Inazuma Eleven 2" && GameVersion != "Inazuma Eleven 3")
             {
-                MessageBox.Show("A game must be selected first! " + GameVersion);
+                MessageBox.Show("A game must be selected first! ");
                 isGameSelected = false;
             }
 
             bool isRegionSpecified = true;
             if (Region != "EUR" && Region != "JAP")
             {
-                MessageBox.Show("A region must be specified! " + Region);
+                MessageBox.Show("A region must be specified! ");
                 isRegionSpecified = false;
             }
-
-
             string Abbr = "";
             int UnitBaseEnd = 0;
             int UnitStatsLengthBlock = 0;
             int UnitBaseLengthPerBlock = 0;
-            if (GameVersion == "Inazuma Eleven 3" && Region == "EUR")
+            switch (GameVersion)
             {
-                UnitBaseEnd = 0x3BFF8;
-                Abbr = "IE3";
-                UnitBaseLengthPerBlock = 0x68;
-                UnitStatsLengthBlock = 0x48;
+                case "Inazuma Eleven":
+                    {
+                        switch (Region)
+                        {
+                            case "EUR":
+                                {
+                                    Abbr = "IE";
+                                    UnitBaseEnd = 0x305A0; // uses almost the same file as IE2 in the European release
+                                    UnitStatsLengthBlock = 0x50;
+                                    break;
+                                }
+                            case "JAP":
+                                {
+                                    Abbr = "IE";
+                                    UnitBaseEnd = 0x1DA60;
+                                    UnitStatsLengthBlock = 0x40;
+                                    break;
+                                }
+                        }
+                        UnitBaseLengthPerBlock = 0x60;
+                        break;
+                    }
+                case "Inazuma Eleven 2":
+                    {
+                        UnitBaseEnd = 0x305A0;
+                        Abbr = "IE2";
+                        UnitBaseLengthPerBlock = 0x60;
+                        UnitStatsLengthBlock = 0x50;
+                        break;
+                    }
+                case "Inazuma Eleven 3":
+                    {
+                        Abbr = "IE3";
+                        UnitBaseEnd = 0x3BFF8; // end is actually at 0x3C678 however these players are unobtainable
+                        UnitBaseLengthPerBlock = 0x68;
+                        UnitStatsLengthBlock = 0x48;
+                        break;
+                    }
             }
-            else if (GameVersion == "Inazuma Eleven 2" && Region == "EUR")
-            {
-                UnitBaseEnd = 0x30540;
-                Abbr = "IE2";
-                UnitBaseLengthPerBlock = 0x60;
-                UnitStatsLengthBlock = 0x50;
-            }
-            else if (GameVersion == "Inazuma Eleven" && Region == "EUR")
-            {
-                UnitBaseEnd = 0x30540; // uses almost the same file
-                Abbr = "IE";
-                UnitBaseLengthPerBlock = 0x60;
-                UnitStatsLengthBlock = 0x50;
-            }
-            else
-            {
-                MessageBox.Show("There is no support for this game (yet)!");
-                isGameSelected = false;
-            }
+
             if(isGameSelected && isRegionSpecified)
             {
-                AddValuesFromUnitbase(UnitBaseEnd, UnitBaseLengthPerBlock, UnitStatsLengthBlock, Abbr);
+                AddValuesFromUnitbase(UnitBaseEnd, UnitBaseLengthPerBlock, UnitStatsLengthBlock, Abbr, Region);
             }
         }
     }
