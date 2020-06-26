@@ -36,6 +36,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.PlayerFullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayerNickName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ElementPlayer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,6 +97,7 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PlayerFullName,
             this.PlayerNickName,
+            this.Position,
             this.ElementPlayer,
             this.Gender,
             this.Size,
@@ -213,6 +215,11 @@
             // 
             this.PlayerNickName.HeaderText = "NickName";
             this.PlayerNickName.Name = "PlayerNickName";
+            // 
+            // Position
+            // 
+            this.Position.HeaderText = "Position";
+            this.Position.Name = "Position";
             // 
             // ElementPlayer
             // 
@@ -535,6 +542,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayerFullName;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayerNickName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Position;
         private System.Windows.Forms.DataGridViewTextBoxColumn ElementPlayer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Gender;
         private System.Windows.Forms.DataGridViewTextBoxColumn Size;

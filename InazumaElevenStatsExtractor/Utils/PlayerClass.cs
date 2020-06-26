@@ -13,6 +13,7 @@ namespace InazumaElevenStatsExtractor.Utils
         public string TeamName;
         public struct Player
         {
+            public string TeamName;
             public ushort HEXid;
             public string FullName;
             public string NickName;
