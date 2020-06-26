@@ -75,9 +75,9 @@ namespace InazumaElevenStatsExtractor.Utils
 
                 public ushort Maxtotal;
 
-                public ushort Freedom()
+                public short Freedom()
                 {
-                    return (ushort)(Maxtotal - (MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina));
+                    return (short)(Maxtotal - (MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina));
                 }
 
                 public ushort StatsTotal()
