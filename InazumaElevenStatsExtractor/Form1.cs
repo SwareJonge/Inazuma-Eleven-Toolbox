@@ -54,6 +54,8 @@ namespace InazumaElevenStatsExtractor
 
             IDictionary<int, string> MoveToStr = new Dictionary<int, string>()
                 {
+                // Not everything in this list is accurate
+                // TODO: make a program that extracts contents of item.dat and obtain all IDs and names that way.
                     { 0x0, "None" },
                      // Skills
                      {0x33,"Keeper Plus"},
@@ -167,10 +169,10 @@ namespace InazumaElevenStatsExtractor
                      {0xAD,"Wood Chopper"},
                      {0xAE,"Whirlwind"},
                      {0xAF,"Rocket Kobushi"},
-                     {0xB0,"Tsunami Wall"},
-                     {0xB1,"Wild Claw"},
-                     {0xB2,"Gigant Wall"},
-                     {0xB3,"Mistral"},
+                     {0xB0,"Wild Claw"},
+                     {0xB1,"Gigant Wall"},
+                     {0xB2,"Mistral"},
+                     {0xB3,"Killer Blade"},
                      {0xB4,"Tsunami Wall"},
                      {0xB5,"Blazing Knuckle"},
                      {0xB6,"Majin The Hand(E)"},
@@ -209,8 +211,8 @@ namespace InazumaElevenStatsExtractor
                      {0xCC,"Dragon Tornado"},
                      {0xCD,"Dirt Ball"},
                      {0xCE,"Fire Rooster"},
-                     {0xCF,"Inazuma Break"},
-                     {0xD0,"The Galaxy(A)"},
+                     {0xCF,"Inazuma Break(A)"},
+                     {0xD0,"The Galaxy"},
                      {0xD1,"Emperor Penguin No. 2"},
                      // Why
                      {0xD2,"Heaven's Time"},
@@ -416,7 +418,7 @@ namespace InazumaElevenStatsExtractor
 // IE3
 { 0x188,"The Mountain" },
 { 0x189,"Zigzag Flame" },
-{ 0x18A,"Heaven's Ascent" },
+{ 0x18A,"Heaven's Ascent" },
 { 0x18B,"Hell's Descent" },
 
 //Catch
