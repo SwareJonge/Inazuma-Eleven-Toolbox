@@ -52,7 +52,7 @@ namespace InazumaElevenStatsExtractor
                 }
             }
 
-            IDictionary<int, string> MoveToStr = new Dictionary<int, string>()
+        IDictionary<int, string> MoveToStr = new Dictionary<int, string>()
                 {
 {0x0, "None"},
 {0x33, "Keeper Plus"},
@@ -143,7 +143,7 @@ namespace InazumaElevenStatsExtractor
 {0x9F, "Freeze Shot"},
 {0xA0, "Tiger Drive"},
 {0xA1, "Tornado Catch"},
-{0xA2, "God Hand"},
+{0xA2, "God Hand(E)"},
 {0xA3, "Power Shield"},
 {0xA4, "Fireball Knuckle"},
 {0xA5, "Shot Pocket"},
@@ -163,10 +163,12 @@ namespace InazumaElevenStatsExtractor
 {0xB3, "Killer Blade"},
 {0xB4, "Tsunami Wall"},
 {0xB5, "Blazing Knuckle"},
-{0xB6, "Majin The Hand"},
+{0xB6, "Majin The Hand(E)"},
 {0xB7, "Infinite Wall"},
 {0xB8, "Snow Angel"},
 {0xB9, "Barbarian Shield"},
+{0xBA, "Majin The Hand(W)"},
+{0xBB, "God Hand(W)"},
 {0xBC, "Ground Quake"},
 {0xBD, "Desert Blast"},
 {0xBE, "Cross Drive"},
@@ -186,7 +188,7 @@ namespace InazumaElevenStatsExtractor
 {0xCC, "Dragon Tornado"},
 {0xCD, "Dirt Ball"},
 {0xCE, "Fire Rooster"},
-{0xCF, "Inazuma Break"},
+{0xCF, "Inazuma Break(A)"},
 {0xD0, "The Galaxy"},
 {0xD1, "Emperor Penguin No. 2"},
 {0xD2, "Heaven’s Time"},
@@ -284,13 +286,13 @@ namespace InazumaElevenStatsExtractor
 {0x133, "Gungnir"},
 {0x134, "Atomic Flare"},
 {0x135, "Northern Impact"},
-{0x136, "Fire Blizzard"},
+{0x136, "Fire Blizzard(F)"},
 {0x137, "Cross Fire"},
-{0x138, "Fire Blizzard"},
+{0x138, "Fire Blizzard(A)"},
 {0x13A, "Chaos Break"},
 {0x13B, "Astro Gate"},
 {0x13C, "Double Jaw"},
-{0x13D, "Eiffel Tower"},
+{0x13D, "Eiffel Tower"}, // Unused
 {0x13E, "Slingshot"},
 {0x13F, "Sweet Deal"},
 {0x140, "Emperor Penguin X"},
