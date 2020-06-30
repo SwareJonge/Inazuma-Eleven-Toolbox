@@ -16,4 +16,4 @@ Offset | Name | DataType
 0x14 | Speed | short
 0x16 | Guts | short
 0x18 | Stamina | short
-0x1A | Stamina | short
+0x1A | Flag | short
