@@ -22,6 +22,7 @@ namespace InazumaElevenStatsExtractor
 
         private void AddValuesFromUnitbase(int UnitBaseEndOffset, int UnitBaseBlockLength, int UnitStatBlockLength, string Game, string region)
         {
+            
             IDictionary<int, string> ElementToStr = new Dictionary<int, string>()
                 {
                 {0,"NPC"},
@@ -188,7 +189,7 @@ namespace InazumaElevenStatsExtractor
 {0xCC, "Dragon Tornado"},
 {0xCD, "Dirt Ball"},
 {0xCE, "Fire Rooster"},
-{0xCF, "Inazuma Break(A)"},
+{0xCF, "Inazuma Break"},
 {0xD0, "The Galaxy"},
 {0xD1, "Emperor Penguin No. 2"},
 {0xD2, "Heaven’s Time"},
@@ -274,7 +275,7 @@ namespace InazumaElevenStatsExtractor
 {0x127, "Space Penguin"},
 {0x128, "Wyvern Crash"},
 {0x129, "Wyvern Blizzard"},
-{0x12A, "Cross Fire"},
+{0x12A, "Cross Fire(A)"},
 {0x12B, "Dark Phoenix"},
 {0x12C, "Triple Boost"},
 {0x12D, "Neo Galaxy"},
@@ -287,12 +288,12 @@ namespace InazumaElevenStatsExtractor
 {0x134, "Atomic Flare"},
 {0x135, "Northern Impact"},
 {0x136, "Fire Blizzard(F)"},
-{0x137, "Cross Fire"},
+{0x137, "Cross Fire(A)"},
 {0x138, "Fire Blizzard(A)"},
 {0x13A, "Chaos Break"},
 {0x13B, "Astro Gate"},
 {0x13C, "Double Jaw"},
-{0x13D, "Eiffel Tower"}, // Unused
+{0x13D, "Eiffel Tower"}, // Unused in the European version of IE3, however you can get a move manual for it with cheats or save file edits
 {0x13E, "Slingshot"},
 {0x13F, "Sweet Deal"},
 {0x140, "Emperor Penguin X"},
@@ -422,13 +423,13 @@ namespace InazumaElevenStatsExtractor
 {0x1C4, "X-Blast"},
 {0x1C5, "Almighty Cannon"},
 {0x1C6, "Dark Matter"},
-{0x1C7, "Shadow Ray"},
+{0x1C7, "Shadow Ray(W)"},
 {0x1C8, "Maximum Fire"},
 {0x1C9, "Prime Legend"},
 {0x1CA, "Doom Rain"},
 {0x1CB, "Doom Spear"},
 {0x1CC, "Doom Break"},
-{0x1CD, "Shadow Ray"},
+{0x1CD, "Shadow Ray(E)"},
 {0x1CE, "Celestial Smash"},
 {0x1CF, "Clone Death Zone"},
 {0x1D0, "Clone Penguin"},
@@ -471,12 +472,9 @@ namespace InazumaElevenStatsExtractor
                 return (ushort)(49 + (GrowthRate * 10));
             }
 
-            dataGridView1.Rows.Clear();
-            //int Teams = 0x26C0 / 0x140;
-            int Players = (UnitBaseEndOffset / UnitBaseBlockLength) + 1;
+            
             ImporterClass.Player Player = new ImporterClass.Player();
 
-            //string TeamNamesFile = @"Include\team.pkb";
             string PlayerNamesFile = @"Include/" + region + "/" + Game + "/unitbase.dat";
             string StatsFile = @"Include/" + region + "/" + Game + "/unitstat.dat";
             //string TeamFile = @"Include/" + region + "/" + Game + "/team.pkb";
@@ -571,7 +569,7 @@ namespace InazumaElevenStatsExtractor
                  * (byte[2]) Stamina: 0x28 - Min, 0x29 - Max, short 0x2A - GrowthRate
                  * (short[8]) Moves: 0x2C - MoveID_Slot1, 0x2E UnlockLevel, 0x30 - MoveID_Slot2, 0x32 UnlockLevel, (byte[8]) in IE(JAP)!!
                  * 0x34 MoveID_Slot3, 0x36 UnlockLevel, 0x38 MoveID_Slot4, 0x3A UnlockLevel
-                 * (short[5]) 0x3C - Max totaal, unk, unk, unk, unk
+                 * (short[5]) 0x3C - Max total, unk, unk, unk, unk
                  * Garbage data most likely */
 
 
@@ -764,7 +762,7 @@ namespace InazumaElevenStatsExtractor
                 case "Inazuma Eleven 3":
                     {
                         Abbr = "IE3";
-                        UnitBaseEnd = 0x3BFF8; // end is actually at 0x3C678 however these players are unobtainable
+                        UnitBaseEnd = 0x3BFF8; // end is actually at 0x3C678 however these players are unobtainable EDIT: Team Ogre attacks only!
                         UnitBaseLengthPerBlock = 0x68;
                         UnitStatsLengthBlock = 0x48;
                         break;
@@ -773,6 +771,7 @@ namespace InazumaElevenStatsExtractor
 
             if(isGameSelected && isRegionSpecified)
             {
+                dataGridView1.Rows.Clear();
                 AddValuesFromUnitbase(UnitBaseEnd, UnitBaseLengthPerBlock, UnitStatsLengthBlock, Abbr, Region);
             }
         }
