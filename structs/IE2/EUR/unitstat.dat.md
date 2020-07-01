@@ -26,5 +26,5 @@ Length: 0x50, start of file: 0x50
 | 0x34 | Move slot 3 | short[2] | MoveID, UnlockLevel |
 | 0x38 | Move slot 4 | short[2] | MoveID, UnlockLevel |
 | 0x3C | Max total | short | The amount a player can have in it's stats |
-| 0x3A | unk3 | short[4] | unknown |
+| 0x3E | unk3 | short[4] | unknown |
 | 0x46 | unk4 | short[5] | 0s |
