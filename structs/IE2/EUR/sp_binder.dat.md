@@ -8,4 +8,4 @@ Length: 0xC, Start of File: 0x2
 | 0x4 | Index | short | MoveBinder Index |
 | 0x6 | unk2 | short | unknown |
 | 0x8 | unk3 | short | unknown |
-| 0x8 | PTR_Item_Desc | short | pointer to Item description in sp_binder.STR |
+| 0xA | PTR_Item_Desc | short | pointer to Item description in sp_binder.STR |
