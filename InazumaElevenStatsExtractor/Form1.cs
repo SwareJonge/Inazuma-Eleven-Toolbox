@@ -456,7 +456,11 @@ namespace InazumaElevenStatsExtractor
                 {
                     return "GK";
                 }
-                else return "NPC";
+                else                {
+                    
+                    return "NPC";
+                }
+                    
 
 
             }
@@ -553,7 +557,13 @@ namespace InazumaElevenStatsExtractor
                 ushort ScoutHexID = (BitConverter.ToUInt16(new byte[2] { File.ReadAllBytes(PlayerNamesFile).Skip(J + ScoutIDOffset).Take(2).ToArray()[0], File.ReadAllBytes(PlayerNamesFile).Skip(J + ScoutIDOffset).Take(0x2).ToArray()[1] }, 0));
                 byte Gender = File.ReadAllBytes(PlayerNamesFile).Skip(J + GenderOffset).Take(4).ToArray()[0];
                 byte Position = File.ReadAllBytes(PlayerNamesFile).Skip(J + GenderOffset).Take(4).ToArray()[3];
-                byte PlayerSize = File.ReadAllBytes(PlayerNamesFile).Skip(J + GenderOffset).Take(4).ToArray()[2]; ;
+                byte PlayerSize = File.ReadAllBytes(PlayerNamesFile).Skip(J + GenderOffset).Take(4).ToArray()[2];
+
+                // Skip NPCs
+                if (PosByteToString(Position) == "NPC")
+                {
+                    continue;
+                }
                 /*                   StatsBlock Layout
                  *           Length: 0x40 in IE(JAP) 0x50 in IE(EUR) & IE2, 0x48 in IE3
                  *            IE3 doesn't have the garbage values
@@ -672,6 +682,7 @@ namespace InazumaElevenStatsExtractor
                 Player.NickName = PlayerNickName;
                 Player.HEXid = ScoutHexID;
                 Player.Element = File.ReadAllBytes(PlayerNamesFile).Skip(J + ElementOffset).Take(1).ToArray()[0];
+
 
                 dataGridView1.Rows.Add(Player.FullName, Player.NickName, //Player.TeamName,
                     PosByteToString(Position),
