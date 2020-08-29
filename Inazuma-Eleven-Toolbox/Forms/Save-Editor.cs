@@ -25,12 +25,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
         public int PlayerStartOffset = 0x13F8;
         public int length = 0x70;
         public bool isIE3 = false;
-        
+        public bool isIE2 = false;
+        public bool isIE1 = false;
+
         int Checksum1Offset = 0x40;
         int Checksum1BlockStart = 0x44;
         int Checksum1BlockLength = 0x7C;
 
-        int Checksum2Offset = 0x44;
         int Checksum2BlockStart = 0xC0;
         int Checksum2BlockLength = 0x7E8C;
 
@@ -56,20 +57,43 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ItemsIE3 ItemIE3 = new ItemsIE3();
                 IC.EquipmentOffsetToStr = ItemIE3.EquipmentOffsetToStrIE3;
             }
+            else if (GameVersion == "INAZUMA_11_EU")
+            {
+                isIE1 = true;
+                PrestigePointsOffset = 0x4D4;
+                FriendshipPointsOffset = 0x4D8;
+                PlayerStartOffset = 0x124C;
+                length = 0x70;
+                Checksum1BlockLength = 0x7C;
+                Checksum2BlockStart = 0xC0;
+                Checksum2BlockLength = 0x7D44;
+                ItemsIE2 ItemIE2 = new ItemsIE2();
+                IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
+            }
+            else if (GameVersion == "INAZUMA2_12_EU")
+            {
+                isIE2 = true;
+                PrestigePointsOffset = 0x4D4;
+                FriendshipPointsOffset = 0x4D8;
+                PlayerStartOffset = 0x13F8;
+                length = 0x70;
+                Checksum1BlockLength = 0x7C;
+                Checksum2BlockStart = 0xC0;
+                Checksum2BlockLength = 0x7E8C;
+                ItemsIE2 ItemIE2 = new ItemsIE2();
+                IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
+            }
 
         }
 
         string Filename = "";
-
         public byte[] SavedataFull = null;
         public byte[] ModifiedBlock = null;
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            
+        {            
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-
                 Filename = openFileDialog1.FileName;
                 byte[] Save_Data = File.ReadAllBytes(Filename);
                 string TestIfInazumaSave = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x7).ToArray());
@@ -78,7 +102,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 label4.Text = Game;
                 if (TestIfInazumaSave != "INAZUMA")
                 {
-                    MessageBox.Show("This is not an Inazuma Eleven DS Save File!");
+                    MessageBox.Show("This is not a Inazuma Eleven DS Save File!");
                     return;
                 }
                 if (Save_Data[0x17] == 0x4A)
@@ -86,6 +110,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     MessageBox.Show("Japanese save files are not supported since they have not been tested");
                     return;
                 }
+
                 dataGridView1.Rows.Clear();
                 numericPrestige.Enabled = true;
                 numericFriendship.Enabled = true;
@@ -107,6 +132,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 numericUpDown17.Enabled = true;
                 numericUpDown18.Enabled = true;
+
+                // These are used for stats, since i think they're unreliable to edit without knowing their current stats i think it's better to not include them
+
                 //numericUpDown8.Enabled = true;
                 //numericUpDown9.Enabled = true;
                 //numericUpDown10.Enabled = true;
@@ -123,7 +151,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 if (Game == "INAZUMA_ELEVEN3" && openFileDialog1.FileName.EndsWith(".sav"))
                 {                    
-                    MessageBox.Show("Japanese save files are not supported since they have not been tested");
+                    MessageBox.Show("The Japanese Version of IE3 is encrypted, the method to decrypt and encrypt has not been found yet.");
                     return;
                 }
 
@@ -154,14 +182,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
             byte[] Checksum1 = BitConverter.GetBytes(Crc32.Compute(Block1));
             ModifiedBlock = WriteData(ModifiedBlock, Checksum1Offset, Checksum1, 4);
-        }
-
-
-
-
-        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
-        {
-            LoadPlayer();
         }
         
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,127 +247,19 @@ namespace Inazuma_Eleven_Toolbox.Forms
             comboBox5.Text = D.MoveToStr[MoveS5];
             comboBox6.Text = D.MoveToStr[MoveS6];
 
-            string Move1EvolveType = "";
-            string Move2EvolveType = "";
-            string Move3EvolveType = "";
-            string Move4EvolveType = "";
-            string Move5EvolveType = "";
-            string Move6EvolveType = "";
+            string Move1EvolveType = SetReadOnly(numericUpDown1, comboBox1);
+            string Move2EvolveType = SetReadOnly(numericUpDown2, comboBox2);
+            string Move3EvolveType = SetReadOnly(numericUpDown3, comboBox3);
+            string Move4EvolveType = SetReadOnly(numericUpDown4, comboBox4);
+            string Move5EvolveType = SetReadOnly(numericUpDown5, comboBox5);
+            string Move6EvolveType = SetReadOnly(numericUpDown6, comboBox6);
 
-
-            if (!isIE3)
-            {
-                numericUpDown1.ReadOnly = false;
-                numericUpDown2.ReadOnly = false;
-                numericUpDown3.ReadOnly = false;
-                numericUpDown4.ReadOnly = false;
-                numericUpDown5.ReadOnly = false;
-                numericUpDown6.ReadOnly = false;
-
-
-                if (!M.IE2MoveGrowth.ContainsKey(comboBox1.Text))
-                {
-                    numericUpDown1.ReadOnly = true;
-                }
-                else Move1EvolveType = M.IE2MoveGrowth[comboBox1.Text];
-
-                if (!M.IE2MoveGrowth.ContainsKey(comboBox2.Text))
-                {
-                    numericUpDown2.ReadOnly = true;
-                }
-                else Move2EvolveType = M.IE2MoveGrowth[comboBox2.Text];
-
-                if (!M.IE2MoveGrowth.ContainsKey(comboBox3.Text))
-                {
-                    numericUpDown3.ReadOnly = true;
-                }
-                else Move3EvolveType = M.IE2MoveGrowth[comboBox3.Text];
-
-                if (!M.IE2MoveGrowth.ContainsKey(comboBox4.Text))
-                {
-                    numericUpDown4.ReadOnly = true;
-                }
-                else Move4EvolveType = M.IE2MoveGrowth[comboBox4.Text];
-
-                if (!M.IE2MoveGrowth.ContainsKey(comboBox5.Text))
-                {
-                    numericUpDown5.ReadOnly = true;
-                }
-                else Move5EvolveType = M.IE2MoveGrowth[comboBox5.Text];
-
-                if (!M.IE2MoveGrowth.ContainsKey(comboBox6.Text))
-                {
-                    numericUpDown6.ReadOnly = true;
-                }
-                else Move6EvolveType = M.IE2MoveGrowth[comboBox6.Text];
-            }             
-
-            if (isIE3)
-            {
-                numericUpDown1.ReadOnly = false;
-                numericUpDown2.ReadOnly = false;
-                numericUpDown3.ReadOnly = false;
-                numericUpDown4.ReadOnly = false;
-                numericUpDown5.ReadOnly = false;
-                numericUpDown6.ReadOnly = false;
-
-                if (!M.IE3MoveGrowth.ContainsKey(comboBox1.Text))
-                {
-                    numericUpDown1.ReadOnly = true;
-                }
-                else Move1EvolveType = M.IE3MoveGrowth[comboBox1.Text];
-
-                if (!M.IE3MoveGrowth.ContainsKey(comboBox2.Text))
-                {
-                    numericUpDown2.ReadOnly = true;
-                }
-                else Move2EvolveType = M.IE3MoveGrowth[comboBox2.Text];
-
-                if (!M.IE3MoveGrowth.ContainsKey(comboBox3.Text))
-                {
-                    numericUpDown3.ReadOnly = true;
-                }
-                else Move3EvolveType = M.IE3MoveGrowth[comboBox3.Text];
-
-                if (!M.IE3MoveGrowth.ContainsKey(comboBox4.Text))
-                {
-                    numericUpDown4.ReadOnly = true;
-                }
-                else Move4EvolveType = M.IE3MoveGrowth[comboBox4.Text];
-
-                if (!M.IE3MoveGrowth.ContainsKey(comboBox5.Text))
-                {
-                    numericUpDown5.ReadOnly = true;
-                }
-                else Move5EvolveType = M.IE3MoveGrowth[comboBox5.Text];
-
-                if (!M.IE3MoveGrowth.ContainsKey(comboBox6.Text))
-                {
-                    numericUpDown6.ReadOnly = true;
-                }
-                else Move6EvolveType = M.IE3MoveGrowth[comboBox6.Text];
-            }
-
-            numericUpDown1.Minimum = M.GetMinMoveLevel(Move1EvolveType);
-            numericUpDown2.Minimum = M.GetMinMoveLevel(Move2EvolveType);
-            numericUpDown3.Minimum = M.GetMinMoveLevel(Move3EvolveType);
-            numericUpDown4.Minimum = M.GetMinMoveLevel(Move4EvolveType);
-            numericUpDown5.Minimum = M.GetMinMoveLevel(Move5EvolveType);
-            numericUpDown6.Minimum = M.GetMinMoveLevel(Move6EvolveType);
-
-            numericUpDown1.Maximum = M.GetMaxMoveLevel(Move1EvolveType);
-            numericUpDown2.Maximum = M.GetMaxMoveLevel(Move2EvolveType);
-            numericUpDown3.Maximum = M.GetMaxMoveLevel(Move3EvolveType);
-            numericUpDown4.Maximum = M.GetMaxMoveLevel(Move4EvolveType);
-            numericUpDown5.Maximum = M.GetMaxMoveLevel(Move5EvolveType);
-            numericUpDown6.Maximum = M.GetMaxMoveLevel(Move6EvolveType);
-
-            numericUpDown1.Value = M.GetCurrentMoveLevel(Move1Level, Move1EvolveType);
-            numericUpDown2.Value = M.GetCurrentMoveLevel(Move2Level, Move2EvolveType);
-            numericUpDown3.Value = M.GetCurrentMoveLevel(Move3Level, Move3EvolveType);
-            numericUpDown4.Value = M.GetCurrentMoveLevel(Move4Level, Move4EvolveType);
-            numericUpDown5.Value = M.GetCurrentMoveLevel(Move5Level, Move5EvolveType);
-            numericUpDown6.Value = M.GetCurrentMoveLevel(Move6Level, Move6EvolveType);
+            SetMoveLevels(numericUpDown1, Move1EvolveType, Move1Level);
+            SetMoveLevels(numericUpDown2, Move2EvolveType, Move2Level);
+            SetMoveLevels(numericUpDown3, Move3EvolveType, Move3Level);
+            SetMoveLevels(numericUpDown4, Move4EvolveType, Move4Level);
+            SetMoveLevels(numericUpDown5, Move5EvolveType, Move5Level);
+            SetMoveLevels(numericUpDown6, Move6EvolveType, Move6Level);
 
             short Boots = BitConverter.ToInt16(block.Skip(0x10).Take(2).ToArray(), 0);
             short Other1 = BitConverter.ToInt16(block.Skip(0x12).Take(2).ToArray(), 0);
@@ -405,8 +317,47 @@ namespace Inazuma_Eleven_Toolbox.Forms
             MessageBox.Show("Save has been modified!");
         }
 
-        // TODO Make this look cleaner
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        public void SetMoveLevels(NumericUpDown MoveLevel, string EvolveType, byte TimesUsed)
+        {
+            MoveLevel.Minimum = M.GetMinMoveLevel(EvolveType);
+            MoveLevel.Maximum = M.GetMaxMoveLevel(EvolveType);
+            MoveLevel.Value = M.GetCurrentMoveLevel(TimesUsed, EvolveType);
+        }
+
+        public string SetReadOnly(NumericUpDown MoveLevel, ComboBox MoveName)
+        {
+            MoveLevel.ReadOnly = false;
+            if (isIE2) 
+            {
+                if (!M.IE2MoveGrowth.ContainsKey(MoveName.Text))
+                {
+                    MoveLevel.ReadOnly = true;
+                }
+                else return M.IE2MoveGrowth[MoveName.Text];
+            }
+            if (isIE3)
+            {
+                if (!M.IE3MoveGrowth.ContainsKey(MoveName.Text))
+                {
+                    MoveLevel.ReadOnly = true;
+                }
+                else return M.IE3MoveGrowth[MoveName.Text];
+            }
+            // there are no movelevels in IE1 so don't edit them
+            if (isIE1)
+            {
+                MoveLevel.ReadOnly = true;
+                return "";
+            }
+            else
+            {
+                MoveLevel.ReadOnly = true;
+                return "";
+            }
+
+        }
+
+        void SaveMoveLevel(ComboBox MoveName, NumericUpDown MoveLevel, int LevelOffset)
         {
             int Player = dataGridView1.CurrentRow.Index;
             byte players = ModifiedBlock[0x57];
@@ -415,169 +366,102 @@ namespace Inazuma_Eleven_Toolbox.Forms
             string MoveEvolveType = "";
             if (isIE3)
             {
-                if (M.IE3MoveGrowth.ContainsKey(comboBox1.Text))
+                if (M.IE3MoveGrowth.ContainsKey(MoveName.Text))
                 {
-                    MoveEvolveType = M.IE3MoveGrowth[comboBox1.Text];
+                    MoveEvolveType = M.IE3MoveGrowth[MoveName.Text];
                 }
             }
-            else
+            if (isIE2)
             {
-                if (M.IE2MoveGrowth.ContainsKey(comboBox1.Text))
+                if (M.IE2MoveGrowth.ContainsKey(MoveName.Text))
                 {
-                    MoveEvolveType = M.IE2MoveGrowth[comboBox1.Text];
+                    MoveEvolveType = M.IE2MoveGrowth[MoveName.Text];
                 }
             }
-            byte Move1Level = block[0x44];
-            byte TimesUsed = M.SetNewLevel(numericUpDown1.Value, MoveEvolveType);
-            block[0x44] = TimesUsed;
+            byte Move1Level = block[LevelOffset];
+            byte TimesUsed = M.SetNewLevel(MoveLevel.Value, MoveEvolveType);
+            block[LevelOffset] = TimesUsed;
             WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            SaveMoveLevel(comboBox1, numericUpDown1, 0x44);
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            int Player = dataGridView1.CurrentRow.Index;
-            byte players = ModifiedBlock[0x57];
-            byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
-
-            string MoveEvolveType = "";
-            if (isIE3)
-            {
-                if (M.IE3MoveGrowth.ContainsKey(comboBox2.Text))
-                {
-                    MoveEvolveType = M.IE3MoveGrowth[comboBox2.Text];
-                }
-            }
-            else
-            {
-                if (M.IE2MoveGrowth.ContainsKey(comboBox2.Text))
-                {
-                    MoveEvolveType = M.IE2MoveGrowth[comboBox2.Text];
-                }
-            }
-            byte Move1Level = block[0x45];
-            byte TimesUsed = M.SetNewLevel(numericUpDown2.Value, MoveEvolveType);
-            block[0x45] = TimesUsed;
-            WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+            SaveMoveLevel(comboBox2, numericUpDown2, 0x45);
         }
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-            int Player = dataGridView1.CurrentRow.Index;
-            byte players = ModifiedBlock[0x57];
-            byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
-
-            string MoveEvolveType = "";
-            if (isIE3)
-            {
-                if (M.IE3MoveGrowth.ContainsKey(comboBox3.Text))
-                {
-                    MoveEvolveType = M.IE3MoveGrowth[comboBox3.Text];
-                }
-                
-            }
-            else
-            {
-                if (M.IE2MoveGrowth.ContainsKey(comboBox3.Text))
-                {
-                    MoveEvolveType = M.IE2MoveGrowth[comboBox3.Text];
-                }
-                
-            }
-            byte Move1Level = block[0x46];
-            byte TimesUsed = M.SetNewLevel(numericUpDown3.Value, MoveEvolveType);
-            block[0x46] = TimesUsed;
-
-            WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+            SaveMoveLevel(comboBox3, numericUpDown3, 0x46);
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
         {
-            int Player = dataGridView1.CurrentRow.Index;
-            byte players = ModifiedBlock[0x57];
-            byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
-
-            string MoveEvolveType = "";
-            if (isIE3)
-            {
-                if (M.IE3MoveGrowth.ContainsKey(comboBox4.Text))
-                {
-                    MoveEvolveType = M.IE3MoveGrowth[comboBox4.Text];
-                }
-                
-            }
-            else
-            {
-                if (M.IE2MoveGrowth.ContainsKey(comboBox4.Text))
-                {
-                    MoveEvolveType = M.IE2MoveGrowth[comboBox4.Text];
-                }
-                
-            }
-            byte Move1Level = block[0x47];
-            byte TimesUsed = M.SetNewLevel(numericUpDown4.Value, MoveEvolveType);
-            block[0x47] = TimesUsed;
-
-            WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+            SaveMoveLevel(comboBox4, numericUpDown4, 0x47);
         }
 
         private void numericUpDown5_ValueChanged(object sender, EventArgs e)
         {
-            int Player = dataGridView1.CurrentRow.Index;
-            byte players = ModifiedBlock[0x57];
-            byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
-
-            string MoveEvolveType = "";
-            if (isIE3)
-            {
-                if (M.IE3MoveGrowth.ContainsKey(comboBox5.Text))
-                {
-                    MoveEvolveType = M.IE3MoveGrowth[comboBox5.Text];
-                }
-                
-            }
-            else
-            {
-                if (M.IE2MoveGrowth.ContainsKey(comboBox5.Text))
-                {
-                    MoveEvolveType = M.IE2MoveGrowth[comboBox5.Text];
-                }
-                
-            }
-            byte Move1Level = block[0x48];
-            byte TimesUsed = M.SetNewLevel(numericUpDown5.Value, MoveEvolveType);
-            block[0x48] = TimesUsed;
-
-            WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+            SaveMoveLevel(comboBox5, numericUpDown5, 0x48);
         }
 
         private void numericUpDown6_ValueChanged(object sender, EventArgs e)
         {
-            int Player = dataGridView1.CurrentRow.Index;
+            SaveMoveLevel(comboBox6, numericUpDown6, 0x49);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SetAllMaxLevels(dataGridView1.CurrentRow.Index);
+        }
+
+        void SetAllMaxLevels(int PlayerIndex)
+        {
+            byte[] block = ModifiedBlock.Skip((PlayerIndex * length) + PlayerStartOffset).Take(length).ToArray();
+            // obtain all moves
+            for (int i = 0; i < 6; i++)
+            {
+                short Move = BitConverter.ToInt16(block.Skip(0x38 + (i * 2)).Take(2).ToArray(), 0);
+                string MoveName = D.MoveToStr[Move];
+                string MoveEvolveType = "";
+                if (isIE3)
+                {
+                    if (M.IE3MoveGrowth.ContainsKey(MoveName))
+                    {
+                        MoveEvolveType = M.IE3MoveGrowth[MoveName];
+                        block[0x44 + i] = M.SetNewLevel(M.GetMaxMoveLevel(MoveEvolveType), MoveEvolveType);
+                        ModifiedBlock = WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
+                    }
+                    else continue; 
+                }
+                if (isIE2)
+                {
+                    if (M.IE2MoveGrowth.ContainsKey(MoveName))
+                    {
+                        MoveEvolveType = M.IE2MoveGrowth[MoveName];
+                        block[0x44 + i] = M.SetNewLevel(M.GetMaxMoveLevel(MoveEvolveType), MoveEvolveType);
+                        ModifiedBlock = WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
+                    }
+                    else continue; 
+                }              
+
+            }
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {            
             byte players = ModifiedBlock[0x57];
-            byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
-
-            string MoveEvolveType = "";
-            if (isIE3)
+            for (int i = 0; i < players; i++)
             {
-                if (M.IE3MoveGrowth.ContainsKey(comboBox6.Text))
-                {
-                    MoveEvolveType = M.IE3MoveGrowth[comboBox6.Text];
-                }
-                
+                SetAllMaxLevels(i);
             }
-            else
-            {
-                if (M.IE2MoveGrowth.ContainsKey(comboBox6.Text))
-                {
-                    MoveEvolveType = M.IE2MoveGrowth[comboBox6.Text];
-                }
-                
-            }
-            byte Move1Level = block[0x49];
-            byte TimesUsed = M.SetNewLevel(numericUpDown6.Value, MoveEvolveType);
-            block[0x49] = TimesUsed;
-
-            WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+            MessageBox.Show("Edited Move Levels For All Players!");
         }
     }
 }

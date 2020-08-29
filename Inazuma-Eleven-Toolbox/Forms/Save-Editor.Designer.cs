@@ -37,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBox22 = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
@@ -122,7 +123,8 @@
             this.numericPrestige = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -177,7 +179,7 @@
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem1.Text = "Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
@@ -185,7 +187,7 @@
             // 
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -276,6 +278,13 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Information";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // textBox22
+            // 
+            this.textBox22.Location = new System.Drawing.Point(58, 12);
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new System.Drawing.Size(131, 20);
+            this.textBox22.TabIndex = 46;
             // 
             // label26
             // 
@@ -770,6 +779,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.label23);
             this.tabPage2.Controls.Add(this.numericUpDown1);
             this.tabPage2.Controls.Add(this.numericUpDown6);
@@ -1045,7 +1056,7 @@
             this.textBox21.Enabled = false;
             this.textBox21.Location = new System.Drawing.Point(127, 80);
             this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(100, 20);
+            this.textBox21.Size = new System.Drawing.Size(160, 20);
             this.textBox21.TabIndex = 2;
             // 
             // textBox20
@@ -1053,7 +1064,7 @@
             this.textBox20.Enabled = false;
             this.textBox20.Location = new System.Drawing.Point(127, 54);
             this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(100, 20);
+            this.textBox20.Size = new System.Drawing.Size(160, 20);
             this.textBox20.TabIndex = 1;
             // 
             // textBox19
@@ -1061,7 +1072,7 @@
             this.textBox19.Enabled = false;
             this.textBox19.Location = new System.Drawing.Point(127, 28);
             this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(100, 20);
+            this.textBox19.Size = new System.Drawing.Size(160, 20);
             this.textBox19.TabIndex = 0;
             // 
             // Reserves
@@ -1194,12 +1205,25 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Prestige Points:";
             // 
-            // textBox22
+            // button1
             // 
-            this.textBox22.Location = new System.Drawing.Point(58, 12);
-            this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new System.Drawing.Size(118, 20);
-            this.textBox22.TabIndex = 46;
+            this.button1.Location = new System.Drawing.Point(21, 193);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(228, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Set Max Move Levels For Current Player";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(21, 222);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(228, 23);
+            this.button2.TabIndex = 20;
+            this.button2.Text = "Set Max Move Levels For All Players";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Save_Editor
             // 
@@ -1348,5 +1372,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.TextBox textBox22;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

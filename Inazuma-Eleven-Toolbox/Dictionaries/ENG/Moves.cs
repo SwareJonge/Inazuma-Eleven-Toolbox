@@ -10,6 +10,10 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 
     class Moves
     {
+
+
+
+
         public int GetMaxMoveLevel(string EvolveType)
         {
             if (EvolveType == "L (Fast)" || EvolveType == "L (Slow)" || EvolveType == "L (Medium)")
