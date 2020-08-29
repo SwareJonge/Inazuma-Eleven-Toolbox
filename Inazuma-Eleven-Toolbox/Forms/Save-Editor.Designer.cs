@@ -80,7 +80,6 @@
             this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -113,16 +112,17 @@
             this.Reserves = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.numericFriendship = new System.Windows.Forms.NumericUpDown();
             this.numericPrestige = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox22 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -187,6 +187,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -197,7 +198,8 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "sav";
-            this.openFileDialog1.Filter = "Save Files (*.sav)|*.sav|3DS Save (*.dat)|*.dat";
+            this.openFileDialog1.Filter = "Save Files (*.sav, *.dat)|*.sav; *.dat|3DS Save (*.dat)|*.dat|NDS Save (*.sav)|*." +
+    "sav";
             // 
             // label3
             // 
@@ -221,6 +223,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.textBox22);
             this.tabPage1.Controls.Add(this.label26);
             this.tabPage1.Controls.Add(this.numericUpDown18);
             this.tabPage1.Controls.Add(this.numericUpDown17);
@@ -264,7 +267,6 @@
             this.tabPage1.Controls.Add(this.numericUpDown9);
             this.tabPage1.Controls.Add(this.numericUpDown8);
             this.tabPage1.Controls.Add(this.numericUpDown7);
-            this.tabPage1.Controls.Add(this.comboBox7);
             this.tabPage1.Controls.Add(this.label12);
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -294,6 +296,7 @@
             0,
             0});
             this.numericUpDown18.Name = "numericUpDown18";
+            this.numericUpDown18.ReadOnly = true;
             this.numericUpDown18.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown18.TabIndex = 44;
             // 
@@ -307,6 +310,7 @@
             0,
             0});
             this.numericUpDown17.Name = "numericUpDown17";
+            this.numericUpDown17.ReadOnly = true;
             this.numericUpDown17.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown17.TabIndex = 43;
             // 
@@ -360,6 +364,7 @@
             this.numericUpDown16.Enabled = false;
             this.numericUpDown16.Location = new System.Drawing.Point(182, 95);
             this.numericUpDown16.Name = "numericUpDown16";
+            this.numericUpDown16.ReadOnly = true;
             this.numericUpDown16.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown16.TabIndex = 37;
             // 
@@ -377,6 +382,7 @@
             this.numericUpDown15.Enabled = false;
             this.numericUpDown15.Location = new System.Drawing.Point(182, 69);
             this.numericUpDown15.Name = "numericUpDown15";
+            this.numericUpDown15.ReadOnly = true;
             this.numericUpDown15.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown15.TabIndex = 35;
             // 
@@ -415,7 +421,6 @@
             this.textBox14.ReadOnly = true;
             this.textBox14.Size = new System.Drawing.Size(48, 20);
             this.textBox14.TabIndex = 31;
-            this.textBox14.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
             // 
             // textBox13
             // 
@@ -612,6 +617,7 @@
             0,
             -2147483648});
             this.numericUpDown14.Name = "numericUpDown14";
+            this.numericUpDown14.ReadOnly = true;
             this.numericUpDown14.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown14.TabIndex = 10;
             // 
@@ -630,6 +636,7 @@
             0,
             -2147483648});
             this.numericUpDown13.Name = "numericUpDown13";
+            this.numericUpDown13.ReadOnly = true;
             this.numericUpDown13.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown13.TabIndex = 9;
             // 
@@ -648,6 +655,7 @@
             0,
             -2147483648});
             this.numericUpDown12.Name = "numericUpDown12";
+            this.numericUpDown12.ReadOnly = true;
             this.numericUpDown12.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown12.TabIndex = 8;
             // 
@@ -666,6 +674,7 @@
             0,
             -2147483648});
             this.numericUpDown11.Name = "numericUpDown11";
+            this.numericUpDown11.ReadOnly = true;
             this.numericUpDown11.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown11.TabIndex = 7;
             // 
@@ -684,6 +693,7 @@
             0,
             -2147483648});
             this.numericUpDown10.Name = "numericUpDown10";
+            this.numericUpDown10.ReadOnly = true;
             this.numericUpDown10.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown10.TabIndex = 6;
             // 
@@ -702,6 +712,7 @@
             0,
             -2147483648});
             this.numericUpDown9.Name = "numericUpDown9";
+            this.numericUpDown9.ReadOnly = true;
             this.numericUpDown9.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown9.TabIndex = 5;
             // 
@@ -720,6 +731,7 @@
             0,
             -2147483648});
             this.numericUpDown8.Name = "numericUpDown8";
+            this.numericUpDown8.ReadOnly = true;
             this.numericUpDown8.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown8.TabIndex = 4;
             // 
@@ -736,15 +748,6 @@
             this.numericUpDown7.ReadOnly = true;
             this.numericUpDown7.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown7.TabIndex = 3;
-            // 
-            // comboBox7
-            // 
-            this.comboBox7.Enabled = false;
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Location = new System.Drawing.Point(58, 12);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(121, 21);
-            this.comboBox7.TabIndex = 2;
             // 
             // label12
             // 
@@ -801,7 +804,6 @@
             this.label23.Size = new System.Drawing.Size(33, 13);
             this.label23.TabIndex = 19;
             this.label23.Text = "Level";
-            this.label23.Visible = false;
             // 
             // numericUpDown1
             // 
@@ -813,10 +815,9 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.ReadOnly = true;
             this.numericUpDown1.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown1.TabIndex = 13;
-            this.numericUpDown1.Visible = false;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // numericUpDown6
             // 
@@ -828,10 +829,9 @@
             0,
             0});
             this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.ReadOnly = true;
             this.numericUpDown6.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown6.TabIndex = 18;
-            this.numericUpDown6.Visible = false;
+            this.numericUpDown6.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
             // 
             // numericUpDown2
             // 
@@ -843,10 +843,9 @@
             0,
             0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.ReadOnly = true;
             this.numericUpDown2.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown2.TabIndex = 14;
-            this.numericUpDown2.Visible = false;
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // comboBox6
             // 
@@ -867,10 +866,9 @@
             0,
             0});
             this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.ReadOnly = true;
             this.numericUpDown5.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown5.TabIndex = 17;
-            this.numericUpDown5.Visible = false;
+            this.numericUpDown5.ValueChanged += new System.EventHandler(this.numericUpDown5_ValueChanged);
             // 
             // label10
             // 
@@ -891,10 +889,9 @@
             0,
             0});
             this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.ReadOnly = true;
             this.numericUpDown3.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown3.TabIndex = 15;
-            this.numericUpDown3.Visible = false;
+            this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // comboBox5
             // 
@@ -915,10 +912,9 @@
             0,
             0});
             this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.ReadOnly = true;
             this.numericUpDown4.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown4.TabIndex = 16;
-            this.numericUpDown4.Visible = false;
+            this.numericUpDown4.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
             // 
             // label9
             // 
@@ -1102,7 +1098,31 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(459, 217);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Index";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Player";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Level";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "HEX ID";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // groupBox1
             // 
@@ -1138,7 +1158,6 @@
             0,
             0});
             this.numericFriendship.Name = "numericFriendship";
-            this.numericFriendship.ReadOnly = true;
             this.numericFriendship.Size = new System.Drawing.Size(120, 20);
             this.numericFriendship.TabIndex = 6;
             this.numericFriendship.ValueChanged += new System.EventHandler(this.numericFriendship_ValueChanged);
@@ -1153,9 +1172,9 @@
             0,
             0});
             this.numericPrestige.Name = "numericPrestige";
-            this.numericPrestige.ReadOnly = true;
             this.numericPrestige.Size = new System.Drawing.Size(120, 20);
             this.numericPrestige.TabIndex = 5;
+            this.numericPrestige.ValueChanged += new System.EventHandler(this.numericPrestige_ValueChanged);
             // 
             // label2
             // 
@@ -1175,29 +1194,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Prestige Points:";
             // 
-            // Column3
+            // textBox22
             // 
-            this.Column3.HeaderText = "Index";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Player";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Level";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "HEX ID";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
+            this.textBox22.Location = new System.Drawing.Point(58, 12);
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new System.Drawing.Size(118, 20);
+            this.textBox22.TabIndex = 46;
             // 
             // Save_Editor
             // 
@@ -1209,7 +1211,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Save_Editor";
-            this.Text = "Inazuma Eleven Save Editor(Viewer only as of now)";
+            this.Text = "Inazuma Eleven Save Editor";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1282,7 +1284,6 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDown7;
-        private System.Windows.Forms.ComboBox comboBox7;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridView dataGridView1;
@@ -1346,5 +1347,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.TextBox textBox22;
     }
 }

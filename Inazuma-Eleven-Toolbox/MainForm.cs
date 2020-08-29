@@ -21,11 +21,7 @@ namespace Inazuma_Eleven_Toolbox
             Forms.StatsForm Statsfrm = new Forms.StatsForm();
             Statsfrm.Show();
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Forms.Form1 Frm1 = new Forms.Form1();
-            Frm1.Show();
-        }
+
         private void btn_Save_Editor_Click(object sender, EventArgs e)
         {
             Forms.Save_Editor SavEdit = new Forms.Save_Editor();

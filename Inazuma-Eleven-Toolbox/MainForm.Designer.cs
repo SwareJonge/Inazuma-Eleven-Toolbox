@@ -34,7 +34,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btnStatsFormShow = new System.Windows.Forms.Button();
             this.btn_Save_Editor = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button5
@@ -97,24 +96,11 @@
             this.btn_Save_Editor.UseVisualStyleBackColor = true;
             this.btn_Save_Editor.Click += new System.EventHandler(this.btn_Save_Editor_Click);
             // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(13, 100);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Temp";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(441, 175);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_Save_Editor);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button2);
@@ -135,7 +121,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnStatsFormShow;
         private System.Windows.Forms.Button btn_Save_Editor;
-        private System.Windows.Forms.Button button1;
     }
 }
 
