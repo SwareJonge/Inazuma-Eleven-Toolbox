@@ -99,7 +99,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 string TestIfInazumaSave = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x7).ToArray());
                 string Game = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
                 SetOffsets(Game);
-                label4.Text = Game;
+                
                 if (TestIfInazumaSave != "INAZUMA")
                 {
                     MessageBox.Show("This is not a Inazuma Eleven DS Save File!");
@@ -110,7 +110,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     MessageBox.Show("Japanese save files are not supported since they have not been tested");
                     return;
                 }
+                if (Game == "INAZUMA_ELEVEN3" && openFileDialog1.FileName.EndsWith(".sav"))
+                {
+                    MessageBox.Show("The Japanese Version of IE3 is encrypted, the method to decrypt and encrypt has not been found yet.");
+                    return;
+                }
 
+                label4.Text = Game;
                 dataGridView1.Rows.Clear();
                 numericPrestige.Enabled = true;
                 numericFriendship.Enabled = true;
@@ -132,6 +138,18 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 numericUpDown17.Enabled = true;
                 numericUpDown18.Enabled = true;
+                if(!isIE1)
+                {
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                }
+                else
+                {
+                    button1.Enabled = false;
+                    button2.Enabled = false;
+                }
+
+
 
                 // These are used for stats, since i think they're unreliable to edit without knowing their current stats i think it's better to not include them
 
@@ -149,11 +167,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 Players P = new Players();               
                 ModifiedBlock = File.ReadAllBytes(Filename);                
 
-                if (Game == "INAZUMA_ELEVEN3" && openFileDialog1.FileName.EndsWith(".sav"))
-                {                    
-                    MessageBox.Show("The Japanese Version of IE3 is encrypted, the method to decrypt and encrypt has not been found yet.");
-                    return;
-                }
+
 
                 numericPrestige.Value = BitConverter.ToInt32(Save_Data.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
                 numericFriendship.Value = BitConverter.ToInt32(Save_Data.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);                
