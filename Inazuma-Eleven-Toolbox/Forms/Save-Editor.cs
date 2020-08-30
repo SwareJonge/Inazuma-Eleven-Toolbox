@@ -20,32 +20,37 @@ namespace Inazuma_Eleven_Toolbox.Forms
             InitializeComponent();
         }
 
-        public int PrestigePointsOffset = 0x4D4;
-        public int FriendshipPointsOffset = 0x4D8;
-        public int PlayerStartOffset = 0x13F8;
-        public int length = 0x70;
+        public int PrestigePointsOffset = 0;
+        public int FriendshipPointsOffset = 0;
+        int PlayerStartOffset = 0;
+        public int length = 0;
         public bool isIE3 = false;
         public bool isIE2 = false;
         public bool isIE1 = false;
+        
 
         int Checksum1Offset = 0x40;
         int Checksum1BlockStart = 0x44;
-        int Checksum1BlockLength = 0x7C;
+        int Checksum1BlockLength = 0;
+        int ItemEndOffset = 0;
 
-        int Checksum2BlockStart = 0xC0;
-        int Checksum2BlockLength = 0x7E8C;
+        int Checksum2BlockStart = 0;
+        int Checksum2BlockLength = 0;
 
         ItemClass IC = new ItemClass();
         ItemsIE2 ItemIE2 = new ItemsIE2();
         IECommonDictionary D = new IECommonDictionary();
         Moves M = new Moves();
-        
+        Players P = new Players();
+
 
         void SetOffsets(string GameVersion)
         {
-            IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
+            IC.EquipmentOffsetToStr.Clear();
             if (GameVersion == "INAZUMA_ELEVEN3")
             {
+                isIE1 = false;
+                isIE2 = false;
                 isIE3 = true;
                 PrestigePointsOffset = 0x4E8;
                 FriendshipPointsOffset = 0x4EC;
@@ -56,10 +61,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 Checksum2BlockLength = 0x59A0;
                 ItemsIE3 ItemIE3 = new ItemsIE3();
                 IC.EquipmentOffsetToStr = ItemIE3.EquipmentOffsetToStrIE3;
+                ItemEndOffset = 0x4B7;
             }
-            else if (GameVersion == "INAZUMA_11_EU")
+            if (GameVersion == "INAZUMA_11_EU")
             {
                 isIE1 = true;
+                isIE2 = false;
+                isIE3 = false;
                 PrestigePointsOffset = 0x4D4;
                 FriendshipPointsOffset = 0x4D8;
                 PlayerStartOffset = 0x124C;
@@ -69,10 +77,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 Checksum2BlockLength = 0x7D44;
                 ItemsIE2 ItemIE2 = new ItemsIE2();
                 IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
+                ItemEndOffset = 0x45D;
             }
-            else if (GameVersion == "INAZUMA2_12_EU")
+            if (GameVersion == "INAZUMA2_12_EU")
             {
+                isIE1 = false;
                 isIE2 = true;
+                isIE3 = false;
                 PrestigePointsOffset = 0x4D4;
                 FriendshipPointsOffset = 0x4D8;
                 PlayerStartOffset = 0x13F8;
@@ -82,6 +93,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 Checksum2BlockLength = 0x7E8C;
                 ItemsIE2 ItemIE2 = new ItemsIE2();
                 IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
+                ItemEndOffset = 0x45D;
             }
 
         }
@@ -95,11 +107,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Filename = openFileDialog1.FileName;
+                ModifiedBlock = File.ReadAllBytes(Filename);
                 byte[] Save_Data = File.ReadAllBytes(Filename);
-                string TestIfInazumaSave = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x7).ToArray());
                 string Game = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
+                
                 SetOffsets(Game);
                 
+                string TestIfInazumaSave = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x7).ToArray());                
                 if (TestIfInazumaSave != "INAZUMA")
                 {
                     MessageBox.Show("This is not a Inazuma Eleven DS Save File!");
@@ -118,16 +132,24 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 label4.Text = Game;
                 dataGridView1.Rows.Clear();
+                dataGridView2.Rows.Clear();
                 numericPrestige.Enabled = true;
                 numericFriendship.Enabled = true;
                 textBox22.Enabled = true;
                 dataGridView1.Enabled = true;
+                dataGridView2.Enabled = true;
                 numericUpDown1.Enabled = true;
                 numericUpDown2.Enabled = true;
                 numericUpDown3.Enabled = true;
                 numericUpDown4.Enabled = true;
                 numericUpDown5.Enabled = true;
                 numericUpDown6.Enabled = true;
+                numericUpDown19.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button5.Enabled = true;
+                button6.Enabled = true;
+
 
                 numericUpDown1.ReadOnly = false;
                 numericUpDown2.ReadOnly = false;
@@ -149,7 +171,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     button2.Enabled = false;
                 }
 
-
+                byte players = Save_Data[0x57];
+                if (players == 100)
+                {
+                    button4.Enabled = false;
+                }
 
                 // These are used for stats, since i think they're unreliable to edit without knowing their current stats i think it's better to not include them
 
@@ -164,26 +190,91 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 //textBox20.Enabled = true;
                 //textBox21.Enabled = true;
                 saveToolStripMenuItem.Enabled = true;
-                Players P = new Players();               
-                ModifiedBlock = File.ReadAllBytes(Filename);                
-
-
+                
 
                 numericPrestige.Value = BitConverter.ToInt32(Save_Data.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
-                numericFriendship.Value = BitConverter.ToInt32(Save_Data.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);                
+                numericFriendship.Value = BitConverter.ToInt32(Save_Data.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);
+                
+                LoadItems();
 
-                byte players = Save_Data[0x57];
-                for (int i = PlayerStartOffset; i < PlayerStartOffset + (players * length); i += length)
-                {
-                    byte[] block = Save_Data.Skip(i).Take(length).ToArray();
-
-                    short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
-                    byte PlayerLevel = block[0x4A];
-
-                    dataGridView1.Rows.Add(((i - PlayerStartOffset ) / length + 1).ToString(), P.HEXToPlayer[PlayerHEX], PlayerLevel.ToString(), "0x" + PlayerHEX.ToString("X2"));
-                }
+                LoadPlayersIntoDataGridView(players);
             }
 
+        }
+
+
+        void LoadPlayersIntoDataGridView(int Players)
+        {
+            dataGridView1.Rows.Clear();
+            for (int i = PlayerStartOffset; i < PlayerStartOffset + (Players * length); i += length)
+            {
+                byte[] block = ModifiedBlock.Skip(i).Take(length).ToArray();
+
+                short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
+                byte PlayerLevel = block[0x4A];
+
+                dataGridView1.Rows.Add(((i - PlayerStartOffset) / length + 1).ToString(), P.HEXToPlayer[PlayerHEX], PlayerLevel.ToString(), "0x" + PlayerHEX.ToString("X2"));
+            }
+        }
+
+        void LoadItems()
+        {
+            dataGridView2.Rows.Clear();
+            string ItemName = "";
+            for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
+            {
+                if (isIE3)
+                {
+                    if(new ItemsIE3().ItemSaveFilePos.ContainsKey(i))
+                    {
+                        ItemName = new ItemsIE3().ItemSaveFilePos[i];
+                        dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
+                    }
+                    continue;
+                }
+                if (isIE2 || isIE1)
+                {
+                    if (new ItemsIE2().ItemSaveFilePos.ContainsKey(i))
+                    {
+                        ItemName = new ItemsIE2().ItemSaveFilePos[i];
+                        dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
+                    }
+                    continue;
+                }
+                else
+                {
+                    continue;
+                }
+               
+            }
+        }
+
+        void SetNewItemAmount(byte Amount)
+        {            
+            for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
+            {
+                if (isIE3)
+                {
+                    if (new ItemsIE3().ItemSaveFilePos.ContainsKey(i))
+                    {
+                        ModifiedBlock[i] = Amount;
+                    }
+                    continue;
+                }
+                if (isIE2 || isIE1)
+                {
+                    if (new ItemsIE2().ItemSaveFilePos.ContainsKey(i))
+                    {
+                        ModifiedBlock[i] = Amount;
+                    }
+                    continue;
+                }
+                else
+                {
+                    continue;
+                }
+
+            }
         }
 
         void PatchChecksums()
@@ -197,33 +288,25 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte[] Checksum1 = BitConverter.GetBytes(Crc32.Compute(Block1));
             ModifiedBlock = WriteData(ModifiedBlock, Checksum1Offset, Checksum1, 4);
         }
-        
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+
+        void ImportPlayer(int Index)
         {
-            SaveFile();
-        }
-
-        private void numericFriendship_ValueChanged(object sender, EventArgs e)
-        {
-            byte[] Friendship = BitConverter.GetBytes((uint)numericFriendship.Value);
-
-            ModifiedBlock = WriteData(ModifiedBlock, FriendshipPointsOffset, Friendship, 4);
-        }
-
-        private void numericPrestige_ValueChanged(object sender, EventArgs e)
-        {
-            byte[] Prestige = BitConverter.GetBytes((uint)numericPrestige.Value);
-
-            ModifiedBlock = WriteData(ModifiedBlock, PrestigePointsOffset, Prestige, 4);
-        }
-
-        byte[] WriteData(byte[] DataIn, int PatchOffset, byte[] DataTowrite, int Length)
-        {
-            for(int i = 0; i < Length; i++)
+            OpenFileDialog OpenPlayer = new OpenFileDialog();
+            OpenPlayer.Title = "Open Player";
+            OpenPlayer.RestoreDirectory = true;
+            OpenPlayer.DefaultExt = "IEPlayer";
+            OpenPlayer.FileName = "*.IEPlayer";
+            if (isIE3)
             {
-                DataIn[PatchOffset + i] = DataTowrite[i];
+                OpenPlayer.Filter = "IE3Player Files (*.IE3Player)|*.IE3Player";
+                OpenPlayer.DefaultExt = "IE3Player";
+                OpenPlayer.FileName = "*.IE3Player";
             }
-            return DataIn;
+            if (OpenPlayer.ShowDialog() == DialogResult.OK)
+            {
+                byte[] Player = File.ReadAllBytes(OpenPlayer.FileName).ToArray();
+                ModifiedBlock = WriteData(ModifiedBlock, (Index * length) + PlayerStartOffset, Player, Player.Length);
+            }
         }
 
         void LoadPlayer()
@@ -307,6 +390,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
             numericUpDown7.Value = PlayerLevel;
             textBox22.Text = P.HEXToPlayer[PlayerHEX];
+        }
+
+        byte[] WriteData(byte[] DataIn, int PatchOffset, byte[] DataTowrite, int Length)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                DataIn[PatchOffset + i] = DataTowrite[i];
+            }
+            return DataIn;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -398,41 +490,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
             WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-            SaveMoveLevel(comboBox1, numericUpDown1, 0x44);
-        }
-
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-            SaveMoveLevel(comboBox2, numericUpDown2, 0x45);
-        }
-
-        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
-        {
-            SaveMoveLevel(comboBox3, numericUpDown3, 0x46);
-        }
-
-        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
-        {
-            SaveMoveLevel(comboBox4, numericUpDown4, 0x47);
-        }
-
-        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
-        {
-            SaveMoveLevel(comboBox5, numericUpDown5, 0x48);
-        }
-
-        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
-        {
-            SaveMoveLevel(comboBox6, numericUpDown6, 0x49);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            SetAllMaxLevels(dataGridView1.CurrentRow.Index);
-        }
-
         void SetAllMaxLevels(int PlayerIndex)
         {
             byte[] block = ModifiedBlock.Skip((PlayerIndex * length) + PlayerStartOffset).Take(length).ToArray();
@@ -468,6 +525,41 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         }
 
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            SaveMoveLevel(comboBox1, numericUpDown1, 0x44);
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            SaveMoveLevel(comboBox2, numericUpDown2, 0x45);
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            SaveMoveLevel(comboBox3, numericUpDown3, 0x46);
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            SaveMoveLevel(comboBox4, numericUpDown4, 0x47);
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+            SaveMoveLevel(comboBox5, numericUpDown5, 0x48);
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+            SaveMoveLevel(comboBox6, numericUpDown6, 0x49);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SetAllMaxLevels(dataGridView1.CurrentRow.Index);
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {            
             byte players = ModifiedBlock[0x57];
@@ -476,6 +568,75 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 SetAllMaxLevels(i);
             }
             MessageBox.Show("Edited Move Levels For All Players!");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SetNewItemAmount((byte)numericUpDown19.Value);
+            LoadItems();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int Player = dataGridView1.CurrentRow.Index;
+            byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
+            SaveFileDialog savePlayer = new SaveFileDialog();
+            savePlayer.Title = "Save Player";
+            savePlayer.DefaultExt = "IEPlayer";
+            savePlayer.RestoreDirectory = true;            
+            savePlayer.FileName = "*.IEPlayer";
+            savePlayer.Filter = "IEPlayer Files (*.IEPlayer)|*.IEPlayer";
+            if (isIE3)
+            {
+                savePlayer.Filter = "IE3Player Files (*.IE3Player)|*.IE3Player";
+                savePlayer.DefaultExt = "IE3Player";
+                savePlayer.FileName = "*.IE3Player";
+            }
+            if (savePlayer.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllBytes(savePlayer.FileName, block);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Import the player after the block of the last player
+            ImportPlayer(ModifiedBlock[0x57]);
+            // Since we Added a Player, the game has to know this.
+            ModifiedBlock[0x57] = (byte)(ModifiedBlock[0x57] + 1);
+            // Reload Datagridview
+            LoadPlayersIntoDataGridView(ModifiedBlock[0x57]);
+            // To prevent having more than 100 players and thus corrupting the savefile, make an extra check here
+            if (ModifiedBlock[0x57] == 100)
+            {
+                button4.Enabled = false;
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ImportPlayer(dataGridView1.CurrentRow.Index);
+            // Reload Datagridview
+            LoadPlayersIntoDataGridView(ModifiedBlock[0x57]);
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFile();
+        }
+
+        private void numericFriendship_ValueChanged(object sender, EventArgs e)
+        {
+            byte[] Friendship = BitConverter.GetBytes((uint)numericFriendship.Value);
+
+            ModifiedBlock = WriteData(ModifiedBlock, FriendshipPointsOffset, Friendship, 4);
+        }
+
+        private void numericPrestige_ValueChanged(object sender, EventArgs e)
+        {
+            byte[] Prestige = BitConverter.GetBytes((uint)numericPrestige.Value);
+
+            ModifiedBlock = WriteData(ModifiedBlock, PrestigePointsOffset, Prestige, 4);
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,19 +113,29 @@
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.textBox19 = new System.Windows.Forms.TextBox();
-            this.Reserves = new System.Windows.Forms.TabControl();
+            this.Players = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.numericUpDown19 = new System.Windows.Forms.NumericUpDown();
+            this.button5 = new System.Windows.Forms.Button();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.numericFriendship = new System.Windows.Forms.NumericUpDown();
             this.numericPrestige = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -148,9 +159,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.tabPage4.SuspendLayout();
-            this.Reserves.SuspendLayout();
+            this.Players.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericFriendship)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrestige)).BeginInit();
@@ -1097,25 +1111,51 @@
             this.textBox19.Size = new System.Drawing.Size(160, 20);
             this.textBox19.TabIndex = 0;
             // 
-            // Reserves
+            // Players
             // 
-            this.Reserves.Controls.Add(this.tabPage3);
-            this.Reserves.Location = new System.Drawing.Point(428, 27);
-            this.Reserves.Name = "Reserves";
-            this.Reserves.SelectedIndex = 0;
-            this.Reserves.Size = new System.Drawing.Size(482, 255);
-            this.Reserves.TabIndex = 5;
+            this.Players.Controls.Add(this.tabPage3);
+            this.Players.Controls.Add(this.tabPage5);
+            this.Players.Location = new System.Drawing.Point(428, 27);
+            this.Players.Name = "Players";
+            this.Players.SelectedIndex = 0;
+            this.Players.Size = new System.Drawing.Size(482, 274);
+            this.Players.TabIndex = 5;
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button6);
+            this.tabPage3.Controls.Add(this.button4);
+            this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Controls.Add(this.dataGridView1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(474, 229);
+            this.tabPage3.Size = new System.Drawing.Size(474, 248);
             this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Reserves";
+            this.tabPage3.Text = "Players";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Enabled = false;
+            this.button4.Location = new System.Drawing.Point(164, 219);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(149, 23);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Import Player";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(9, 219);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(149, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Export Player";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // dataGridView1
             // 
@@ -1129,7 +1169,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(9, 6);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(459, 217);
+            this.dataGridView1.Size = new System.Drawing.Size(459, 207);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
@@ -1157,6 +1197,78 @@
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.numericUpDown19);
+            this.tabPage5.Controls.Add(this.button5);
+            this.tabPage5.Controls.Add(this.dataGridView2);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(474, 248);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Items";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown19
+            // 
+            this.numericUpDown19.Enabled = false;
+            this.numericUpDown19.Location = new System.Drawing.Point(255, 222);
+            this.numericUpDown19.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.numericUpDown19.Name = "numericUpDown19";
+            this.numericUpDown19.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDown19.TabIndex = 2;
+            this.numericUpDown19.Value = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            // 
+            // button5
+            // 
+            this.button5.Enabled = false;
+            this.button5.Location = new System.Drawing.Point(147, 222);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(102, 20);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "Get All Items: X";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column5,
+            this.Column6,
+            this.Column7});
+            this.dataGridView2.Enabled = false;
+            this.dataGridView2.Location = new System.Drawing.Point(9, 7);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(459, 209);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Item Name";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Amount";
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            dataGridViewCellStyle1.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Column7.HeaderText = "HEX ID";
+            this.Column7.Name = "Column7";
+            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
@@ -1166,9 +1278,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(432, 288);
+            this.groupBox1.Location = new System.Drawing.Point(432, 307);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(473, 124);
+            this.groupBox1.Size = new System.Drawing.Size(473, 105);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
@@ -1227,13 +1339,24 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Prestige Points:";
             // 
+            // button6
+            // 
+            this.button6.Enabled = false;
+            this.button6.Location = new System.Drawing.Point(319, 219);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(149, 23);
+            this.button6.TabIndex = 3;
+            this.button6.Text = "Replace Player";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // Save_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 427);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Reserves);
+            this.Controls.Add(this.Players);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Save_Editor";
@@ -1265,9 +1388,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.Reserves.ResumeLayout(false);
+            this.Players.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericFriendship)).EndInit();
@@ -1289,7 +1415,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabControl Reserves;
+        private System.Windows.Forms.TabControl Players;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown numericFriendship;
@@ -1376,5 +1502,15 @@
         private System.Windows.Forms.TextBox textBox22;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.NumericUpDown numericUpDown19;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.Button button6;
     }
 }

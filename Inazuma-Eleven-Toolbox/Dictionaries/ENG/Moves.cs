@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 {
-
-
     class Moves
     {
-
-
-
-
         public int GetMaxMoveLevel(string EvolveType)
         {
             if (EvolveType == "L (Fast)" || EvolveType == "L (Slow)" || EvolveType == "L (Medium)")
@@ -166,7 +160,6 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
                     default:
                         return 0;
                 }
-
             }
             else if (EvolveType == "L (Medium)")
             {
@@ -237,8 +230,6 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
                 }
             }
             else return 0;
-
-
         }
 
 
