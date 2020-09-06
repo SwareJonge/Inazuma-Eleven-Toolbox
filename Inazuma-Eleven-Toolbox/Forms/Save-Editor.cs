@@ -7,9 +7,11 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Inazuma_Eleven_Toolbox.Utils;
 using DamienG.Security.Cryptography;
 using System.Windows.Forms;
 using Inazuma_Eleven_Toolbox.Dictionaries.ENG;
+using Inazuma_Eleven_Toolbox.Forms._Save_Editor.Config;
 
 namespace Inazuma_Eleven_Toolbox.Forms
 {
@@ -120,12 +122,12 @@ namespace Inazuma_Eleven_Toolbox.Forms
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Filename = openFileDialog1.FileName;
+                Config.SaveFolder = Path.GetDirectoryName(openFileDialog1.FileName);
+                Config.Save();
                 ModifiedBlock = File.ReadAllBytes(Filename);
                 byte[] Save_Data = File.ReadAllBytes(Filename);
                 string Game = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
-                
-                SetOffsets(Game);
-                
+    
                 string TestIfInazumaSave = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x7).ToArray());                
                 if (TestIfInazumaSave != "INAZUMA")
                 {
@@ -143,6 +145,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     return;
                 }
 
+                SetOffsets(Game);
                 label4.Text = Game;
                 dataGridView1.Rows.Clear();
                 dataGridView2.Rows.Clear();
@@ -158,13 +161,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericUpDown4.Enabled = true;
                 numericUpDown5.Enabled = true;
                 numericUpDown6.Enabled = true;
+                numericUpDown17.Enabled = true;
+                numericUpDown18.Enabled = true;
                 numericUpDown19.Enabled = true;
                 button3.Enabled = true;
                 button4.Enabled = true;
                 button5.Enabled = true;
                 button6.Enabled = true;
                 button7.Enabled = true;
-
 
                 numericUpDown1.ReadOnly = false;
                 numericUpDown2.ReadOnly = false;
@@ -173,8 +177,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericUpDown5.ReadOnly = false;
                 numericUpDown6.ReadOnly = false;
 
-                numericUpDown17.Enabled = true;
-                numericUpDown18.Enabled = true;
+
                 if(!isIE1)
                 {
                     button1.Enabled = true;
@@ -307,20 +310,38 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         void ImportPlayer(int Index, bool isImportPlayer)
         {
-            OpenFileDialog OpenPlayer = new OpenFileDialog();
-            OpenPlayer.Title = "Open Player";
-            OpenPlayer.RestoreDirectory = true;
-            OpenPlayer.DefaultExt = "IEPlayer";
-            OpenPlayer.FileName = "*.IEPlayer";
+            OpenFileDialog OpenPlayer = new OpenFileDialog
+            {
+                Title = "Open Player",
+                RestoreDirectory = true,
+                DefaultExt = "IEPlayer",
+                FileName = "*.IEPlayer",
+                InitialDirectory = Config.PlayerFolder
+            };
+
             if (isIE3)
             {
-                OpenPlayer.Filter = "IE3Player Files (*.IE3Player)|*.IE3Player";
-                OpenPlayer.DefaultExt = "IE3Player";
-                OpenPlayer.FileName = "*.IE3Player";
+                OpenPlayer.Filter = "Player Files (*.IE3Player, *.pla)|*.IE3Player; *.pla|IE Toolbox Player (*.IE3Player)|*.IE3Player|NFFM3 Player(*.pla)|*.pla";
+                OpenPlayer.FileName = "";
             }
             if (OpenPlayer.ShowDialog() == DialogResult.OK)
             {
+                Config.PlayerFolder = Path.GetDirectoryName(OpenPlayer.FileName);
+                Config.Save();
                 byte[] Player = File.ReadAllBytes(OpenPlayer.FileName).ToArray();
+                if(OpenPlayer.FileName.EndsWith(".pla"))
+                {
+                    string hex = File.ReadAllText(OpenPlayer.FileName);
+                    // Block Players From chronostone or galaxy
+                    string a = new StringReader(hex).ReadLine();
+                    if (a == "chronostone" || a == "galaxy")
+                    {
+                        MessageBox.Show("This is not a player from Inazuma Eleven 3!");
+                        // return, don't execute further
+                        return;
+                    }                    
+                    Player = NFFM3_Plugin.StringToByteArray(hex.Replace(" ", ""));
+                }
                 ModifiedBlock = WriteData(ModifiedBlock, (Index * length) + PlayerStartOffset, Player, Player.Length);
                 if(isImportPlayer)
                 {
@@ -604,21 +625,43 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
             int Player = DataGridviewIndexFromCell();
             byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
-            SaveFileDialog savePlayer = new SaveFileDialog();
-            savePlayer.Title = "Save Player";
-            savePlayer.DefaultExt = "IEPlayer";
-            savePlayer.RestoreDirectory = true;            
-            savePlayer.FileName = "*.IEPlayer";
-            savePlayer.Filter = "IEPlayer Files (*.IEPlayer)|*.IEPlayer";
+            SaveFileDialog savePlayer = new SaveFileDialog
+            {
+                Title = "Save Player",
+                FileName = textBox22.Text,
+                DefaultExt = "IEPlayer",
+                RestoreDirectory = true,                
+                Filter = "IEPlayer Files (*.IEPlayer)|*.IEPlayer",                
+                InitialDirectory = Config.PlayerFolder
+            };
+
             if (isIE3)
             {
-                savePlayer.Filter = "IE3Player Files (*.IE3Player)|*.IE3Player";
-                savePlayer.DefaultExt = "IE3Player";
-                savePlayer.FileName = "*.IE3Player";
+                
+                savePlayer.FilterIndex = Config.DefaultExportExt;
+                savePlayer.Filter = "IE3Player Files (*.IE3Player)|*.IE3Player|NFFM3 Player File (*.pla)|*.pla";
+                //MessageBox.Show(Config.DefaultExportExt);
+                savePlayer.FileName = textBox22.Text;
             }
+
             if (savePlayer.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllBytes(savePlayer.FileName, block);
+                Config.PlayerFolder = Path.GetDirectoryName(savePlayer.FileName);
+                if(isIE3)
+                {
+                    Config.DefaultExportExt = savePlayer.FilterIndex;
+                    Config.Save();
+                }
+               
+                if (savePlayer.FileName.EndsWith(".pla"))
+                {
+                    NFFM3_Plugin.ExportPlayer(block, savePlayer);
+                }
+                else
+                {
+                    File.WriteAllBytes(savePlayer.FileName, block);
+                }
+                
             }
         }
 
@@ -697,6 +740,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // SaveFileheader Name
             ModifiedBlock = WriteData(ModifiedBlock, 0x5C, Encoding.Default.GetBytes(arr), arr.Length);
             MessageBox.Show("Edited Name!");
+        }
+
+        private void Save_Editor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
 }

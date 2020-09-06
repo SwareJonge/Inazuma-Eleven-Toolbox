@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Save-Editor\Config\Config.cs" />
     <Compile Include="Dictionaries\ENG\Dict.cs" />
     <Compile Include="Dictionaries\ENG\Items.cs" />
     <Compile Include="Dictionaries\ENG\Moves.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\CRC32.cs" />
     <Compile Include="Utils\Encryption.cs" />
+    <Compile Include="Utils\NFFM3_Plugin.cs" />
     <EmbeddedResource Include="Forms\Save-Editor.resx">
       <DependentUpon>Save-Editor.cs</DependentUpon>
     </EmbeddedResource>

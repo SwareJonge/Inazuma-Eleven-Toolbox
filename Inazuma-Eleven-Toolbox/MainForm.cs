@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inazuma_Eleven_Toolbox.Forms._Save_Editor.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,6 +27,11 @@ namespace Inazuma_Eleven_Toolbox
         {
             Forms.Save_Editor SavEdit = new Forms.Save_Editor();
             SavEdit.Show();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Config.Save();
         }
     }
 }

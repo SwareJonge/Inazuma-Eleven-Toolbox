@@ -1,4 +1,6 @@
-﻿namespace Inazuma_Eleven_Toolbox.Forms
+﻿using Inazuma_Eleven_Toolbox.Forms._Save_Editor.Config;
+
+namespace Inazuma_Eleven_Toolbox.Forms
 {
     partial class Save_Editor
     {
@@ -131,14 +133,14 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.txtBoxName = new System.Windows.Forms.TextBox();
+            this.lblName = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numericFriendship = new System.Windows.Forms.NumericUpDown();
             this.numericPrestige = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblName = new System.Windows.Forms.Label();
-            this.txtBoxName = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -216,9 +218,11 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.DefaultExt = "sav";
             this.openFileDialog1.Filter = "Save Files (*.sav, *.dat)|*.sav; *.dat|3DS Save (*.dat)|*.dat|NDS Save (*.sav)|*." +
     "sav";
+            this.openFileDialog1.InitialDirectory = Config.SaveFolder;
+            this.openFileDialog1.RestoreDirectory = true;
+            this.openFileDialog1.Title = "Open Save File";
             // 
             // label3
             // 
@@ -820,7 +824,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(403, 359);
+            this.tabPage2.Size = new System.Drawing.Size(403, 385);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Moveset";
             // 
@@ -1058,7 +1062,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(403, 359);
+            this.tabPage4.Size = new System.Drawing.Size(403, 385);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "Equipments";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1301,6 +1305,35 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
+            // button7
+            // 
+            this.button7.Enabled = false;
+            this.button7.Location = new System.Drawing.Point(228, 44);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(39, 20);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Edit!";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // txtBoxName
+            // 
+            this.txtBoxName.Enabled = false;
+            this.txtBoxName.Location = new System.Drawing.Point(102, 44);
+            this.txtBoxName.MaxLength = 10;
+            this.txtBoxName.Name = "txtBoxName";
+            this.txtBoxName.Size = new System.Drawing.Size(120, 20);
+            this.txtBoxName.TabIndex = 9;
+            // 
+            // lblName
+            // 
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(6, 46);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(38, 13);
+            this.lblName.TabIndex = 8;
+            this.lblName.Text = "Name:";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -1356,35 +1389,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Prestige Points:";
             // 
-            // lblName
-            // 
-            this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(6, 46);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(38, 13);
-            this.lblName.TabIndex = 8;
-            this.lblName.Text = "Name:";
-            // 
-            // txtBoxName
-            // 
-            this.txtBoxName.Enabled = false;
-            this.txtBoxName.Location = new System.Drawing.Point(102, 44);
-            this.txtBoxName.MaxLength = 10;
-            this.txtBoxName.Name = "txtBoxName";
-            this.txtBoxName.Size = new System.Drawing.Size(120, 20);
-            this.txtBoxName.TabIndex = 9;
-            // 
-            // button7
-            // 
-            this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(228, 44);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(39, 20);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "Edit!";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // Save_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1396,6 +1400,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Name = "Save_Editor";
             this.Text = "Inazuma Eleven Save Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Save_Editor_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
