@@ -44,6 +44,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
         Moves M = new Moves();
         Players P = new Players();
 
+        int DataGridviewIndexFromCell()
+        {
+            int i = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value) - 1;
+            if (i == -1)
+            {
+                return dataGridView1.CurrentRow.Index;
+            }
+            else return i;
+        }
 
         void SetOffsets(string GameVersion)
         {
@@ -296,7 +305,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             ModifiedBlock = WriteData(ModifiedBlock, Checksum1Offset, Checksum1, Checksum1.Length);
         }
 
-        void ImportPlayer(int Index)
+        void ImportPlayer(int Index, bool isImportPlayer)
         {
             OpenFileDialog OpenPlayer = new OpenFileDialog();
             OpenPlayer.Title = "Open Player";
@@ -313,12 +322,17 @@ namespace Inazuma_Eleven_Toolbox.Forms
             {
                 byte[] Player = File.ReadAllBytes(OpenPlayer.FileName).ToArray();
                 ModifiedBlock = WriteData(ModifiedBlock, (Index * length) + PlayerStartOffset, Player, Player.Length);
+                if(isImportPlayer)
+                {
+                    // Since we Added a Player, the game has to know this.
+                    ModifiedBlock[0x57] = (byte)(ModifiedBlock[0x57] + 1);
+                }
             }
         }
 
         void LoadPlayer()
         {
-            int j = dataGridView1.CurrentRow.Index;
+            int j = DataGridviewIndexFromCell();
 
             if (j < 100)
             {
@@ -475,7 +489,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         void SaveMoveLevel(ComboBox MoveName, NumericUpDown MoveLevel, int LevelOffset)
         {
-            int Player = dataGridView1.CurrentRow.Index;
+            int Player = DataGridviewIndexFromCell();
             byte players = ModifiedBlock[0x57];
             byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
 
@@ -567,7 +581,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SetAllMaxLevels(dataGridView1.CurrentRow.Index);
+            SetAllMaxLevels(DataGridviewIndexFromCell());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -588,7 +602,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int Player = dataGridView1.CurrentRow.Index;
+            int Player = DataGridviewIndexFromCell();
             byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
             SaveFileDialog savePlayer = new SaveFileDialog();
             savePlayer.Title = "Save Player";
@@ -610,7 +624,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button4_Click(object sender, EventArgs e)
         {
-            // Catch Error, index 101 is player 100 and if we overwrite this then idk what kind of problems this would cause
+            // Catch Error, index 100 is player 101 and if we overwrite this then idk what kind of problems this would cause
             if (dataGridView1.CurrentRow.Index == 100)
             {
                 MessageBox.Show("Error!");
@@ -619,9 +633,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             }
 
             // Import the player after the block of the last player
-            ImportPlayer(ModifiedBlock[0x57]);
-            // Since we Added a Player, the game has to know this.
-            ModifiedBlock[0x57] = (byte)(ModifiedBlock[0x57] + 1);
+            ImportPlayer(ModifiedBlock[0x57], true);
             // Reload Datagridview
             LoadPlayersIntoDataGridView(ModifiedBlock[0x57]);
             // To prevent having more than 100 players and thus corrupting the savefile, make an extra check here
@@ -633,14 +645,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button6_Click(object sender, EventArgs e)
         {
-            // Catch Error, index 101 is player 100 and if we overwrite this then idk what kind of problems this would cause
+            // Catch Error, index 100 is player 101 and if we overwrite this then idk what kind of problems this would cause
             if (dataGridView1.CurrentRow.Index == 100)
             {
                 MessageBox.Show("Error!");
                 // don't execute function further
                 return;
             }
-            ImportPlayer(dataGridView1.CurrentRow.Index);
+            // Replace Player
+            ImportPlayer(DataGridviewIndexFromCell(), false);
             // Reload Datagridview
             LoadPlayersIntoDataGridView(ModifiedBlock[0x57]);
         }
