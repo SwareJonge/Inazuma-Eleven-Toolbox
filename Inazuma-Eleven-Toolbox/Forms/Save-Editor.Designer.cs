@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,6 +115,7 @@
             this.textBox19 = new System.Windows.Forms.TextBox();
             this.Players = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button6 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -135,7 +136,9 @@
             this.numericPrestige = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.lblName = new System.Windows.Forms.Label();
+            this.txtBoxName = new System.Windows.Forms.TextBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -234,7 +237,7 @@
             this.tabControl1.Location = new System.Drawing.Point(15, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(411, 385);
+            this.tabControl1.Size = new System.Drawing.Size(411, 411);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
@@ -288,7 +291,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(403, 359);
+            this.tabPage1.Size = new System.Drawing.Size(403, 385);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Information";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1135,6 +1138,17 @@
             this.tabPage3.Text = "Players";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button6
+            // 
+            this.button6.Enabled = false;
+            this.button6.Location = new System.Drawing.Point(319, 219);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(149, 23);
+            this.button6.TabIndex = 3;
+            this.button6.Text = "Replace Player";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // button4
             // 
             this.button4.Enabled = false;
@@ -1264,14 +1278,17 @@
             // 
             // Column7
             // 
-            dataGridViewCellStyle1.NullValue = null;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column7.HeaderText = "HEX ID";
             this.Column7.Name = "Column7";
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.button7);
+            this.groupBox1.Controls.Add(this.txtBoxName);
+            this.groupBox1.Controls.Add(this.lblName);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.numericFriendship);
             this.groupBox1.Controls.Add(this.numericPrestige);
@@ -1280,7 +1297,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(432, 307);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(473, 105);
+            this.groupBox1.Size = new System.Drawing.Size(473, 127);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
@@ -1296,7 +1313,7 @@
             // numericFriendship
             // 
             this.numericFriendship.Enabled = false;
-            this.numericFriendship.Location = new System.Drawing.Point(102, 74);
+            this.numericFriendship.Location = new System.Drawing.Point(102, 96);
             this.numericFriendship.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -1310,7 +1327,7 @@
             // numericPrestige
             // 
             this.numericPrestige.Enabled = false;
-            this.numericPrestige.Location = new System.Drawing.Point(102, 48);
+            this.numericPrestige.Location = new System.Drawing.Point(102, 70);
             this.numericPrestige.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -1324,7 +1341,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 76);
+            this.label2.Location = new System.Drawing.Point(6, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 4;
@@ -1333,28 +1350,46 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 50);
+            this.label1.Location = new System.Drawing.Point(6, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Prestige Points:";
             // 
-            // button6
+            // lblName
             // 
-            this.button6.Enabled = false;
-            this.button6.Location = new System.Drawing.Point(319, 219);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(149, 23);
-            this.button6.TabIndex = 3;
-            this.button6.Text = "Replace Player";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(6, 46);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(38, 13);
+            this.lblName.TabIndex = 8;
+            this.lblName.Text = "Name:";
+            // 
+            // txtBoxName
+            // 
+            this.txtBoxName.Enabled = false;
+            this.txtBoxName.Location = new System.Drawing.Point(102, 44);
+            this.txtBoxName.MaxLength = 10;
+            this.txtBoxName.Name = "txtBoxName";
+            this.txtBoxName.Size = new System.Drawing.Size(120, 20);
+            this.txtBoxName.TabIndex = 9;
+            // 
+            // button7
+            // 
+            this.button7.Enabled = false;
+            this.button7.Location = new System.Drawing.Point(228, 44);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(39, 20);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Edit!";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Save_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 427);
+            this.ClientSize = new System.Drawing.Size(919, 450);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Players);
             this.Controls.Add(this.tabControl1);
@@ -1512,5 +1547,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox txtBoxName;
+        private System.Windows.Forms.Label lblName;
     }
 }

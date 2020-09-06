@@ -33,6 +33,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         int Checksum1BlockStart = 0x44;
         int Checksum1BlockLength = 0;
         int ItemEndOffset = 0;
+        int NameOffset = 0;
 
         int Checksum2BlockStart = 0;
         int Checksum2BlockLength = 0;
@@ -62,6 +63,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ItemsIE3 ItemIE3 = new ItemsIE3();
                 IC.EquipmentOffsetToStr = ItemIE3.EquipmentOffsetToStrIE3;
                 ItemEndOffset = 0x4B7;
+                NameOffset = 0x4C8;
             }
             if (GameVersion == "INAZUMA_11_EU")
             {
@@ -78,6 +80,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ItemsIE2 ItemIE2 = new ItemsIE2();
                 IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
                 ItemEndOffset = 0x45D;
+                NameOffset = 0x4C0;
             }
             if (GameVersion == "INAZUMA2_12_EU")
             {
@@ -94,6 +97,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ItemsIE2 ItemIE2 = new ItemsIE2();
                 IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
                 ItemEndOffset = 0x45D;
+                NameOffset = 0x4C0;
             }
 
         }
@@ -136,6 +140,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericPrestige.Enabled = true;
                 numericFriendship.Enabled = true;
                 textBox22.Enabled = true;
+                txtBoxName.Enabled = true;
                 dataGridView1.Enabled = true;
                 dataGridView2.Enabled = true;
                 numericUpDown1.Enabled = true;
@@ -149,6 +154,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 button4.Enabled = true;
                 button5.Enabled = true;
                 button6.Enabled = true;
+                button7.Enabled = true;
 
 
                 numericUpDown1.ReadOnly = false;
@@ -194,7 +200,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 numericPrestige.Value = BitConverter.ToInt32(Save_Data.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
                 numericFriendship.Value = BitConverter.ToInt32(Save_Data.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);
-                
+                // Need to figure out what encoding this game uses
+                txtBoxName.Text = Encoding.Default.GetString(Save_Data.Skip(NameOffset).Take(10).ToArray()).Replace("\0", "");
+
                 LoadItems();
 
                 LoadPlayersIntoDataGridView(players);
@@ -278,15 +286,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
         }
 
         void PatchChecksums()
-        {
-            byte[] Block1 = ModifiedBlock.Skip(Checksum1BlockStart).Take(Checksum1BlockLength).ToArray();
+        {            
             byte[] Block2 = ModifiedBlock.Skip(Checksum2BlockStart).Take(Checksum2BlockLength).ToArray();
             byte[] Checksum2 = BitConverter.GetBytes(Crc32.Compute(Block2));
-            Block1 = WriteData(Block1, 0x0, Checksum2, 4);
-            ModifiedBlock = WriteData(ModifiedBlock, 0x44, Block1, Block1.Length);
+            ModifiedBlock = WriteData(ModifiedBlock, Checksum1BlockStart, Checksum2, Checksum2.Length);
 
+            byte[] Block1 = ModifiedBlock.Skip(Checksum1BlockStart).Take(Checksum1BlockLength).ToArray();
             byte[] Checksum1 = BitConverter.GetBytes(Crc32.Compute(Block1));
-            ModifiedBlock = WriteData(ModifiedBlock, Checksum1Offset, Checksum1, 4);
+            ModifiedBlock = WriteData(ModifiedBlock, Checksum1Offset, Checksum1, Checksum1.Length);
         }
 
         void ImportPlayer(int Index)
@@ -310,86 +317,89 @@ namespace Inazuma_Eleven_Toolbox.Forms
         }
 
         void LoadPlayer()
-        {            
-            Players P = new Players();
-
+        {
             int j = dataGridView1.CurrentRow.Index;
-            byte[] Save_Data = ModifiedBlock;
-            byte players = Save_Data[0x57];
 
-            byte[] block = Save_Data.Skip((j * length) + PlayerStartOffset).Take(length).ToArray();
+            if (j < 100)
+            {
+                byte[] Save_Data = ModifiedBlock;
+                byte players = Save_Data[0x57];
 
-            short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
-            uint EXP = BitConverter.ToUInt32(block.Skip(0x0).Take(4).ToArray(), 0);
-            byte PlayerLevel = block[0x4A];
+                byte[] block = Save_Data.Skip((j * length) + PlayerStartOffset).Take(length).ToArray();
 
-            short MoveS1 = BitConverter.ToInt16(block.Skip(0x38).Take(2).ToArray(), 0);
-            short MoveS2 = BitConverter.ToInt16(block.Skip(0x3A).Take(2).ToArray(), 0);
-            short MoveS3 = BitConverter.ToInt16(block.Skip(0x3C).Take(2).ToArray(), 0);
-            short MoveS4 = BitConverter.ToInt16(block.Skip(0x3E).Take(2).ToArray(), 0);
-            short MoveS5 = BitConverter.ToInt16(block.Skip(0x40).Take(2).ToArray(), 0);
-            short MoveS6 = BitConverter.ToInt16(block.Skip(0x42).Take(2).ToArray(), 0);
-            byte Move1Level = block[0x44];
-            byte Move2Level = block[0x45];
-            byte Move3Level = block[0x46];
-            byte Move4Level = block[0x47];
-            byte Move5Level = block[0x48];
-            byte Move6Level = block[0x49];
+                short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
+                uint EXP = BitConverter.ToUInt32(block.Skip(0x0).Take(4).ToArray(), 0);
+                byte PlayerLevel = block[0x4A];
+
+                short MoveS1 = BitConverter.ToInt16(block.Skip(0x38).Take(2).ToArray(), 0);
+                short MoveS2 = BitConverter.ToInt16(block.Skip(0x3A).Take(2).ToArray(), 0);
+                short MoveS3 = BitConverter.ToInt16(block.Skip(0x3C).Take(2).ToArray(), 0);
+                short MoveS4 = BitConverter.ToInt16(block.Skip(0x3E).Take(2).ToArray(), 0);
+                short MoveS5 = BitConverter.ToInt16(block.Skip(0x40).Take(2).ToArray(), 0);
+                short MoveS6 = BitConverter.ToInt16(block.Skip(0x42).Take(2).ToArray(), 0);
+                byte Move1Level = block[0x44];
+                byte Move2Level = block[0x45];
+                byte Move3Level = block[0x46];
+                byte Move4Level = block[0x47];
+                byte Move5Level = block[0x48];
+                byte Move6Level = block[0x49];
 
 
-            comboBox1.Text = D.MoveToStr[MoveS1];
-            comboBox2.Text = D.MoveToStr[MoveS2];
-            comboBox3.Text = D.MoveToStr[MoveS3];
-            comboBox4.Text = D.MoveToStr[MoveS4];
-            comboBox5.Text = D.MoveToStr[MoveS5];
-            comboBox6.Text = D.MoveToStr[MoveS6];
+                comboBox1.Text = D.MoveToStr[MoveS1];
+                comboBox2.Text = D.MoveToStr[MoveS2];
+                comboBox3.Text = D.MoveToStr[MoveS3];
+                comboBox4.Text = D.MoveToStr[MoveS4];
+                comboBox5.Text = D.MoveToStr[MoveS5];
+                comboBox6.Text = D.MoveToStr[MoveS6];
 
-            string Move1EvolveType = SetReadOnly(numericUpDown1, comboBox1);
-            string Move2EvolveType = SetReadOnly(numericUpDown2, comboBox2);
-            string Move3EvolveType = SetReadOnly(numericUpDown3, comboBox3);
-            string Move4EvolveType = SetReadOnly(numericUpDown4, comboBox4);
-            string Move5EvolveType = SetReadOnly(numericUpDown5, comboBox5);
-            string Move6EvolveType = SetReadOnly(numericUpDown6, comboBox6);
+                string Move1EvolveType = SetReadOnly(numericUpDown1, comboBox1);
+                string Move2EvolveType = SetReadOnly(numericUpDown2, comboBox2);
+                string Move3EvolveType = SetReadOnly(numericUpDown3, comboBox3);
+                string Move4EvolveType = SetReadOnly(numericUpDown4, comboBox4);
+                string Move5EvolveType = SetReadOnly(numericUpDown5, comboBox5);
+                string Move6EvolveType = SetReadOnly(numericUpDown6, comboBox6);
 
-            SetMoveLevels(numericUpDown1, Move1EvolveType, Move1Level);
-            SetMoveLevels(numericUpDown2, Move2EvolveType, Move2Level);
-            SetMoveLevels(numericUpDown3, Move3EvolveType, Move3Level);
-            SetMoveLevels(numericUpDown4, Move4EvolveType, Move4Level);
-            SetMoveLevels(numericUpDown5, Move5EvolveType, Move5Level);
-            SetMoveLevels(numericUpDown6, Move6EvolveType, Move6Level);
+                SetMoveLevels(numericUpDown1, Move1EvolveType, Move1Level);
+                SetMoveLevels(numericUpDown2, Move2EvolveType, Move2Level);
+                SetMoveLevels(numericUpDown3, Move3EvolveType, Move3Level);
+                SetMoveLevels(numericUpDown4, Move4EvolveType, Move4Level);
+                SetMoveLevels(numericUpDown5, Move5EvolveType, Move5Level);
+                SetMoveLevels(numericUpDown6, Move6EvolveType, Move6Level);
 
-            short Boots = BitConverter.ToInt16(block.Skip(0x10).Take(2).ToArray(), 0);
-            short Other1 = BitConverter.ToInt16(block.Skip(0x12).Take(2).ToArray(), 0);
-            short Other2 = BitConverter.ToInt16(block.Skip(0x14).Take(2).ToArray(), 0);
+                short Boots = BitConverter.ToInt16(block.Skip(0x10).Take(2).ToArray(), 0);
+                short Other1 = BitConverter.ToInt16(block.Skip(0x12).Take(2).ToArray(), 0);
+                short Other2 = BitConverter.ToInt16(block.Skip(0x14).Take(2).ToArray(), 0);
 
-            ushort RemainingFP = BitConverter.ToUInt16(block.Skip(0x34).Take(2).ToArray(), 0);
-            ushort RemainingTP = BitConverter.ToUInt16(block.Skip(0x36).Take(2).ToArray(), 0);
+                ushort RemainingFP = BitConverter.ToUInt16(block.Skip(0x34).Take(2).ToArray(), 0);
+                ushort RemainingTP = BitConverter.ToUInt16(block.Skip(0x36).Take(2).ToArray(), 0);
 
-            byte TrainedKick = block[0x4F];
-            byte TrainedBody = block[0x50];
-            byte TrainedControl = block[0x52];
-            byte TrainedGuard = block[0x51];
-            byte TrainedSpeed = block[0x53];
-            byte TrainedStamina = block[0x55];
-            byte TrainedGuts = block[0x54];
+                byte TrainedKick = block[0x4F];
+                byte TrainedBody = block[0x50];
+                byte TrainedControl = block[0x52];
+                byte TrainedGuard = block[0x51];
+                byte TrainedSpeed = block[0x53];
+                byte TrainedStamina = block[0x55];
+                byte TrainedGuts = block[0x54];
 
-            numericUpDown17.Value = RemainingFP;
-            numericUpDown18.Value = RemainingTP;
+                numericUpDown17.Value = RemainingFP;
+                numericUpDown18.Value = RemainingTP;
 
-            numericUpDown8.Value = (sbyte)TrainedKick;
-            numericUpDown9.Value = (sbyte)TrainedBody;
-            numericUpDown10.Value = (sbyte)TrainedControl;
-            numericUpDown11.Value = (sbyte)TrainedGuard;
-            numericUpDown12.Value = (sbyte)TrainedSpeed;
-            numericUpDown13.Value = (sbyte)TrainedStamina;
-            numericUpDown14.Value = (sbyte)TrainedGuts;
+                numericUpDown8.Value = (sbyte)TrainedKick;
+                numericUpDown9.Value = (sbyte)TrainedBody;
+                numericUpDown10.Value = (sbyte)TrainedControl;
+                numericUpDown11.Value = (sbyte)TrainedGuard;
+                numericUpDown12.Value = (sbyte)TrainedSpeed;
+                numericUpDown13.Value = (sbyte)TrainedStamina;
+                numericUpDown14.Value = (sbyte)TrainedGuts;
 
-            textBox19.Text = IC.EquipmentOffsetToStr[Boots];
-            textBox20.Text = IC.EquipmentOffsetToStr[Other1];
-            textBox21.Text = IC.EquipmentOffsetToStr[Other2];            
+                textBox19.Text = IC.EquipmentOffsetToStr[Boots];
+                textBox20.Text = IC.EquipmentOffsetToStr[Other1];
+                textBox21.Text = IC.EquipmentOffsetToStr[Other2];
 
-            numericUpDown7.Value = PlayerLevel;
-            textBox22.Text = P.HEXToPlayer[PlayerHEX];
+                numericUpDown7.Value = PlayerLevel;
+                textBox22.Text = P.HEXToPlayer[PlayerHEX];
+            }
+            else return;
         }
 
         byte[] WriteData(byte[] DataIn, int PatchOffset, byte[] DataTowrite, int Length)
@@ -487,7 +497,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte Move1Level = block[LevelOffset];
             byte TimesUsed = M.SetNewLevel(MoveLevel.Value, MoveEvolveType);
             block[LevelOffset] = TimesUsed;
-            WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+            ModifiedBlock = WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
         }
 
         void SetAllMaxLevels(int PlayerIndex)
@@ -600,6 +610,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button4_Click(object sender, EventArgs e)
         {
+            // Catch Error, index 101 is player 100 and if we overwrite this then idk what kind of problems this would cause
+            if (dataGridView1.CurrentRow.Index == 100)
+            {
+                MessageBox.Show("Error!");
+                // don't execute function further
+                return;
+            }
+
             // Import the player after the block of the last player
             ImportPlayer(ModifiedBlock[0x57]);
             // Since we Added a Player, the game has to know this.
@@ -615,6 +633,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button6_Click(object sender, EventArgs e)
         {
+            // Catch Error, index 101 is player 100 and if we overwrite this then idk what kind of problems this would cause
+            if (dataGridView1.CurrentRow.Index == 100)
+            {
+                MessageBox.Show("Error!");
+                // don't execute function further
+                return;
+            }
             ImportPlayer(dataGridView1.CurrentRow.Index);
             // Reload Datagridview
             LoadPlayersIntoDataGridView(ModifiedBlock[0x57]);
@@ -637,6 +662,28 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte[] Prestige = BitConverter.GetBytes((uint)numericPrestige.Value);
 
             ModifiedBlock = WriteData(ModifiedBlock, PrestigePointsOffset, Prestige, 4);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string NewName = txtBoxName.Text;
+            char[] NameBytes = NewName.ToArray();
+            char[] arr = new char[10];
+
+            for (int i = 0; i < NameBytes.Length; i++)
+            {
+                arr[i] = NameBytes[i];
+            }
+            // Fill up the empty bytes just in case
+            for (int i = NameBytes.Length; i < arr.Length; i++)
+            {
+                arr[i] = '\0';
+            }
+            // Need to figure out what encoding this game uses, might need to block special characters
+            ModifiedBlock = WriteData(ModifiedBlock, NameOffset, Encoding.Default.GetBytes(arr), arr.Length);
+            // SaveFileheader Name
+            ModifiedBlock = WriteData(ModifiedBlock, 0x5C, Encoding.Default.GetBytes(arr), arr.Length);
+            MessageBox.Show("Edited Name!");
         }
     }
 }
