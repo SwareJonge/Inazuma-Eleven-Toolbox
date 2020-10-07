@@ -30,7 +30,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -220,7 +220,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             this.openFileDialog1.Filter = "Save Files (*.sav, *.dat)|*.sav; *.dat|3DS Save (*.dat)|*.dat|NDS Save (*.sav)|*." +
     "sav";
-            this.openFileDialog1.InitialDirectory = Config.SaveFolder;
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "Open Save File";
             // 
@@ -1282,8 +1281,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             // Column7
             // 
-            dataGridViewCellStyle5.NullValue = null;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column7.HeaderText = "HEX ID";
             this.Column7.Name = "Column7";
             // 
@@ -1398,6 +1397,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.Controls.Add(this.Players);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Save_Editor";
             this.Text = "Inazuma Eleven Save Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Save_Editor_FormClosing);

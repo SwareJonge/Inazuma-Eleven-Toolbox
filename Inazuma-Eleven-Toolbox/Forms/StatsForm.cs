@@ -42,37 +42,40 @@ namespace Inazuma_Eleven_Toolbox.Forms
  * Garbage data most likely */
             IECommonDictionary D = new IECommonDictionary();
 
-            string PlayerNamesFile = @"Game Files/" + region + "/" + Game + "/unitbase.dat";
-            string StatsFile = @"Game Files/" + region + "/" + Game + "/unitstat.dat";
+            string PlayerNamesFileName = @"Game Files/" + region + "/" + Game + "/unitbase.dat";
+            string StatsFileName = @"Game Files/" + region + "/" + Game + "/unitstat.dat";
+
+            byte NicknameStartPosJAP = 0x10;
+            byte StringLength = 0x20;
+            byte NickNameLength = 0x20;
+            byte ScoutIDOffset = 0x42;
+            byte ElementOffset = 0x5A;
+            byte GenderOffset = 0x52;
+            byte PlayerIndex = 0x5E;
+            if (Game == "IE3")
+            {
+                ScoutIDOffset = 0x4E;
+                StringLength = 0x1C;
+                ElementOffset = 0x62;
+                NickNameLength = 0x10;
+                GenderOffset = 0x5A;
+                NicknameStartPosJAP = 0x1C;
+                PlayerIndex = 0x66;
+            }
+
+            byte[] NameFile = File.ReadAllBytes(PlayerNamesFileName).ToArray();
+            byte[] StatsFile = File.ReadAllBytes(StatsFileName).ToArray();
 
             for (int i = UnitBaseBlockLength; i <= UnitBaseEndOffset; i += UnitBaseBlockLength)
             {
-
-
-                byte NicknameStartPosJAP = 0x10;
-                byte StringLength = 0x20;
-                byte NickNameLength = 0x20;
-                byte ScoutIDOffset = 0x42;
-                byte ElementOffset = 0x5A;
-                byte GenderOffset = 0x52;
-                byte PlayerIndex = 0x5E;
-
-                ushort index = BitConverter.ToUInt16(File.ReadAllBytes(PlayerNamesFile).Skip(i + PlayerIndex).Take(2).ToArray(), 0);
-                byte[] StatsBlock = File.ReadAllBytes(StatsFile).Skip(index * UnitStatBlockLength).Take(UnitStatBlockLength).ToArray(); 
+                byte[] NameBlock = NameFile.Skip(i).Take(UnitBaseBlockLength).ToArray();
+                ushort index = BitConverter.ToUInt16(NameBlock.Skip(PlayerIndex).Take(2).ToArray(), 0);
+                byte[] StatsBlock = StatsFile.Skip(index * UnitStatBlockLength).Take(UnitStatBlockLength).ToArray();
 
                 if (Game == "IE3")
                 {
-                    ScoutIDOffset = 0x4E;
-                    StringLength = 0x1C;
-                    ElementOffset = 0x62;
-                    NickNameLength = 0x10;
-                    GenderOffset = 0x5A;
-                    NicknameStartPosJAP = 0x1C;
-                    PlayerIndex = 0x66;
-                    index = BitConverter.ToUInt16(File.ReadAllBytes(PlayerNamesFile).Skip(i + PlayerIndex).Take(2).ToArray(), 0);
-                    StatsBlock = File.ReadAllBytes(StatsFile).Skip(index * UnitStatBlockLength).Take(UnitStatBlockLength).ToArray();
                     Encryption.Decrypt(ref StatsBlock);
-                }
+                }                    
 
                 string FullPlayerName = "";
                 string PlayerNickName = "";
@@ -82,14 +85,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
                         {
                             // Currently using SJIS as text encoding
                             // Still need a better text encoding for IE3, German, Spanish and some French names are incorrect
-                            FullPlayerName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(i).Take(0x1C).ToArray());
-                            PlayerNickName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(i + StringLength).Take(NickNameLength).ToArray());
+                            FullPlayerName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(0).Take(0x1C).ToArray());
+                            PlayerNickName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(StringLength).Take(NickNameLength).ToArray());
                             break;
                         }
                     case "JAP":
                         {
-                            FullPlayerName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(i).Take(0x10).ToArray());
-                            PlayerNickName = Encoding.GetEncoding(932).GetString(File.ReadAllBytes(PlayerNamesFile).Skip(i + NicknameStartPosJAP).Take(0x10).ToArray());
+                            FullPlayerName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(0).Take(0x10).ToArray());
+                            PlayerNickName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(NicknameStartPosJAP).Take(0x10).ToArray());
                             break;
                         }
 
@@ -97,14 +100,12 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 FullPlayerName = FullPlayerName.Replace("\0", "");
                 PlayerNickName = PlayerNickName.Replace("\0", "");
 
-                ushort ScoutHexID = BitConverter.ToUInt16(File.ReadAllBytes(PlayerNamesFile).Skip(i + ScoutIDOffset).Take(2).ToArray(), 0);
-                byte Gender = File.ReadAllBytes(PlayerNamesFile).Skip(i + GenderOffset).ToArray()[0];
-                byte Position = File.ReadAllBytes(PlayerNamesFile).Skip(i + GenderOffset).Take(4).ToArray()[3];
-                byte PlayerSize = File.ReadAllBytes(PlayerNamesFile).Skip(i + GenderOffset).Take(4).ToArray()[2];
-                byte Element = File.ReadAllBytes(PlayerNamesFile).Skip(i + ElementOffset).ToArray()[0];
-                
-                
-                
+                ushort ScoutHexID = BitConverter.ToUInt16(NameBlock.Skip(ScoutIDOffset).Take(2).ToArray(), 0);
+                byte Gender = NameBlock.Skip(GenderOffset).ToArray()[0];
+                byte Position = NameBlock.Skip(GenderOffset).Take(4).ToArray()[3];
+                byte PlayerSize = NameBlock.Skip(GenderOffset).Take(4).ToArray()[2];
+                byte Element = NameBlock.Skip(ElementOffset).ToArray()[0];
+            
                 ushort MaxFP = BitConverter.ToUInt16(StatsBlock.Skip(2).Take(2).ToArray(), 0);
                 ushort MaxTP = BitConverter.ToUInt16(StatsBlock.Skip(0xA).Take(2).ToArray(), 0);
                 ushort MaxKick = StatsBlock[0x11];
@@ -115,17 +116,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ushort MaxGuts = StatsBlock[0x25];
                 ushort MaxStamina = StatsBlock[0x29];               
 
-                ushort Move1;
-                ushort Move1ObtainLevel;
+                ushort Move1, Move1ObtainLevel;
+                ushort Move2, Move2ObtainLevel;
+                ushort Move3, Move3ObtainLevel;
+                ushort Move4, Move4ObtainLevel;
 
-                ushort Move2;
-                ushort Move2ObtainLevel;
-
-                ushort Move3;
-                ushort Move3ObtainLevel;
-
-                ushort Move4;
-                ushort Move4ObtainLevel;
                 ushort Maxtotal;
 
                 if (Game == "IE" && region == "JAP")

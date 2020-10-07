@@ -43,7 +43,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(138, 23);
             this.button5.TabIndex = 10;
-            this.button5.Text = "Open Move Analyzer";
+            this.button5.Text = "Move Editor";
             this.button5.UseVisualStyleBackColor = true;
             // 
             // button2
@@ -53,7 +53,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 23);
             this.button2.TabIndex = 9;
-            this.button2.Text = "Open EXP Analyzer";
+            this.button2.Text = "EXP Pattern Editor";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button4
@@ -63,7 +63,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(138, 23);
             this.button4.TabIndex = 8;
-            this.button4.Text = "Open Item Extractor";
+            this.button4.Text = "Item Editor";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // button3
@@ -73,7 +73,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(138, 23);
             this.button3.TabIndex = 7;
-            this.button3.Text = "Open Team Extractor";
+            this.button3.Text = "Team Editor";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // btnStatsFormShow
@@ -82,7 +82,7 @@
             this.btnStatsFormShow.Name = "btnStatsFormShow";
             this.btnStatsFormShow.Size = new System.Drawing.Size(138, 23);
             this.btnStatsFormShow.TabIndex = 6;
-            this.btnStatsFormShow.Text = "View Player Stats";
+            this.btnStatsFormShow.Text = "Player Stats Editor";
             this.btnStatsFormShow.UseVisualStyleBackColor = true;
             this.btnStatsFormShow.Click += new System.EventHandler(this.btnStatsFormShow_Click);
             // 
@@ -107,6 +107,8 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnStatsFormShow);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Inazuma Eleven Toolbox";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
