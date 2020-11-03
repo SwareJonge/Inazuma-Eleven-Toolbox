@@ -122,28 +122,31 @@ namespace Inazuma_Eleven_Toolbox.Forms
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Filename = openFileDialog1.FileName;
-                Config.SaveFolder = Path.GetDirectoryName(openFileDialog1.FileName);
+                Config.SaveFolder = Path.GetDirectoryName(Filename);
                 Config.Save();
-                ModifiedBlock = File.ReadAllBytes(Filename);
-                byte[] Save_Data = File.ReadAllBytes(Filename);
-                string Game = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
-    
-                string TestIfInazumaSave = Encoding.ASCII.GetString(Save_Data.Skip(0x4).Take(0x7).ToArray());                
+                SavedataFull = FileIO.ReadFile(Filename);
+
+                string TestIfInazumaSave = Encoding.ASCII.GetString(SavedataFull.Skip(0x4).Take(0x7).ToArray());                
                 if (TestIfInazumaSave != "INAZUMA")
                 {
                     MessageBox.Show("This is not a Inazuma Eleven DS Save File!");
                     return;
                 }
-                if (Save_Data[0x17] == 0x4A)
+                if (SavedataFull[0x17] == 0x4A)
                 {
                     MessageBox.Show("Japanese save files are not supported since they have not been tested");
                     return;
                 }
-                if (Game == "INAZUMA_ELEVEN3" && openFileDialog1.FileName.EndsWith(".sav"))
+
+                string Game = Encoding.ASCII.GetString(SavedataFull.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
+
+                if (Game == "INAZUMA_ELEVEN3" && Filename.EndsWith(".sav"))
                 {
                     MessageBox.Show("The Japanese Version of IE3 is encrypted, the method to decrypt and encrypt has not been found yet.");
                     return;
                 }
+                
+                ModifiedBlock = SavedataFull;
 
                 SetOffsets(Game);
                 label4.Text = Game;
@@ -161,8 +164,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericUpDown4.Enabled = true;
                 numericUpDown5.Enabled = true;
                 numericUpDown6.Enabled = true;
-                numericUpDown17.Enabled = true;
-                numericUpDown18.Enabled = true;
+                //numericUpDown17.Enabled = true;
+                //numericUpDown18.Enabled = true;
                 numericUpDown19.Enabled = true;
                 button3.Enabled = true;
                 button4.Enabled = true;
@@ -176,9 +179,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericUpDown4.ReadOnly = false;
                 numericUpDown5.ReadOnly = false;
                 numericUpDown6.ReadOnly = false;
+                numericUpDown15.ReadOnly = false;
+                numericUpDown16.ReadOnly = false;
 
 
-                if(!isIE1)
+                if (!isIE1)
                 {
                     button1.Enabled = true;
                     button2.Enabled = true;
@@ -189,13 +194,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     button2.Enabled = false;
                 }
 
-                byte players = Save_Data[0x57];
+                byte players = SavedataFull[0x57];
                 if (players == 100)
                 {
                     button4.Enabled = false;
                 }
 
-                // These are used for stats, since i think they're unreliable to edit without knowing their current stats i think it's better to not include them
+                // These are used for stats, since i think they're unreliable to edit without knowing their current stats, it's better to not include them
 
                 //numericUpDown8.Enabled = true;
                 //numericUpDown9.Enabled = true;
@@ -204,16 +209,17 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 //numericUpDown12.Enabled = true;
                 //numericUpDown13.Enabled = true;
                 //numericUpDown14.Enabled = true;
+                numericUpDown15.Enabled = true;
+                numericUpDown16.Enabled = true;
                 //textBox19.Enabled = true;
                 //textBox20.Enabled = true;
                 //textBox21.Enabled = true;
-                saveToolStripMenuItem.Enabled = true;
-                
+                saveToolStripMenuItem.Enabled = true;                
 
-                numericPrestige.Value = BitConverter.ToInt32(Save_Data.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
-                numericFriendship.Value = BitConverter.ToInt32(Save_Data.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);
+                numericPrestige.Value = BitConverter.ToInt32(SavedataFull.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
+                numericFriendship.Value = BitConverter.ToInt32(SavedataFull.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);
                 // Need to figure out what encoding this game uses
-                txtBoxName.Text = Encoding.Default.GetString(Save_Data.Skip(NameOffset).Take(10).ToArray()).Replace("\0", "");
+                txtBoxName.Text = Encoding.Default.GetString(SavedataFull.Skip(NameOffset).Take(10).ToArray()).Replace("\0", "");
 
                 LoadItems();
 
@@ -226,12 +232,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
         void LoadPlayersIntoDataGridView(int Players)
         {
             dataGridView1.Rows.Clear();
+            byte[] block = new byte[length];
+            short PlayerHEX;
+            byte PlayerLevel;
             for (int i = PlayerStartOffset; i < PlayerStartOffset + (Players * length); i += length)
             {
-                byte[] block = ModifiedBlock.Skip(i).Take(length).ToArray();
+                block = ModifiedBlock.Skip(i).Take(length).ToArray();
 
-                short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
-                byte PlayerLevel = block[0x4A];
+                PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
+                PlayerLevel = block[0x4A];
 
                 dataGridView1.Rows.Add(((i - PlayerStartOffset) / length + 1).ToString(), P.HEXToPlayer[PlayerHEX], PlayerLevel.ToString(), "0x" + PlayerHEX.ToString("X2"));
             }
@@ -297,15 +306,17 @@ namespace Inazuma_Eleven_Toolbox.Forms
             }
         }
 
+        void PatchChecksum(int BlockStart, int Length, int ChecksumOffset)
+        {
+            byte[] block = ModifiedBlock.Skip(BlockStart).Take(Length).ToArray();
+            byte[] Checksum = BitConverter.GetBytes(Crc32.Compute(block));
+            ModifiedBlock = WriteData(ModifiedBlock, ChecksumOffset, Checksum, Checksum.Length);
+        }
         void PatchChecksums()
-        {            
-            byte[] Block2 = ModifiedBlock.Skip(Checksum2BlockStart).Take(Checksum2BlockLength).ToArray();
-            byte[] Checksum2 = BitConverter.GetBytes(Crc32.Compute(Block2));
-            ModifiedBlock = WriteData(ModifiedBlock, Checksum1BlockStart, Checksum2, Checksum2.Length);
-
-            byte[] Block1 = ModifiedBlock.Skip(Checksum1BlockStart).Take(Checksum1BlockLength).ToArray();
-            byte[] Checksum1 = BitConverter.GetBytes(Crc32.Compute(Block1));
-            ModifiedBlock = WriteData(ModifiedBlock, Checksum1Offset, Checksum1, Checksum1.Length);
+        {
+            // Patch Second Checksum first since it's in the block of the first checksum
+            PatchChecksum(Checksum2BlockStart, Checksum2BlockLength, Checksum1BlockStart); // Checksum1BlockStart is the same as CheckSum2Offset
+            PatchChecksum(Checksum1BlockStart, Checksum1BlockLength, Checksum1Offset);
         }
 
         void ImportPlayer(int Index, bool isImportPlayer)
@@ -328,7 +339,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             {
                 Config.PlayerFolder = Path.GetDirectoryName(OpenPlayer.FileName);
                 Config.Save();
-                byte[] Player = File.ReadAllBytes(OpenPlayer.FileName).ToArray();
+                byte[] Player = FileIO.ReadFile(OpenPlayer.FileName).ToArray();
                 if(OpenPlayer.FileName.EndsWith(".pla"))
                 {
                     string hex = File.ReadAllText(OpenPlayer.FileName);
@@ -355,37 +366,64 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
             int j = DataGridviewIndexFromCell();
 
+            // Init This Before executing the for loop, should save some time
+            byte[] block = new byte[length];
             if (j < 100)
-            {
-                byte[] Save_Data = ModifiedBlock;
-                byte players = Save_Data[0x57];
+            {                
+                byte players = ModifiedBlock[0x57];
+                block = ModifiedBlock.Skip((j * length) + PlayerStartOffset).Take(length).ToArray();
 
-                byte[] block = Save_Data.Skip((j * length) + PlayerStartOffset).Take(length).ToArray();
-
-                short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
                 uint EXP = BitConverter.ToUInt32(block.Skip(0x0).Take(4).ToArray(), 0);
+                short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
+
+                // Make this bit a little more efficient / look cleaner by using for loops
+                ushort[] ConsumablePoints = new ushort[2];
+                ushort[] TrainedConsumablePoints = new ushort[2];
+                // This is for FP and TP
+                for (int i = 0; i < 4; i += 2)
+                {
+                    int k = i / 2;
+                    ConsumablePoints[k] = BitConverter.ToUInt16(block.Skip(0x34 + i).Take(2).ToArray(), 0);
+                    TrainedConsumablePoints[k] = BitConverter.ToUInt16(block.Skip(0x18 + i).Take(2).ToArray(), 0);
+                }
+
+                ushort[] move = new ushort[6];
+                byte[] moveLevel = new byte[6];
+                for(int i = 0; i < 12; i+=2)
+                {
+                    int k = i / 2; // since we need to do this multiple times, make it a local variable                  
+                    move[k] = BitConverter.ToUInt16(block.Skip(0x38 + i).Take(2).ToArray(), 0);
+                    moveLevel[k] = block[0x44 + k];
+                }
+
                 byte PlayerLevel = block[0x4A];
 
-                short MoveS1 = BitConverter.ToInt16(block.Skip(0x38).Take(2).ToArray(), 0);
-                short MoveS2 = BitConverter.ToInt16(block.Skip(0x3A).Take(2).ToArray(), 0);
-                short MoveS3 = BitConverter.ToInt16(block.Skip(0x3C).Take(2).ToArray(), 0);
-                short MoveS4 = BitConverter.ToInt16(block.Skip(0x3E).Take(2).ToArray(), 0);
-                short MoveS5 = BitConverter.ToInt16(block.Skip(0x40).Take(2).ToArray(), 0);
-                short MoveS6 = BitConverter.ToInt16(block.Skip(0x42).Take(2).ToArray(), 0);
-                byte Move1Level = block[0x44];
-                byte Move2Level = block[0x45];
-                byte Move3Level = block[0x46];
-                byte Move4Level = block[0x47];
-                byte Move5Level = block[0x48];
-                byte Move6Level = block[0x49];
+                sbyte[] TrainedValue = new sbyte[7];
+                for(int i = 0; i < 7; i++)
+                {
+                    TrainedValue[i] = (sbyte)block[0x4F + i];
+                }
 
+                numericUpDown15.Value = TrainedConsumablePoints[0];
+                numericUpDown16.Value = TrainedConsumablePoints[1];
 
-                comboBox1.Text = D.MoveToStr[MoveS1];
-                comboBox2.Text = D.MoveToStr[MoveS2];
-                comboBox3.Text = D.MoveToStr[MoveS3];
-                comboBox4.Text = D.MoveToStr[MoveS4];
-                comboBox5.Text = D.MoveToStr[MoveS5];
-                comboBox6.Text = D.MoveToStr[MoveS6];
+                numericUpDown17.Value = ConsumablePoints[0];
+                numericUpDown18.Value = ConsumablePoints[1];
+
+                numericUpDown8.Value = TrainedValue[0];
+                numericUpDown9.Value = TrainedValue[1];
+                numericUpDown10.Value = TrainedValue[3];
+                numericUpDown11.Value = TrainedValue[2];
+                numericUpDown12.Value = TrainedValue[4];
+                numericUpDown13.Value = TrainedValue[6];
+                numericUpDown14.Value = TrainedValue[5];
+
+                comboBox1.Text = D.MoveToStr[move[0]];
+                comboBox2.Text = D.MoveToStr[move[1]];
+                comboBox3.Text = D.MoveToStr[move[2]];
+                comboBox4.Text = D.MoveToStr[move[3]];
+                comboBox5.Text = D.MoveToStr[move[4]];
+                comboBox6.Text = D.MoveToStr[move[5]];
 
                 string Move1EvolveType = SetReadOnly(numericUpDown1, comboBox1);
                 string Move2EvolveType = SetReadOnly(numericUpDown2, comboBox2);
@@ -394,38 +432,16 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 string Move5EvolveType = SetReadOnly(numericUpDown5, comboBox5);
                 string Move6EvolveType = SetReadOnly(numericUpDown6, comboBox6);
 
-                SetMoveLevels(numericUpDown1, Move1EvolveType, Move1Level);
-                SetMoveLevels(numericUpDown2, Move2EvolveType, Move2Level);
-                SetMoveLevels(numericUpDown3, Move3EvolveType, Move3Level);
-                SetMoveLevels(numericUpDown4, Move4EvolveType, Move4Level);
-                SetMoveLevels(numericUpDown5, Move5EvolveType, Move5Level);
-                SetMoveLevels(numericUpDown6, Move6EvolveType, Move6Level);
+                SetMoveLevels(numericUpDown1, Move1EvolveType, moveLevel[0]);
+                SetMoveLevels(numericUpDown2, Move2EvolveType, moveLevel[1]);
+                SetMoveLevels(numericUpDown3, Move3EvolveType, moveLevel[2]);
+                SetMoveLevels(numericUpDown4, Move4EvolveType, moveLevel[3]);
+                SetMoveLevels(numericUpDown5, Move5EvolveType, moveLevel[4]);
+                SetMoveLevels(numericUpDown6, Move6EvolveType, moveLevel[5]);
 
                 short Boots = BitConverter.ToInt16(block.Skip(0x10).Take(2).ToArray(), 0);
                 short Other1 = BitConverter.ToInt16(block.Skip(0x12).Take(2).ToArray(), 0);
                 short Other2 = BitConverter.ToInt16(block.Skip(0x14).Take(2).ToArray(), 0);
-
-                ushort RemainingFP = BitConverter.ToUInt16(block.Skip(0x34).Take(2).ToArray(), 0);
-                ushort RemainingTP = BitConverter.ToUInt16(block.Skip(0x36).Take(2).ToArray(), 0);
-
-                byte TrainedKick = block[0x4F];
-                byte TrainedBody = block[0x50];
-                byte TrainedControl = block[0x52];
-                byte TrainedGuard = block[0x51];
-                byte TrainedSpeed = block[0x53];
-                byte TrainedStamina = block[0x55];
-                byte TrainedGuts = block[0x54];
-
-                numericUpDown17.Value = RemainingFP;
-                numericUpDown18.Value = RemainingTP;
-
-                numericUpDown8.Value = (sbyte)TrainedKick;
-                numericUpDown9.Value = (sbyte)TrainedBody;
-                numericUpDown10.Value = (sbyte)TrainedControl;
-                numericUpDown11.Value = (sbyte)TrainedGuard;
-                numericUpDown12.Value = (sbyte)TrainedSpeed;
-                numericUpDown13.Value = (sbyte)TrainedStamina;
-                numericUpDown14.Value = (sbyte)TrainedGuts;
 
                 textBox19.Text = IC.EquipmentOffsetToStr[Boots];
                 textBox20.Text = IC.EquipmentOffsetToStr[Other1];
@@ -563,11 +579,16 @@ namespace Inazuma_Eleven_Toolbox.Forms
                         ModifiedBlock = WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
                     }
                     else continue; 
-                }              
-
+                }
             }
+        }
 
-
+        void SetConsumablePoints(int PlayerIndex, byte Value, int Patchoffset)
+        {
+            int PlayerOffset = (PlayerIndex * length);
+            byte[] block = ModifiedBlock.Skip(PlayerOffset + PlayerStartOffset).Take(length).ToArray();
+            block[Patchoffset] = Value;
+            ModifiedBlock = WriteData(ModifiedBlock, PlayerOffset + PlayerStartOffset, block, block.Length);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -636,8 +657,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             };
 
             if (isIE3)
-            {
-                
+            {                
                 savePlayer.FilterIndex = Config.DefaultExportExt;
                 savePlayer.Filter = "IE3Player Files (*.IE3Player)|*.IE3Player|NFFM3 Player File (*.pla)|*.pla";
                 //MessageBox.Show(Config.DefaultExportExt);
@@ -745,6 +765,32 @@ namespace Inazuma_Eleven_Toolbox.Forms
         private void Save_Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
             
+        }
+
+        private void numericUpDown15_ValueChanged(object sender, EventArgs e)
+        {
+            SetConsumablePoints(DataGridviewIndexFromCell(), (byte)numericUpDown15.Value, 0x18);
+        }
+
+        private void numericUpDown16_ValueChanged(object sender, EventArgs e)
+        {
+            SetConsumablePoints(DataGridviewIndexFromCell(), (byte)numericUpDown15.Value, 0x1A);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SetConsumablePoints(DataGridviewIndexFromCell(), 50, 0x18); // FP
+            SetConsumablePoints(DataGridviewIndexFromCell(), 50, 0x1A); // TP
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            byte players = ModifiedBlock[0x57];
+            for (int i = 0; i < players; i++)
+            {
+                SetConsumablePoints(i, 50, 0x18); // FP
+                SetConsumablePoints(i, 50, 0x1A); // TP
+            }
         }
     }
 }

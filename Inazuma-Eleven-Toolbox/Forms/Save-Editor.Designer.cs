@@ -30,7 +30,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,6 +141,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericPrestige = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -245,6 +247,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button9);
+            this.tabPage1.Controls.Add(this.button8);
             this.tabPage1.Controls.Add(this.textBox22);
             this.tabPage1.Controls.Add(this.label26);
             this.tabPage1.Controls.Add(this.numericUpDown18);
@@ -392,10 +396,16 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             this.numericUpDown16.Enabled = false;
             this.numericUpDown16.Location = new System.Drawing.Point(182, 95);
+            this.numericUpDown16.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             this.numericUpDown16.Name = "numericUpDown16";
             this.numericUpDown16.ReadOnly = true;
             this.numericUpDown16.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown16.TabIndex = 37;
+            this.numericUpDown16.ValueChanged += new System.EventHandler(this.numericUpDown16_ValueChanged);
             // 
             // label24
             // 
@@ -410,10 +420,16 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             this.numericUpDown15.Enabled = false;
             this.numericUpDown15.Location = new System.Drawing.Point(182, 69);
+            this.numericUpDown15.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             this.numericUpDown15.Name = "numericUpDown15";
             this.numericUpDown15.ReadOnly = true;
             this.numericUpDown15.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown15.TabIndex = 35;
+            this.numericUpDown15.ValueChanged += new System.EventHandler(this.numericUpDown15_ValueChanged);
             // 
             // label22
             // 
@@ -1281,8 +1297,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             // Column7
             // 
-            dataGridViewCellStyle1.NullValue = null;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle9;
             this.Column7.HeaderText = "HEX ID";
             this.Column7.Name = "Column7";
             // 
@@ -1387,6 +1403,26 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Prestige Points:";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(7, 305);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(192, 23);
+            this.button8.TabIndex = 47;
+            this.button8.Text = "Set Max FP + TP For Current  Player";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(205, 305);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(192, 23);
+            this.button9.TabIndex = 48;
+            this.button9.Text = "Set Max FP + TP For All Players";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // Save_Editor
             // 
@@ -1556,5 +1592,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TextBox txtBoxName;
         private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button8;
     }
 }

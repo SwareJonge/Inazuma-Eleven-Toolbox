@@ -23,7 +23,7 @@ namespace Inazuma_Eleven_Toolbox
             }
             else
             {
-                MessageBox.Show("Test");
+                MessageBox.Show("This program can't run without \"Inazuma - Eleven - Toolbox.exe.config\"");
             }
         }
     }

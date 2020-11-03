@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using INAZUMA11;
 using Inazuma_Eleven_Toolbox.Dictionaries.ENG;
+using Inazuma_Eleven_Toolbox.Utils;
 
 
 namespace Inazuma_Eleven_Toolbox.Forms
@@ -63,14 +64,17 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 PlayerIndex = 0x66;
             }
 
-            byte[] NameFile = File.ReadAllBytes(PlayerNamesFileName).ToArray();
-            byte[] StatsFile = File.ReadAllBytes(StatsFileName).ToArray();
+            byte[] NameFile = FileIO.ReadFile(PlayerNamesFileName);
+            byte[] StatsFile = FileIO.ReadFile(StatsFileName);
+
+            byte[] NameBlock = new byte[UnitBaseBlockLength];
+            byte[] StatsBlock = new byte[UnitStatBlockLength];
 
             for (int i = UnitBaseBlockLength; i <= UnitBaseEndOffset; i += UnitBaseBlockLength)
             {
-                byte[] NameBlock = NameFile.Skip(i).Take(UnitBaseBlockLength).ToArray();
+                NameBlock = NameFile.Skip(i).Take(UnitBaseBlockLength).ToArray();
                 ushort index = BitConverter.ToUInt16(NameBlock.Skip(PlayerIndex).Take(2).ToArray(), 0);
-                byte[] StatsBlock = StatsFile.Skip(index * UnitStatBlockLength).Take(UnitStatBlockLength).ToArray();
+                StatsBlock = StatsFile.Skip(index * UnitStatBlockLength).Take(UnitStatBlockLength).ToArray();
 
                 if (Game == "IE3")
                 {

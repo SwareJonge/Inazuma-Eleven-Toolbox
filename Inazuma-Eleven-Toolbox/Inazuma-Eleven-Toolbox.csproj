@@ -72,8 +72,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\CRC32.cs" />
-    <Compile Include="Utils\Encryption.cs" />
+    <Compile Include="DamienG\Security\Cryptography\CRC32.cs" />
+    <Compile Include="INAZUMA11\Encryption.cs" />
+    <Compile Include="Utils\FileIO.cs" />
     <Compile Include="Utils\NFFM3_Plugin.cs" />
     <EmbeddedResource Include="Forms\Save-Editor.resx">
       <DependentUpon>Save-Editor.cs</DependentUpon>
@@ -93,51 +94,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Game FIles\EUR\IE2\command.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE2\command.STR">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE2\item.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE2\sp_binder.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE2\unitbase.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE2\unitstat.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE3\French\item.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE3\German\item.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE3\item.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE3\JP\save_HDR.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE3\unitbase.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE3\unitstat.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE3\usearch.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE\unitbase.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Game FIles\EUR\IE\unitstat.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\DataSources\DamienG.Security.Cryptography.Crc32.datasource" />
     <None Include="Properties\DataSources\Form1.datasource" />
     <None Include="Properties\DataSources\INAZUMA11.Encryption.datasource" />
@@ -164,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dictionaries\JAP\" />
-    <Folder Include="Game FIles\JAP\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

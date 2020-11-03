@@ -14,6 +14,7 @@ namespace INAZUMA11
             buff[Byte1] = buff[Byte2];
             buff[Byte2] = b;
         }
+
         public static void Decrypt(ref byte[] data)
         {
             // First operation: XOR with 0xAD and shift bits
@@ -46,9 +47,6 @@ namespace INAZUMA11
             {
                 shiftBytes(data, (byte)i, (byte)(i + 1));
             }
-
-
         }
     }
-
 }
