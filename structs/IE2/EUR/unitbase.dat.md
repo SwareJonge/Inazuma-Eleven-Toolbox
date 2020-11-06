@@ -5,7 +5,7 @@ Length: 0x60, start of file: 0x60
 | --- | --- | --- | --- |
 | 0x0 | Full Name | string | Player's full name |
 | 0x20 | Nickname | string | Player's nickname |
-| 0x40 | EXP Growing Type | byte | there are around 8 different exp growth types |
+| 0x40 | EXP Growing Type | byte | more detailed view [here](https://github.com/SwareJonge/Inazuma-Eleven-Toolbox/blob/master/Inazuma-Eleven-Toolbox/Logic/EXP.cs) |
 | 0x42 | Scout ID | short | HEX ID for the Scout ID, also defines texts in menus |
 | 0x44 | Model Data | short | 2D portrait sprite, head model and model face |
 | 0x46 | Sprite specs | short | Body sprite specifications |
