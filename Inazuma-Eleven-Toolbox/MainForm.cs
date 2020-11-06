@@ -33,5 +33,10 @@ namespace Inazuma_Eleven_Toolbox
         {
             Config.Save();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -12,6 +12,7 @@ using DamienG.Security.Cryptography;
 using System.Windows.Forms;
 using Inazuma_Eleven_Toolbox.Dictionaries.ENG;
 using Inazuma_Eleven_Toolbox.Forms._Save_Editor.Config;
+using Inazuma_Eleven_Toolbox.Logic;
 
 namespace Inazuma_Eleven_Toolbox.Forms
 {
@@ -28,8 +29,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         public int length = 0;
         public bool isIE3 = false;
         public bool isIE2 = false;
-        public bool isIE1 = false;
-        
+        public bool isIE1 = false;        
 
         int Checksum1Offset = 0x40;
         int Checksum1BlockStart = 0x44;
@@ -44,11 +44,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
         ItemsIE2 ItemIE2 = new ItemsIE2();
         IECommonDictionary D = new IECommonDictionary();
         Moves M = new Moves();
-        Players P = new Players();
+        PlayerFuncs P = new PlayerFuncs();
 
-        int DataGridviewIndexFromCell()
+        int DataGridviewIndexFromCell(int index)
         {
-            int i = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value) - 1;
+            int i = Convert.ToInt32(dataGridView1.Rows[index].Cells[0].Value) - 1;
             if (i == -1)
             {
                 return dataGridView1.CurrentRow.Index;
@@ -164,6 +164,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericUpDown4.Enabled = true;
                 numericUpDown5.Enabled = true;
                 numericUpDown6.Enabled = true;
+                numericUpDown7.Enabled = true;
                 //numericUpDown17.Enabled = true;
                 //numericUpDown18.Enabled = true;
                 numericUpDown19.Enabled = true;
@@ -179,6 +180,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericUpDown4.ReadOnly = false;
                 numericUpDown5.ReadOnly = false;
                 numericUpDown6.ReadOnly = false;
+                numericUpDown7.ReadOnly = false;
                 numericUpDown15.ReadOnly = false;
                 numericUpDown16.ReadOnly = false;
 
@@ -278,32 +280,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
             }
         }
 
-        void SetNewItemAmount(byte Amount)
-        {            
-            for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
-            {
-                if (isIE3)
-                {
-                    if (new ItemsIE3().ItemSaveFilePos.ContainsKey(i))
-                    {
-                        ModifiedBlock[i] = Amount;
-                    }
-                    continue;
-                }
-                if (isIE2 || isIE1)
-                {
-                    if (new ItemsIE2().ItemSaveFilePos.ContainsKey(i))
-                    {
-                        ModifiedBlock[i] = Amount;
-                    }
-                    continue;
-                }
-                else
-                {
-                    continue;
-                }
-
-            }
+        void SetNewItemAmount(byte Amount, int offset)
+        {
+            ModifiedBlock[offset] = Amount;
         }
 
         void PatchChecksum(int BlockStart, int Length, int ChecksumOffset)
@@ -364,7 +343,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         void LoadPlayer()
         {
-            int j = DataGridviewIndexFromCell();
+            int j = DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index);
 
             // Init This Before executing the for loop, should save some time
             byte[] block = new byte[length];
@@ -526,7 +505,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         void SaveMoveLevel(ComboBox MoveName, NumericUpDown MoveLevel, int LevelOffset)
         {
-            int Player = DataGridviewIndexFromCell();
+            int Player = DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index);
             byte players = ModifiedBlock[0x57];
             byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
 
@@ -623,7 +602,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SetAllMaxLevels(DataGridviewIndexFromCell());
+            SetAllMaxLevels(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -638,13 +617,32 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button5_Click(object sender, EventArgs e)
         {
-            SetNewItemAmount((byte)numericUpDown19.Value);
-            LoadItems();
+            for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
+            {
+                if (isIE3)
+                {
+                    if (new ItemsIE3().ItemSaveFilePos.ContainsKey(i))
+                    {
+                        SetNewItemAmount((byte)numericUpDown19.Value, i);
+                    }
+                    else continue;
+                }
+                if (isIE1 || isIE2)
+                {
+                    if (new ItemsIE2().ItemSaveFilePos.ContainsKey(i))
+                    {
+                        SetNewItemAmount((byte)numericUpDown19.Value, i);
+                    }
+                    else continue;
+                }
+            }
+                        
+            LoadItems(); // Reload datagridview
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int Player = DataGridviewIndexFromCell();
+            int Player = DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index);
             byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
             SaveFileDialog savePlayer = new SaveFileDialog
             {
@@ -660,7 +658,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
             {                
                 savePlayer.FilterIndex = Config.DefaultExportExt;
                 savePlayer.Filter = "IE3Player Files (*.IE3Player)|*.IE3Player|NFFM3 Player File (*.pla)|*.pla";
-                //MessageBox.Show(Config.DefaultExportExt);
                 savePlayer.FileName = textBox22.Text;
             }
 
@@ -716,7 +713,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 return;
             }
             // Replace Player
-            ImportPlayer(DataGridviewIndexFromCell(), false);
+            ImportPlayer(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), false);
             // Reload Datagridview
             LoadPlayersIntoDataGridView(ModifiedBlock[0x57]);
         }
@@ -769,18 +766,18 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void numericUpDown15_ValueChanged(object sender, EventArgs e)
         {
-            SetConsumablePoints(DataGridviewIndexFromCell(), (byte)numericUpDown15.Value, 0x18);
+            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), (byte)numericUpDown15.Value, 0x18);
         }
 
         private void numericUpDown16_ValueChanged(object sender, EventArgs e)
         {
-            SetConsumablePoints(DataGridviewIndexFromCell(), (byte)numericUpDown15.Value, 0x1A);
+            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), (byte)numericUpDown15.Value, 0x1A);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            SetConsumablePoints(DataGridviewIndexFromCell(), 50, 0x18); // FP
-            SetConsumablePoints(DataGridviewIndexFromCell(), 50, 0x1A); // TP
+            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), 50, 0x18); // FP
+            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), 50, 0x1A); // TP
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -791,6 +788,64 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 SetConsumablePoints(i, 50, 0x18); // FP
                 SetConsumablePoints(i, 50, 0x1A); // TP
             }
+        }
+
+        void editPlayerlevel(byte level, int offset)
+        {
+            int PlayerBlockOffset = (offset * length);
+            byte[] block = ModifiedBlock.Skip(PlayerStartOffset + PlayerBlockOffset).Take(length).ToArray();
+            ushort ScoutID = BitConverter.ToUInt16(block.Skip(0x4).Take(2).ToArray(), 0);
+            EXP E = new EXP();
+
+            int EXPType = 0;
+            if (isIE1 || isIE2)
+            {
+                PlayerClass.IE2 IE2Class = new PlayerClass.IE2();
+                if(!IE2Class.IE2Player.ContainsKey(ScoutID))
+                {
+                    MessageBox.Show("An unknown Error occured");
+                    return;
+                }
+                EXPType = IE2Class.IE2Player[ScoutID].EXPType;
+            }
+            if (isIE3)
+            {
+                PlayerClass.IE3 IE3Class = new PlayerClass.IE3();
+                if (!IE3Class.IE3Player.ContainsKey(ScoutID))
+                {
+                    MessageBox.Show("An unknown Error occured");
+                    return;
+                }
+                EXPType = IE3Class.IE3Player[ScoutID].EXPType;
+            }
+            SetConsumablePoints(offset, level, 0x4a); // Write New Player Level
+            uint EXPToWrite = E.TypeToExp[EXPType][block[0x4a] - 1];
+            byte[] WriteThing = BitConverter.GetBytes(EXPToWrite);
+
+            ModifiedBlock = WriteData(ModifiedBlock, PlayerStartOffset + PlayerBlockOffset, WriteThing, WriteThing.Length); // no extra formatting to do since the EXP offset is 0            
+        }
+
+        private void numericUpDown7_ValueChanged(object sender, EventArgs e)
+        {
+            int Player = DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index);
+            editPlayerlevel((byte)numericUpDown7.Value, Player);
+            dataGridView1.Rows[Player].Cells[2].Value = numericUpDown7.Value; // Reload DataGridview
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int Player = DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index);
+            byte level = Convert.ToByte(dataGridView1.Rows[Player].Cells[2].Value);            
+            editPlayerlevel(level, Player);
+        }
+
+        private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int Offset = DataGridviewIndexFromCell(dataGridView2.CurrentRow.Index);
+            byte Amount = Convert.ToByte(dataGridView2.Rows[Offset].Cells[1].Value.ToString().Remove(0, 2)); // Remove "0x"
+            int HEXID = Convert.ToInt32(dataGridView2.Rows[Offset].Cells[2].Value);
+            
+            SetNewItemAmount(Amount, HEXID + Checksum2BlockStart);
         }
     }
 }

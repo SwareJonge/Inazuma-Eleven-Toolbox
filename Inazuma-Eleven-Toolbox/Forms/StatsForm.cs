@@ -11,7 +11,6 @@ using INAZUMA11;
 using Inazuma_Eleven_Toolbox.Dictionaries.ENG;
 using Inazuma_Eleven_Toolbox.Utils;
 
-
 namespace Inazuma_Eleven_Toolbox.Forms
 {
     public partial class StatsForm : Form
@@ -49,12 +48,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte NicknameStartPosJAP = 0x10;
             byte StringLength = 0x20;
             byte NickNameLength = 0x20;
+            byte EXPOffset = 0x40;
             byte ScoutIDOffset = 0x42;
             byte ElementOffset = 0x5A;
             byte GenderOffset = 0x52;
             byte PlayerIndex = 0x5E;
             if (Game == "IE3")
             {
+                EXPOffset = 0x4C;
                 ScoutIDOffset = 0x4E;
                 StringLength = 0x1C;
                 ElementOffset = 0x62;
@@ -105,6 +106,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 PlayerNickName = PlayerNickName.Replace("\0", "");
 
                 ushort ScoutHexID = BitConverter.ToUInt16(NameBlock.Skip(ScoutIDOffset).Take(2).ToArray(), 0);
+                byte EXPType = NameBlock[EXPOffset];
                 byte Gender = NameBlock.Skip(GenderOffset).ToArray()[0];
                 byte Position = NameBlock.Skip(GenderOffset).Take(4).ToArray()[3];
                 byte PlayerSize = NameBlock.Skip(GenderOffset).Take(4).ToArray()[2];
@@ -118,7 +120,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ushort MaxControl = StatsBlock[0x1D];
                 ushort MaxSpeed = StatsBlock[0x21];
                 ushort MaxGuts = StatsBlock[0x25];
-                ushort MaxStamina = StatsBlock[0x29];               
+                ushort MaxStamina = StatsBlock[0x29];
 
                 ushort Move1, Move1ObtainLevel;
                 ushort Move2, Move2ObtainLevel;
@@ -152,8 +154,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     Maxtotal = BitConverter.ToUInt16(StatsBlock.Skip(0x3C).Take(2).ToArray(), 0);
                 }
 
-                short Freedom = (short)(Maxtotal - (MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina));
                 ushort StatsTotal = (ushort)(MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina);
+                sbyte Freedom = (sbyte)(Maxtotal - StatsTotal);
 
                 dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
                     D.PosByteToString(Position), D.GenderToString[Gender], D.SizeToString(PlayerSize), D.ElementToStr[Element], 

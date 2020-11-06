@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 {
-    public class Players
+    public class PlayerFuncs
     {
         public IDictionary<int, string> HEXToPlayer = new Dictionary<int, string>
         {

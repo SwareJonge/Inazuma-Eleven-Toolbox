@@ -64,6 +64,8 @@
     <Compile Include="Forms\StatsForm.Designer.cs">
       <DependentUpon>StatsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\EXP.cs" />
+    <Compile Include="Logic\Player.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
