@@ -818,11 +818,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 }
                 EXPType = IE3Class.IE3Player[ScoutID].EXPType;
             }
-            SetConsumablePoints(offset, level, 0x4a); // Write New Player Level
+
+            block[0x4a] = level;
+
             uint EXPToWrite = E.TypeToExp[EXPType][block[0x4a] - 1];
             byte[] WriteThing = BitConverter.GetBytes(EXPToWrite);
 
-            ModifiedBlock = WriteData(ModifiedBlock, PlayerStartOffset + PlayerBlockOffset, WriteThing, WriteThing.Length); // no extra formatting to do since the EXP offset is 0            
+            block = WriteData(block, 0x0, WriteThing, WriteThing.Length);
+            ModifiedBlock = WriteData(ModifiedBlock, PlayerStartOffset + PlayerBlockOffset, block, block.Length); // no extra formatting to do since the EXP offset is 0            
         }
 
         private void numericUpDown7_ValueChanged(object sender, EventArgs e)
@@ -842,9 +845,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
         private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int Offset = DataGridviewIndexFromCell(dataGridView2.CurrentRow.Index);
-            byte Amount = Convert.ToByte(dataGridView2.Rows[Offset].Cells[1].Value.ToString().Remove(0, 2)); // Remove "0x"
-            int HEXID = Convert.ToInt32(dataGridView2.Rows[Offset].Cells[2].Value);
-            
+            byte Amount = Convert.ToByte(dataGridView2.Rows[Offset].Cells[1].Value); 
+            int HEXID = Convert.ToInt32(dataGridView2.Rows[Offset].Cells[2].Value.ToString().Remove(0, 2)); // Remove "0x"
+
             SetNewItemAmount(Amount, HEXID + Checksum2BlockStart);
         }
     }
