@@ -3,9 +3,9 @@ Length: 0x50, start of file: 0x50
 
 | Offset | Name | DataType | Notes |
 | --- | --- | --- | --- |
-| 0x0 | TP | short[3] | Min, Max, GrowthRate |  
+| 0x0 | FP | short[3] | Min, Max, GrowthRate |  
 | 0x6 | unk | short | unknown |
-| 0x8 | FP | short[3] | Min, Max, GrowthRate |
+| 0x8 | TP | short[3] | Min, Max, GrowthRate |
 | 0xE | unk2 | short | unknown |
 | 0x10 | Kick | byte[2] | Min, Max |
 | 0x12 | KickGrowthRate | short | GrowthRate |
