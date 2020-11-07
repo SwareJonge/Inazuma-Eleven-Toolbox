@@ -25,9 +25,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
             /*                   StatsBlock Layout
  *           Length: 0x40 in IE(JAP) 0x50 in IE(EUR) & IE2, 0x48 in IE3
  *            IE3 doesn't have the garbage values
- * (short[3]) TP: 0x0 - MinTP, 0x2 - MaxTP, 0x4 - TPGrowthRate
+ * (short[3]) TP: 0x0 - MinTP, 0x2 - MaxTP, 0x4 - FPGrowthRate
  * short 0x6 - unk
- * (short[3]) FP: 0x8 - MinFP, 0xA - MaxFP, 0xC - FPGrowthRate
+ * (short[3]) FP: 0x8 - MinFP, 0xA - MaxFP, 0xC - TPGrowthRate
  * short 0xE - unk
  * (byte[2]) Kick: 0x10 - Min, 0x11 - Max, short 0x12 - GrowthRate
  * (byte[2]) Body: 0x14 - Min, 0x15 - Max, short 0x16 - GrowthRate
@@ -107,20 +107,39 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 ushort ScoutHexID = BitConverter.ToUInt16(NameBlock.Skip(ScoutIDOffset).Take(2).ToArray(), 0);
                 byte EXPType = NameBlock[EXPOffset];
-                byte Gender = NameBlock.Skip(GenderOffset).ToArray()[0];
+                byte Gender = NameBlock[GenderOffset];
                 byte Position = NameBlock.Skip(GenderOffset).Take(4).ToArray()[3];
                 byte PlayerSize = NameBlock.Skip(GenderOffset).Take(4).ToArray()[2];
-                byte Element = NameBlock.Skip(ElementOffset).ToArray()[0];
-            
+                byte Element = NameBlock[ElementOffset];
+
+                ushort MinFP = BitConverter.ToUInt16(StatsBlock.Skip(0).Take(2).ToArray(), 0);
                 ushort MaxFP = BitConverter.ToUInt16(StatsBlock.Skip(2).Take(2).ToArray(), 0);
+                byte FPgrowthRate = StatsBlock[0x4];
+
+                ushort MinTP = BitConverter.ToUInt16(StatsBlock.Skip(0x8).Take(2).ToArray(), 0);
                 ushort MaxTP = BitConverter.ToUInt16(StatsBlock.Skip(0xA).Take(2).ToArray(), 0);
+                byte TPgrowthRate = StatsBlock[0xC];
+
+                ushort MinKick = StatsBlock[0x10];
                 ushort MaxKick = StatsBlock[0x11];
+                ushort MinBody = StatsBlock[0x14];
                 ushort MaxBody = StatsBlock[0x15];
+                ushort MinGuard = StatsBlock[0x18];
                 ushort MaxGuard = StatsBlock[0x19];
+                ushort MinControl = StatsBlock[0x1C];
                 ushort MaxControl = StatsBlock[0x1D];
+                ushort MinSpeed = StatsBlock[0x20];
                 ushort MaxSpeed = StatsBlock[0x21];
+                ushort MinGuts = StatsBlock[0x24];
                 ushort MaxGuts = StatsBlock[0x25];
+                ushort MinStamina = StatsBlock[0x28];
                 ushort MaxStamina = StatsBlock[0x29];
+
+                byte[] growthRate = new byte[7];
+                for (int K = 0; K < 7; K++)
+                {
+                    growthRate[K] = StatsBlock[0x12 + (K * 4)];
+                }
 
                 ushort Move1, Move1ObtainLevel;
                 ushort Move2, Move2ObtainLevel;
@@ -155,9 +174,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 }
 
                 ushort StatsTotal = (ushort)(MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina);
-                sbyte Freedom = (sbyte)(Maxtotal - StatsTotal);
+                short Freedom = (short)(Maxtotal - StatsTotal); // has to be signed since in IE3 it can be negative
 
-                dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
+                 /*Console.WriteLine("private static Player " + FullPlayerName.Replace(" ", "_").Replace("\'", "_").Replace(".", "_").Replace("-", "_").Replace("’", "_").Replace("?", "_") + " = new Player(" + 
+                 MaxFP + ", " + MaxTP + ", " + (byte)MaxKick + ", " + (byte)MaxBody + ", " + (byte)MaxControl + ", " + (byte)MaxGuard + ", " + (byte)MaxSpeed + ", " + (byte)MaxStamina + ", " + (byte)MaxGuts + ", " + StatsTotal + ", "
+                 + MinFP + ", " + MinTP + ", " + (byte)MinKick + ", " + (byte)MinBody + ", " + (byte)MinControl + ", " + (byte)MinGuard + ", " + (byte)MinSpeed + ", " + (byte)MinStamina + ", " + (byte)MinGuts + ", " 
+                 + FPgrowthRate + ", " + TPgrowthRate + ", " + growthRate[0] + ", " + growthRate[1] + ", " + growthRate[3] + ", " + growthRate[2] + ", " + growthRate[4] + ", " + growthRate[6] + ", " + growthRate[5] + ", " 
+                 + EXPType + "); // 0x" + ScoutHexID.ToString("X2"));*/ // Code for dumping structs                
+
+                 dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
                     D.PosByteToString(Position), D.GenderToString[Gender], D.SizeToString(PlayerSize), D.ElementToStr[Element], 
                     MaxFP, MaxTP, MaxKick, MaxBody, MaxControl, MaxGuard, MaxSpeed, MaxStamina, MaxGuts, Freedom, StatsTotal, Maxtotal,
                     D.MoveToStr[Move1], D.MoveObtainLevel(Move1ObtainLevel),
@@ -166,7 +191,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     D.MoveToStr[Move4], D.MoveObtainLevel(Move4ObtainLevel),
                     "0x" +
                     ScoutHexID.ToString("X2")
-
                     );
 
             }

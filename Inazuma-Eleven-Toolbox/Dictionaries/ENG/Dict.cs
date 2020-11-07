@@ -462,6 +462,17 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
             return (ushort)(49 + (GrowthRate * 10));
         }
 
+        public byte IsAboveMaxLevel(byte curLevel, byte MaxStatLevel)
+        {
+            byte level = curLevel;
+            if(curLevel > MaxStatLevel)
+            {
+                level = MaxStatLevel;
+            }
+
+            return level;
+        }
+
         public string MoveObtainLevel(ushort ObtainLevel)
         {
             if (ObtainLevel == 100)

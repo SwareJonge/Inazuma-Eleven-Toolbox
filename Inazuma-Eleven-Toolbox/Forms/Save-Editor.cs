@@ -36,6 +36,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         int Checksum1BlockLength = 0;
         int ItemEndOffset = 0;
         int NameOffset = 0;
+        byte max_Training = 0;
 
         int Checksum2BlockStart = 0;
         int Checksum2BlockLength = 0;
@@ -64,6 +65,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 isIE1 = false;
                 isIE2 = false;
                 isIE3 = true;
+                max_Training = 20;
                 PrestigePointsOffset = 0x4E8;
                 FriendshipPointsOffset = 0x4EC;
                 PlayerStartOffset = 0x11F8;
@@ -81,6 +83,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 isIE1 = true;
                 isIE2 = false;
                 isIE3 = false;
+                max_Training = 50;
                 PrestigePointsOffset = 0x4D4;
                 FriendshipPointsOffset = 0x4D8;
                 PlayerStartOffset = 0x124C;
@@ -98,6 +101,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 isIE1 = false;
                 isIE2 = true;
                 isIE3 = false;
+                max_Training = 50;
                 PrestigePointsOffset = 0x4D4;
                 FriendshipPointsOffset = 0x4D8;
                 PlayerStartOffset = 0x13F8;
@@ -184,6 +188,10 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericUpDown15.ReadOnly = false;
                 numericUpDown16.ReadOnly = false;
 
+                // set FP and TP Training to 20 or 50 dependant on the game
+                numericUpDown15.Maximum = max_Training;
+                numericUpDown16.Maximum = max_Training;
+
 
                 if (!isIE1)
                 {
@@ -235,14 +243,12 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
             dataGridView1.Rows.Clear();
             byte[] block = new byte[length];
-            short PlayerHEX;
-            byte PlayerLevel;
             for (int i = PlayerStartOffset; i < PlayerStartOffset + (Players * length); i += length)
             {
                 block = ModifiedBlock.Skip(i).Take(length).ToArray();
 
-                PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
-                PlayerLevel = block[0x4A];
+                short PlayerHEX = BitConverter.ToInt16(block.Skip(0x4).Take(2).ToArray(), 0);
+                byte PlayerLevel = block[0x4A];
 
                 dataGridView1.Rows.Add(((i - PlayerStartOffset) / length + 1).ToString(), P.HEXToPlayer[PlayerHEX], PlayerLevel.ToString(), "0x" + PlayerHEX.ToString("X2"));
             }
@@ -383,8 +389,24 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     TrainedValue[i] = (sbyte)block[0x4F + i];
                 }
 
-                numericUpDown15.Value = TrainedConsumablePoints[0];
-                numericUpDown16.Value = TrainedConsumablePoints[1];
+                // Check if TP and FP are higher than the limit
+                if(TrainedConsumablePoints[0] > max_Training)
+                {
+                    numericUpDown15.Value = max_Training;
+                }
+                else
+                {
+                    numericUpDown15.Value = TrainedConsumablePoints[0];
+                }
+
+                if (TrainedConsumablePoints[1] > max_Training)
+                {
+                    numericUpDown16.Value = max_Training;
+                }
+                else
+                {
+                    numericUpDown16.Value = TrainedConsumablePoints[1];
+                }           
 
                 numericUpDown17.Value = ConsumablePoints[0];
                 numericUpDown18.Value = ConsumablePoints[1];
@@ -776,8 +798,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void button8_Click(object sender, EventArgs e)
         {
-            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), 50, 0x18); // FP
-            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), 50, 0x1A); // TP
+            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), max_Training, 0x18); // FP
+            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), max_Training, 0x1A); // TP
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -785,8 +807,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte players = ModifiedBlock[0x57];
             for (int i = 0; i < players; i++)
             {
-                SetConsumablePoints(i, 50, 0x18); // FP
-                SetConsumablePoints(i, 50, 0x1A); // TP
+                SetConsumablePoints(i, max_Training, 0x18); // FP
+                SetConsumablePoints(i, max_Training, 0x1A); // TP
             }
         }
 
@@ -797,7 +819,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
             ushort ScoutID = BitConverter.ToUInt16(block.Skip(0x4).Take(2).ToArray(), 0);
             EXP E = new EXP();
 
-            int EXPType = 0;
+            int EXPType = 0;            
+            /*int MaxFP = 0;
+            int MinFP = 0;
+            ushort FP_GrowthRate = 0;*/
+
             if (isIE1 || isIE2)
             {
                 PlayerClass.IE2 IE2Class = new PlayerClass.IE2();
@@ -817,9 +843,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     return;
                 }
                 EXPType = IE3Class.IE3Player[ScoutID].EXPType;
+                /*FP_GrowthRate = IE3Class.IE3Player[ScoutID].FPGrowthRate;
+                MinFP = IE3Class.IE3Player[ScoutID].minFP;
+                MaxFP = IE3Class.IE3Player[ScoutID].FP;*/
             }
-
             block[0x4a] = level;
+
+            /*ushort statMaxLevel = D.calcLevelDone(FP_GrowthRate);
+            float FPPerLevel = (MaxFP - MinFP) / (float)(statMaxLevel - 1);
+            textBox18.Text = (MinFP + (FPPerLevel * D.IsAboveMaxLevel(block[0x4a], (byte)statMaxLevel))).ToString();*/
 
             uint EXPToWrite = E.TypeToExp[EXPType][block[0x4a] - 1];
             byte[] WriteThing = BitConverter.GetBytes(EXPToWrite);
