@@ -75,7 +75,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DamienG\Security\Cryptography\CRC32.cs" />
-    <Compile Include="INAZUMA11\Encryption.cs" />
+    <Compile Include="Logic\Cryptography.cs" />
     <Compile Include="Utils\FileIO.cs" />
     <Compile Include="Utils\NFFM3_Plugin.cs" />
     <EmbeddedResource Include="Forms\Save-Editor.resx">

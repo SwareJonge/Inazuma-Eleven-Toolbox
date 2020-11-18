@@ -451,15 +451,16 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 
         public ushort calcLevelDone(ushort GrowthRate)
         {
+            ushort Rate = GrowthRate;
             if (GrowthRate == 1)
             {
-                GrowthRate = 3;
+                Rate = 3;
             }
             if (GrowthRate == 3)
             {
-                GrowthRate = 1;
+                Rate = 1;
             }
-            return (ushort)(49 + (GrowthRate * 10));
+            return (ushort)(49 + (Rate * 10));
         }
 
         public byte IsAboveMaxLevel(byte curLevel, byte MaxStatLevel)
@@ -470,7 +471,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
                 level = MaxStatLevel;
             }
 
-            return level;
+            return (byte)(level - 1);
         }
 
         public string MoveObtainLevel(ushort ObtainLevel)

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using INAZUMA11;
 using Inazuma_Eleven_Toolbox.Dictionaries.ENG;
 using Inazuma_Eleven_Toolbox.Utils;
+using Inazuma_Eleven_Toolbox.Logic;
 
 namespace Inazuma_Eleven_Toolbox.Forms
 {
@@ -79,7 +79,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 if (Game == "IE3")
                 {
-                    Encryption.Decrypt(ref StatsBlock);
+                    Cryptography.Decrypt(ref StatsBlock);
                 }                    
 
                 string FullPlayerName = "";
