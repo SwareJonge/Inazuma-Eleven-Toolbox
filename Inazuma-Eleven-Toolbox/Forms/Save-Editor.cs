@@ -819,10 +819,10 @@ namespace Inazuma_Eleven_Toolbox.Forms
             ushort ScoutID = BitConverter.ToUInt16(block.Skip(0x4).Take(2).ToArray(), 0);
             EXP E = new EXP();
 
-            int EXPType = 0;            
-            int MaxFP = 0;
+            int EXPType = 0;
+            /*int MaxFP = 0;
             int MinFP = 0;
-            ushort FP_GrowthRate = 0;
+            ushort FP_GrowthRate = 0;*/
 
             if (isIE1 || isIE2)
             {
@@ -833,9 +833,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     return;
                 }
                 EXPType = IE2Class.IE2Player[ScoutID].EXPType;
-                FP_GrowthRate = IE2Class.IE2Player[ScoutID].FPGrowthRate;
+                /*FP_GrowthRate = IE2Class.IE2Player[ScoutID].FPGrowthRate;
                 MinFP = IE2Class.IE2Player[ScoutID].minFP;
-                MaxFP = IE2Class.IE2Player[ScoutID].FP;
+                MaxFP = IE2Class.IE2Player[ScoutID].FP;*/
             }
             if (isIE3)
             {
@@ -846,20 +846,20 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     return;
                 }
                 EXPType = IE3Class.IE3Player[ScoutID].EXPType;
-                FP_GrowthRate = IE3Class.IE3Player[ScoutID].FPGrowthRate;
+                /*FP_GrowthRate = IE3Class.IE3Player[ScoutID].FPGrowthRate;
                 MinFP = IE3Class.IE3Player[ScoutID].minFP;
-                MaxFP = IE3Class.IE3Player[ScoutID].FP;
+                MaxFP = IE3Class.IE3Player[ScoutID].FP;*/
             }
             block[0x4a] = level;
 
-            ushort statMaxLevel = D.calcLevelDone(FP_GrowthRate);
+            /*ushort statMaxLevel = D.calcLevelDone(FP_GrowthRate);
             float FPPerLevel = (MaxFP - MinFP) / (float)(statMaxLevel - 1);
             float thing = (float)Math.Floor(MinFP + (FPPerLevel * D.IsAboveMaxLevel(block[0x4a], (byte)statMaxLevel)));
             if(thing > MaxFP)
             {
                 thing = MaxFP;
             }
-            textBox18.Text = thing.ToString();
+            textBox18.Text = thing.ToString();*/
 
             uint EXPToWrite = E.TypeToExp[EXPType][block[0x4a] - 1];
             byte[] WriteThing = BitConverter.GetBytes(EXPToWrite);
