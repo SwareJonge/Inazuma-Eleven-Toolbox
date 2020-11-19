@@ -28,7 +28,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
             byte[] block = new byte[blockSize];
             for (int i = 0; i < buff.Length; i += blockSize)
             {
-                block = buff.Skip(i).Take(0x48).ToArray();
+                block = buff.Skip(i).Take(blockSize).ToArray();
                 Decrypt(ref block);
                 Array.Copy(block, 0, buff, i, blockSize);
             }
@@ -62,7 +62,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
             byte[] block = new byte[blockSize];
             for (int i = 0; i < buff.Length; i+= blockSize)
             {
-                block = buff.Skip(i).Take(0x48).ToArray();
+                block = buff.Skip(i).Take(blockSize).ToArray();
                 Encrypt(ref block);
                 Array.Copy(block, 0, buff, i, blockSize);
             }
