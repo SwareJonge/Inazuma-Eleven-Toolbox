@@ -818,24 +818,22 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte[] block = ModifiedBlock.Skip(PlayerStartOffset + PlayerBlockOffset).Take(length).ToArray();
             ushort ScoutID = BitConverter.ToUInt16(block.Skip(0x4).Take(2).ToArray(), 0);
             EXP E = new EXP();
-
             int EXPType = 0;
-            /*int MaxFP = 0;
-            int MinFP = 0;
-            ushort FP_GrowthRate = 0;*/
+
+            ushort[] Moves = { };
+            byte[] UnlockLevels = { };
 
             if (isIE1 || isIE2)
             {
                 PlayerClass.IE2 IE2Class = new PlayerClass.IE2();
-                if(!IE2Class.IE2Player.ContainsKey(ScoutID))
+                if (!IE2Class.IE2Player.ContainsKey(ScoutID))
                 {
                     MessageBox.Show("An unknown Error occured");
                     return;
                 }
                 EXPType = IE2Class.IE2Player[ScoutID].EXPType;
-                /*FP_GrowthRate = IE2Class.IE2Player[ScoutID].FPGrowthRate;
-                MinFP = IE2Class.IE2Player[ScoutID].minFP;
-                MaxFP = IE2Class.IE2Player[ScoutID].FP;*/
+                Moves = IE2Class.IE2Player[ScoutID].MoveHEXID;
+                UnlockLevels = IE2Class.IE2Player[ScoutID].MoveUnlockLevel;
             }
             if (isIE3)
             {
@@ -846,26 +844,42 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     return;
                 }
                 EXPType = IE3Class.IE3Player[ScoutID].EXPType;
-                /*FP_GrowthRate = IE3Class.IE3Player[ScoutID].FPGrowthRate;
-                MinFP = IE3Class.IE3Player[ScoutID].minFP;
-                MaxFP = IE3Class.IE3Player[ScoutID].FP;*/
+                Moves = IE3Class.IE3Player[ScoutID].MoveHEXID;
+                UnlockLevels = IE3Class.IE3Player[ScoutID].MoveUnlockLevel;
             }
             block[0x4a] = level;
 
-            /*ushort statMaxLevel = D.calcLevelDone(FP_GrowthRate);
-            float FPPerLevel = (MaxFP - MinFP) / (float)(statMaxLevel - 1);
-            float thing = (float)Math.Floor(MinFP + (FPPerLevel * D.IsAboveMaxLevel(block[0x4a], (byte)statMaxLevel)));
-            if(thing > MaxFP)
-            {
-                thing = MaxFP;
-            }
-            textBox18.Text = thing.ToString();*/
-
             uint EXPToWrite = E.TypeToExp[EXPType][block[0x4a] - 1];
-            byte[] WriteThing = BitConverter.GetBytes(EXPToWrite);
 
-            block = WriteData(block, 0x0, WriteThing, WriteThing.Length);
-            ModifiedBlock = WriteData(ModifiedBlock, PlayerStartOffset + PlayerBlockOffset, block, block.Length); // no extra formatting to do since the EXP offset is 0            
+            ushort[] MovesInBlock = new ushort[4];
+
+            List <Tuple<byte, ushort>> myList = new List<Tuple<byte, ushort>>();
+            for (int i = 0; i < 4; i++)
+            {
+                MovesInBlock[i] = BitConverter.ToUInt16(block.Skip(0x38 + i * 2).Take(2).ToArray(), 0);
+                block[i] = BitConverter.GetBytes(EXPToWrite)[i]; // since we do a for loop with 4 bytes, we can save some lines of code and drop it here
+                myList.Add(new Tuple<byte, ushort>(UnlockLevels[i], Moves[i]));
+            } 
+
+            myList.Sort(Comparer<Tuple<byte, ushort>>.Default); // Sort the List
+
+            for (int i = 0; i < 4; i++) // these are checks for wheter or not a player has learned a move or not, done this way just to prevent possible bugs
+            {                
+                if(level >= myList[i].Item1 && !MovesInBlock.Contains(myList[i].Item2)) // if the player level is higher or equal to the player's level and the move we're trying to learn isn't learned yet, write it 
+                {
+                    for (int j = i; j < 4; j++) // finds empty slot
+                    {
+                        if (BitConverter.ToUInt16(block.Skip(0x38 + j * 2).Take(2).ToArray(), 0) == 0) // if slot is empty, write move
+                        {
+                            block = WriteData(block, 0x38 + (j * 2), BitConverter.GetBytes(myList[i].Item2), BitConverter.GetBytes(myList[i].Item2).Length);
+                            break; // break and don't exectue loop further
+                        }
+                    }                    
+                }
+            }
+
+            ModifiedBlock = WriteData(ModifiedBlock, PlayerStartOffset + PlayerBlockOffset, block, block.Length); // no extra formatting to do since the EXP offset is 0       
+            LoadPlayer(); // once done, reload
         }
 
         private void numericUpDown7_ValueChanged(object sender, EventArgs e)

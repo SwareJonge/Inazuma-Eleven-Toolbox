@@ -53,6 +53,10 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte ElementOffset = 0x5A;
             byte GenderOffset = 0x52;
             byte PlayerIndex = 0x5E;
+
+            byte[] NameFile = FileIO.ReadFile(PlayerNamesFileName);
+            byte[] StatsFile = FileIO.ReadFile(StatsFileName);
+
             if (Game == "IE3")
             {
                 EXPOffset = 0x4C;
@@ -65,8 +69,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 PlayerIndex = 0x66;
             }
 
-            byte[] NameFile = FileIO.ReadFile(PlayerNamesFileName);
-            byte[] StatsFile = FileIO.ReadFile(StatsFileName);
+            //StringBuilder sb = new StringBuilder();
 
             byte[] NameBlock = new byte[UnitBaseBlockLength];
             byte[] StatsBlock = new byte[UnitStatBlockLength];
@@ -80,7 +83,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 if (Game == "IE3")
                 {
                     Cryptography.Decrypt(ref StatsBlock);
-                }                    
+                }
 
                 string FullPlayerName = "";
                 string PlayerNickName = "";
@@ -175,12 +178,16 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 ushort StatsTotal = (ushort)(MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina);
                 short Freedom = (short)(Maxtotal - StatsTotal); // has to be signed since in IE3 it can be negative
-
-                 /*Console.WriteLine("private static Player " + FullPlayerName.Replace(" ", "_").Replace("\'", "_").Replace(".", "_").Replace("-", "_").Replace("’", "_").Replace("?", "_") + " = new Player(" + 
-                 MaxFP + ", " + MaxTP + ", " + (byte)MaxKick + ", " + (byte)MaxBody + ", " + (byte)MaxControl + ", " + (byte)MaxGuard + ", " + (byte)MaxSpeed + ", " + (byte)MaxStamina + ", " + (byte)MaxGuts + ", " + StatsTotal + ", "
-                 + MinFP + ", " + MinTP + ", " + (byte)MinKick + ", " + (byte)MinBody + ", " + (byte)MinControl + ", " + (byte)MinGuard + ", " + (byte)MinSpeed + ", " + (byte)MinStamina + ", " + (byte)MinGuts + ", " 
-                 + FPgrowthRate + ", " + TPgrowthRate + ", " + growthRate[0] + ", " + growthRate[1] + ", " + growthRate[3] + ", " + growthRate[2] + ", " + growthRate[4] + ", " + growthRate[6] + ", " + growthRate[5] + ", " 
-                 + EXPType + "); // 0x" + ScoutHexID.ToString("X2"));*/ // Code for dumping structs                
+                
+                /*string consoleOutput = String.Concat("private static Player ", FullPlayerName.Replace(" ", "_").Replace("\'", "_").Replace(".", "_").Replace("-", "_").Replace("’", "_").Replace("?", "_"), " = new Player(" +
+                MaxFP, ", ", MaxTP, ", ", (byte)MaxKick, ", ", (byte)MaxBody, ", ", (byte)MaxControl, ", ", (byte)MaxGuard, ", ", (byte)MaxSpeed, ", ", (byte)MaxStamina, ", ", (byte)MaxGuts, ", ", StatsTotal, ", "
+                , MinFP, ", ", MinTP, ", ", (byte)MinKick, ", ", (byte)MinBody, ", ", (byte)MinControl, ", ", (byte)MinGuard, ", ", (byte)MinSpeed, ", ", (byte)MinStamina, ", ", (byte)MinGuts, ", "
+                , FPgrowthRate, ", ", TPgrowthRate, ", ", growthRate[0], ", ", growthRate[1], ", ", growthRate[3], ", ", growthRate[2], ", ", growthRate[4], ", ", growthRate[6], ", ", growthRate[5], ", "
+                , "0x", Move1.ToString("X2"), ", 0x", Move2.ToString("X2"), ", 0x", Move3.ToString("X2"), ", 0x", Move4.ToString("X2"), ", "
+                , "0x", Move1ObtainLevel.ToString("X2"), ", 0x", Move2ObtainLevel.ToString("X2"), ", 0x", Move3ObtainLevel.ToString("X2"), ", 0x", Move4ObtainLevel.ToString("X2"), ", "
+                 , EXPType, "); // 0x", ScoutHexID.ToString("X2")); // Code for dumping structs
+                sb.AppendLine(consoleOutput);
+                Console.WriteLine((i / UnitBaseBlockLength).ToString("X2"));*/                          
 
                  dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
                     D.PosByteToString(Position), D.GenderToString[Gender], D.SizeToString(PlayerSize), D.ElementToStr[Element], 
@@ -194,6 +201,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     );
 
             }
+            //Console.WriteLine(sb.ToString());
 
         }
 
