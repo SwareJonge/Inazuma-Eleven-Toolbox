@@ -42,7 +42,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
         int Checksum2BlockLength = 0;
 
         ItemClass IC = new ItemClass();
-        ItemsIE2 ItemIE2 = new ItemsIE2();
         IECommonDictionary D = new IECommonDictionary();
         Moves M = new Moves();
         PlayerFuncs P = new PlayerFuncs();
@@ -267,7 +266,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                         ItemName = new ItemsIE3().ItemSaveFilePos[i];
                         dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
                     }
-                    continue;
                 }
                 if (isIE2 || isIE1)
                 {
@@ -276,13 +274,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                         ItemName = new ItemsIE2().ItemSaveFilePos[i];
                         dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
                     }
-                    continue;
-                }
-                else
-                {
-                    continue;
-                }
-               
+                }               
             }
         }
 
@@ -295,7 +287,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
             byte[] block = ModifiedBlock.Skip(BlockStart).Take(Length).ToArray();
             byte[] Checksum = BitConverter.GetBytes(Crc32.Compute(block));
-            ModifiedBlock = WriteData(ModifiedBlock, ChecksumOffset, Checksum, Checksum.Length);
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, ChecksumOffset, Checksum, Checksum.Length);
         }
         void PatchChecksums()
         {
@@ -338,12 +330,24 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     }                    
                     Player = NFFM3_Plugin.StringToByteArray(hex.Replace(" ", ""));
                 }
-                ModifiedBlock = WriteData(ModifiedBlock, (Index * length) + PlayerStartOffset, Player, Player.Length);
+                ModifiedBlock = FileIO.WriteData(ModifiedBlock, (Index * length) + PlayerStartOffset, Player, Player.Length);
                 if(isImportPlayer)
                 {
                     // Since we Added a Player, the game has to know this.
                     ModifiedBlock[0x57] = (byte)(ModifiedBlock[0x57] + 1);
                 }
+            }
+        }
+
+        void CheckIfIllegal(ushort ConsumablePoints, int PlayerIndex, NumericUpDown num, int offset)
+        {
+            if (ConsumablePoints >= max_Training)
+            {
+                num.Value = max_Training;                
+            }
+            else
+            {
+                num.Value = ConsumablePoints;
             }
         }
 
@@ -390,23 +394,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 }
 
                 // Check if TP and FP are higher than the limit
-                if(TrainedConsumablePoints[0] > max_Training)
-                {
-                    numericUpDown15.Value = max_Training;
-                }
-                else
-                {
-                    numericUpDown15.Value = TrainedConsumablePoints[0];
-                }
-
-                if (TrainedConsumablePoints[1] > max_Training)
-                {
-                    numericUpDown16.Value = max_Training;
-                }
-                else
-                {
-                    numericUpDown16.Value = TrainedConsumablePoints[1];
-                }           
+                CheckIfIllegal(TrainedConsumablePoints[0], j, numericUpDown15, 0x18);
+                CheckIfIllegal(TrainedConsumablePoints[1], j, numericUpDown16, 0x1A);      
 
                 numericUpDown17.Value = ConsumablePoints[0];
                 numericUpDown18.Value = ConsumablePoints[1];
@@ -452,15 +441,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 textBox22.Text = P.HEXToPlayer[PlayerHEX];
             }
             else return;
-        }
-
-        byte[] WriteData(byte[] DataIn, int PatchOffset, byte[] DataTowrite, int Length)
-        {
-            for (int i = 0; i < Length; i++)
-            {
-                DataIn[PatchOffset + i] = DataTowrite[i];
-            }
-            return DataIn;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -549,7 +529,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte Move1Level = block[LevelOffset];
             byte TimesUsed = M.SetNewLevel(MoveLevel.Value, MoveEvolveType);
             block[LevelOffset] = TimesUsed;
-            ModifiedBlock = WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
         }
 
         void SetAllMaxLevels(int PlayerIndex)
@@ -567,9 +547,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     {
                         MoveEvolveType = M.IE3MoveGrowth[MoveName];
                         block[0x44 + i] = M.SetNewLevel(M.GetMaxMoveLevel(MoveEvolveType), MoveEvolveType);
-                        ModifiedBlock = WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
+                        ModifiedBlock = FileIO.WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
                     }
-                    else continue; 
                 }
                 if (isIE2)
                 {
@@ -577,11 +556,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     {
                         MoveEvolveType = M.IE2MoveGrowth[MoveName];
                         block[0x44 + i] = M.SetNewLevel(M.GetMaxMoveLevel(MoveEvolveType), MoveEvolveType);
-                        ModifiedBlock = WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
+                        ModifiedBlock = FileIO.WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
                     }
-                    else continue; 
                 }
             }
+            LoadPlayer();
         }
 
         void SetConsumablePoints(int PlayerIndex, byte Value, int Patchoffset)
@@ -589,7 +568,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             int PlayerOffset = (PlayerIndex * length);
             byte[] block = ModifiedBlock.Skip(PlayerOffset + PlayerStartOffset).Take(length).ToArray();
             block[Patchoffset] = Value;
-            ModifiedBlock = WriteData(ModifiedBlock, PlayerOffset + PlayerStartOffset, block, block.Length);
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, PlayerOffset + PlayerStartOffset, block, block.Length);
+            LoadPlayer();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -625,6 +605,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             SetAllMaxLevels(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index));
+            MessageBox.Show("Edited move Levels for current player!");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -635,6 +616,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 SetAllMaxLevels(i);
             }
             MessageBox.Show("Edited Move Levels For All Players!");
+            LoadPlayer();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -647,7 +629,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     {
                         SetNewItemAmount((byte)numericUpDown19.Value, i);
                     }
-                    else continue;
                 }
                 if (isIE1 || isIE2)
                 {
@@ -655,7 +636,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     {
                         SetNewItemAmount((byte)numericUpDown19.Value, i);
                     }
-                    else continue;
                 }
             }
                         
@@ -749,14 +729,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
             byte[] Friendship = BitConverter.GetBytes((uint)numericFriendship.Value);
 
-            ModifiedBlock = WriteData(ModifiedBlock, FriendshipPointsOffset, Friendship, 4);
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, FriendshipPointsOffset, Friendship, 4);
         }
 
         private void numericPrestige_ValueChanged(object sender, EventArgs e)
         {
             byte[] Prestige = BitConverter.GetBytes((uint)numericPrestige.Value);
 
-            ModifiedBlock = WriteData(ModifiedBlock, PrestigePointsOffset, Prestige, 4);
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, PrestigePointsOffset, Prestige, 4);
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -775,9 +755,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 arr[i] = '\0';
             }
             // Need to figure out what encoding this game uses, might need to block special characters
-            ModifiedBlock = WriteData(ModifiedBlock, NameOffset, Encoding.Default.GetBytes(arr), arr.Length);
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, NameOffset, Encoding.Default.GetBytes(arr), arr.Length);
             // SaveFileheader Name
-            ModifiedBlock = WriteData(ModifiedBlock, 0x5C, Encoding.Default.GetBytes(arr), arr.Length);
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, 0x5C, Encoding.Default.GetBytes(arr), arr.Length);
             MessageBox.Show("Edited Name!");
         }
 
@@ -793,13 +773,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void numericUpDown16_ValueChanged(object sender, EventArgs e)
         {
-            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), (byte)numericUpDown15.Value, 0x1A);
+            SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), (byte)numericUpDown16.Value, 0x1A);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), max_Training, 0x18); // FP
             SetConsumablePoints(DataGridviewIndexFromCell(dataGridView1.CurrentRow.Index), max_Training, 0x1A); // TP
+            MessageBox.Show("Edited TP and FP for current player!");
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -810,6 +791,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 SetConsumablePoints(i, max_Training, 0x18); // FP
                 SetConsumablePoints(i, max_Training, 0x1A); // TP
             }
+            MessageBox.Show("All players have max FP and TP now!");
         }
 
         void editPlayerlevel(byte level, int offset)
@@ -871,14 +853,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     {
                         if (BitConverter.ToUInt16(block.Skip(0x38 + j * 2).Take(2).ToArray(), 0) == 0) // if slot is empty, write move
                         {
-                            block = WriteData(block, 0x38 + (j * 2), BitConverter.GetBytes(myList[i].Item2), BitConverter.GetBytes(myList[i].Item2).Length);
+                            block = FileIO.WriteData(block, 0x38 + (j * 2), BitConverter.GetBytes(myList[i].Item2), BitConverter.GetBytes(myList[i].Item2).Length);
                             break; // break and don't exectue loop further
                         }
                     }                    
                 }
             }
 
-            ModifiedBlock = WriteData(ModifiedBlock, PlayerStartOffset + PlayerBlockOffset, block, block.Length); // no extra formatting to do since the EXP offset is 0       
+            ModifiedBlock = FileIO.WriteData(ModifiedBlock, PlayerStartOffset + PlayerBlockOffset, block, block.Length); // no extra formatting to do since the EXP offset is 0       
             LoadPlayer(); // once done, reload
         }
 
@@ -903,6 +885,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
             int HEXID = Convert.ToInt32(dataGridView2.Rows[Offset].Cells[2].Value.ToString().Remove(0, 2)); // Remove "0x"
 
             SetNewItemAmount(Amount, HEXID + Checksum2BlockStart);
+        }
+
+        private void numericUpDown18_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -32,5 +32,15 @@ namespace Inazuma_Eleven_Toolbox.Utils
                 return bytes;
             }
         }
+
+        public static byte[] WriteData(byte[] DataIn, int PatchOffset, byte[] DataTowrite, int Length)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                DataIn[PatchOffset + i] = DataTowrite[i];
+            }
+            return DataIn;
+        }
+
     }
 }

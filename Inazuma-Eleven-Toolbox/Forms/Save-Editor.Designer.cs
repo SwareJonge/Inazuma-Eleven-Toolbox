@@ -354,6 +354,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericUpDown18.ReadOnly = true;
             this.numericUpDown18.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown18.TabIndex = 44;
+            this.numericUpDown18.ValueChanged += new System.EventHandler(this.numericUpDown18_ValueChanged);
             // 
             // numericUpDown17
             // 
