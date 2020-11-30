@@ -880,9 +880,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int Offset = DataGridviewIndexFromCell(dataGridView2.CurrentRow.Index);
-            byte Amount = Convert.ToByte(dataGridView2.Rows[Offset].Cells[1].Value); 
-            int HEXID = Convert.ToInt32(dataGridView2.Rows[Offset].Cells[2].Value.ToString().Remove(0, 2)); // Remove "0x"
+            int Offset = dataGridView2.CurrentRow.Index; // doesn't matter if we sort it considering we determine the patchoffset by the HEX ID in row 3 and thus always patch the correct offset
+            byte Amount = Convert.ToByte(dataGridView2.Rows[Offset].Cells[1].Value);
+            int HEXID = int.Parse(dataGridView2.Rows[Offset].Cells[2].Value.ToString().Remove(0, 2), System.Globalization.NumberStyles.HexNumber);
 
             SetNewItemAmount(Amount, HEXID + Checksum2BlockStart);
         }
@@ -891,5 +891,41 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
 
         }
+
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (dataGridView1.CurrentCell.ColumnIndex == 2) //Desired Column
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+            }
+        }
+
+        private void dataGridView2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (dataGridView2.CurrentCell.ColumnIndex == 1) //Desired Column
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+            }
+        }
+
+
+        private void Column1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
     }
 }
