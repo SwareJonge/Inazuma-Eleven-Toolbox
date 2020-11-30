@@ -30,9 +30,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -125,10 +125,17 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.numericUpDown19 = new System.Windows.Forms.NumericUpDown();
             this.button5 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
             this.txtBoxName = new System.Windows.Forms.TextBox();
@@ -138,13 +145,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericPrestige = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -222,8 +222,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.Filter = "Save Files (*.sav, *.dat)|*.sav; *.dat|3DS Save (*.dat)|*.dat|NDS Save (*.sav)|*." +
-    "sav";
+            this.openFileDialog1.Filter = "Save Files (*.sav, *.dsv, *.dat)|*.sav; *.dsv; *.dat|3DS Save (*.dat)|*.dat|NDS S" +
+    "ave (*.sav, *.dsv)|*.sav; *.dsv";
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "Open Save File";
             // 
@@ -1243,6 +1243,35 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Index";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Player";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            dataGridViewCellStyle7.Format = "N0";
+            dataGridViewCellStyle7.NullValue = null;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Column4.HeaderText = "Level";
+            this.Column4.MaxInputLength = 2;
+            this.Column4.Name = "Column4";
+            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "HEX ID";
+            this.Column2.MaxInputLength = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.numericUpDown19);
@@ -1301,6 +1330,31 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellEndEdit);
             this.dataGridView2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView2_EditingControlShowing);
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Item Name";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            dataGridViewCellStyle8.Format = "N0";
+            dataGridViewCellStyle8.NullValue = null;
+            this.Column6.DefaultCellStyle = dataGridViewCellStyle8;
+            this.Column6.HeaderText = "Amount";
+            this.Column6.MaxInputLength = 2;
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            dataGridViewCellStyle9.Format = "X2";
+            dataGridViewCellStyle9.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle9;
+            this.Column7.HeaderText = "HEX ID";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Visible = false;
             // 
             // groupBox1
             // 
@@ -1403,60 +1457,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Prestige Points:";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Index";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Player";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Column4.HeaderText = "Level";
-            this.Column4.MaxInputLength = 2;
-            this.Column4.Name = "Column4";
-            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "HEX ID";
-            this.Column2.MaxInputLength = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Item Name";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Column6.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column6.HeaderText = "Amount";
-            this.Column6.MaxInputLength = 2;
-            this.Column6.Name = "Column6";
-            // 
-            // Column7
-            // 
-            dataGridViewCellStyle3.Format = "X2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column7.HeaderText = "HEX ID";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Visible = false;
             // 
             // Save_Editor
             // 

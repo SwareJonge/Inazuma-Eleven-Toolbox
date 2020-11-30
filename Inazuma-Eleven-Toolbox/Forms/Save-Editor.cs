@@ -926,6 +926,5 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 e.Handled = true;
             }
         }
-
     }
 }
