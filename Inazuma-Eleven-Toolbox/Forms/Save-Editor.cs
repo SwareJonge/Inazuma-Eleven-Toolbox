@@ -121,7 +121,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
         public byte[] ModifiedBlock = null;
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
-        {            
+        {
+            //openFileDialog1.Title = "Open Save File";
+            openFileDialog1.InitialDirectory = Config.SaveFolder;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Filename = openFileDialog1.FileName;

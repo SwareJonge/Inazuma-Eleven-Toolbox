@@ -2,3 +2,18 @@
 *.dat
 *.pkb
 *.STR
+# Ignore various files created by visual studio/msbuild
+*.ipch
+*.opensdf
+*.sdf
+*.suo
+*.vcxproj.user
+*.obj
+*.tlog
+*.VC.opendb
+*.VC.db
+.vs/
+# Ignore image thumbnail files created by windows
+Thumbs.db
+# Ignore Finder view option files created by OS X
+.DS_Store

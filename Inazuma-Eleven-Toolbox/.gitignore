@@ -1,0 +1,3 @@
+# Ignore files output by build
+/[Bb]in/
+/obj/
