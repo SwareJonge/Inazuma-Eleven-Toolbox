@@ -6,19 +6,45 @@ using System.Threading.Tasks;
 
 namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 {
-    public class ItemClass
+
+
+
+    public static class ItemClass
     {
-        public IDictionary<int, string> EquipmentOffsetToStr = new Dictionary<int, string>()
+        public static IDictionary<int, string> EquipmentOffsetToStr = new Dictionary<int, string>()
         {
-            { 0x0, "None"}
+
         };
+
+        public static IDictionary<int, string> ItemSaveFilePos = new Dictionary<int, string>()
+        {
+
+        };
+
+
+        public static void getItemSaveFilePos(bool isIE3)
+        {
+            if (isIE3)
+            {
+                ItemSaveFilePos = ItemsIE3.ItemSaveFilePos;
+            }
+            else ItemSaveFilePos = ItemsIE2.ItemSaveFilePos;
+        }
+
+        public static void getEquipmentOffset(bool isIE3)
+        {
+            if (isIE3)
+            {
+                EquipmentOffsetToStr = ItemsIE3.EquipmentOffsetToStrIE3;
+            }
+            else EquipmentOffsetToStr = ItemsIE2.EquipmentOffsetToStrIE2;
+        }
+
     }
 
-    
-
-    class ItemsIE3
+    static class ItemsIE3
     {
-        public IDictionary<int, string> ItemSaveFilePos = new Dictionary<int, string>()
+        public static IDictionary<int, string> ItemSaveFilePos = new Dictionary<int, string>()
         {
 { 0xC9, "Mineral water"},
 { 0xCA, "Sports drink"},
@@ -843,7 +869,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
         };
 
 
-        public IDictionary<int, string> EquipmentOffsetToStrIE3 = new Dictionary<int, string>()
+        public static IDictionary<int, string> EquipmentOffsetToStrIE3 = new Dictionary<int, string>()
         {
             { 0x0, "None"},
 
@@ -1053,9 +1079,9 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
         };
     }
 
-    class ItemsIE2
+    static class ItemsIE2
     {
-        public IDictionary<int, string> ItemSaveFilePos = new Dictionary<int, string>()
+        public static IDictionary<int, string> ItemSaveFilePos = new Dictionary<int, string>()
         {
 { 0xC1, "Mineral water"},
 { 0xC2, "Sports drink"},
@@ -1664,7 +1690,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
         };
 
 
-        public IDictionary<int, string> EquipmentOffsetToStrIE2 = new Dictionary<int, string>()
+        public static IDictionary<int, string> EquipmentOffsetToStrIE2 = new Dictionary<int, string>()
             {
             { 0x0, "None"},
                 { 0x5A, "Big boots"},

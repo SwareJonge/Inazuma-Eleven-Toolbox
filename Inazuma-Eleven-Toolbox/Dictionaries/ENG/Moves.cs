@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 {
-    class Moves
+    static class Moves
     {
-        public int GetMaxMoveLevel(string EvolveType)
+        public static int GetMaxMoveLevel(string EvolveType)
         {
             if (EvolveType == "L (Fast)" || EvolveType == "L (Slow)" || EvolveType == "L (Medium)")
             {
@@ -25,7 +25,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
             else return 0;
         }
 
-        public int GetMinMoveLevel(string EvolveType)
+        public static int GetMinMoveLevel(string EvolveType)
         {
             if (EvolveType == "L (Fast)" || EvolveType == "L (Slow)" || EvolveType == "L (Medium)")
             {
@@ -42,7 +42,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
             else return 0;
         }
 
-        public int GetCurrentMoveLevel(byte TimesUsed, string EvolveType)
+        public static int GetCurrentMoveLevel(byte TimesUsed, string EvolveType)
         {
             if (EvolveType == "Shin (Medium)" || EvolveType == "V (Medium)")
             {
@@ -143,7 +143,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
             else return 0;
         }
 
-        public byte SetNewLevel(decimal Level, string EvolveType)
+        public static byte SetNewLevel(decimal Level, string EvolveType)
         {
             if (EvolveType == "L (Slow)")
             {
@@ -233,7 +233,22 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
         }
 
 
-        public IDictionary<string, string> IE2MoveGrowth = new Dictionary<string, string>
+        public static IDictionary<string, string> MoveGrowth = new Dictionary<string, string>
+        {
+
+        };
+
+
+        public static void getMoveGrowth(bool isIE3)
+        {
+            if (isIE3)
+            {
+                MoveGrowth = IE3MoveGrowth;
+            }
+            else MoveGrowth = IE2MoveGrowth;
+        }
+
+        public static IDictionary<string, string> IE2MoveGrowth = new Dictionary<string, string>
         {
 { "The Earth", "L (Fast)" },
 { "Gaia Break", "Shin (Fast)" },
@@ -480,7 +495,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 { "Quick Draw", "Shin (Fast)" }
         };
 
-        public IDictionary<string, string> IE3MoveGrowth = new Dictionary<string, string>
+        public static IDictionary<string, string> IE3MoveGrowth = new Dictionary<string, string>
         {
             { "Jet Stream", "L (Medium)" },
 { "Doom Break", "L (Fast)" },

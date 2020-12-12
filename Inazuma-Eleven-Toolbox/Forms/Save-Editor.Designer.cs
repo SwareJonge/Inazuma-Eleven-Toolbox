@@ -30,9 +30,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -475,11 +475,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(131, 49);
+            this.label20.Location = new System.Drawing.Point(125, 49);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(41, 13);
+            this.label20.Size = new System.Drawing.Size(53, 13);
             this.label20.TabIndex = 32;
-            this.label20.Text = "Current";
+            this.label20.Text = "Base Stat";
             // 
             // textBox14
             // 
@@ -688,6 +688,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericUpDown14.ReadOnly = true;
             this.numericUpDown14.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown14.TabIndex = 10;
+            this.numericUpDown14.ValueChanged += new System.EventHandler(this.numericUpDown14_ValueChanged);
             // 
             // numericUpDown13
             // 
@@ -726,6 +727,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericUpDown12.ReadOnly = true;
             this.numericUpDown12.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown12.TabIndex = 8;
+            this.numericUpDown12.ValueChanged += new System.EventHandler(this.numericUpDown12_ValueChanged);
             // 
             // numericUpDown11
             // 
@@ -745,6 +747,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericUpDown11.ReadOnly = true;
             this.numericUpDown11.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown11.TabIndex = 7;
+            this.numericUpDown11.ValueChanged += new System.EventHandler(this.numericUpDown11_ValueChanged);
             // 
             // numericUpDown10
             // 
@@ -764,6 +767,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericUpDown10.ReadOnly = true;
             this.numericUpDown10.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown10.TabIndex = 6;
+            this.numericUpDown10.ValueChanged += new System.EventHandler(this.numericUpDown10_ValueChanged);
             // 
             // numericUpDown9
             // 
@@ -783,6 +787,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericUpDown9.ReadOnly = true;
             this.numericUpDown9.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown9.TabIndex = 5;
+            this.numericUpDown9.ValueChanged += new System.EventHandler(this.numericUpDown9_ValueChanged);
             // 
             // numericUpDown8
             // 
@@ -802,6 +807,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             this.numericUpDown8.ReadOnly = true;
             this.numericUpDown8.Size = new System.Drawing.Size(48, 20);
             this.numericUpDown8.TabIndex = 4;
+            this.numericUpDown8.ValueChanged += new System.EventHandler(this.numericUpDown8_ValueChanged);
             // 
             // numericUpDown7
             // 
@@ -1257,9 +1263,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             // Column4
             // 
-            dataGridViewCellStyle7.Format = "N0";
-            dataGridViewCellStyle7.NullValue = null;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle19.Format = "N0";
+            dataGridViewCellStyle19.NullValue = null;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle19;
             this.Column4.HeaderText = "Level";
             this.Column4.MaxInputLength = 2;
             this.Column4.Name = "Column4";
@@ -1339,18 +1345,18 @@ namespace Inazuma_Eleven_Toolbox.Forms
             // 
             // Column6
             // 
-            dataGridViewCellStyle8.Format = "N0";
-            dataGridViewCellStyle8.NullValue = null;
-            this.Column6.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle20.Format = "N0";
+            dataGridViewCellStyle20.NullValue = null;
+            this.Column6.DefaultCellStyle = dataGridViewCellStyle20;
             this.Column6.HeaderText = "Amount";
             this.Column6.MaxInputLength = 2;
             this.Column6.Name = "Column6";
             // 
             // Column7
             // 
-            dataGridViewCellStyle9.Format = "X2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle21.Format = "X2";
+            dataGridViewCellStyle21.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle21;
             this.Column7.HeaderText = "HEX ID";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;

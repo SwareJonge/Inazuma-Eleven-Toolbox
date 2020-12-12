@@ -95,9 +95,23 @@ namespace Inazuma_Eleven_Toolbox.Logic
 
     public static class PlayerClass
     {
-        public class IE2
+
+        public static IDictionary<int, Player> IEPlayer = new Dictionary<int, Player>
         {
 
+        };
+
+        public static void getPlayerClass(bool isIE3)
+        {
+            if (isIE3)
+            {
+                IEPlayer = IE3.IE3Player;
+            }
+            else IEPlayer = IE2.IE2Player;
+        }
+
+        public static class IE2
+        {
             private static Player Mark_Evans = new Player(191, 184, 72, 72, 70, 77, 68, 69, 79, 507, 37, 41, 13, 16, 15, 17, 8, 16, 20, 5, 1, 5, 2, 5, 2, 5, 5, 5, 0xA2, 0xB6, 0x1A6, 0x109, 0x01, 0x01, 0x64, 0x64, 6); // 0x01
             private static Player Nathan_Swift = new Player(169, 156, 64, 58, 68, 54, 76, 58, 56, 434, 64, 74, 13, 12, 12, 11, 18, 12, 11, 4, 4, 4, 4, 4, 4, 2, 4, 4, 0x66, 0x65, 0x16B, 0xCE, 0x01, 0x19, 0x26, 0x2D, 2); // 0x02
             private static Player Jack_Wallside = new Player(206, 165, 62, 68, 62, 66, 49, 54, 54, 415, 39, 63, 8, 11, 8, 16, 9, 11, 11, 4, 1, 2, 1, 1, 2, 4, 2, 4, 0x78, 0x6F, 0x75, 0x186, 0x01, 0x10, 0x20, 0x64, 3); // 0x03
@@ -2064,7 +2078,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
             private static Player Tom_Skipper = new Player(217, 140, 76, 72, 79, 64, 56, 52, 79, 478, 79, 101, 23, 21, 19, 12, 13, 5, 14, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x41, 0xD1, 0xB4, 0x109, 0x01, 0x01, 0x01, 0x55, 4); // 0xB71
             private static Player Axel_Blaze_IE1 = new Player(200, 176, 79, 66, 76, 64, 72, 68, 60, 485, 49, 63, 18, 16, 13, 14, 14, 12, 12, 1, 2, 2, 2, 1, 1, 1, 1, 1, 0x8F, 0x6B, 0x7D, 0x8C, 0x01, 0x01, 0x01, 0x01, 2); // 0xB72
 
-            public IDictionary<int, Player> IE2Player = new Dictionary<int, Player>
+            public static IDictionary<int, Player> IE2Player = new Dictionary<int, Player>
             {
                 { 0x01, Mark_Evans},
 { 0x02, Nathan_Swift},
@@ -4120,7 +4134,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
 { 0xB72, Axel_Blaze_IE1},
             };
         }
-        public class IE3
+        public static class IE3
         {
 
             private static Player Mark_Evans = new Player(125, 135, 53, 53, 49, 80, 52, 69, 79, 435, 47, 94, 13, 16, 25, 25, 18, 26, 30, 5, 1, 5, 2, 5, 2, 5, 5, 5, 0x1A6, 0x1AD, 0x1A9, 0x19A, 0x01, 0x64, 0x64, 0x64, 6); // 0x01
@@ -6471,7 +6485,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
             private static Player David_Samford2 = new Player(154, 176, 90, 100, 61, 53, 80, 70, 67, 521, 72, 100, 26, 22, 27, 23, 27, 23, 26, 5, 3, 3, 5, 3, 1, 1, 2, 2, 0x48, 0x158, 0x3E, 0xF1, 0x01, 0x01, 0x01, 0x01, 3); // 0xF6A
 
 
-            public IDictionary<int, Player> IE3Player = new Dictionary<int, Player>
+            public static IDictionary<int, Player> IE3Player = new Dictionary<int, Player>
             {
                 { 0x01, Mark_Evans },
 { 0x02, Nathan_Swift },

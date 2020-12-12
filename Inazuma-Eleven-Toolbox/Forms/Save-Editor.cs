@@ -41,9 +41,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         int Checksum2BlockStart = 0;
         int Checksum2BlockLength = 0;
 
-        ItemClass IC = new ItemClass();
         IECommonDictionary D = new IECommonDictionary();
-        Moves M = new Moves();
         PlayerFuncs P = new PlayerFuncs();
 
         int DataGridviewIndexFromCell(int index)
@@ -58,7 +56,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         void SetOffsets(string GameVersion)
         {
-            IC.EquipmentOffsetToStr.Clear();
             if (GameVersion == "INAZUMA_ELEVEN3")
             {
                 isIE1 = false;
@@ -72,8 +69,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 Checksum1BlockLength = 0x84;
                 Checksum2BlockStart = 0xC8;
                 Checksum2BlockLength = 0x59A0;
-                ItemsIE3 ItemIE3 = new ItemsIE3();
-                IC.EquipmentOffsetToStr = ItemIE3.EquipmentOffsetToStrIE3;
                 ItemEndOffset = 0x4B7;
                 NameOffset = 0x4C8;
             }
@@ -90,8 +85,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 Checksum1BlockLength = 0x7C;
                 Checksum2BlockStart = 0xC0;
                 Checksum2BlockLength = 0x7D44;
-                ItemsIE2 ItemIE2 = new ItemsIE2();
-                IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
                 ItemEndOffset = 0x45D;
                 NameOffset = 0x4C0;
             }
@@ -108,8 +101,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 Checksum1BlockLength = 0x7C;
                 Checksum2BlockStart = 0xC0;
                 Checksum2BlockLength = 0x7E8C;
-                ItemsIE2 ItemIE2 = new ItemsIE2();
-                IC.EquipmentOffsetToStr = ItemIE2.EquipmentOffsetToStrIE2;
                 ItemEndOffset = 0x45D;
                 NameOffset = 0x4C0;
             }
@@ -154,6 +145,10 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ModifiedBlock = SavedataFull;
 
                 SetOffsets(Game);
+                ItemClass.getItemSaveFilePos(isIE3);
+                ItemClass.getEquipmentOffset(isIE3);
+                Moves.getMoveGrowth(isIE3);
+                PlayerClass.getPlayerClass(isIE3);
                 label4.Text = Game;
                 dataGridView1.Rows.Clear();
                 dataGridView2.Rows.Clear();
@@ -230,7 +225,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericPrestige.Value = BitConverter.ToInt32(SavedataFull.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
                 numericFriendship.Value = BitConverter.ToInt32(SavedataFull.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);
                 // Need to figure out what encoding this game uses
-                txtBoxName.Text = Encoding.Default.GetString(SavedataFull.Skip(NameOffset).Take(10).ToArray()).Replace("\0", "");
+                txtBoxName.Text = Encoding.UTF8.GetString(SavedataFull.Skip(NameOffset).Take(10).ToArray()).Replace("\0", "");
 
                 LoadItems();
 
@@ -261,22 +256,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
             string ItemName = "";
             for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
             {
-                if (isIE3)
+                if(ItemClass.ItemSaveFilePos.ContainsKey(i))
                 {
-                    if(new ItemsIE3().ItemSaveFilePos.ContainsKey(i))
-                    {
-                        ItemName = new ItemsIE3().ItemSaveFilePos[i];
-                        dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
-                    }
+                    ItemName = ItemClass.ItemSaveFilePos[i];
+                    dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
                 }
-                if (isIE2 || isIE1)
-                {
-                    if (new ItemsIE2().ItemSaveFilePos.ContainsKey(i))
-                    {
-                        ItemName = new ItemsIE2().ItemSaveFilePos[i];
-                        dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
-                    }
-                }               
             }
         }
 
@@ -435,9 +419,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 short Other1 = BitConverter.ToInt16(block.Skip(0x12).Take(2).ToArray(), 0);
                 short Other2 = BitConverter.ToInt16(block.Skip(0x14).Take(2).ToArray(), 0);
 
-                textBox19.Text = IC.EquipmentOffsetToStr[Boots];
-                textBox20.Text = IC.EquipmentOffsetToStr[Other1];
-                textBox21.Text = IC.EquipmentOffsetToStr[Other2];
+                textBox19.Text = ItemClass.EquipmentOffsetToStr[Boots];
+                textBox20.Text = ItemClass.EquipmentOffsetToStr[Other1];
+                textBox21.Text = ItemClass.EquipmentOffsetToStr[Other2];
 
                 numericUpDown7.Value = PlayerLevel;
                 textBox22.Text = P.HEXToPlayer[PlayerHEX];
@@ -469,30 +453,21 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         public void SetMoveLevels(NumericUpDown MoveLevel, string EvolveType, byte TimesUsed)
         {
-            MoveLevel.Minimum = M.GetMinMoveLevel(EvolveType);
-            MoveLevel.Maximum = M.GetMaxMoveLevel(EvolveType);
-            MoveLevel.Value = M.GetCurrentMoveLevel(TimesUsed, EvolveType);
+            MoveLevel.Minimum = Moves.GetMinMoveLevel(EvolveType);
+            MoveLevel.Maximum = Moves.GetMaxMoveLevel(EvolveType);
+            MoveLevel.Value = Moves.GetCurrentMoveLevel(TimesUsed, EvolveType);
         }
 
         public string SetReadOnly(NumericUpDown MoveLevel, ComboBox MoveName)
         {
             MoveLevel.ReadOnly = false;
-            if (isIE2) 
+
+            if (!Moves.MoveGrowth.ContainsKey(MoveName.Text))
             {
-                if (!M.IE2MoveGrowth.ContainsKey(MoveName.Text))
-                {
-                    MoveLevel.ReadOnly = true;
-                }
-                else return M.IE2MoveGrowth[MoveName.Text];
+                MoveLevel.ReadOnly = true;
             }
-            if (isIE3)
-            {
-                if (!M.IE3MoveGrowth.ContainsKey(MoveName.Text))
-                {
-                    MoveLevel.ReadOnly = true;
-                }
-                else return M.IE3MoveGrowth[MoveName.Text];
-            }
+            else return Moves.MoveGrowth[MoveName.Text];
+
             // there are no movelevels in IE1 so don't edit them
             if (isIE1)
             {
@@ -514,22 +489,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte[] block = ModifiedBlock.Skip((Player * length) + PlayerStartOffset).Take(length).ToArray();
 
             string MoveEvolveType = "";
-            if (isIE3)
+
+            if (Moves.MoveGrowth.ContainsKey(MoveName.Text))
             {
-                if (M.IE3MoveGrowth.ContainsKey(MoveName.Text))
-                {
-                    MoveEvolveType = M.IE3MoveGrowth[MoveName.Text];
-                }
+                MoveEvolveType = Moves.MoveGrowth[MoveName.Text];
             }
-            if (isIE2)
-            {
-                if (M.IE2MoveGrowth.ContainsKey(MoveName.Text))
-                {
-                    MoveEvolveType = M.IE2MoveGrowth[MoveName.Text];
-                }
-            }
+
             byte Move1Level = block[LevelOffset];
-            byte TimesUsed = M.SetNewLevel(MoveLevel.Value, MoveEvolveType);
+            byte TimesUsed = Moves.SetNewLevel(MoveLevel.Value, MoveEvolveType);
             block[LevelOffset] = TimesUsed;
             ModifiedBlock = FileIO.WriteData(ModifiedBlock, (Player * length) + PlayerStartOffset, block, block.Length);
         }
@@ -543,24 +510,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 short Move = BitConverter.ToInt16(block.Skip(0x38 + (i * 2)).Take(2).ToArray(), 0);
                 string MoveName = D.MoveToStr[Move];
                 string MoveEvolveType = "";
-                if (isIE3)
+
+                if (Moves.MoveGrowth.ContainsKey(MoveName))
                 {
-                    if (M.IE3MoveGrowth.ContainsKey(MoveName))
-                    {
-                        MoveEvolveType = M.IE3MoveGrowth[MoveName];
-                        block[0x44 + i] = M.SetNewLevel(M.GetMaxMoveLevel(MoveEvolveType), MoveEvolveType);
-                        ModifiedBlock = FileIO.WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
-                    }
+                    MoveEvolveType = Moves.MoveGrowth[MoveName];
+                    block[0x44 + i] = Moves.SetNewLevel(Moves.GetMaxMoveLevel(MoveEvolveType), MoveEvolveType);
+                    ModifiedBlock = FileIO.WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
                 }
-                if (isIE2)
-                {
-                    if (M.IE2MoveGrowth.ContainsKey(MoveName))
-                    {
-                        MoveEvolveType = M.IE2MoveGrowth[MoveName];
-                        block[0x44 + i] = M.SetNewLevel(M.GetMaxMoveLevel(MoveEvolveType), MoveEvolveType);
-                        ModifiedBlock = FileIO.WriteData(ModifiedBlock, (PlayerIndex * length) + PlayerStartOffset, block, block.Length);
-                    }
-                }
+
             }
             LoadPlayer();
         }
@@ -625,19 +582,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
             for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
             {
-                if (isIE3)
+                if (ItemClass.ItemSaveFilePos.ContainsKey(i))
                 {
-                    if (new ItemsIE3().ItemSaveFilePos.ContainsKey(i))
-                    {
-                        SetNewItemAmount((byte)numericUpDown19.Value, i);
-                    }
-                }
-                if (isIE1 || isIE2)
-                {
-                    if (new ItemsIE2().ItemSaveFilePos.ContainsKey(i))
-                    {
-                        SetNewItemAmount((byte)numericUpDown19.Value, i);
-                    }
+                    SetNewItemAmount((byte)numericUpDown19.Value, i);
                 }
             }
                         
@@ -807,30 +754,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
             ushort[] Moves = { };
             byte[] UnlockLevels = { };
 
-            if (isIE1 || isIE2)
+            if (!PlayerClass.IEPlayer.ContainsKey(ScoutID))
             {
-                PlayerClass.IE2 IE2Class = new PlayerClass.IE2();
-                if (!IE2Class.IE2Player.ContainsKey(ScoutID))
-                {
-                    MessageBox.Show("An unknown Error occured");
-                    return;
-                }
-                EXPType = IE2Class.IE2Player[ScoutID].EXPType;
-                Moves = IE2Class.IE2Player[ScoutID].MoveHEXID;
-                UnlockLevels = IE2Class.IE2Player[ScoutID].MoveUnlockLevel;
+                MessageBox.Show("An unknown Error occured");
+                return;
             }
-            if (isIE3)
-            {
-                PlayerClass.IE3 IE3Class = new PlayerClass.IE3();
-                if (!IE3Class.IE3Player.ContainsKey(ScoutID))
-                {
-                    MessageBox.Show("An unknown Error occured");
-                    return;
-                }
-                EXPType = IE3Class.IE3Player[ScoutID].EXPType;
-                Moves = IE3Class.IE3Player[ScoutID].MoveHEXID;
-                UnlockLevels = IE3Class.IE3Player[ScoutID].MoveUnlockLevel;
-            }
+            EXPType = PlayerClass.IEPlayer[ScoutID].EXPType;
+            Moves = PlayerClass.IEPlayer[ScoutID].MoveHEXID;
+            UnlockLevels = PlayerClass.IEPlayer[ScoutID].MoveUnlockLevel;
+
             block[0x4a] = level;
 
             uint EXPToWrite = E.TypeToExp[EXPType][block[0x4a] - 1];
@@ -888,6 +820,37 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
             SetNewItemAmount(Amount, HEXID + Checksum2BlockStart);
         }
+
+        private void numericUpDown8_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown9_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown10_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown11_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown12_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown14_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void numericUpDown18_ValueChanged(object sender, EventArgs e)
         {
