@@ -29,7 +29,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         public int length = 0;
         public bool isIE3 = false;
         public bool isIE2 = false;
-        public bool isIE1 = false;        
+        public bool isIE1 = false;
 
         int Checksum1Offset = 0x40;
         int Checksum1BlockStart = 0x44;
@@ -54,12 +54,42 @@ namespace Inazuma_Eleven_Toolbox.Forms
             else return i;
         }
 
-        void SetOffsets(string GameVersion)
+        // isNDSSave will be used for the nds version if IE3
+        bool SetOffsets(string GameVersion, string ndsTitleID, bool isNDSSave) 
         {
-            if (GameVersion == "INAZUMA_ELEVEN3")
+            // set defaults
+            bool identifiedSave = true;
+            isIE1 = false;
+            isIE2 = false;
+            isIE3 = false;
+            Checksum1BlockLength = 0x7C;
+            Checksum2BlockStart = 0xC0;
+            ItemEndOffset = 0x45D;
+            PrestigePointsOffset = 0x4D4;
+            FriendshipPointsOffset = 0x4D8;
+            NameOffset = 0x4C0;
+            length = 0x70;
+            max_Training = 50;
+
+            bool JAPIE2 = (ndsTitleID == "BEBJ" || ndsTitleID == "BEEJ");
+            if (GameVersion == "INAZUMA_11_EU" || JAPIE2) // The European version of IE1 is based of the Japanese version of IE2.
             {
-                isIE1 = false;
-                isIE2 = false;
+                if (JAPIE2)
+                    isIE2 = true;
+                else
+                    isIE1 = true;
+
+                PlayerStartOffset = 0x124C;
+                Checksum2BlockLength = 0x7D44;
+            }
+            else if (GameVersion == "INAZUMA2_12_EU")
+            {
+                isIE2 = true;
+                PlayerStartOffset = 0x13F8;
+                Checksum2BlockLength = 0x7E8C;
+            }
+            else if ((GameVersion == "INAZUMA_ELEVEN3") && (SavedataFull[0x38] != 0)) // make sure we know it's not the japanese version of the 123 release 
+            {
                 isIE3 = true;
                 max_Training = 20;
                 PrestigePointsOffset = 0x4E8;
@@ -72,39 +102,38 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 ItemEndOffset = 0x4B7;
                 NameOffset = 0x4C8;
             }
-            if (GameVersion == "INAZUMA_11_EU")
+            else if (GameVersion.Contains("INAZUMA_ELEVEN")) // Inazuma eleven 1-2-3, Japanese Inazuma Eleven, USA Release of Inazuma Eleven 1
             {
-                isIE1 = true;
-                isIE2 = false;
-                isIE3 = false;
-                max_Training = 50;
-                PrestigePointsOffset = 0x4D4;
-                FriendshipPointsOffset = 0x4D8;
-                PlayerStartOffset = 0x124C;
-                length = 0x70;
-                Checksum1BlockLength = 0x7C;
-                Checksum2BlockStart = 0xC0;
-                Checksum2BlockLength = 0x7D44;
-                ItemEndOffset = 0x45D;
-                NameOffset = 0x4C0;
-            }
-            if (GameVersion == "INAZUMA2_12_EU")
-            {
-                isIE1 = false;
-                isIE2 = true;
-                isIE3 = false;
-                max_Training = 50;
-                PrestigePointsOffset = 0x4D4;
-                FriendshipPointsOffset = 0x4D8;
-                PlayerStartOffset = 0x13F8;
-                length = 0x70;
-                Checksum1BlockLength = 0x7C;
-                Checksum2BlockStart = 0xC0;
-                Checksum2BlockLength = 0x7E8C;
-                ItemEndOffset = 0x45D;
-                NameOffset = 0x4C0;
+                if (GameVersion.Contains("2"))
+                {
+                    isIE2 = true;
+                    PlayerStartOffset = 0x1268;
+                    Checksum2BlockLength = 0x7DC0;
+                }
+                else if (GameVersion.Contains("3"))
+                {
+                    isIE3 = true;
+                    max_Training = 20;
+                    length = 0x6C;
+                    ItemEndOffset = 0x4AF;
+                    PlayerStartOffset = 0x11B0;
+                    Checksum2BlockLength = 0x5940;
+                }
+                else // works for all IE1 games except for the European but uses different formats for players so they're currently not loaded
+                {
+                    /*isIE1 = true;
+                    NameOffset = 0x2C0;
+                    PrestigePointsOffset = 0x2D4;
+                    FriendshipPointsOffset = 0x2D8;
+                    PlayerStartOffset = 0x1268;
+                    length = 0x70;
+                    Checksum2BlockLength = 0x54C0;*/
+                    identifiedSave = false; // lock out save
+                }
             }
 
+            else identifiedSave = false; // lock out everything
+            return identifiedSave;
         }
 
         string Filename = "";
@@ -128,15 +157,12 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     MessageBox.Show("This is not a Inazuma Eleven DS Save File!");
                     return;
                 }
-                if (SavedataFull[0x17] == 0x4A)
-                {
-                    MessageBox.Show("Japanese save files are not supported since they have not been tested");
-                    return;
-                }
 
                 string Game = Encoding.ASCII.GetString(SavedataFull.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
+                string ndsTitleID = Encoding.ASCII.GetString(SavedataFull.Skip(0x14).Take(0x4).ToArray()).Replace("\0", "");
+                bool isNDSSave = Filename.EndsWith(".sav");
 
-                if (Game == "INAZUMA_ELEVEN3" && Filename.EndsWith(".sav"))
+                if (Game == "INAZUMA_ELEVEN3" && isNDSSave)
                 {
                     MessageBox.Show("The Japanese Version of IE3 is encrypted, the method to decrypt and encrypt has not been found yet.");
                     return;
@@ -144,9 +170,13 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 
                 ModifiedBlock = SavedataFull;
 
-                SetOffsets(Game);
+                bool identifiedGame = SetOffsets(Game, ndsTitleID, isNDSSave);
+                if(!identifiedGame)
+                {
+                    MessageBox.Show("Couldn't identify save.");
+                    return;
+                }
                 ItemClass.getItemSaveFilePos(isIE3);
-                ItemClass.getEquipmentOffset(isIE3);
                 Moves.getMoveGrowth(isIE3);
                 PlayerClass.getPlayerClass(isIE3);
                 label4.Text = Game;
@@ -256,9 +286,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
             string ItemName = "";
             for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
             {
-                if(ItemClass.ItemSaveFilePos.ContainsKey(i))
+                if(ItemClass.ItemSaveFilePos.ContainsKey(i - Checksum2BlockStart))
                 {
-                    ItemName = ItemClass.ItemSaveFilePos[i];
+                    ItemName = ItemClass.ItemSaveFilePos[i - Checksum2BlockStart];
                     dataGridView2.Rows.Add(ItemName, ModifiedBlock[i], "0x" + (i - Checksum2BlockStart).ToString("X2"));
                 }
             }
@@ -415,18 +445,26 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 SetMoveLevels(numericUpDown5, Move5EvolveType, moveLevel[4]);
                 SetMoveLevels(numericUpDown6, Move6EvolveType, moveLevel[5]);
 
-                short Boots = BitConverter.ToInt16(block.Skip(0x10).Take(2).ToArray(), 0);
-                short Other1 = BitConverter.ToInt16(block.Skip(0x12).Take(2).ToArray(), 0);
-                short Other2 = BitConverter.ToInt16(block.Skip(0x14).Take(2).ToArray(), 0);
+                TextBox[] txtBoxEquip = { textBox19, textBox20, textBox21 };
 
-                textBox19.Text = ItemClass.EquipmentOffsetToStr[Boots];
-                textBox20.Text = ItemClass.EquipmentOffsetToStr[Other1];
-                textBox21.Text = ItemClass.EquipmentOffsetToStr[Other2];
+                for (int i = 0; i < 0x3; i++)
+                {
+                    short Equipment = BitConverter.ToInt16(block.Skip(0x10 + (i * 2)).Take(2).ToArray(), 0);
+                    displayEquipment(txtBoxEquip[i], Equipment);
+                }
 
                 numericUpDown7.Value = PlayerLevel;
                 textBox22.Text = P.HEXToPlayer[PlayerHEX];
             }
             else return;
+        }
+
+
+        void displayEquipment(TextBox txtBox, short equipment)
+        {
+            if (equipment != 0)
+                txtBox.Text = ItemClass.ItemSaveFilePos[equipment];
+            else txtBox.Text = "None";
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -582,7 +620,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         {
             for (int i = Checksum2BlockStart; i <= ItemEndOffset; i++)
             {
-                if (ItemClass.ItemSaveFilePos.ContainsKey(i))
+                if (ItemClass.ItemSaveFilePos.ContainsKey(i - Checksum2BlockStart))
                 {
                     SetNewItemAmount((byte)numericUpDown19.Value, i);
                 }
