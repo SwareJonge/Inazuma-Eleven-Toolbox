@@ -867,7 +867,7 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
     {
         public static IDictionary<int, string> ItemSaveFilePos = new Dictionary<int, string>()
         {
-{0x0, "なし"},
+//{0x0, "なし"},
 {0x1, "Mineral water"},
 {0x2, "Sports drink"},
 {0x3, "Super water"},
