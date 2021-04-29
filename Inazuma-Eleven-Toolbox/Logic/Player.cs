@@ -101,13 +101,4148 @@ namespace Inazuma_Eleven_Toolbox.Logic
 
         };
 
-        public static void getPlayerClass(bool isIE3)
+        public static void getPlayerClass(bool isIE3, bool isIE2)
         {
             if (isIE3)
             {
                 IEPlayer = IE3.IE3Player;
             }
-            else IEPlayer = IE2.IE2Player;
+            else if (isIE2)
+            {
+                IEPlayer = IE2.IE2Player;
+            }
+            else
+            {
+                IEPlayer = IE1.IEPlayer;
+            }
+        }
+
+
+        public static class IE1
+        {
+            private static Player Mark_Evans = new Player(191, 184, 72, 72, 70, 77, 68, 69, 79, 507, 37, 41, 13, 16, 15, 17, 8, 16, 20, 5, 1, 5, 2, 5, 2, 5, 5, 5, 0x92, 0xA2, 0xB6, 0xA9, 0x0A, 0x64, 0x64, 0x64, 6); // 0x01
+            private static Player Nathan_Swift = new Player(169, 156, 64, 58, 68, 54, 76, 58, 56, 434, 64, 74, 13, 12, 12, 11, 18, 12, 11, 4, 4, 4, 4, 4, 4, 2, 4, 4, 0xCE, 0x66, 0x7D, 0x65, 0x64, 0x07, 0x12, 0x24, 2); // 0x02
+            private static Player Jack_Wallside = new Player(206, 165, 62, 68, 62, 66, 49, 54, 54, 415, 39, 63, 8, 11, 8, 16, 9, 11, 11, 4, 1, 2, 1, 1, 2, 4, 2, 4, 0x78, 0x6F, 0x75, 0xE6, 0x0B, 0x10, 0x20, 0x37, 3); // 0x03
+            private static Player Jim_Wraith = new Player(195, 140, 58, 53, 75, 59, 53, 62, 60, 420, 43, 33, 7, 14, 11, 11, 12, 13, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7B, 0xE8, 0x74, 0x81, 0x08, 0x16, 0x20, 0x2C, 3); // 0x04
+            private static Player Tod_Ironside = new Player(184, 161, 54, 55, 53, 56, 59, 56, 65, 398, 39, 33, 8, 8, 9, 7, 7, 14, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x6D, 0x99, 0x77, 0xC2, 0x07, 0x0A, 0x19, 0x23, 1); // 0x05
+            private static Player Steve_Grim = new Player(154, 144, 62, 64, 71, 64, 71, 71, 71, 474, 43, 51, 13, 9, 11, 11, 10, 7, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x6C, 0x7F, 0x9F, 0x0A, 0x14, 0x27, 0x32, 2); // 0x06
+            private static Player Tim_Saunders = new Player(156, 149, 63, 76, 61, 60, 55, 48, 58, 421, 46, 55, 11, 8, 14, 9, 12, 10, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0xC6, 0x65, 0x9B, 0x06, 0x12, 0x20, 0x2E, 1); // 0x07
+            private static Player Sam_Kincaid = new Player(167, 136, 71, 57, 56, 56, 52, 56, 76, 424, 50, 41, 9, 11, 6, 11, 10, 9, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x92, 0x72, 0x80, 0x8E, 0x0C, 0x0E, 0x17, 0x22, 2); // 0x08
+            private static Player Maxwell_Carson = new Player(156, 160, 60, 56, 78, 64, 60, 56, 62, 436, 51, 63, 11, 12, 18, 12, 16, 9, 9, 4, 2, 4, 2, 2, 2, 1, 4, 1, 0x7D, 0x9E, 0x68, 0xC9, 0x07, 0x0A, 0x14, 0x24, 1); // 0x09
+            private static Player Axel_Blaze = new Player(200, 176, 79, 66, 76, 64, 72, 68, 60, 485, 49, 63, 18, 16, 13, 14, 14, 12, 12, 1, 2, 2, 2, 1, 1, 1, 1, 1, 0x8F, 0x6B, 0x7D, 0x8C, 0x64, 0x11, 0x1A, 0x64, 2); // 0x0A
+            private static Player Kevin_Dragonfly = new Player(195, 144, 71, 60, 59, 61, 60, 64, 70, 445, 51, 60, 17, 15, 10, 12, 9, 14, 8, 1, 4, 2, 1, 4, 4, 2, 1, 2, 0x8D, 0xCC, 0x6C, 0x6A, 0x64, 0x64, 0x18, 0x2C, 2); // 0x0B
+            private static Player William_Glass = new Player(147, 168, 56, 51, 68, 57, 56, 53, 60, 401, 31, 21, 7, 8, 7, 11, 7, 5, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x86, 0x71, 0xC8, 0x6D, 0x1C, 0x28, 0x4B, 0x63, 5); // 0x0C
+            private static Player Nelly_Raimon_IE1 = new Player(140, 197, 79, 51, 45, 52, 44, 49, 62, 382, 33, 21, 8, 5, 5, 4, 6, 4, 7, 4, 2, 4, 4, 4, 4, 4, 4, 4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x0D
+            private static Player Celia_Hills_IE1 = new Player(138, 149, 48, 54, 69, 45, 69, 51, 70, 406, 19, 29, 5, 6, 8, 7, 6, 6, 7, 4, 4, 4, 4, 4, 4, 2, 4, 4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x0E
+            private static Player Silvia_Woods_IE1 = new Player(143, 116, 44, 72, 52, 69, 51, 64, 68, 420, 19, 27, 8, 6, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 2, 4, 4, 4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x0F
+            private static Player Nash = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x10
+            private static Player Sater = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x11
+            private static Player Isaacs = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x12
+            private static Player Frank_Wintersea = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x13
+            private static Player Joseph_King_RA = new Player(200, 153, 72, 75, 69, 72, 55, 74, 60, 477, 55, 96, 15, 11, 13, 16, 13, 14, 14, 1, 3, 1, 2, 1, 3, 1, 1, 2, 0xA3, 0xAC, 0x95, 0x85, 0x01, 0x1A, 0x1F, 0x23, 1); // 0x15
+            private static Player Peter_Drent = new Player(165, 144, 71, 54, 67, 64, 44, 59, 62, 421, 64, 89, 14, 17, 14, 18, 12, 14, 10, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x68, 0x7C, 0xC5, 0xE6, 0x01, 0x01, 0x2A, 0x50, 2); // 0x16
+            private static Player Ben_Simmons = new Player(191, 169, 68, 63, 72, 60, 69, 70, 69, 471, 68, 76, 11, 12, 14, 16, 12, 14, 10, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xD3, 0x7F, 0x68, 0xBE, 0x01, 0x01, 0x28, 0x55, 1); // 0x17
+            private static Player Alan_Master = new Player(165, 168, 64, 64, 72, 69, 64, 62, 66, 461, 64, 64, 12, 10, 13, 16, 15, 17, 11, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7A, 0x68, 0x9C, 0x85, 0x01, 0x01, 0x17, 0x4A, 1); // 0x18
+            private static Player Gus_Martin = new Player(189, 149, 76, 67, 73, 67, 63, 66, 63, 475, 62, 66, 13, 10, 12, 14, 12, 13, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x65, 0x86, 0x71, 0x01, 0x01, 0x1F, 0x55, 2); // 0x19
+            private static Player Herman_Waldon = new Player(189, 188, 76, 64, 72, 79, 70, 57, 69, 487, 69, 72, 16, 10, 15, 12, 16, 16, 14, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7A, 0xD3, 0x93, 0x7F, 0x01, 0x01, 0x19, 0x4C, 1); // 0x1A
+            private static Player John_Bloom = new Player(195, 153, 61, 71, 67, 70, 71, 54, 62, 456, 60, 74, 12, 13, 12, 11, 17, 11, 14, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x7A, 0xD3, 0x90, 0x9F, 0x01, 0x01, 0x01, 0x41, 1); // 0x1B
+            private static Player Derek_Swing = new Player(171, 184, 70, 56, 76, 59, 69, 60, 61, 451, 69, 68, 12, 11, 13, 10, 14, 13, 11, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x65, 0x9F, 0x7A, 0x93, 0x01, 0x19, 0x1E, 0x5A, 2); // 0x1C
+            private static Player Daniel_Hatch = new Player(184, 133, 75, 69, 68, 68, 78, 61, 64, 483, 54, 76, 20, 11, 14, 15, 14, 17, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x90, 0x93, 0x76, 0x01, 0x01, 0x19, 0x27, 2); // 0x1D
+            private static Player Jude_Sharp_RA = new Player(191, 180, 63, 79, 79, 79, 76, 76, 68, 520, 58, 78, 18, 19, 15, 17, 13, 15, 13, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0x68, 0x85, 0x8E, 0xCF, 0x01, 0x01, 0x01, 0x64, 1); // 0x1E
+            private static Player David_Samford_RA = new Player(193, 193, 70, 60, 78, 66, 66, 67, 71, 478, 62, 90, 16, 12, 17, 13, 17, 13, 16, 1, 3, 3, 2, 3, 1, 1, 2, 2, 0x7A, 0x65, 0xD1, 0xC8, 0x01, 0x01, 0x19, 0x2F, 3); // 0x1F
+            private static Player Bob_Carlton = new Player(147, 170, 58, 55, 63, 54, 45, 62, 70, 407, 44, 54, 11, 12, 11, 14, 13, 11, 11, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7C, 0x69, 0x9D, 0xC2, 0x01, 0x18, 0x22, 0x3F, 2); // 0x20
+            private static Player Cliff_Tomlinson = new Player(149, 157, 53, 60, 52, 61, 54, 52, 53, 385, 46, 54, 14, 12, 12, 13, 14, 13, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x92, 0x7A, 0xD3, 0x8E, 0x01, 0x1C, 0x29, 0x43, 1); // 0x21
+            private static Player Jim_Lawrenson = new Player(167, 137, 54, 57, 57, 63, 53, 56, 55, 395, 55, 55, 12, 12, 14, 11, 11, 14, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xD3, 0x9E, 0x90, 0x95, 0x01, 0x1D, 0x2E, 0x4B, 2); // 0x22
+            private static Player Barry_Potts = new Player(171, 136, 53, 52, 54, 56, 52, 60, 44, 371, 58, 49, 12, 12, 14, 11, 13, 11, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x67, 0x6F, 0xC6, 0x01, 0x1D, 0x28, 0x37, 2); // 0x23
+            private static Player Steve_Ingham = new Player(169, 133, 61, 53, 57, 52, 47, 54, 46, 370, 50, 54, 14, 11, 12, 14, 11, 13, 13, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xBF, 0x87, 0x95, 0x99, 0x01, 0x1C, 0x23, 0x61, 1); // 0x24
+            private static Player Nathan_Jones = new Player(165, 156, 58, 56, 70, 68, 56, 60, 68, 436, 43, 76, 15, 11, 20, 17, 10, 17, 16, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xB3, 0xA6, 0xE7, 0xAE, 0x01, 0x64, 0x13, 0x37, 2); // 0x29
+            private static Player Russell_Walk = new Player(140, 137, 60, 53, 60, 52, 63, 65, 58, 411, 42, 56, 14, 10, 14, 12, 17, 13, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x87, 0xBF, 0x6E, 0x94, 0x01, 0x0F, 0x1E, 0x38, 1); // 0x2A
+            private static Player Jason_Jones = new Player(151, 152, 52, 54, 57, 57, 60, 54, 63, 397, 55, 56, 12, 9, 12, 10, 13, 12, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x88, 0xD6, 0x87, 0x80, 0x01, 0x0A, 0x2A, 0x42, 1); // 0x2B
+            private static Player Ken_Furan = new Player(151, 156, 55, 59, 47, 70, 52, 61, 48, 392, 30, 47, 14, 15, 11, 16, 11, 14, 9, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0xA4, 0xAF, 0xB5, 0xA7, 0x0A, 0x22, 0x50, 0x5F, 1); // 0x2C
+            private static Player Jerry_Fulton = new Player(187, 132, 52, 58, 56, 61, 56, 79, 53, 415, 49, 66, 12, 10, 14, 10, 12, 10, 13, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x88, 0x94, 0x6E, 0x81, 0x01, 0x0C, 0x2C, 0x5A, 1); // 0x2D
+            private static Player Ray_Mannings = new Player(145, 136, 55, 62, 60, 52, 56, 61, 62, 408, 48, 51, 13, 8, 11, 11, 14, 8, 10, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x87, 0x6E, 0xD6, 0xA6, 0x01, 0x09, 0x28, 0x57, 2); // 0x2E
+            private static Player Robert_Mayer = new Player(187, 137, 54, 52, 60, 52, 62, 75, 61, 416, 54, 55, 13, 11, 12, 12, 12, 12, 12, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x87, 0x70, 0x7E, 0xA6, 0x01, 0x21, 0x45, 0x5D, 2); // 0x2F
+            private static Player Alexander_Brave = new Player(180, 144, 57, 65, 60, 52, 71, 56, 55, 416, 54, 74, 11, 12, 11, 10, 11, 11, 12, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x6E, 0x81, 0x94, 0x76, 0x01, 0x24, 0x48, 0x5B, 1); // 0x30
+            private static Player Johan_Tassman = new Player(171, 165, 62, 64, 56, 48, 60, 62, 63, 415, 69, 85, 15, 17, 15, 13, 15, 10, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xBF, 0x94, 0x9F, 0x76, 0x01, 0x01, 0x1D, 0x2F, 1); // 0x31
+            private static Player Troy_Moon = new Player(211, 153, 61, 70, 77, 52, 79, 69, 67, 475, 58, 55, 18, 11, 13, 16, 14, 10, 16, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xD6, 0x94, 0xD5, 0xB0, 0x01, 0x01, 0x28, 0x5A, 1); // 0x32
+            private static Player Burt_Wolf = new Player(184, 152, 68, 52, 52, 51, 56, 62, 60, 401, 54, 70, 17, 15, 15, 13, 13, 10, 13, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x94, 0xD6, 0x70, 0x6A, 0x01, 0x16, 0x26, 0x55, 1); // 0x33
+            private static Player Rob_Crombie = new Player(200, 156, 47, 46, 50, 40, 51, 74, 56, 364, 38, 53, 9, 11, 7, 19, 11, 14, 10, 2, 2, 2, 3, 4, 2, 1, 2, 1, 0x82, 0x88, 0xBF, 0x83, 0x01, 0x0E, 0x1D, 0x2F, 1); // 0x34
+            private static Player Chuck_Dollman = new Player(129, 104, 52, 53, 45, 48, 49, 53, 55, 355, 37, 49, 11, 10, 7, 9, 9, 8, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x94, 0x6E, 0x88, 0xAF, 0x09, 0x12, 0x20, 0x4C, 1); // 0x35
+            private static Player Uxley_Allen = new Player(149, 112, 48, 51, 51, 50, 48, 55, 44, 347, 36, 52, 11, 9, 8, 9, 9, 11, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x99, 0xC0, 0xC6, 0x87, 0x01, 0x1B, 0x26, 0x2F, 3); // 0x36
+            private static Player Phil_Noir = new Player(121, 120, 52, 45, 48, 52, 52, 58, 45, 352, 31, 41, 9, 10, 9, 9, 8, 11, 10, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x6E, 0xC0, 0x88, 0x93, 0x01, 0x15, 0x1E, 0x5D, 2); // 0x37
+            private static Player Mick_Askley = new Player(143, 100, 55, 50, 54, 44, 48, 56, 54, 361, 40, 48, 8, 8, 10, 8, 11, 11, 9, 4, 5, 4, 4, 5, 4, 1, 4, 4, 0x87, 0x6A, 0x83, 0xA6, 0x10, 0x2D, 0x44, 0x50, 3); // 0x38
+            private static Player Charlie_Boardfield = new Player(217, 100, 68, 44, 44, 69, 60, 62, 69, 416, 69, 48, 18, 10, 12, 16, 9, 13, 10, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0xB0, 0x7C, 0xB5, 0x6F, 0x01, 0x18, 0x32, 0x56, 1); // 0x3D
+            private static Player Hugo_Tallgeese = new Player(189, 101, 44, 52, 56, 46, 64, 67, 54, 383, 66, 44, 7, 10, 10, 16, 13, 14, 9, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x69, 0x95, 0x76, 0x73, 0x01, 0x01, 0x22, 0x5B, 1); // 0x3E
+            private static Player Wilson_Fishman = new Player(167, 113, 52, 64, 51, 51, 51, 62, 51, 382, 69, 51, 11, 18, 9, 8, 14, 11, 9, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x7D, 0x85, 0x6D, 0xC2, 0x01, 0x19, 0x2C, 0x58, 1); // 0x3F
+            private static Player Peter_Johnson_ = new Player(167, 109, 48, 52, 48, 48, 54, 57, 50, 357, 61, 33, 9, 9, 7, 16, 15, 13, 11, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x7A, 0x69, 0x80, 0x9A, 0x01, 0x12, 0x26, 0x3B, 3); // 0x40
+            private static Player Leonard_O_Shea = new Player(195, 113, 78, 52, 47, 64, 55, 69, 68, 433, 66, 40, 19, 11, 9, 19, 7, 12, 9, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x6F, 0x83, 0xA7, 0xC2, 0x01, 0x01, 0x28, 0x42, 3); // 0x41
+            private static Player Cham_Lion = new Player(176, 101, 44, 45, 45, 55, 53, 60, 48, 350, 61, 45, 10, 10, 14, 9, 17, 13, 7, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7D, 0x74, 0xE8, 0xBF, 0x01, 0x12, 0x30, 0x53, 1); // 0x42
+            private static Player Steve_Eagle = new Player(193, 148, 61, 68, 62, 52, 68, 71, 68, 450, 76, 51, 13, 15, 17, 11, 18, 13, 10, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xC1, 0x95, 0x68, 0x73, 0x01, 0x14, 0x1C, 0x5A, 1); // 0x43
+            private static Player Bruce_Monkey = new Player(184, 100, 54, 64, 51, 48, 53, 52, 54, 376, 56, 43, 7, 12, 7, 9, 10, 14, 8, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x77, 0xCA, 0x7B, 0xD5, 0x01, 0x01, 0x23, 0x5F, 1); // 0x44
+            private static Player Gary_Lancaster = new Player(191, 108, 78, 66, 49, 64, 54, 52, 67, 430, 69, 48, 16, 16, 9, 17, 5, 17, 10, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0xCA, 0x6F, 0x72, 0xC4, 0x01, 0x01, 0x10, 0x3B, 1); // 0x45
+            private static Player Harry_Snake = new Player(184, 112, 55, 63, 62, 49, 55, 65, 45, 394, 56, 49, 9, 15, 16, 9, 13, 12, 10, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x97, 0x6C, 0xBE, 0x7E, 0x01, 0x15, 0x23, 0x50, 2); // 0x46
+            private static Player Adrian_Speed = new Player(195, 133, 63, 47, 69, 55, 79, 42, 47, 402, 80, 51, 14, 10, 17, 7, 20, 14, 11, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xCA, 0x69, 0x9C, 0x9B, 0x01, 0x01, 0x18, 0x48, 2); // 0x47
+            private static Player Alan_Coe = new Player(132, 112, 52, 45, 53, 51, 48, 46, 49, 344, 40, 33, 11, 11, 11, 10, 9, 11, 10, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xCA, 0x77, 0xC2, 0x68, 0x01, 0x1E, 0x30, 0x47, 1); // 0x48
+            private static Player Philip_Anders = new Player(123, 132, 52, 51, 48, 52, 52, 51, 46, 352, 37, 66, 10, 10, 8, 9, 10, 7, 8, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7A, 0x6D, 0xC6, 0xD3, 0x01, 0x18, 0x23, 0x42, 1); // 0x49
+            private static Player Rocky_Rackham = new Player(123, 121, 53, 53, 53, 44, 51, 44, 47, 345, 36, 43, 8, 7, 9, 10, 13, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6F, 0x92, 0x83, 0xE8, 0x01, 0x12, 0x25, 0x52, 2); // 0x4A
+            private static Player Matt_Mouseman = new Player(158, 112, 42, 50, 52, 44, 79, 54, 45, 366, 42, 41, 4, 5, 11, 4, 23, 11, 9, 4, 5, 4, 4, 5, 4, 1, 4, 4, 0x80, 0x72, 0xBF, 0x74, 0x0F, 0x19, 0x2A, 0x4B, 2); // 0x4B
+            private static Player Chad_Bullford = new Player(171, 174, 41, 68, 48, 77, 31, 51, 64, 380, 32, 40, 9, 19, 9, 20, 10, 8, 11, 2, 2, 2, 3, 4, 2, 1, 2, 1, 0x83, 0xAB, 0xB0, 0x82, 0x01, 0x1B, 0x2E, 0x50, 2); // 0x4C
+            private static Player Thomas_Feldt = new Player(206, 177, 75, 69, 68, 76, 75, 78, 76, 517, 48, 66, 11, 14, 13, 13, 13, 11, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xA5, 0xAF, 0xB5, 0x86, 0x01, 0x01, 0x22, 0x2D, 1); // 0x51
+            private static Player Harry_Leading = new Player(140, 112, 52, 52, 44, 47, 50, 52, 48, 345, 75, 76, 16, 16, 15, 16, 13, 20, 17, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x86, 0xE8, 0x71, 0x9D, 0x01, 0x1D, 0x50, 0x5A, 3); // 0x52
+            private static Player Terry_Stronger = new Player(145, 121, 44, 46, 46, 52, 47, 52, 52, 339, 74, 80, 16, 15, 14, 17, 15, 23, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x86, 0x71, 0xC0, 0xC6, 0x01, 0x18, 0x1D, 0x41, 2); // 0x53
+            private static Player Philip_Marvel = new Player(143, 108, 44, 53, 52, 48, 49, 50, 51, 347, 75, 76, 13, 13, 15, 17, 16, 20, 13, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x86, 0x9C, 0x71, 0x6A, 0x01, 0x14, 0x55, 0x5C, 2); // 0x54
+            private static Player Noel_Good = new Player(134, 117, 44, 44, 48, 55, 44, 48, 45, 328, 76, 60, 15, 15, 15, 15, 16, 21, 15, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x86, 0x71, 0xC0, 0x7C, 0x01, 0x1E, 0x4C, 0x5A, 1); // 0x55
+            private static Player Tyron_Rock = new Player(149, 112, 51, 46, 46, 48, 48, 47, 52, 338, 74, 76, 14, 17, 14, 17, 15, 20, 14, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xD3, 0x9D, 0x86, 0xC5, 0x01, 0x01, 0x19, 0x58, 2); // 0x56
+            private static Player Francis_Tell = new Player(145, 109, 44, 53, 48, 46, 45, 44, 47, 327, 69, 76, 14, 19, 13, 15, 17, 19, 14, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x71, 0xC0, 0x86, 0x81, 0x01, 0x01, 0x4B, 0x59, 1); // 0x57
+            private static Player Samuel_Buster = new Player(125, 113, 55, 46, 52, 49, 48, 50, 49, 349, 69, 68, 23, 22, 15, 15, 15, 21, 14, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x71, 0x9C, 0x86, 0xC5, 0x01, 0x01, 0x19, 0x5C, 2); // 0x58
+            private static Player Jonathan_Seller = new Player(132, 113, 55, 50, 50, 49, 55, 45, 46, 350, 80, 64, 15, 19, 15, 15, 15, 20, 17, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xC0, 0x71, 0x86, 0x8F, 0x01, 0x01, 0x1B, 0x55, 3); // 0x59
+            private static Player Victor_Kind = new Player(134, 109, 49, 53, 48, 51, 48, 53, 46, 348, 78, 70, 14, 18, 17, 14, 17, 21, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x86, 0xC0, 0x71, 0x8E, 0x01, 0x01, 0x1A, 0x4E, 1); // 0x5A
+            private static Player Neil_Turner = new Player(121, 108, 48, 48, 52, 52, 44, 50, 45, 339, 73, 74, 14, 20, 17, 16, 20, 20, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x9D, 0x71, 0x8F, 0x86, 0x01, 0x01, 0x01, 0x26, 1); // 0x5B
+            private static Player Reg_Underwood = new Player(121, 115, 44, 40, 40, 69, 48, 42, 70, 353, 81, 72, 17, 17, 16, 17, 21, 22, 17, 1, 1, 4, 2, 2, 2, 1, 1, 1, 0x71, 0xC0, 0x86, 0xC9, 0x1A, 0x26, 0x32, 0x4F, 1); // 0x5C
+            private static Player Patrick_Stiller = new Player(134, 117, 53, 45, 47, 52, 44, 46, 53, 340, 66, 76, 16, 14, 16, 16, 13, 19, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x71, 0x96, 0x7D, 0x9F, 0x01, 0x1B, 0x23, 0x2F, 1); // 0x5D
+            private static Player Charles_Oughtry = new Player(127, 113, 55, 52, 45, 45, 46, 44, 48, 335, 73, 74, 14, 16, 13, 17, 13, 22, 15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xC0, 0x66, 0x86, 0x9D, 0x01, 0x14, 0x1E, 0x41, 1); // 0x5E
+            private static Player Clive_Mooney = new Player(138, 101, 53, 49, 54, 50, 55, 53, 46, 360, 76, 72, 13, 17, 13, 15, 17, 20, 13, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x9D, 0x7A, 0xD3, 0xC4, 0x01, 0x18, 0x24, 0x4E, 2); // 0x5F
+            private static Player Neil_Waters = new Player(151, 101, 52, 48, 51, 52, 45, 54, 45, 347, 81, 76, 13, 17, 16, 17, 16, 20, 17, 4, 5, 4, 4, 5, 4, 1, 4, 4, 0x82, 0x86, 0x9D, 0x78, 0x01, 0x18, 0x21, 0x2F, 2); // 0x60
+            private static Player Sam_Idol = new Player(165, 161, 60, 58, 54, 55, 58, 45, 67, 397, 43, 43, 8, 8, 7, 17, 10, 11, 8, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0xA8, 0xAA, 0xAB, 0xA4, 0x01, 0x1D, 0x2E, 0x63, 1); // 0x65
+            private static Player Marcus_Train = new Player(149, 152, 61, 60, 53, 56, 52, 41, 54, 377, 32, 51, 11, 8, 9, 7, 9, 11, 7, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x80, 0xC0, 0x6C, 0xC4, 0x01, 0x1A, 0x34, 0x4E, 1); // 0x66
+            private static Player Light_Nobel = new Player(154, 164, 60, 55, 56, 58, 61, 44, 61, 395, 44, 51, 8, 9, 9, 8, 9, 9, 9, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x80, 0xC4, 0x69, 0x72, 0x01, 0x19, 0x2E, 0x48, 2); // 0x67
+            private static Player Walter_Valiant = new Player(158, 132, 62, 62, 61, 55, 56, 50, 71, 417, 31, 36, 11, 15, 9, 8, 9, 11, 7, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x80, 0xD3, 0x99, 0x9C, 0x01, 0x01, 0x15, 0x1C, 2); // 0x68
+            private static Player Spencer_Gates = new Player(149, 152, 59, 52, 56, 58, 56, 40, 62, 383, 46, 40, 7, 9, 11, 7, 9, 7, 9, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0xC4, 0x80, 0x7C, 0xA8, 0x01, 0x01, 0x1E, 0x50, 3); // 0x69
+            private static Player Josh_Spear = new Player(158, 133, 54, 56, 56, 62, 55, 44, 60, 387, 36, 45, 8, 11, 9, 8, 8, 7, 8, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x72, 0x87, 0x86, 0x71, 0x01, 0x1B, 0x5A, 0x5F, 3); // 0x6A
+            private static Player Gaby_Farmer = new Player(171, 152, 58, 62, 52, 61, 54, 47, 59, 393, 43, 51, 10, 10, 9, 7, 11, 10, 8, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0xD3, 0x72, 0x7F, 0x9F, 0x01, 0x01, 0x1E, 0x3A, 2); // 0x6B
+            private static Player A__Woodbridge = new Player(167, 137, 60, 60, 52, 58, 54, 41, 66, 391, 34, 52, 9, 10, 9, 9, 7, 7, 10, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x72, 0xC4, 0x7B, 0x90, 0x01, 0x1A, 0x26, 0x49, 1); // 0x6C
+            private static Player Gus_Gamer = new Player(173, 137, 58, 60, 59, 52, 55, 45, 69, 398, 37, 52, 10, 7, 14, 8, 7, 8, 7, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0xC4, 0x72, 0x80, 0xC7, 0x01, 0x1C, 0x27, 0x55, 2); // 0x6D
+            private static Player Mark_Gambling = new Player(143, 149, 52, 56, 58, 63, 53, 51, 64, 397, 34, 49, 10, 9, 11, 7, 11, 7, 10, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x72, 0xC4, 0x88, 0xE7, 0x01, 0x01, 0x29, 0x44, 3); // 0x6E
+            private static Player Theodore_Master = new Player(147, 152, 57, 57, 55, 56, 52, 47, 60, 384, 30, 41, 10, 8, 11, 8, 9, 9, 9, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x99, 0x72, 0xBE, 0xC4, 0x01, 0x01, 0x1A, 0x4F, 2); // 0x6F
+            private static Player Ham_Signalman = new Player(151, 137, 54, 56, 55, 52, 53, 48, 59, 377, 39, 51, 7, 8, 11, 11, 10, 8, 11, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x72, 0x7B, 0x85, 0x9D, 0x01, 0x16, 0x22, 0x30, 1); // 0x70
+            private static Player Bill_Formby = new Player(158, 137, 54, 58, 61, 45, 46, 48, 51, 363, 40, 43, 10, 9, 10, 9, 8, 9, 9, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x88, 0xAB, 0x7E, 0xAF, 0x01, 0x1A, 0x37, 0x4C, 2); // 0x71
+            private static Player Grant_Eldorado = new Player(158, 144, 49, 63, 61, 69, 43, 28, 49, 362, 37, 68, 11, 11, 8, 18, 8, 10, 10, 4, 3, 5, 4, 4, 2, 4, 4, 1, 0x98, 0x8D, 0x83, 0xD3, 0x01, 0x1C, 0x25, 0x34, 1); // 0x72
+            private static Player Mike_Vox = new Player(162, 144, 48, 55, 57, 51, 44, 50, 47, 352, 33, 39, 8, 10, 8, 9, 11, 9, 9, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x80, 0x66, 0x86, 0x7F, 0x01, 0x1A, 0x2F, 0x4F, 1); // 0x73
+            private static Player Ollie_Webb = new Player(143, 141, 44, 62, 54, 48, 44, 51, 49, 352, 33, 41, 10, 9, 8, 7, 9, 9, 9, 4, 3, 5, 4, 4, 5, 4, 4, 1, 0x86, 0x6E, 0x6B, 0xBE, 0x19, 0x23, 0x2A, 0x47, 1); // 0x74
+            private static Player Morgan_Sanders = new Player(167, 164, 53, 59, 44, 64, 52, 55, 62, 389, 56, 86, 10, 9, 19, 20, 13, 16, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAE, 0x65, 0x9B, 0xA6, 0x01, 0x01, 0x26, 0x5C, 1); // 0x79
+            private static Player Newton_Flust = new Player(169, 129, 62, 61, 56, 60, 55, 60, 63, 417, 54, 58, 11, 16, 12, 17, 10, 17, 13, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x81, 0x65, 0x72, 0xCD, 0x01, 0x01, 0x34, 0x5D, 3); // 0x7A
+            private static Player Jim_Hillfort = new Player(147, 141, 55, 62, 60, 53, 54, 63, 61, 408, 58, 62, 13, 14, 10, 19, 11, 13, 13, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x74, 0x7E, 0x81, 0x9B, 0x01, 0x01, 0x55, 0x5E, 3); // 0x7B
+            private static Player Galen_Thunderbird = new Player(145, 153, 63, 60, 63, 62, 54, 57, 60, 419, 78, 78, 20, 16, 10, 17, 7, 15, 14, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x82, 0x70, 0x81, 0x7E, 0x01, 0x01, 0x28, 0x5C, 3); // 0x7C
+            private static Player Finn_Stoned = new Player(151, 149, 54, 53, 57, 56, 55, 58, 63, 396, 54, 51, 14, 19, 13, 19, 10, 16, 15, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x82, 0x81, 0x80, 0x75, 0x01, 0x01, 0x2C, 0x4F, 2); // 0x7D
+            private static Player Phil_Wingate = new Player(176, 152, 60, 56, 60, 57, 54, 68, 61, 416, 70, 62, 19, 11, 19, 15, 13, 16, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7E, 0x74, 0x76, 0x84, 0x01, 0x01, 0x25, 0x5F, 2); // 0x7E
+            private static Player Jez_Shell = new Player(156, 133, 53, 63, 59, 56, 47, 65, 60, 403, 44, 63, 13, 10, 12, 14, 12, 14, 15, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x65, 0x94, 0x88, 0x9B, 0x01, 0x26, 0x40, 0x5A, 3); // 0x7F
+            private static Player Jupiter_Jumper = new Player(176, 140, 56, 61, 53, 56, 69, 68, 59, 422, 60, 59, 16, 14, 16, 12, 19, 16, 16, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x77, 0xCD, 0x74, 0xD5, 0x01, 0x01, 0x25, 0x38, 2); // 0x80
+            private static Player Sam_Samurai = new Player(160, 176, 60, 60, 60, 60, 56, 60, 53, 409, 45, 66, 16, 11, 14, 14, 16, 17, 13, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x9B, 0x7D, 0x81, 0xCE, 0x01, 0x23, 0x2E, 0x58, 3); // 0x81
+            private static Player Hank_Sullivan = new Player(140, 140, 60, 55, 59, 44, 60, 60, 56, 394, 32, 56, 14, 12, 18, 12, 15, 17, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x74, 0x9B, 0x66, 0x81, 0x01, 0x01, 0x27, 0x5A, 2); // 0x82
+            private static Player Sail_Bluesea = new Player(180, 180, 52, 61, 61, 54, 60, 68, 55, 411, 44, 54, 17, 16, 18, 14, 17, 17, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xCD, 0x70, 0x74, 0xCE, 0x01, 0x01, 0x01, 0x26, 2); // 0x83
+            private static Player John_Reynolds = new Player(171, 137, 62, 56, 56, 53, 60, 54, 57, 398, 51, 51, 19, 11, 12, 11, 11, 17, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9C, 0x66, 0x9B, 0x74, 0x01, 0x21, 0x2A, 0x3A, 2); // 0x84
+            private static Player Dan_Hopper = new Player(145, 136, 52, 58, 62, 62, 55, 61, 54, 404, 44, 58, 12, 12, 13, 16, 11, 15, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x82, 0xC1, 0x96, 0xD5, 0x01, 0x24, 0x2C, 0x45, 2); // 0x85
+            private static Player Cal_Trops = new Player(145, 144, 58, 61, 69, 55, 59, 57, 54, 413, 43, 60, 11, 10, 18, 13, 11, 13, 15, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x95, 0x8E, 0x8A, 0x6A, 0x01, 0x2A, 0x4B, 0x5E, 3); // 0x86
+            private static Player Winston_Falls = new Player(165, 132, 56, 56, 52, 63, 64, 55, 62, 408, 56, 58, 11, 14, 11, 10, 18, 16, 15, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x88, 0x74, 0x7E, 0x81, 0x01, 0x01, 0x30, 0x43, 3); // 0x87
+            private static Player Kevin_Castle = new Player(156, 132, 53, 60, 52, 68, 52, 52, 52, 389, 48, 56, 12, 14, 14, 18, 12, 13, 15, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x7B, 0x87, 0xA3, 0xAE, 0x01, 0x26, 0x30, 0x50, 3); // 0x88
+            private static Player Albert_Green = new Player(169, 109, 50, 53, 60, 73, 53, 64, 77, 430, 60, 55, 10, 17, 16, 17, 11, 19, 15, 2, 5, 2, 1, 1, 3, 1, 2, 3, 0xAD, 0xB2, 0xB7, 0xE8, 0x01, 0x01, 0x01, 0x44, 2); // 0x8D
+            private static Player Seward_Hayseed = new Player(193, 128, 42, 56, 52, 77, 58, 68, 61, 414, 67, 64, 10, 15, 12, 17, 13, 16, 16, 1, 5, 1, 1, 1, 3, 1, 1, 1, 0xE8, 0xC6, 0x67, 0xC2, 0x01, 0x25, 0x2C, 0x49, 1); // 0x8E
+            private static Player Kent_Work = new Player(171, 109, 44, 57, 54, 70, 54, 65, 60, 404, 54, 55, 7, 15, 11, 19, 12, 20, 16, 1, 5, 4, 2, 2, 3, 1, 1, 1, 0xE8, 0x89, 0x66, 0xC6, 0x01, 0x01, 0x28, 0x50, 1); // 0x8F
+            private static Player Mark_Hillvalley_ = new Player(187, 108, 40, 56, 52, 79, 63, 66, 53, 409, 63, 51, 7, 13, 13, 18, 11, 19, 15, 2, 5, 2, 3, 4, 3, 1, 2, 1, 0x8A, 0x6A, 0x82, 0xB7, 0x01, 0x27, 0x3A, 0x63, 1); // 0x90
+            private static Player Herb_Sherman = new Player(176, 116, 49, 60, 62, 79, 52, 70, 56, 428, 64, 49, 8, 15, 12, 17, 13, 20, 17, 1, 5, 1, 1, 1, 3, 1, 1, 1, 0x8A, 0x92, 0xE8, 0xB7, 0x01, 0x25, 0x31, 0x63, 1); // 0x91
+            private static Player Joe_Small = new Player(178, 100, 40, 54, 54, 68, 56, 63, 56, 391, 54, 55, 11, 17, 11, 17, 12, 17, 14, 1, 5, 4, 2, 2, 3, 1, 1, 1, 0x76, 0x8A, 0x85, 0xB3, 0x01, 0x01, 0x27, 0x4E, 1); // 0x92
+            private static Player Ike_Steiner = new Player(180, 116, 42, 55, 63, 76, 53, 60, 55, 404, 57, 66, 10, 13, 12, 17, 12, 20, 14, 2, 5, 2, 1, 1, 3, 1, 2, 3, 0x75, 0xC7, 0x7A, 0x85, 0x01, 0x01, 0x01, 0x30, 2); // 0x93
+            private static Player Orville_Newman = new Player(169, 125, 71, 70, 46, 72, 62, 66, 71, 458, 67, 56, 19, 16, 9, 15, 13, 20, 17, 2, 5, 2, 1, 1, 3, 1, 2, 3, 0xC6, 0x76, 0xB0, 0xAC, 0x01, 0x01, 0x30, 0x59, 1); // 0x94
+            private static Player Tom_Walters = new Player(193, 104, 63, 58, 52, 73, 71, 61, 70, 448, 58, 63, 13, 16, 12, 15, 14, 20, 14, 2, 5, 2, 1, 1, 3, 1, 2, 3, 0xC2, 0x67, 0x75, 0xC7, 0x01, 0x01, 0x32, 0x4B, 3); // 0x95
+            private static Player Daniel_Dawson = new Player(187, 108, 57, 55, 56, 75, 64, 66, 76, 449, 57, 59, 16, 16, 11, 16, 14, 18, 16, 1, 5, 1, 1, 1, 3, 1, 1, 1, 0x75, 0xC2, 0x7B, 0xE7, 0x01, 0x01, 0x2A, 0x47, 2); // 0x96
+            private static Player Stuart_Racoonfur = new Player(165, 101, 56, 62, 62, 74, 66, 63, 72, 455, 61, 51, 17, 15, 15, 14, 15, 16, 17, 1, 5, 4, 2, 2, 3, 1, 1, 1, 0xC7, 0x76, 0x66, 0xE8, 0x01, 0x01, 0x2A, 0x35, 3); // 0x97
+            private static Player Lorne_Mower = new Player(189, 164, 46, 56, 41, 72, 62, 61, 60, 398, 38, 78, 7, 12, 7, 17, 12, 11, 10, 4, 1, 1, 1, 1, 3, 1, 1, 1, 0x7A, 0xE8, 0x6F, 0xC6, 0x01, 0x01, 0x28, 0x4E, 2); // 0x98
+            private static Player Homer_Grower = new Player(187, 113, 53, 53, 44, 76, 61, 68, 61, 416, 38, 60, 10, 11, 9, 16, 10, 10, 13, 4, 5, 2, 3, 4, 3, 1, 2, 1, 0x75, 0x85, 0xE8, 0x76, 0x01, 0x28, 0x3E, 0x5A, 1); // 0x99
+            private static Player Rolf_Howells = new Player(171, 117, 48, 62, 54, 75, 54, 60, 56, 409, 37, 63, 8, 11, 9, 15, 13, 13, 14, 4, 5, 4, 2, 2, 3, 1, 1, 1, 0x7D, 0xE8, 0x77, 0x7F, 0x01, 0x2A, 0x43, 0x55, 1); // 0x9A
+            private static Player Luke_Lively = new Player(182, 116, 47, 57, 44, 73, 56, 63, 54, 394, 40, 52, 7, 14, 8, 14, 14, 13, 12, 4, 5, 2, 3, 4, 3, 1, 2, 1, 0x82, 0x83, 0x70, 0x8A, 0x01, 0x21, 0x30, 0x4C, 1); // 0x9B
+            private static Player Ben_Nevis = new Player(195, 120, 52, 56, 51, 70, 59, 64, 53, 405, 45, 60, 7, 12, 9, 17, 11, 10, 12, 4, 5, 2, 1, 1, 3, 1, 2, 3, 0xBF, 0x86, 0xCA, 0x76, 0x01, 0x27, 0x30, 0x38, 2); // 0x9C
+            private static Player John_Neville = new Player(127, 140, 78, 62, 54, 79, 48, 51, 44, 416, 85, 100, 13, 10, 17, 23, 7, 6, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAB, 0xA7, 0x78, 0xB1, 0x01, 0x01, 0x37, 0x5E, 2); // 0xA1
+            private static Player Malcolm_Night = new Player(209, 180, 63, 76, 68, 78, 67, 64, 70, 486, 76, 85, 14, 13, 12, 13, 10, 14, 14, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x69, 0x85, 0x90, 0x7F, 0x01, 0x01, 0x27, 0x4F, 3); // 0xA2
+            private static Player Alfred_Meenan = new Player(169, 149, 61, 55, 55, 60, 55, 53, 52, 391, 51, 90, 13, 12, 11, 15, 18, 11, 10, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7D, 0x84, 0xD5, 0x68, 0x01, 0x01, 0x32, 0x4A, 3); // 0xA3
+            private static Player Dan_Mirthful = new Player(165, 129, 59, 70, 49, 65, 46, 51, 52, 392, 64, 52, 19, 16, 12, 17, 7, 8, 7, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x85, 0x7C, 0xC6, 0xC7, 0x01, 0x2A, 0x31, 0x48, 1); // 0xA4
+            private static Player Ricky_Clover = new Player(156, 137, 53, 52, 56, 52, 67, 45, 54, 379, 52, 80, 13, 18, 13, 18, 11, 12, 12, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x7B, 0x84, 0x96, 0xC9, 0x01, 0x01, 0x2C, 0x40, 3); // 0xA5
+            private static Player Toby_Damian = new Player(173, 133, 54, 56, 55, 56, 57, 56, 55, 389, 51, 89, 12, 17, 15, 14, 16, 11, 11, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xD5, 0xC9, 0x7D, 0x98, 0x01, 0x01, 0x30, 0x38, 1); // 0xA6
+            private static Player York_Nashmith = new Player(154, 132, 52, 62, 57, 61, 54, 52, 56, 394, 55, 90, 11, 16, 13, 12, 15, 11, 14, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x73, 0x95, 0x77, 0xC9, 0x01, 0x2A, 0x36, 0x4C, 1); // 0xA7
+            private static Player Zachary_Moore = new Player(149, 145, 52, 60, 60, 52, 63, 53, 58, 398, 56, 85, 14, 16, 15, 11, 15, 10, 15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x95, 0x68, 0x8E, 0x73, 0x01, 0x2A, 0x35, 0x54, 1); // 0xA8
+            private static Player Marvin_Murdock = new Player(195, 161, 68, 61, 61, 66, 60, 60, 61, 437, 61, 90, 20, 23, 13, 12, 16, 19, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xC3, 0x68, 0x92, 0x73, 0x01, 0x01, 0x2D, 0x46, 1); // 0xA9
+            private static Player Thomas_Murdock = new Player(180, 152, 68, 70, 65, 60, 64, 62, 61, 450, 67, 107, 20, 15, 20, 13, 14, 18, 19, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xD5, 0xC9, 0x7A, 0xC3, 0x01, 0x01, 0x2D, 0x46, 2); // 0xAA
+            private static Player Tyler_Murdock = new Player(167, 157, 79, 64, 68, 56, 60, 59, 54, 440, 62, 107, 23, 14, 14, 13, 21, 18, 20, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x85, 0xC9, 0xD3, 0xC3, 0x01, 0x01, 0x2D, 0x46, 1); // 0xAB
+            private static Player Simon_Calier = new Player(112, 168, 50, 41, 46, 71, 45, 48, 47, 348, 58, 63, 14, 12, 17, 16, 13, 10, 10, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0x69, 0xE7, 0xD5, 0xC2, 0x01, 0x28, 0x32, 0x4C, 2); // 0xAC
+            private static Player Brody_Gloom = new Player(136, 125, 54, 46, 48, 53, 45, 52, 54, 352, 52, 55, 13, 17, 13, 13, 11, 11, 14, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x69, 0xD3, 0x87, 0xA6, 0x01, 0x01, 0x31, 0x55, 1); // 0xAD
+            private static Player Victor_Talis = new Player(145, 177, 55, 52, 52, 46, 47, 45, 48, 345, 58, 84, 13, 13, 10, 14, 10, 13, 10, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x67, 0x85, 0x9C, 0x84, 0x01, 0x29, 0x44, 0x5A, 1); // 0xAE
+            private static Player Eren_Middleton = new Player(140, 112, 48, 44, 55, 47, 55, 54, 52, 355, 54, 51, 11, 12, 11, 20, 14, 11, 10, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x87, 0xE7, 0x68, 0xC4, 0x01, 0x2A, 0x37, 0x4A, 3); // 0xAF
+            private static Player Peter_Wells = new Player(121, 101, 52, 48, 52, 43, 52, 55, 52, 354, 58, 52, 10, 10, 13, 16, 11, 11, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x85, 0x7F, 0xC9, 0x01, 0x2E, 0x44, 0x57, 1); // 0xB0
+            private static Player Paul_Siddon = new Player(145, 120, 79, 79, 71, 79, 44, 74, 76, 502, 56, 93, 21, 23, 13, 23, 10, 18, 18, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0xB4, 0xB1, 0x78, 0x82, 0x01, 0x01, 0x01, 0x50, 1); // 0xB5
+            private static Player Apollo_Light = new Player(136, 144, 79, 79, 62, 73, 53, 48, 55, 449, 78, 76, 14, 17, 19, 20, 22, 20, 19, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x8B, 0xC7, 0xD6, 0xD4, 0x01, 0x38, 0x3C, 0x50, 3); // 0xB6
+            private static Player Jeff_Iron = new Player(171, 156, 60, 64, 78, 69, 70, 64, 62, 467, 69, 100, 13, 21, 16, 19, 21, 15, 12, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0xD4, 0xC0, 0x8F, 0xCE, 0x01, 0x29, 0x3A, 0x50, 1); // 0xB7
+            private static Player Lane_War = new Player(138, 153, 71, 79, 70, 72, 56, 57, 60, 465, 56, 64, 17, 18, 16, 17, 12, 12, 14, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x8B, 0x87, 0xD3, 0x6A, 0x01, 0x2D, 0x37, 0x4F, 2); // 0xB8
+            private static Player Danny_Wood = new Player(136, 124, 62, 68, 66, 79, 50, 53, 64, 442, 54, 78, 22, 14, 13, 17, 8, 14, 22, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xE6, 0x6C, 0x7C, 0xC5, 0x01, 0x01, 0x3C, 0x50, 1); // 0xB9
+            private static Player Artie_Mishman = new Player(127, 184, 62, 66, 76, 67, 44, 45, 58, 418, 50, 86, 14, 20, 21, 15, 17, 14, 12, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xD2, 0xC8, 0x68, 0x88, 0x01, 0x2D, 0x38, 0x4F, 1); // 0xBA
+            private static Player Arion_Matlock = new Player(162, 180, 56, 69, 69, 68, 57, 62, 62, 443, 51, 74, 12, 23, 16, 20, 10, 14, 15, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xD2, 0x8B, 0x7F, 0xAE, 0x01, 0x01, 0x35, 0x50, 1); // 0xBB
+            private static Player Wesley_Knox = new Player(187, 132, 60, 76, 64, 63, 71, 64, 77, 475, 76, 92, 16, 21, 22, 13, 20, 17, 17, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xD4, 0xC5, 0x86, 0x71, 0x01, 0x01, 0x2D, 0x41, 3); // 0xBC
+            private static Player Jonas_Demetrius = new Player(151, 149, 77, 64, 79, 56, 68, 63, 68, 475, 80, 104, 23, 17, 18, 12, 15, 13, 15, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xC5, 0xD4, 0xC8, 0x83, 0x01, 0x01, 0x3A, 0x4F, 3); // 0xBD
+            private static Player Byron_Love = new Player(167, 184, 79, 69, 77, 70, 72, 68, 67, 502, 54, 100, 16, 22, 21, 17, 17, 14, 13, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xCB, 0xD2, 0x8B, 0xC8, 0x01, 0x01, 0x32, 0x50, 1); // 0xBE
+            private static Player Henry_House = new Player(193, 165, 48, 68, 60, 67, 64, 70, 60, 437, 58, 70, 6, 15, 15, 15, 16, 16, 13, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0xC8, 0xC5, 0x7A, 0xD3, 0x01, 0x01, 0x2C, 0x40, 1); // 0xBF
+            private static Player Iggy_Russ = new Player(182, 149, 71, 67, 66, 79, 44, 71, 64, 462, 68, 62, 14, 15, 16, 22, 8, 15, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x95, 0x67, 0x85, 0xD2, 0x01, 0x01, 0x32, 0x4E, 1); // 0xC0
+            private static Player Gus_Heeley = new Player(191, 165, 78, 69, 61, 50, 65, 60, 70, 453, 69, 76, 19, 16, 13, 8, 17, 16, 17, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x6E, 0xE7, 0x8B, 0xC8, 0x01, 0x01, 0x39, 0x44, 1); // 0xC1
+            private static Player Harry_Closs = new Player(191, 64, 63, 60, 66, 79, 69, 71, 65, 473, 58, 36, 16, 13, 15, 20, 15, 15, 16, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x82, 0x7C, 0xD3, 0xE6, 0x01, 0x2D, 0x35, 0x4E, 2); // 0xC2
+            private static Player Andy_Chronic = new Player(178, 169, 48, 66, 62, 79, 63, 61, 66, 445, 62, 68, 8, 13, 15, 22, 14, 17, 15, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0xD2, 0xC6, 0x68, 0x69, 0x01, 0x01, 0x2E, 0x3B, 2); // 0xC3
+            private static Player Ned_Yousef = new Player(173, 152, 69, 78, 79, 67, 63, 62, 62, 480, 62, 72, 17, 23, 21, 17, 16, 16, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x97, 0x7E, 0x6A, 0x9F, 0x01, 0x01, 0x2C, 0x3C, 2); // 0xC4
+            private static Player Herman_Muller = new Player(143, 109, 40, 50, 44, 47, 44, 46, 45, 316, 19, 63, 8, 7, 8, 11, 6, 8, 4, 5, 5, 5, 5, 5, 2, 5, 5, 5, 0xAA, 0xAF, 0x80, 0xB2, 0x05, 0x14, 0x26, 0x44, 1); // 0xC9
+            private static Player Keth_Claus = new Player(112, 84, 41, 41, 48, 40, 60, 40, 46, 316, 18, 35, 6, 6, 8, 6, 14, 5, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x69, 0x90, 0x77, 0xE8, 0x07, 0x1A, 0x25, 0x48, 1); // 0xCA
+            private static Player Robert_Silver = new Player(125, 73, 46, 41, 51, 44, 41, 48, 44, 315, 30, 32, 7, 11, 5, 8, 4, 8, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x66, 0x72, 0x80, 0xE8, 0x09, 0x1C, 0x22, 0x40, 1); // 0xCB
+            private static Player Izzy_Island = new Player(136, 65, 42, 40, 48, 41, 41, 48, 44, 304, 25, 54, 5, 5, 6, 6, 6, 7, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x67, 0x71, 0x86, 0x7E, 0x0A, 0x20, 0x41, 0x57, 3); // 0xCC
+            private static Player Sothern_Newman = new Player(127, 60, 45, 44, 48, 60, 43, 49, 47, 336, 22, 20, 6, 8, 5, 17, 8, 8, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x78, 0x6F, 0xAA, 0xB1, 0x14, 0x22, 0x50, 0x5F, 3); // 0xCD
+            private static Player Irwin_Hall = new Player(162, 69, 40, 48, 51, 43, 41, 40, 41, 304, 21, 44, 4, 10, 8, 7, 6, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x6D, 0x72, 0xC7, 0xE8, 0x05, 0x17, 0x2B, 0x55, 1); // 0xCE
+            private static Player Taylor_Higgins = new Player(134, 65, 44, 43, 50, 48, 40, 48, 40, 313, 25, 21, 8, 11, 7, 8, 7, 4, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x6D, 0x7B, 0x6C, 0x8E, 0x07, 0x11, 0x58, 0x5F, 2); // 0xCF
+            private static Player Jamie_Cool = new Player(162, 76, 47, 40, 44, 48, 52, 52, 51, 334, 30, 54, 6, 4, 5, 7, 14, 8, 4, 5, 5, 5, 5, 5, 5, 2, 5, 5, 0x95, 0x66, 0x7D, 0x76, 0x0D, 0x13, 0x1E, 0x5A, 3); // 0xD0
+            private static Player Hans_Randall = new Player(169, 65, 64, 40, 40, 51, 48, 56, 44, 343, 26, 60, 10, 6, 5, 5, 8, 5, 12, 5, 5, 2, 5, 5, 5, 5, 5, 2, 0x69, 0x99, 0x6C, 0x8D, 0x05, 0x08, 0x18, 0x32, 2); // 0xD1
+            private static Player Michael_Riverside = new Player(138, 77, 51, 46, 50, 49, 40, 43, 48, 327, 25, 20, 7, 8, 8, 8, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x69, 0x7D, 0xCA, 0xC2, 0x06, 0x14, 0x27, 0x52, 1); // 0xD2
+            private static Player Millie_Moonlight = new Player(167, 148, 44, 40, 60, 42, 51, 40, 46, 323, 20, 48, 6, 4, 13, 5, 5, 5, 11, 5, 2, 5, 5, 2, 5, 5, 5, 5, 0x99, 0x6D, 0x95, 0xD1, 0x01, 0x07, 0x12, 0x63, 1); // 0xD3
+            private static Player Karl_Blue = new Player(114, 76, 46, 48, 47, 44, 51, 46, 48, 330, 33, 39, 8, 7, 16, 6, 6, 4, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x66, 0x6E, 0x80, 0xE8, 0x09, 0x14, 0x25, 0x35, 3); // 0xD4
+            private static Player Theakston_Plank = new Player(121, 80, 48, 50, 42, 45, 58, 41, 51, 335, 26, 36, 8, 7, 4, 8, 15, 8, 8, 5, 5, 5, 5, 5, 5, 2, 5, 5, 0x99, 0x67, 0x85, 0xC6, 0x0A, 0x14, 0x20, 0x31, 3); // 0xD5
+            private static Player Ken_Cake = new Player(123, 88, 49, 40, 40, 40, 51, 49, 46, 315, 24, 33, 9, 6, 7, 4, 8, 6, 7, 5, 5, 2, 5, 5, 5, 5, 5, 5, 0x9E, 0x82, 0x83, 0xBE, 0x05, 0x0C, 0x1D, 0x32, 1); // 0xD6
+            private static Player Mitch_Grumble = new Player(110, 65, 48, 48, 43, 48, 40, 46, 41, 314, 19, 29, 6, 4, 9, 6, 4, 6, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x68, 0x6C, 0xBF, 0x81, 0x11, 0x20, 0x34, 0x46, 1); // 0xD7
+            private static Player Bart_Grantham = new Player(101, 180, 38, 35, 29, 66, 28, 29, 64, 289, 26, 54, 6, 5, 5, 15, 8, 7, 6, 5, 1, 5, 5, 5, 2, 5, 5, 5, 0x6D, 0x67, 0xAB, 0xB1, 0x01, 0x12, 0x1A, 0x44, 1); // 0xD8
+            private static Player Joe_Ingram = new Player(149, 113, 44, 71, 52, 74, 47, 57, 78, 423, 50, 43, 11, 10, 10, 12, 8, 11, 6, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0xA1, 0x98, 0xAE, 0xC9, 0x01, 0x15, 0x30, 0x4E, 1); // 0xDD
+            private static Player Kendall_Sefton = new Player(151, 109, 53, 49, 61, 54, 67, 54, 55, 393, 45, 47, 11, 9, 12, 11, 11, 8, 7, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x85, 0x67, 0xC6, 0x7E, 0x01, 0x10, 0x2B, 0x55, 1); // 0xDE
+            private static Player Jason_Strike = new Player(132, 109, 48, 50, 64, 47, 56, 51, 53, 369, 31, 52, 8, 10, 8, 11, 12, 11, 7, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x7D, 0x9A, 0xE7, 0xBE, 0x01, 0x0E, 0x25, 0x44, 2); // 0xDF
+            private static Player Norman_Porter = new Player(145, 112, 45, 56, 44, 60, 44, 52, 46, 347, 40, 36, 8, 11, 11, 12, 8, 11, 7, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x7A, 0x83, 0x78, 0x6A, 0x01, 0x17, 0x4B, 0x5C, 3); // 0xE0
+            private static Player Maxwell_Claus = new Player(136, 120, 62, 53, 55, 44, 53, 55, 49, 371, 42, 41, 12, 9, 10, 9, 14, 7, 4, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x7B, 0xE7, 0x77, 0x7F, 0x09, 0x16, 0x2D, 0x5E, 1); // 0xE1
+            private static Player Bruce_Chaney = new Player(136, 121, 46, 48, 48, 45, 66, 48, 49, 350, 31, 36, 14, 11, 9, 7, 13, 9, 5, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x92, 0x9C, 0xC4, 0xC9, 0x0A, 0x18, 0x29, 0x53, 2); // 0xE2
+            private static Player Leroy_Rhymes = new Player(140, 140, 47, 48, 52, 53, 46, 45, 48, 339, 34, 64, 10, 8, 13, 7, 9, 11, 5, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x6D, 0x67, 0xC2, 0x6A, 0x01, 0x01, 0x39, 0x57, 3); // 0xE3
+            private static Player Mildford_Scott = new Player(129, 109, 44, 52, 47, 50, 55, 52, 44, 344, 44, 47, 10, 16, 10, 10, 11, 7, 8, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x86, 0xD6, 0x80, 0x71, 0x13, 0x1C, 0x27, 0x4B, 2); // 0xE4
+            private static Player Lou_Edmonds = new Player(143, 124, 60, 68, 45, 51, 44, 54, 71, 393, 37, 39, 11, 14, 9, 9, 9, 7, 5, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x69, 0x98, 0x6B, 0x72, 0x01, 0x01, 0x1E, 0x44, 1); // 0xE5
+            private static Player Cameron_Morefield = new Player(167, 129, 59, 56, 58, 52, 48, 52, 72, 397, 34, 63, 13, 13, 11, 10, 8, 9, 7, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x66, 0x98, 0x9C, 0x9F, 0x01, 0x0A, 0x1C, 0x31, 3); // 0xE6
+            private static Player Greg_Bernard = new Player(123, 165, 49, 55, 63, 51, 51, 56, 65, 390, 38, 72, 9, 9, 15, 11, 10, 8, 4, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x97, 0x71, 0x6C, 0x9D, 0x01, 0x13, 0x26, 0x40, 1); // 0xE7
+            private static Player Peter_Banker = new Player(138, 122, 50, 45, 51, 63, 50, 45, 75, 379, 42, 62, 11, 10, 14, 18, 7, 9, 4, 4, 2, 4, 4, 4, 2, 4, 4, 2, 0x98, 0x99, 0x94, 0x90, 0x07, 0x15, 0x28, 0x40, 2); // 0xE8
+            private static Player Saul_Tunk = new Player(145, 109, 55, 53, 44, 62, 55, 47, 54, 370, 32, 48, 11, 9, 11, 19, 8, 8, 8, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x9E, 0x6E, 0xD3, 0xCA, 0x09, 0x18, 0x2B, 0x3A, 1); // 0xE9
+            private static Player Alan_Most = new Player(191, 165, 65, 60, 60, 68, 63, 61, 64, 441, 26, 39, 8, 5, 7, 6, 8, 7, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x69, 0x6F, 0x82, 0xAA, 0x01, 0x14, 0x20, 0x36, 2); // 0xEA
+            private static Player Paul_Caperock = new Player(140, 113, 54, 50, 46, 45, 58, 48, 53, 354, 43, 49, 8, 7, 9, 10, 12, 11, 6, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x7A, 0xAB, 0xE7, 0xC4, 0x01, 0x0D, 0x2A, 0x46, 1); // 0xEB
+            private static Player Julius_Molehill = new Player(123, 113, 53, 48, 68, 48, 55, 49, 46, 367, 30, 48, 7, 7, 12, 7, 11, 10, 7, 4, 4, 4, 4, 4, 5, 4, 4, 2, 0x9A, 0x66, 0x74, 0x8E, 0x01, 0x11, 0x29, 0x49, 3); // 0xEC
+            private static Player Suzanne_Yuma = new Player(129, 80, 44, 44, 43, 56, 49, 46, 45, 327, 31, 45, 11, 7, 11, 20, 10, 9, 18, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0xAB, 0xAD, 0xB5, 0x82, 0x01, 0x1F, 0x30, 0x41, 3); // 0xF1
+            private static Player Tammy_Fielding = new Player(121, 81, 44, 49, 48, 51, 48, 44, 40, 324, 30, 21, 6, 7, 6, 7, 14, 8, 13, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x6E, 0x74, 0x81, 0x89, 0x18, 0x24, 0x3E, 0x5E, 1); // 0xF2
+            private static Player Alex_Lovely = new Player(138, 85, 49, 44, 44, 44, 44, 51, 44, 320, 42, 48, 10, 9, 8, 11, 10, 7, 17, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x6D, 0x67, 0x68, 0xCD, 0x01, 0x16, 0x2C, 0x54, 1); // 0xF3
+            private static Player Louis_Hillside = new Player(136, 72, 60, 52, 51, 41, 41, 48, 49, 342, 42, 39, 19, 17, 10, 8, 9, 11, 14, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x82, 0x83, 0x7C, 0x75, 0x01, 0x1A, 0x38, 0x48, 1); // 0xF4
+            private static Player Ness_Sheldon = new Player(127, 84, 42, 48, 45, 53, 42, 40, 43, 313, 34, 44, 10, 14, 10, 16, 9, 8, 16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x82, 0xB3, 0xAD, 0xE7, 0x01, 0x16, 0x2A, 0x46, 1); // 0xF5
+            private static Player Lizzy_Squirrel = new Player(129, 137, 43, 44, 50, 45, 47, 45, 44, 318, 32, 76, 7, 7, 11, 14, 10, 9, 20, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x69, 0xD6, 0x7A, 0xC6, 0x01, 0x15, 0x1C, 0x36, 3); // 0xF6
+            private static Player Kippy_Jones = new Player(123, 129, 48, 51, 47, 51, 43, 42, 51, 333, 33, 27, 6, 7, 5, 5, 7, 5, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x7A, 0x66, 0x80, 0xCA, 0x01, 0x19, 0x25, 0x3D, 2); // 0xF7
+            private static Player Fayette_Riversong = new Player(121, 61, 40, 50, 50, 48, 40, 42, 47, 317, 45, 51, 7, 11, 12, 8, 8, 8, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x92, 0x69, 0x9C, 0x8E, 0x01, 0x1C, 0x23, 0x54, 1); // 0xF8
+            private static Player Samantha_Moonlight = new Player(123, 68, 52, 43, 42, 48, 41, 44, 50, 320, 38, 51, 11, 12, 11, 10, 10, 9, 14, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x99, 0xBE, 0x6B, 0xD1, 0x01, 0x01, 0x1D, 0x63, 3); // 0xF9
+            private static Player Mitch_Sandstone = new Player(125, 61, 54, 58, 41, 48, 45, 46, 51, 343, 37, 47, 20, 15, 11, 11, 8, 10, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x92, 0x8D, 0xC4, 0xD3, 0x01, 0x1D, 0x30, 0x4C, 3); // 0xFA
+            private static Player Eddie_Prentice = new Player(116, 73, 46, 46, 56, 44, 42, 48, 49, 331, 39, 45, 9, 8, 18, 9, 9, 9, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x9C, 0x6B, 0x8E, 0x7D, 0x01, 0x1C, 0x28, 0x51, 1); // 0xFB
+            private static Player Alf_Holmes = new Player(81, 174, 34, 28, 34, 64, 39, 31, 77, 307, 36, 69, 7, 10, 10, 19, 7, 4, 13, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x92, 0x69, 0x9F, 0x83, 0x01, 0x18, 0x2A, 0x46, 3); // 0xFC
+            private static Player Ian_Stager = new Player(129, 81, 40, 49, 44, 51, 49, 50, 51, 334, 42, 76, 11, 8, 8, 8, 8, 8, 17, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0xBF, 0x80, 0xC4, 0x81, 0x15, 0x1C, 0x3C, 0x5B, 2); // 0xFD
+            private static Player Fred_Crumb = new Player(121, 72, 40, 44, 44, 43, 44, 48, 45, 308, 40, 37, 9, 11, 10, 7, 14, 11, 16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x7D, 0x67, 0xE8, 0xCD, 0x01, 0x18, 0x38, 0x4C, 2); // 0xFE
+            private static Player Doug_Baughan = new Player(116, 68, 45, 41, 46, 48, 40, 51, 44, 315, 43, 45, 8, 9, 14, 9, 7, 9, 16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x92, 0xC6, 0x9D, 0x6C, 0x01, 0x19, 0x2D, 0x40, 1); // 0xFF
+            private static Player Pip_Daltry = new Player(114, 60, 44, 45, 49, 51, 49, 40, 43, 321, 18, 20, 5, 4, 8, 7, 5, 5, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x7B, 0x6D, 0xB2, 0x80, 0x01, 0x1A, 0x26, 0x3B, 2); // 0x100
+            private static Player Seymour_Hillman = new Player(215, 185, 70, 68, 64, 71, 68, 75, 72, 488, 69, 93, 12, 12, 11, 10, 12, 13, 15, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xA2, 0xB5, 0xB6, 0xCF, 0x01, 0x01, 0x58, 0x63, 3); // 0x105
+            private static Player Charles_Island = new Player(215, 172, 71, 79, 71, 68, 69, 63, 64, 485, 68, 78, 13, 14, 16, 11, 11, 12, 11, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x7F, 0x6C, 0xC0, 0x8C, 0x01, 0x01, 0x2D, 0x3C, 2); // 0x106
+            private static Player Garret_Hairtown = new Player(202, 173, 70, 65, 65, 62, 73, 60, 71, 466, 63, 60, 12, 13, 16, 14, 16, 11, 11, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x85, 0xCE, 0xC6, 0x97, 0x01, 0x01, 0x27, 0x48, 3); // 0x107
+            private static Player Arthur_Sweet = new Player(193, 156, 74, 75, 66, 65, 65, 68, 61, 474, 68, 70, 15, 16, 11, 14, 13, 15, 11, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x7F, 0x8D, 0xC4, 0xCC, 0x01, 0x01, 0x2A, 0x41, 1); // 0x108
+            private static Player Peter_Mildred = new Player(215, 184, 72, 71, 69, 70, 74, 69, 78, 503, 55, 64, 14, 13, 10, 13, 11, 11, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xE7, 0x86, 0x92, 0x65, 0x01, 0x01, 0x25, 0x44, 2); // 0x109
+            private static Player Josh_Nathaniel = new Player(209, 172, 64, 73, 73, 75, 71, 66, 65, 487, 62, 60, 14, 11, 15, 10, 14, 13, 12, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x6C, 0xC4, 0xE7, 0xAF, 0x01, 0x01, 0x22, 0x31, 1); // 0x10A
+            private static Player Edward_Gladstone = new Player(187, 177, 68, 66, 68, 60, 72, 63, 69, 466, 62, 66, 14, 12, 12, 11, 13, 12, 12, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xBE, 0x85, 0x8E, 0x8B, 0x01, 0x22, 0x26, 0x58, 1); // 0x10B
+            private static Player Tyler_Thomas = new Player(200, 197, 73, 72, 76, 76, 79, 72, 70, 518, 54, 76, 11, 12, 10, 10, 11, 11, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xD6, 0xBE, 0xA5, 0x68, 0x01, 0x01, 0x28, 0x3D, 1); // 0x10C
+            private static Player Joseph_Yosemite = new Player(191, 189, 62, 72, 72, 76, 65, 62, 65, 474, 64, 68, 18, 11, 15, 14, 14, 12, 13, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x94, 0x8C, 0x7D, 0xC8, 0x01, 0x01, 0x2D, 0x4F, 1); // 0x10D
+            private static Player Ian_Suffolk = new Player(209, 172, 71, 68, 70, 69, 77, 68, 68, 491, 62, 63, 14, 13, 12, 11, 13, 13, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6C, 0x9C, 0xD3, 0xE8, 0x01, 0x01, 0x2C, 0x48, 1); // 0x10E
+            private static Player Constant_Builder = new Player(195, 173, 69, 69, 64, 60, 63, 77, 64, 466, 66, 64, 16, 20, 14, 14, 13, 15, 14, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x78, 0x8F, 0x6B, 0xCE, 0x01, 0x01, 0x26, 0x40, 2); // 0x10F
+            private static Player Ted_Poe = new Player(217, 173, 64, 68, 79, 70, 69, 64, 69, 483, 57, 68, 13, 14, 13, 10, 14, 14, 12, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0xE7, 0x6E, 0x71, 0x81, 0x01, 0x22, 0x33, 0x50, 1); // 0x110
+            private static Player Marshall_Heart = new Player(209, 181, 60, 62, 66, 63, 72, 65, 64, 452, 68, 80, 14, 12, 12, 11, 12, 13, 11, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0xE7, 0xC6, 0x9B, 0xAD, 0x01, 0x22, 0x2E, 0x48, 1); // 0x111
+            private static Player Dom_Foreman = new Player(193, 149, 76, 72, 64, 64, 68, 72, 70, 486, 66, 76, 10, 12, 11, 11, 11, 14, 10, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x67, 0xCD, 0x75, 0x73, 0x01, 0x26, 0x31, 0x4B, 1); // 0x112
+            private static Player Slot_MacHines = new Player(213, 173, 68, 68, 75, 71, 76, 68, 73, 499, 69, 76, 12, 12, 14, 11, 13, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0xD3, 0xE8, 0x70, 0x01, 0x22, 0x36, 0x46, 3); // 0x113
+            private static Player Bill_Steakspear = new Player(193, 173, 62, 75, 78, 68, 68, 67, 68, 486, 61, 60, 11, 11, 17, 11, 11, 11, 10, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x6C, 0x7B, 0x83, 0xB3, 0x01, 0x01, 0x2A, 0x45, 1); // 0x114
+            private static Player Layton = new Player(154, 144, 62, 64, 71, 64, 71, 71, 71, 474, 43, 51, 13, 9, 11, 11, 10, 7, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x6C, 0x7F, 0x9F, 0x0A, 0x14, 0x27, 0x32, 2); // 0x119
+            private static Player Luke = new Player(154, 144, 62, 64, 71, 64, 71, 71, 71, 474, 43, 51, 13, 9, 11, 11, 10, 7, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x6C, 0x7F, 0x9F, 0x0A, 0x14, 0x27, 0x32, 2); // 0x11A
+            private static Player Anton = new Player(154, 144, 62, 64, 71, 64, 71, 71, 71, 474, 43, 51, 13, 9, 11, 11, 10, 7, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x6C, 0x7F, 0x9F, 0x0A, 0x14, 0x27, 0x32, 2); // 0x11B
+            private static Player Don_Paolo = new Player(154, 144, 62, 64, 71, 64, 71, 71, 71, 474, 43, 51, 13, 9, 11, 11, 10, 7, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x6C, 0x7F, 0x9F, 0x0A, 0x14, 0x27, 0x32, 2); // 0x11C
+            private static Player Flora = new Player(154, 144, 62, 64, 71, 64, 71, 71, 71, 474, 43, 51, 13, 9, 11, 11, 10, 7, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x6C, 0x7F, 0x9F, 0x0A, 0x14, 0x27, 0x32, 2); // 0x11D
+            private static Player Chelmey = new Player(154, 144, 62, 64, 71, 64, 71, 71, 71, 474, 43, 51, 13, 9, 11, 11, 10, 7, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x6C, 0x7F, 0x9F, 0x0A, 0x14, 0x27, 0x32, 2); // 0x11E
+            private static Player Jimmy_Mach = new Player(158, 149, 52, 61, 60, 58, 79, 76, 50, 436, 74, 32, 8, 6, 11, 5, 20, 18, 6, 5, 5, 1, 1, 1, 1, 2, 2, 1, 0x92, 0x74, 0x7F, 0xC9, 0x05, 0x0E, 0x1B, 0x26, 3); // 0x12D
+            private static Player Tony_Hacker = new Player(79, 168, 52, 60, 67, 69, 76, 75, 64, 463, 22, 63, 12, 12, 11, 12, 14, 16, 14, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6E, 0x71, 0x81, 0x9B, 0x08, 0x11, 0x1C, 0x28, 1); // 0x12E
+            private static Player Dan_Rhino = new Player(88, 144, 72, 58, 60, 53, 69, 62, 53, 427, 25, 36, 9, 9, 9, 8, 12, 11, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x83, 0x7C, 0xCD, 0x08, 0x10, 0x17, 0x1E, 1); // 0x12F
+            private static Player Vin_Fleetwood = new Player(99, 88, 71, 64, 61, 69, 68, 68, 65, 466, 19, 32, 13, 13, 12, 10, 13, 12, 11, 1, 1, 5, 5, 5, 5, 5, 5, 5, 0x92, 0x85, 0x6A, 0x8E, 0x08, 0x10, 0x1E, 0x3D, 1); // 0x130
+            private static Player George_Winters = new Player(140, 180, 44, 72, 76, 68, 79, 70, 73, 482, 42, 76, 14, 17, 14, 15, 19, 17, 13, 5, 5, 5, 5, 5, 5, 2, 2, 5, 0x6D, 0xC4, 0x65, 0x9B, 0x0A, 0x16, 0x22, 0x30, 4); // 0x131
+            private static Player Den_Hidden = new Player(121, 153, 73, 60, 64, 76, 44, 79, 60, 456, 52, 52, 12, 12, 12, 13, 14, 12, 13, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x83, 0xAD, 0xA7, 0x07, 0x10, 0x1E, 0x50, 1); // 0x132
+            private static Player Shaun_Imago = new Player(123, 132, 42, 36, 30, 55, 60, 60, 60, 343, 32, 36, 10, 9, 7, 11, 17, 11, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7B, 0xBE, 0x68, 0x9B, 0x0A, 0x12, 0x1C, 0x28, 1); // 0x133
+            private static Player Joe_Straiter = new Player(171, 132, 56, 53, 52, 71, 58, 58, 59, 407, 55, 66, 15, 10, 12, 4, 10, 10, 13, 1, 1, 2, 4, 4, 2, 4, 1, 4, 0xAA, 0x7D, 0xAE, 0xAC, 0x0A, 0x11, 0x23, 0x37, 1); // 0x134
+            private static Player Rupert_Spiers = new Player(127, 152, 55, 64, 70, 70, 74, 68, 63, 464, 46, 55, 15, 14, 10, 10, 20, 15, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0xD3, 0xC4, 0xD4, 0x08, 0x13, 0x1C, 0x34, 1); // 0x135
+            private static Player Mark_Sudor = new Player(118, 133, 64, 63, 55, 62, 45, 62, 52, 403, 44, 52, 7, 8, 8, 11, 10, 7, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAB, 0x83, 0xE8, 0xB5, 0x0C, 0x19, 0x26, 0x2D, 1); // 0x136
+            private static Player Ringo_Stagg = new Player(140, 165, 60, 65, 57, 67, 56, 56, 63, 424, 30, 47, 11, 9, 7, 15, 10, 13, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0x6C, 0x74, 0x8A, 0x07, 0x11, 0x1A, 0x24, 1); // 0x137
+            private static Player Jody_MacGough = new Player(83, 140, 41, 52, 58, 52, 67, 70, 61, 401, 18, 38, 8, 8, 9, 10, 11, 10, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x69, 0xE7, 0xC4, 0x84, 0x06, 0x10, 0x19, 0x2D, 1); // 0x138
+            private static Player Jeeves_Dropper = new Player(96, 142, 45, 61, 58, 53, 68, 60, 54, 399, 26, 46, 9, 7, 8, 11, 14, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0x77, 0x70, 0xD5, 0x08, 0x12, 0x22, 0x2A, 1); // 0x139
+            private static Player Dan_Dandy = new Player(154, 150, 61, 43, 44, 63, 68, 65, 68, 412, 51, 61, 11, 13, 8, 11, 17, 13, 12, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7B, 0x85, 0xD5, 0xD4, 0x09, 0x0F, 0x26, 0x33, 1); // 0x13A
+            private static Player Rory_Boomer = new Player(171, 156, 71, 62, 57, 56, 60, 65, 79, 450, 49, 27, 19, 15, 11, 10, 11, 10, 14, 1, 5, 2, 1, 1, 1, 1, 1, 1, 0x7A, 0x6B, 0xE8, 0xC5, 0x09, 0x1C, 0x23, 0x42, 1); // 0x13B
+            private static Player Tim_Toppel = new Player(176, 172, 69, 65, 64, 60, 64, 69, 61, 452, 25, 31, 8, 6, 6, 6, 6, 7, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAA, 0xA5, 0xAD, 0xAE, 0x09, 0x14, 0x1E, 0x2D, 2); // 0x13C
+            private static Player Ames_Shivers = new Player(160, 138, 61, 56, 58, 56, 55, 63, 54, 403, 54, 69, 13, 14, 14, 16, 16, 13, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB3, 0x87, 0x86, 0xB2, 0x0A, 0x13, 0x1A, 0x27, 2); // 0x13D
+            private static Player Chris_Glover = new Player(105, 156, 67, 62, 60, 76, 38, 67, 52, 422, 32, 50, 10, 11, 9, 14, 7, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x6E, 0xC0, 0x68, 0x9F, 0x0C, 0x18, 0x1E, 0x23, 1); // 0x13E
+
+            private static Player Thor_Toise = new Player(118, 110, 52, 54, 48, 41, 50, 59, 53, 357, 42, 20, 14, 12, 10, 7, 9, 10, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x82, 0x83, 0x7C, 0xE6, 0x05, 0x14, 0x1E, 0x5C, 1); // 0x13F
+            private static Player Colin_Salts = new Player(132, 110, 63, 44, 46, 41, 44, 48, 41, 327, 46, 50, 11, 11, 10, 8, 10, 10, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x97, 0x90, 0x7E, 0x9B, 0x0B, 0x19, 0x21, 0x26, 1); // 0x140
+            private static Player Christian_Dear = new Player(118, 100, 59, 64, 76, 64, 44, 52, 55, 414, 36, 35, 15, 14, 11, 7, 9, 8, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x85, 0xE8, 0x76, 0x0A, 0x13, 0x24, 0x2A, 1); // 0x141
+            private static Player Iggy_Loyaller = new Player(83, 158, 61, 62, 53, 62, 34, 64, 53, 389, 31, 42, 9, 11, 10, 11, 11, 7, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x98, 0xBE, 0xE7, 0x05, 0x0E, 0x19, 0x1C, 1); // 0x142
+            private static Player Conan_Fox = new Player(85, 152, 44, 56, 56, 53, 62, 55, 63, 389, 32, 46, 10, 7, 10, 11, 17, 13, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xAB, 0x72, 0xB5, 0xA7, 0x09, 0x12, 0x20, 0x37, 1); // 0x143
+            private static Player Spike_Coiffs = new Player(147, 158, 40, 60, 77, 43, 53, 58, 52, 383, 34, 39, 17, 17, 19, 14, 14, 17, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x6D, 0x80, 0x70, 0x7F, 0x06, 0x13, 0x1C, 0x2C, 1); // 0x144
+            private static Player Roger_Rocket = new Player(136, 142, 40, 29, 35, 59, 78, 56, 52, 349, 44, 35, 11, 6, 4, 11, 19, 14, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xE7, 0x74, 0x76, 0x84, 0x13, 0x1A, 0x20, 0x38, 1); // 0x145
+            private static Player Bill_Teller = new Player(81, 156, 44, 59, 78, 63, 63, 57, 59, 423, 25, 74, 13, 6, 21, 9, 14, 11, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7D, 0x71, 0x81, 0xD5, 0x08, 0x14, 0x24, 0x30, 1); // 0x146
+            private static Player Billy_Nomates = new Player(132, 160, 76, 64, 64, 77, 40, 76, 65, 462, 52, 65, 10, 14, 12, 15, 12, 12, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0xA3, 0xB0, 0xB5, 0x0C, 0x14, 0x1E, 0x29, 1); // 0x147
+            private static Player Harry_Caine = new Player(125, 161, 73, 70, 60, 64, 64, 60, 62, 453, 56, 54, 11, 15, 16, 15, 14, 15, 13, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0xA1, 0xA3, 0xAE, 0xA7, 0x08, 0x11, 0x1C, 0x2B, 3); // 0x148
+            private static Player Martin_Sheller = new Player(215, 154, 68, 57, 57, 69, 36, 68, 62, 417, 37, 35, 10, 10, 7, 14, 11, 7, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x92, 0xCD, 0x75, 0xC9, 0x0A, 0x18, 0x28, 0x2D, 2); // 0x149
+            private static Player Alfie_Fine = new Player(138, 133, 66, 52, 52, 69, 50, 68, 57, 414, 31, 40, 11, 9, 10, 10, 9, 9, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0xA5, 0x7E, 0xAC, 0x09, 0x10, 0x1E, 0x26, 2); // 0x14A
+            private static Player Cameron_Mann = new Player(154, 146, 60, 59, 58, 61, 52, 53, 54, 397, 33, 42, 10, 10, 11, 9, 9, 9, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x69, 0x7D, 0x70, 0x8A, 0x08, 0x10, 0x1D, 0x25, 1); // 0x14B
+            private static Player Don_Keys = new Player(129, 150, 45, 36, 32, 53, 64, 55, 56, 341, 42, 40, 7, 10, 7, 10, 14, 12, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xBF, 0xC0, 0x68, 0xC7, 0x0A, 0x14, 0x1C, 0x24, 1); // 0x14C
+            private static Player Sonny_East = new Player(125, 108, 59, 60, 50, 40, 49, 63, 68, 389, 39, 35, 13, 13, 8, 11, 7, 11, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xA4, 0xAA, 0xA1, 0xA7, 0x08, 0x0A, 0x14, 0x32, 1); // 0x14D
+            private static Player Dan_Carpenter = new Player(145, 144, 40, 54, 60, 42, 52, 56, 60, 364, 44, 38, 9, 13, 13, 8, 8, 11, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA4, 0x82, 0x83, 0xB5, 0x0A, 0x0D, 0x15, 0x28, 3); // 0x14E
+            private static Player Doug_Walker = new Player(158, 142, 45, 52, 70, 42, 56, 57, 61, 383, 36, 53, 9, 13, 17, 10, 8, 10, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA4, 0x83, 0xB5, 0xB1, 0x09, 0x18, 0x28, 0x40, 3); // 0x14F
+            private static Player Frank_Drake = new Player(171, 158, 57, 58, 60, 57, 64, 66, 52, 414, 66, 53, 13, 12, 12, 13, 13, 16, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x66, 0x85, 0x74, 0xE7, 0x07, 0x0D, 0x15, 0x1E, 1); // 0x150
+            private static Player Chris_Massey = new Player(77, 146, 66, 58, 53, 53, 56, 62, 59, 407, 44, 53, 16, 7, 10, 14, 10, 8, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x80, 0xC6, 0x7E, 0x08, 0x10, 0x19, 0x21, 1); // 0x151
+            private static Player Carl_Sacks = new Player(156, 144, 60, 62, 56, 61, 55, 52, 55, 401, 56, 50, 14, 11, 12, 10, 14, 11, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0x82, 0x9C, 0xCD, 0x07, 0x0C, 0x14, 0x30, 2); // 0x152
+            private static Player Biff_Beeston = new Player(103, 150, 56, 68, 41, 60, 55, 69, 57, 406, 19, 66, 7, 9, 14, 13, 10, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xAB, 0xAF, 0x81, 0xB5, 0x0A, 0x12, 0x21, 0x28, 1); // 0x153
+            private static Player Lou_Beigh = new Player(79, 130, 42, 53, 63, 52, 68, 53, 60, 391, 34, 39, 14, 11, 9, 7, 15, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA4, 0x7A, 0xAF, 0xA7, 0x09, 0x0F, 0x18, 0x2A, 1); // 0x154
+            private static Player Marv_Errick = new Player(129, 174, 74, 71, 64, 76, 43, 68, 60, 456, 57, 55, 12, 13, 14, 17, 11, 13, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAB, 0x78, 0x75, 0xA7, 0x08, 0x16, 0x1D, 0x24, 1); // 0x155
+            private static Player Bob_Whittle = new Player(140, 164, 60, 68, 70, 64, 70, 64, 62, 458, 31, 65, 15, 13, 13, 11, 19, 15, 13, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x99, 0xC6, 0xC9, 0xC8, 0x0A, 0x1C, 0x32, 0x48, 1); // 0x156
+            private static Player Bert_Neptune = new Player(178, 178, 64, 70, 64, 64, 62, 61, 61, 446, 60, 78, 16, 17, 17, 13, 16, 16, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x86, 0x71, 0x8A, 0x9F, 0x0A, 0x11, 0x18, 0x20, 1); // 0x157
+            private static Player Sol_Crater = new Player(171, 138, 53, 52, 52, 56, 52, 57, 56, 378, 45, 57, 12, 12, 11, 11, 10, 11, 13, 2, 4, 2, 4, 4, 2, 2, 2, 4, 0x98, 0xCA, 0x75, 0xCD, 0x09, 0x12, 0x1C, 0x25, 1); // 0x158
+            private static Player Percy_Coldstair = new Player(107, 156, 42, 59, 56, 52, 65, 64, 63, 401, 20, 40, 7, 10, 11, 8, 11, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x71, 0x86, 0xD3, 0x65, 0x0F, 0x14, 0x19, 0x28, 1); // 0x159
+            private static Player Dusky_Sunfield = new Player(112, 122, 59, 56, 69, 51, 42, 60, 61, 398, 31, 36, 15, 11, 19, 9, 11, 7, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x66, 0x7D, 0x68, 0x7E, 0x08, 0x0E, 0x1B, 0x25, 1); // 0x15A
+            private static Player Rocky_Shears = new Player(167, 158, 58, 58, 60, 79, 63, 60, 60, 438, 52, 63, 14, 12, 13, 12, 11, 14, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xAF, 0xAD, 0x89, 0xA7, 0x14, 0x20, 0x28, 0x3E, 1); // 0x15B
+            private static Player Percy_Stent = new Player(151, 173, 76, 63, 60, 62, 68, 69, 67, 465, 57, 49, 10, 17, 13, 17, 16, 13, 15, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0xA3, 0x78, 0xAD, 0xAE, 0x0A, 0x19, 0x1E, 0x2A, 2); // 0x15C
+            private static Player Art_Pendragon = new Player(132, 136, 60, 65, 46, 63, 63, 71, 59, 427, 30, 63, 8, 10, 10, 17, 13, 14, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA1, 0xA5, 0x87, 0xB2, 0x06, 0x0C, 0x18, 0x2A, 1); // 0x15D
+            private static Player Dom_Ittory = new Player(160, 132, 51, 52, 60, 44, 62, 62, 52, 383, 34, 48, 9, 11, 13, 11, 8, 9, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAB, 0x7B, 0xAF, 0xA7, 0x0B, 0x0F, 0x1C, 0x48, 2); // 0x15E
+            private static Player Chaz_Biggins = new Player(176, 98, 63, 61, 28, 63, 57, 64, 56, 392, 70, 23, 14, 7, 7, 15, 10, 14, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x9C, 0xCD, 0x6A, 0x06, 0x13, 0x1E, 0x26, 1); // 0x15F
+            private static Player Sly_O_Hands = new Player(158, 176, 56, 72, 79, 79, 45, 61, 69, 461, 49, 48, 12, 14, 12, 17, 13, 11, 14, 5, 1, 2, 1, 5, 2, 5, 2, 1, 0xB3, 0x88, 0xAE, 0xB5, 0x08, 0x13, 0x1E, 0x2C, 3); // 0x160
+            private static Player Sean_Lavender = new Player(116, 132, 67, 52, 56, 58, 62, 71, 54, 420, 46, 52, 13, 7, 14, 13, 9, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x9C, 0x77, 0x8E, 0xC7, 0x0E, 0x12, 0x1E, 0x29, 3); // 0x161
+            private static Player Ace_Server = new Player(151, 168, 76, 69, 63, 78, 46, 77, 68, 477, 56, 55, 13, 12, 14, 14, 10, 10, 13, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA1, 0xE7, 0xAD, 0xA7, 0x0E, 0x16, 0x1E, 0x2E, 1); // 0x162
+            private static Player Horace_Nelson = new Player(92, 142, 65, 56, 53, 57, 56, 71, 59, 417, 31, 53, 17, 9, 13, 15, 10, 11, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0xA3, 0x7D, 0xB2, 0x08, 0x10, 0x18, 0x27, 1); // 0x163
+            private static Player Rex_George = new Player(189, 157, 68, 68, 60, 60, 62, 67, 66, 451, 58, 66, 15, 16, 15, 15, 15, 15, 16, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xA1, 0x7D, 0xAD, 0x7F, 0x07, 0x0E, 0x1E, 0x26, 1); // 0x164
+            private static Player Philip_Prince = new Player(77, 152, 43, 52, 52, 60, 68, 67, 59, 401, 30, 35, 10, 8, 11, 8, 17, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA4, 0x88, 0xA5, 0x81, 0x07, 0x0E, 0x14, 0x1E, 1); // 0x165
+            private static Player Heath_Rower = new Player(160, 146, 56, 56, 53, 56, 59, 52, 56, 388, 52, 57, 10, 11, 12, 12, 12, 14, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x98, 0x67, 0x76, 0xC9, 0x0A, 0x10, 0x1E, 0x28, 1); // 0x166
+            private static Player Kim_Arite = new Player(132, 150, 55, 68, 53, 79, 61, 55, 61, 432, 36, 47, 9, 7, 9, 17, 8, 12, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0xA3, 0xAF, 0xAD, 0x05, 0x13, 0x18, 0x19, 1); // 0x167
+            private static Player Jay_Archer = new Player(198, 144, 54, 69, 44, 66, 58, 64, 60, 415, 81, 61, 11, 7, 12, 16, 12, 17, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x92, 0x83, 0x9C, 0x9D, 0x0F, 0x14, 0x18, 0x21, 1); // 0x168
+            private static Player Bo_Ling = new Player(147, 146, 45, 55, 79, 50, 56, 57, 52, 394, 39, 44, 10, 7, 21, 11, 10, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7A, 0x6C, 0x7F, 0x76, 0x09, 0x0E, 0x23, 0x2E, 1); // 0x169
+            private static Player Chuck_Hardy = new Player(173, 134, 49, 57, 70, 45, 52, 62, 62, 397, 32, 47, 8, 12, 14, 9, 10, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x99, 0xC1, 0x68, 0xD4, 0x0A, 0x12, 0x1A, 0x30, 1); // 0x16A
+            private static Player Ben_Evolent = new Player(169, 154, 68, 52, 60, 60, 52, 59, 52, 403, 60, 74, 6, 15, 14, 13, 15, 15, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x97, 0x94, 0x96, 0xC2, 0x09, 0x15, 0x21, 0x31, 1); // 0x16B
+            private static Player Will_Noble = new Player(134, 158, 48, 48, 54, 41, 52, 48, 45, 336, 42, 65, 8, 11, 14, 8, 10, 10, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAB, 0x83, 0xAF, 0xAC, 0x0A, 0x10, 0x18, 0x2A, 1); // 0x16C
+            private static Player Jack_Frosty = new Player(178, 166, 65, 70, 64, 65, 67, 60, 68, 459, 27, 25, 5, 6, 6, 4, 7, 6, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7B, 0xD6, 0x7E, 0x95, 0x0A, 0x12, 0x1E, 0x28, 1); // 0x16D
+            private static Player Larry_Helps = new Player(77, 158, 46, 54, 57, 59, 60, 54, 55, 385, 25, 53, 10, 8, 8, 11, 18, 13, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x94, 0x6C, 0x9B, 0x93, 0x0E, 0x15, 0x1E, 0x44, 1); // 0x16E
+            private static Player Monty_Patten = new Player(162, 192, 63, 60, 63, 61, 52, 54, 60, 413, 49, 55, 13, 10, 10, 12, 12, 13, 13, 4, 1, 4, 4, 4, 4, 4, 4, 4, 0x88, 0x85, 0x71, 0xC0, 0x08, 0x12, 0x17, 0x1E, 1); // 0x16F
+            private static Player Chunk_Gorman = new Player(79, 146, 48, 56, 57, 60, 63, 52, 52, 388, 34, 42, 13, 8, 11, 8, 15, 11, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x72, 0xCD, 0xC5, 0x08, 0x10, 0x1E, 0x59, 2); // 0x170
+            private static Player Balt_Decker = new Player(169, 174, 56, 46, 47, 60, 75, 61, 67, 412, 51, 51, 11, 13, 6, 13, 17, 15, 12, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7D, 0x67, 0x9C, 0xC9, 0x0C, 0x0E, 0x16, 0x27, 2); // 0x171
+            private static Player Drew_Crenshaw = new Player(147, 130, 46, 59, 69, 48, 61, 53, 63, 399, 30, 38, 7, 13, 13, 10, 11, 9, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x6E, 0x87, 0x81, 0x89, 0x0A, 0x12, 0x1E, 0x3D, 1); // 0x172
+            private static Player Stan_Trum = new Player(77, 134, 48, 54, 58, 56, 71, 59, 59, 405, 31, 36, 11, 9, 7, 8, 15, 11, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7A, 0x6C, 0x7E, 0x76, 0x0A, 0x10, 0x1A, 0x2B, 1); // 0x173
+            private static Player Sham_Spike = new Player(156, 140, 60, 58, 52, 56, 55, 56, 58, 395, 54, 65, 15, 14, 13, 17, 15, 17, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x72, 0x83, 0x68, 0x75, 0x0C, 0x12, 0x19, 0x20, 3); // 0x174
+            private static Player Rainier_Welkin = new Player(147, 154, 48, 60, 68, 76, 56, 61, 52, 421, 45, 70, 8, 9, 14, 17, 10, 10, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA4, 0xAB, 0xAF, 0xA7, 0x08, 0x11, 0x1C, 0x5B, 1); // 0x175
+            private static Player Evan_Yielding = new Player(160, 160, 53, 46, 50, 60, 76, 65, 64, 414, 43, 59, 11, 12, 6, 10, 18, 15, 14, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xC0, 0x68, 0x8E, 0x93, 0x0F, 0x15, 0x1C, 0x33, 3); // 0x176
+            private static Player Phil_Anthropic = new Player(136, 124, 77, 77, 78, 78, 68, 43, 75, 496, 36, 53, 14, 12, 12, 12, 12, 8, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0xBF, 0x87, 0x6E, 0xCD, 0x0D, 0x11, 0x18, 0x26, 1); // 0x177
+            private static Player Fane_Club = new Player(138, 128, 45, 50, 44, 69, 48, 43, 49, 348, 34, 47, 10, 7, 10, 10, 9, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA1, 0xB0, 0x95, 0xB2, 0x0A, 0x10, 0x21, 0x2C, 1); // 0x178
+            private static Player Slim_Lanky = new Player(118, 142, 44, 36, 35, 58, 66, 55, 63, 357, 44, 53, 7, 7, 6, 10, 15, 11, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xB3, 0xAD, 0x7F, 0xB5, 0x09, 0x14, 0x1A, 0x47, 3); // 0x179
+            private static Player Doug_Lee = new Player(112, 158, 44, 36, 30, 55, 70, 62, 57, 354, 46, 34, 8, 8, 7, 9, 17, 13, 7, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x82, 0x78, 0x75, 0x8B, 0x01, 0x14, 0x1B, 0x32, 1); // 0x17A
+            private static Player Edward_Albion = new Player(171, 132, 60, 60, 69, 56, 68, 62, 61, 436, 43, 55, 14, 14, 19, 13, 17, 11, 10, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xA4, 0xA1, 0xAB, 0xAD, 0x07, 0x0D, 0x12, 0x23, 2); // 0x17B
+            private static Player Stu_Dent = new Player(116, 176, 68, 34, 44, 29, 73, 62, 56, 366, 39, 32, 15, 7, 8, 4, 19, 8, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xAA, 0x7D, 0xA3, 0xAF, 0x08, 0x0E, 0x10, 0x17, 1); // 0x17C
+            private static Player Barry_Straw = new Player(132, 106, 38, 72, 48, 38, 73, 41, 47, 357, 36, 51, 7, 19, 9, 7, 16, 10, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0xC1, 0x68, 0x8E, 0x09, 0x12, 0x1A, 0x21, 1); // 0x17D
+            private static Player Bobby_Peel = new Player(165, 146, 60, 62, 55, 56, 59, 52, 62, 406, 55, 51, 12, 13, 13, 12, 10, 14, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x72, 0xE7, 0x65, 0x6A, 0x0D, 0x11, 0x16, 0x27, 3); // 0x17E
+            private static Player Dan_Castella = new Player(158, 140, 60, 59, 56, 52, 63, 56, 54, 400, 48, 65, 10, 11, 11, 13, 12, 11, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAA, 0xB0, 0xAF, 0xE8, 0x07, 0x0E, 0x12, 0x28, 1); // 0x17F
+            private static Player Bill_Moony = new Player(103, 152, 79, 53, 56, 60, 64, 61, 52, 425, 28, 50, 8, 11, 11, 8, 12, 12, 11, 5, 5, 5, 1, 1, 1, 2, 5, 1, 0xAB, 0x9F, 0x68, 0x89, 0x0E, 0x14, 0x1E, 0x26, 1); // 0x180
+            private static Player Buddy_Goodman = new Player(118, 113, 47, 75, 48, 48, 43, 45, 76, 382, 40, 50, 9, 7, 8, 11, 8, 7, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x88, 0x7E, 0x81, 0x6A, 0x0A, 0x19, 0x1E, 0x26, 3); // 0x181
+            private static Player Dex_Territy = new Player(167, 154, 60, 52, 58, 52, 59, 56, 56, 393, 63, 65, 14, 14, 15, 16, 14, 15, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB3, 0xAB, 0xAD, 0x81, 0x0A, 0x10, 0x18, 0x1E, 1); // 0x182
+            private static Player Vinny_O_Gaines = new Player(158, 133, 46, 61, 64, 52, 52, 52, 55, 382, 33, 44, 10, 13, 13, 9, 9, 11, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x6E, 0x74, 0x7F, 0x9B, 0x09, 0x12, 0x1F, 0x26, 2); // 0x183
+            private static Player Ray_Deo = new Player(81, 158, 60, 52, 52, 54, 52, 61, 55, 386, 38, 36, 13, 9, 11, 17, 10, 11, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0xAA, 0xA1, 0xA7, 0x05, 0x0A, 0x0D, 0x3D, 3); // 0x184
+            private static Player Archie_Meades = new Player(118, 120, 57, 54, 40, 70, 49, 62, 53, 385, 30, 34, 17, 13, 8, 10, 9, 7, 9, 1, 5, 1, 1, 1, 5, 1, 1, 1, 0xAA, 0xB3, 0xAF, 0x65, 0x08, 0x10, 0x15, 0x34, 2); // 0x185
+            private static Player Dave_Chaucer = new Player(101, 158, 71, 59, 56, 53, 58, 71, 56, 424, 39, 53, 14, 10, 12, 15, 10, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x6D, 0xD6, 0x68, 0xC2, 0x06, 0x0E, 0x1A, 0x29, 1); // 0x186
+            private static Player Billy_Blanc = new Player(134, 198, 60, 58, 48, 45, 48, 52, 79, 390, 32, 31, 17, 12, 10, 8, 8, 10, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x99, 0xC0, 0xBE, 0xD5, 0x0A, 0x16, 0x1C, 0x26, 1); // 0x187
+            private static Player Creed_Craving = new Player(127, 152, 61, 60, 62, 60, 52, 58, 53, 406, 31, 53, 10, 7, 9, 14, 8, 12, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA4, 0x67, 0xAF, 0xAD, 0x05, 0x0C, 0x13, 0x5A, 3); // 0x188
+            private static Player Phil_Rosey = new Player(123, 172, 54, 64, 56, 69, 57, 54, 60, 414, 34, 46, 11, 7, 8, 16, 7, 11, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9E, 0x92, 0xD3, 0xC4, 0x09, 0x11, 0x18, 0x1E, 1); // 0x189
+            private static Player Harry_Redcastle = new Player(121, 178, 63, 60, 53, 69, 52, 56, 60, 413, 40, 69, 9, 10, 11, 17, 9, 12, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x66, 0x6C, 0x90, 0xC9, 0x07, 0x12, 0x17, 0x26, 2); // 0x18A
+            private static Player Sonny_Welkin = new Player(167, 144, 68, 62, 54, 60, 35, 68, 54, 401, 37, 44, 9, 11, 10, 10, 11, 12, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x83, 0x6F, 0x73, 0x07, 0x0F, 0x1C, 0x37, 2); // 0x18B
+            private static Player Teddy_Kodiak = new Player(154, 148, 58, 57, 60, 54, 55, 61, 52, 397, 48, 65, 12, 13, 12, 12, 14, 13, 12, 2, 2, 2, 2, 2, 2, 4, 2, 2, 0x69, 0x85, 0x75, 0xCD, 0x08, 0x0F, 0x18, 0x1F, 3); // 0x18C
+            private static Player Lloyd_Tabb = new Player(83, 130, 41, 52, 62, 56, 62, 59, 63, 395, 24, 40, 10, 8, 10, 8, 17, 10, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0x77, 0x7F, 0x84, 0x09, 0x0F, 0x21, 0x33, 1); // 0x18D
+            private static Player Francis_Paine = new Player(116, 137, 47, 60, 52, 56, 60, 56, 62, 393, 20, 47, 11, 10, 11, 7, 15, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x69, 0x7D, 0x68, 0x81, 0x06, 0x0C, 0x15, 0x24, 1); // 0x18E
+            private static Player Griff_Strummer = new Player(158, 170, 60, 52, 60, 60, 55, 57, 57, 401, 54, 51, 10, 14, 11, 12, 10, 10, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA1, 0x7B, 0xB2, 0x84, 0x07, 0x0C, 0x1C, 0x50, 1); // 0x18F
+            private static Player Bryce_Bergman = new Player(165, 140, 45, 61, 59, 60, 64, 69, 60, 418, 75, 44, 10, 19, 11, 10, 12, 17, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x69, 0xD3, 0xC4, 0xD1, 0x07, 0x14, 0x1D, 0x5A, 3); // 0x190
+            private static Player Fingus_Inky = new Player(85, 136, 58, 71, 48, 64, 55, 63, 52, 411, 21, 61, 11, 9, 11, 15, 11, 13, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6E, 0xBF, 0x70, 0x89, 0x0C, 0x18, 0x1E, 0x27, 1); // 0x191
+            private static Player Walter_Geyser = new Player(96, 132, 63, 68, 42, 60, 58, 60, 53, 404, 30, 50, 9, 9, 10, 16, 11, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x83, 0x6F, 0x75, 0x08, 0x10, 0x12, 0x1A, 3); // 0x192
+            private static Player Les_Knightley = new Player(129, 194, 56, 64, 60, 66, 55, 52, 52, 405, 46, 36, 10, 11, 7, 16, 10, 11, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xAA, 0xA5, 0xE8, 0xA7, 0x07, 0x10, 0x1C, 0x28, 2); // 0x193
+            private static Player Conor_Abley = new Player(94, 148, 64, 58, 62, 67, 38, 78, 62, 429, 39, 39, 11, 10, 9, 11, 7, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0xB0, 0x8A, 0xB5, 0x08, 0x11, 0x24, 0x28, 1); // 0x194
+            private static Player Ainsley_Burns = new Player(171, 144, 46, 58, 68, 51, 60, 62, 63, 408, 38, 47, 9, 11, 16, 9, 11, 11, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x82, 0x92, 0x96, 0xE6, 0x01, 0x12, 0x1A, 0x56, 1); // 0x195
+            private static Player Pete_Grimes = new Player(158, 176, 44, 53, 60, 41, 52, 62, 52, 364, 42, 73, 9, 11, 13, 8, 8, 9, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAA, 0xAB, 0x7B, 0xAC, 0x0A, 0x11, 0x1D, 0x26, 3); // 0x196
+            private static Player Manny_Steele = new Player(215, 140, 56, 60, 43, 61, 60, 78, 55, 413, 79, 65, 9, 10, 12, 15, 13, 16, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x78, 0x6A, 0xC5, 0x0E, 0x13, 0x1E, 0x32, 1); // 0x197
+            private static Player Trey_Hugger = new Player(99, 142, 36, 73, 60, 73, 35, 28, 58, 363, 20, 48, 8, 17, 14, 17, 6, 6, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA3, 0x83, 0xAD, 0x8B, 0x0A, 0x13, 0x19, 0x3B, 1); // 0x198
+            private static Player Jack_Mate = new Player(136, 153, 62, 68, 61, 69, 53, 60, 56, 429, 39, 39, 10, 11, 10, 16, 10, 11, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x80, 0x85, 0x84, 0x0A, 0x11, 0x14, 0x36, 3); // 0x199
+            private static Player Mike_Chequer = new Player(151, 132, 63, 54, 54, 53, 55, 53, 56, 388, 50, 49, 11, 13, 13, 14, 10, 13, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xAA, 0x83, 0xAD, 0xB5, 0x08, 0x10, 0x19, 0x20, 2); // 0x19A
+            private static Player Berty_Adman = new Player(129, 136, 48, 52, 56, 59, 71, 62, 55, 403, 20, 33, 11, 9, 7, 9, 17, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA4, 0xAB, 0xAF, 0xB2, 0x05, 0x13, 0x18, 0x22, 1); // 0x19B
+            private static Player Troy_Carr = new Player(169, 180, 56, 56, 63, 63, 53, 61, 63, 415, 61, 66, 13, 17, 17, 13, 15, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x66, 0x92, 0x95, 0xD4, 0x07, 0x0E, 0x1F, 0x2C, 3); // 0x19C
+            private static Player Hollis_Ticure = new Player(193, 138, 58, 60, 53, 59, 52, 69, 52, 403, 64, 80, 16, 13, 15, 17, 15, 13, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0x92, 0x96, 0x75, 0x07, 0x10, 0x17, 0x1E, 1); // 0x19D
+            private static Player Guy_Dance = new Player(81, 144, 42, 58, 63, 62, 60, 67, 55, 407, 33, 48, 11, 8, 10, 11, 14, 11, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x69, 0x72, 0x86, 0xCD, 0x08, 0x14, 0x18, 0x24, 3); // 0x19E
+            private static Player Jack_Trumper = new Player(171, 174, 40, 58, 68, 44, 57, 57, 52, 376, 34, 77, 10, 10, 14, 11, 8, 10, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x98, 0xBF, 0xBE, 0xC8, 0x0B, 0x12, 0x17, 0x29, 3); // 0x19F
+            private static Player John_Corder = new Player(145, 132, 56, 63, 62, 61, 62, 56, 52, 412, 44, 56, 12, 12, 10, 11, 10, 12, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x99, 0x72, 0x6B, 0x9D, 0x0A, 0x10, 0x1D, 0x22, 2); // 0x1A0
+            private static Player Nigel_Bramel = new Player(107, 136, 47, 55, 60, 52, 70, 63, 56, 403, 21, 48, 10, 8, 11, 11, 15, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0xE7, 0x86, 0x71, 0x09, 0x11, 0x18, 0x19, 2); // 0x1A1
+            private static Player Hank_O_Chief = new Player(129, 110, 58, 62, 48, 45, 46, 56, 58, 373, 32, 24, 17, 14, 7, 11, 10, 8, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xA4, 0x85, 0xE7, 0xB5, 0x08, 0x12, 0x18, 0x36, 1); // 0x1A2
+            private static Player Jess_Uplement = new Player(118, 102, 57, 60, 40, 42, 50, 52, 52, 353, 33, 20, 17, 13, 8, 9, 11, 7, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x67, 0x6F, 0xCD, 0x6A, 0x0C, 0x13, 0x1B, 0x24, 1); // 0x1A3
+            private static Player Alec_Smart = new Player(116, 118, 45, 48, 50, 40, 51, 47, 45, 326, 36, 40, 9, 8, 7, 11, 11, 8, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0x7A, 0xAB, 0xA7, 0x0C, 0x18, 0x1E, 0x31, 2); // 0x1A4
+            private static Player Rob_Anchor = new Player(204, 144, 61, 57, 74, 53, 61, 71, 55, 432, 26, 43, 16, 9, 10, 14, 8, 8, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x7D, 0x70, 0x84, 0x06, 0x0D, 0x24, 0x42, 3); // 0x1A5
+            private static Player Brent_Cross = new Player(140, 112, 63, 52, 40, 49, 49, 58, 57, 368, 46, 34, 15, 12, 9, 9, 9, 11, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x69, 0x92, 0xD3, 0xC2, 0x06, 0x0E, 0x14, 0x21, 1); // 0x1A6
+            private static Player Albert_Wister = new Player(88, 148, 51, 60, 61, 52, 64, 64, 56, 408, 22, 43, 8, 10, 9, 9, 10, 10, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0x88, 0xB0, 0xE8, 0x08, 0x0C, 0x12, 0x28, 3); // 0x1A7
+            private static Player Nev_Erin = new Player(121, 176, 60, 70, 71, 61, 76, 68, 71, 477, 32, 58, 14, 10, 14, 13, 19, 17, 14, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x69, 0x7B, 0xBE, 0xC8, 0x07, 0x10, 0x17, 0x29, 2); // 0x1A8
+            private static Player Caz_Yewell = new Player(187, 138, 70, 53, 56, 63, 67, 68, 60, 437, 46, 57, 14, 12, 10, 13, 13, 13, 14, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0xA4, 0xA1, 0xAF, 0xB2, 0x05, 0x0F, 0x15, 0x21, 1); // 0x1A9
+            private static Player Conor_Trail = new Player(103, 136, 60, 60, 49, 70, 55, 76, 59, 429, 18, 55, 10, 8, 14, 17, 14, 16, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0xAB, 0xAF, 0x7F, 0x01, 0x0C, 0x15, 0x2B, 3); // 0x1AA
+            private static Player Manuel_Gere = new Player(158, 136, 42, 62, 70, 51, 52, 57, 59, 393, 31, 48, 8, 13, 14, 9, 9, 11, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0x7B, 0x6C, 0xD4, 0x07, 0x10, 0x17, 0x30, 1); // 0x1AB
+            private static Player Per_Hockside = new Player(107, 150, 42, 55, 57, 54, 69, 67, 62, 406, 30, 35, 10, 9, 8, 10, 14, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x92, 0x9C, 0x9D, 0x8E, 0x0B, 0x12, 0x1B, 0x27, 1); // 0x1AC
+            private static Player Lee_Gleagle = new Player(110, 124, 49, 49, 44, 50, 46, 40, 44, 322, 39, 47, 9, 10, 10, 11, 9, 11, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x88, 0x85, 0x74, 0x65, 0x0C, 0x12, 0x1A, 0x22, 2); // 0x1AD
+            private static Player Paul_Pitcher = new Player(147, 164, 45, 59, 67, 46, 55, 54, 61, 387, 34, 88, 9, 9, 19, 8, 10, 7, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x6D, 0x72, 0x97, 0x73, 0x07, 0x0A, 0x0E, 0x58, 3); // 0x1AE
+            private static Player Turner_Fortune = new Player(127, 113, 29, 36, 50, 77, 40, 46, 42, 320, 31, 47, 8, 4, 9, 16, 9, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x85, 0xD3, 0x68, 0x65, 0x0E, 0x15, 0x1B, 0x2A, 1); // 0x1AF
+            private static Player Walter_Walken = new Player(127, 128, 44, 42, 48, 49, 50, 51, 73, 357, 46, 34, 9, 10, 8, 10, 8, 10, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0x77, 0xE8, 0xC9, 0x08, 0x13, 0x1B, 0x26, 1); // 0x1B0
+            private static Player Sal_Curie = new Player(156, 132, 48, 56, 62, 51, 52, 62, 55, 386, 31, 47, 8, 12, 16, 7, 7, 9, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x72, 0x7A, 0x83, 0x75, 0x0A, 0x0E, 0x14, 0x1C, 1); // 0x1B1
+            private static Player Silver_Platt = new Player(167, 138, 56, 58, 59, 53, 52, 52, 63, 393, 56, 65, 12, 12, 12, 10, 10, 14, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x85, 0xD3, 0x7F, 0x07, 0x10, 0x17, 0x24, 3); // 0x1B2
+            private static Player Nick_Yergrub = new Player(99, 152, 62, 70, 48, 76, 52, 76, 62, 446, 20, 59, 10, 11, 14, 14, 12, 16, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x98, 0x6D, 0xC1, 0xC4, 0x0A, 0x10, 0x18, 0x25, 1); // 0x1B3
+            private static Player Mal_Inger = new Player(165, 130, 51, 56, 63, 48, 59, 55, 60, 392, 43, 48, 10, 14, 15, 9, 10, 11, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x6E, 0x87, 0xBF, 0xE8, 0x0B, 0x13, 0x19, 0x31, 2); // 0x1B4
+            private static Player Jim_Cook = new Player(118, 106, 52, 61, 47, 42, 41, 56, 56, 355, 33, 34, 17, 14, 11, 9, 7, 9, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x7D, 0x77, 0xE7, 0x7E, 0x0F, 0x12, 0x17, 0x1D, 3); // 0x1B5
+            private static Player Gus_Potter = new Player(77, 150, 46, 56, 58, 59, 67, 61, 61, 408, 31, 34, 9, 7, 8, 9, 12, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x72, 0x80, 0xE6, 0x05, 0x0C, 0x14, 0x61, 1); // 0x1B6
+            private static Player Handel_Turnon = new Player(132, 128, 56, 52, 44, 44, 51, 60, 60, 367, 31, 36, 15, 14, 10, 11, 8, 11, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xAB, 0xA8, 0xAF, 0xAC, 0x0F, 0x1B, 0x23, 0x31, 3); // 0x1B7
+            private static Player Peter_Malus = new Player(125, 133, 63, 63, 56, 53, 60, 61, 53, 409, 42, 33, 16, 11, 12, 17, 8, 10, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x6D, 0x72, 0xD3, 0xCD, 0x08, 0x10, 0x1B, 0x27, 2); // 0x1B8
+            private static Player Colin_Lection = new Player(158, 154, 56, 57, 52, 60, 52, 62, 52, 391, 67, 69, 16, 13, 16, 17, 14, 16, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x80, 0x6B, 0x7F, 0x0C, 0x12, 0x19, 0x1E, 1); // 0x1B9
+            private static Player Brock_Twigg = new Player(213, 190, 48, 48, 51, 78, 45, 49, 70, 389, 42, 51, 10, 7, 10, 8, 10, 7, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0xD6, 0x6C, 0x65, 0x08, 0x11, 0x18, 0x25, 3); // 0x1BA
+            private static Player Paddy_Rise = new Player(123, 174, 56, 69, 60, 66, 56, 60, 60, 427, 45, 39, 8, 7, 11, 17, 7, 14, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x83, 0x76, 0x8B, 0x06, 0x14, 0x1D, 0x4A, 1); // 0x1BB
+            private static Player Dustin_Westend = new Player(79, 130, 47, 54, 60, 52, 68, 60, 54, 395, 30, 50, 8, 11, 8, 9, 12, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x99, 0x9C, 0x68, 0xC8, 0x0C, 0x15, 0x1A, 0x39, 1); // 0x1BC
+            private static Player Alfonse_Way = new Player(129, 140, 50, 32, 32, 53, 60, 60, 60, 347, 44, 36, 11, 8, 8, 9, 15, 12, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x82, 0x72, 0x7C, 0xC4, 0x08, 0x10, 0x1A, 0x21, 2); // 0x1BD
+            private static Player Pippin_Flowers = new Player(140, 178, 63, 71, 52, 60, 60, 56, 60, 422, 38, 50, 7, 10, 10, 15, 9, 11, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x98, 0x97, 0x6B, 0x8E, 0x0A, 0x12, 0x1F, 0x27, 2); // 0x1BE
+            private static Player Euan_Stamper = new Player(110, 102, 75, 40, 45, 51, 50, 44, 79, 384, 37, 50, 10, 8, 11, 11, 10, 10, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x88, 0x77, 0x74, 0x8B, 0x0A, 0x0F, 0x1D, 0x3D, 3); // 0x1BF
+            private static Player Paddy_Prunus = new Player(125, 116, 52, 60, 48, 53, 48, 61, 63, 385, 34, 24, 13, 10, 7, 8, 9, 10, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xA4, 0xAA, 0xA1, 0x84, 0x07, 0x0C, 0x10, 0x5E, 1); // 0x1C0
+            private static Player Brian_Presser = new Player(134, 168, 59, 68, 56, 65, 57, 55, 63, 423, 34, 35, 8, 7, 7, 15, 9, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x96, 0xC4, 0x75, 0xC5, 0x14, 0x17, 0x20, 0x32, 1); // 0x1C1
+            private static Player Pete_LeGume = new Player(182, 164, 62, 68, 62, 64, 67, 64, 60, 447, 70, 61, 14, 16, 14, 13, 15, 16, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x69, 0x85, 0x6B, 0x8A, 0x08, 0x15, 0x1D, 0x28, 3); // 0x1C2
+            private static Player Shylock_Watson = new Player(121, 118, 43, 42, 41, 45, 40, 44, 49, 304, 40, 42, 11, 11, 8, 9, 11, 11, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0xD6, 0x71, 0x86, 0x0A, 0x12, 0x18, 0x1A, 2); // 0x1C3
+            private static Player Ed_Ripp = new Player(85, 130, 42, 52, 53, 60, 65, 70, 57, 399, 28, 42, 7, 8, 8, 9, 11, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x78, 0x6F, 0xE6, 0x08, 0x18, 0x1B, 0x55, 1); // 0x1C4
+            private static Player Hike_Basher = new Player(149, 152, 60, 60, 54, 56, 61, 54, 63, 408, 69, 69, 13, 17, 17, 14, 14, 16, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0xBF, 0xC0, 0x93, 0x09, 0x0F, 0x1B, 0x5F, 3); // 0x1C5
+            private static Player Anthony_Phinder = new Player(173, 132, 54, 53, 56, 60, 60, 61, 56, 400, 63, 66, 15, 15, 13, 17, 14, 14, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x98, 0x94, 0x9C, 0x8E, 0x0A, 0x12, 0x18, 0x2A, 1); // 0x1C6
+            private static Player Duncan_Jump = new Player(209, 120, 40, 48, 48, 40, 43, 76, 48, 343, 94, 38, 9, 8, 9, 11, 10, 20, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0x83, 0x6B, 0xD4, 0x08, 0x13, 0x1A, 0x29, 2); // 0x1C7
+            private static Player Lucky_Winn = new Player(99, 140, 52, 66, 48, 60, 61, 66, 56, 409, 25, 55, 7, 10, 10, 14, 11, 17, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x88, 0x6E, 0x87, 0x81, 0x0B, 0x12, 0x16, 0x31, 3); // 0x1C8
+            private static Player Gene_Bates = new Player(184, 156, 60, 63, 61, 60, 35, 64, 56, 399, 75, 48, 7, 11, 8, 14, 7, 20, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x80, 0x71, 0x86, 0x08, 0x10, 0x18, 0x1C, 1); // 0x1C9
+            private static Player Randolf_Finn = new Player(96, 150, 66, 63, 63, 56, 63, 68, 63, 442, 45, 44, 15, 8, 14, 17, 10, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0xAB, 0x83, 0xB1, 0x0A, 0x12, 0x1A, 0x42, 1); // 0x1CA
+            private static Player Ron_Away = new Player(132, 154, 49, 29, 32, 55, 67, 60, 60, 352, 39, 34, 11, 9, 7, 9, 14, 12, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x9E, 0x90, 0x9D, 0xC4, 0x0E, 0x15, 0x18, 0x21, 3); // 0x1CB
+            private static Player Rick_Hatter = new Player(191, 156, 60, 61, 64, 65, 64, 62, 64, 440, 67, 72, 15, 16, 13, 14, 17, 16, 17, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x92, 0x9C, 0x9D, 0xC8, 0x0C, 0x12, 0x1D, 0x31, 1); // 0x1CC
+            private static Player Grant_Mardy = new Player(121, 113, 60, 55, 40, 42, 40, 56, 60, 353, 39, 24, 14, 13, 9, 10, 10, 9, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x6D, 0x88, 0xD6, 0x68, 0x08, 0x0E, 0x12, 0x1C, 2); // 0x1CD
+            private static Player Shawn_Broker = new Player(211, 158, 40, 62, 56, 52, 52, 70, 62, 394, 80, 34, 8, 10, 11, 11, 14, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xAB, 0xA5, 0x6F, 0xAD, 0x10, 0x12, 0x18, 0x1E, 1); // 0x1CE
+            private static Player Anthony_Coyne = new Player(134, 172, 55, 60, 52, 60, 60, 53, 56, 396, 33, 50, 9, 11, 9, 14, 9, 13, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xAA, 0x83, 0x78, 0xB5, 0x0A, 0x10, 0x1A, 0x26, 1); // 0x1CF
+            private static Player Healey_Proctor = new Player(145, 168, 44, 56, 70, 41, 52, 52, 56, 371, 40, 70, 8, 9, 15, 8, 8, 11, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0x7B, 0x77, 0xE8, 0x09, 0x0E, 0x1C, 0x24, 2); // 0x1D0
+            private static Player Ade_Posting = new Player(99, 122, 31, 44, 47, 67, 60, 48, 43, 340, 32, 39, 8, 4, 6, 16, 16, 11, 6, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x97, 0xC1, 0xBE, 0xC9, 0x0B, 0x15, 0x1E, 0x22, 1); // 0x1D1
+            private static Player Doug_Outon = new Player(121, 128, 30, 46, 60, 32, 44, 44, 48, 304, 28, 29, 8, 10, 14, 8, 8, 6, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0xC0, 0xC4, 0xC8, 0x0C, 0x14, 0x1E, 0x40, 3); // 0x1D2
+            private static Player Ebenezer_Marner = new Player(121, 130, 42, 36, 31, 56, 68, 63, 55, 351, 43, 35, 7, 9, 8, 8, 17, 14, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7A, 0x80, 0x68, 0x8B, 0x08, 0x13, 0x1B, 0x3C, 3); // 0x1D3
+            private static Player Davy_Johns = new Player(88, 118, 68, 51, 41, 60, 71, 56, 40, 387, 33, 28, 7, 7, 6, 9, 4, 5, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x99, 0x96, 0x7C, 0xCD, 0x0C, 0x16, 0x1D, 0x21, 1); // 0x1D4
+            private static Player Bos_Horne = new Player(85, 146, 60, 61, 54, 56, 59, 68, 55, 413, 36, 42, 17, 11, 14, 15, 10, 8, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x88, 0x72, 0x6B, 0x89, 0x0D, 0x12, 0x20, 0x2E, 1); // 0x1D5
+            private static Player Nick_Orner = new Player(156, 156, 41, 46, 40, 42, 53, 58, 56, 336, 38, 33, 11, 17, 15, 17, 7, 10, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA1, 0xA5, 0x81, 0xAE, 0x0C, 0x12, 0x1C, 0x24, 1); // 0x1D6
+            private static Player Nathin_Gaunt = new Player(79, 140, 40, 56, 52, 61, 76, 52, 61, 398, 22, 44, 12, 11, 10, 7, 20, 10, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x72, 0x77, 0x7E, 0xD5, 0x0E, 0x15, 0x1E, 0x30, 3); // 0x1D7
+            private static Player Quentin_Quartz = new Player(103, 156, 60, 52, 57, 67, 31, 62, 58, 387, 45, 51, 20, 11, 10, 14, 8, 7, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x97, 0xC6, 0xC2, 0x08, 0x10, 0x19, 0x1E, 1); // 0x1D8
+            private static Player Andrew_Meikle = new Player(165, 168, 48, 56, 61, 48, 63, 53, 62, 391, 31, 72, 10, 9, 19, 11, 10, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA4, 0xAA, 0x78, 0xB1, 0x0C, 0x14, 0x1C, 0x44, 1); // 0x1D9
+            private static Player Gary_Salmon = new Player(169, 144, 56, 53, 59, 60, 63, 60, 58, 409, 56, 58, 14, 14, 12, 11, 13, 12, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x82, 0xB3, 0xAD, 0xA7, 0x09, 0x0C, 0x18, 0x2B, 1); // 0x1DA
+            private static Player Fontaine_Tapper = new Player(101, 130, 44, 56, 63, 54, 65, 60, 58, 400, 30, 51, 12, 8, 8, 11, 20, 10, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x98, 0x67, 0xBE, 0xD1, 0x0A, 0x10, 0x1D, 0x57, 2); // 0x1DB
+            private static Player Leon_Lawn = new Player(110, 194, 60, 55, 49, 46, 40, 69, 52, 371, 39, 24, 16, 12, 11, 7, 10, 8, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x82, 0x83, 0x75, 0x8A, 0x05, 0x14, 0x27, 0x4A, 3); // 0x1DC
+            private static Player Jim_Sweatman = new Player(145, 170, 40, 55, 68, 48, 55, 52, 53, 371, 42, 78, 7, 7, 17, 9, 11, 9, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA1, 0xB0, 0x85, 0xB5, 0x0D, 0x12, 0x22, 0x2C, 2); // 0x1DD
+            private static Player Cole_Coaker = new Player(90, 132, 47, 52, 60, 52, 62, 59, 58, 390, 20, 50, 10, 9, 8, 10, 15, 13, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA4, 0xB3, 0x81, 0xB5, 0x0A, 0x0E, 0x1C, 0x29, 3); // 0x1DE
+            private static Player Stu_Born = new Player(114, 102, 60, 56, 40, 48, 46, 56, 52, 358, 30, 34, 13, 14, 7, 7, 9, 10, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xA4, 0xAB, 0xAF, 0xA7, 0x08, 0x10, 0x17, 0x2B, 1); // 0x1DF
+            private static Player Romeo_Montague = new Player(173, 158, 57, 60, 63, 60, 56, 61, 55, 412, 69, 70, 14, 15, 16, 17, 13, 17, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAB, 0xAF, 0x7E, 0xAC, 0x0E, 0x12, 0x18, 0x26, 1); // 0x1E0
+            private static Player Drew_Straitedge = new Player(118, 124, 49, 46, 44, 44, 46, 42, 47, 318, 44, 47, 9, 9, 10, 10, 11, 10, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAA, 0x77, 0xAD, 0xAE, 0x0A, 0x19, 0x1E, 0x21, 3); // 0x1E1
+            private static Player Dash_Dotter = new Player(96, 142, 51, 52, 61, 52, 65, 62, 58, 401, 18, 36, 7, 9, 7, 8, 14, 10, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x67, 0x6C, 0x68, 0xD4, 0x0F, 0x14, 0x1A, 0x32, 2); // 0x1E2
+            private static Player Gill_O_Mend = new Player(160, 142, 56, 60, 56, 55, 57, 52, 57, 393, 46, 50, 11, 14, 10, 12, 12, 13, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x6D, 0x83, 0x8A, 0xC7, 0x10, 0x1C, 0x2E, 0x3B, 1); // 0x1E3
+            private static Player Pay_Chance = new Player(173, 141, 59, 56, 53, 59, 60, 56, 56, 399, 62, 68, 15, 15, 16, 16, 17, 15, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA4, 0xAB, 0xAE, 0xB5, 0x05, 0x0E, 0x17, 0x42, 2); // 0x1E4
+            private static Player Bill_Aegis = new Player(79, 152, 63, 62, 40, 60, 56, 68, 55, 404, 26, 63, 7, 11, 12, 13, 13, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x7C, 0xE8, 0xE6, 0x09, 0x19, 0x1C, 0x3D, 1); // 0x1E5
+            private static Player Tosh_Coach = new Player(99, 96, 34, 70, 39, 78, 37, 32, 32, 322, 33, 28, 8, 7, 6, 5, 8, 8, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0x88, 0x6E, 0x78, 0x08, 0x11, 0x16, 0x1B, 3); // 0x1E6
+            private static Player Carl_Gnu = new Player(77, 152, 42, 55, 53, 62, 71, 72, 54, 409, 19, 36, 10, 8, 7, 11, 14, 18, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9C, 0x69, 0xC6, 0xC7, 0x12, 0x16, 0x19, 0x21, 3); // 0x1E7
+            private static Player Paul_Sapp = new Player(217, 144, 62, 61, 44, 64, 55, 68, 56, 410, 33, 55, 8, 8, 14, 14, 13, 14, 9, 5, 1, 1, 5, 1, 5, 1, 2, 1, 0x69, 0x72, 0x77, 0x80, 0x08, 0x11, 0x15, 0x18, 1); // 0x1E8
+            private static Player Macky_Valley = new Player(116, 108, 54, 59, 43, 44, 47, 52, 78, 377, 43, 35, 15, 12, 9, 8, 10, 10, 17, 1, 5, 1, 1, 1, 1, 1, 1, 5, 0x66, 0x92, 0xBE, 0xC8, 0x10, 0x18, 0x1B, 0x34, 1); // 0x1E9
+            private static Player Troy_Trucker = new Player(77, 156, 66, 53, 63, 58, 60, 79, 52, 431, 32, 42, 15, 11, 12, 16, 10, 11, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x96, 0xC6, 0x76, 0x07, 0x15, 0x1F, 0x26, 1); // 0x1EA
+            private static Player Haden_Seek = new Player(88, 138, 41, 63, 54, 54, 70, 63, 62, 407, 25, 40, 14, 10, 10, 11, 17, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9E, 0x6F, 0x90, 0xC2, 0x0D, 0x1C, 0x29, 0x3F, 1); // 0x1EB
+            private static Player Kevin_Doors = new Player(173, 164, 70, 66, 68, 71, 62, 63, 63, 463, 56, 68, 14, 15, 17, 15, 15, 15, 13, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x99, 0xB3, 0xA5, 0xAE, 0x08, 0x0E, 0x1B, 0x38, 2); // 0x1EC
+            private static Player Skip_Rooter = new Player(182, 138, 61, 55, 61, 61, 58, 67, 61, 424, 54, 42, 14, 11, 13, 15, 9, 10, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x6C, 0x7D, 0x96, 0x0B, 0x19, 0x26, 0x32, 2); // 0x1ED
+            private static Player Rip_Airman = new Player(94, 134, 48, 52, 54, 53, 65, 66, 59, 397, 20, 40, 10, 11, 11, 9, 13, 12, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0x85, 0x7E, 0x6A, 0x08, 0x15, 0x2E, 0x4F, 3); // 0x1EE
+            private static Player Stu_Shiner = new Player(165, 132, 59, 62, 60, 52, 60, 58, 57, 408, 69, 66, 16, 13, 16, 17, 17, 16, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAA, 0xA3, 0x72, 0xAF, 0x0A, 0x15, 0x21, 0x30, 1); // 0x1EF
+            private static Player Matt_Matickal = new Player(121, 132, 40, 36, 36, 61, 71, 56, 57, 357, 46, 46, 7, 10, 8, 8, 14, 13, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xD6, 0xB3, 0x86, 0xA7, 0x0C, 0x10, 0x24, 0x4F, 3); // 0x1F0
+            private static Player Philip_Flagg = new Player(193, 148, 40, 29, 32, 53, 60, 33, 60, 307, 63, 53, 9, 8, 5, 10, 19, 5, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x82, 0x83, 0x77, 0x7C, 0x05, 0x19, 0x22, 0x34, 1); // 0x1F1
+            private static Player Alf_Groundsman = new Player(165, 136, 60, 60, 55, 68, 56, 62, 55, 416, 62, 72, 15, 16, 16, 17, 14, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x7D, 0x96, 0xE7, 0x09, 0x12, 0x1D, 0x26, 1); // 0x1F2
+            private static Player Ernie_Riddell = new Player(143, 140, 44, 57, 76, 44, 53, 53, 60, 387, 32, 44, 8, 12, 16, 8, 9, 11, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x9E, 0xD6, 0x94, 0xC4, 0x08, 0x11, 0x1B, 0x2D, 1); // 0x1F3
+            private static Player Len_Stint = new Player(156, 140, 52, 59, 60, 60, 57, 63, 56, 407, 54, 72, 16, 15, 16, 16, 16, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0xB0, 0xA1, 0xA4, 0x0B, 0x10, 0x1E, 0x2E, 3); // 0x1F4
+            private static Player Holly_Cricket = new Player(118, 156, 61, 70, 48, 63, 63, 67, 56, 428, 31, 55, 11, 9, 12, 15, 14, 15, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xD3, 0x80, 0x70, 0xC6, 0x10, 0x1A, 0x26, 0x31, 1); // 0x1F5
+            private static Player Dave_Altair = new Player(213, 136, 61, 63, 57, 58, 53, 69, 60, 421, 66, 39, 15, 9, 10, 15, 9, 11, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x9E, 0x9D, 0xC7, 0x0A, 0x0F, 0x2A, 0x3A, 2); // 0x1F6
+            private static Player Jim_Reed = new Player(123, 112, 45, 45, 42, 53, 54, 46, 48, 333, 32, 36, 6, 5, 7, 7, 12, 11, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x85, 0x98, 0x66, 0x8A, 0x0A, 0x0E, 0x1C, 0x40, 2); // 0x1F7
+            private static Player Gwyn_Penn = new Player(165, 176, 49, 57, 71, 43, 58, 53, 61, 392, 37, 80, 9, 11, 15, 10, 11, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xB3, 0xAD, 0xB2, 0x9F, 0x0A, 0x19, 0x21, 0x30, 3); // 0x1F8
+            private static Player Spike_Needle = new Player(151, 130, 42, 32, 39, 60, 71, 59, 54, 357, 48, 47, 9, 8, 8, 10, 16, 12, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xB3, 0xA3, 0x7B, 0xAC, 0x01, 0x0F, 0x1A, 0x39, 1); // 0x1F9
+            private static Player Ifan_Tassy = new Player(140, 113, 60, 51, 57, 56, 58, 63, 60, 405, 33, 28, 5, 8, 11, 6, 4, 6, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x72, 0x7B, 0x75, 0x94, 0x10, 0x17, 0x1F, 0x34, 3); // 0x1FA
+            private static Player Eggbert_Heading = new Player(217, 140, 68, 53, 58, 71, 38, 76, 62, 426, 38, 43, 9, 9, 10, 12, 11, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x71, 0x86, 0x9A, 0xC0, 0x12, 0x1C, 0x24, 0x3E, 3); // 0x1FB
+            private static Player Pascal_Blaise = new Player(118, 142, 49, 56, 60, 61, 68, 45, 57, 396, 30, 36, 12, 9, 9, 7, 15, 4, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xD6, 0x85, 0x86, 0xD3, 0x12, 0x16, 0x22, 0x33, 1); // 0x1FC
+            private static Player Will_Whist = new Player(138, 138, 61, 36, 30, 52, 62, 54, 53, 348, 40, 46, 11, 9, 7, 11, 16, 10, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7A, 0xA3, 0xB5, 0xD3, 0x08, 0x13, 0x22, 0x3B, 1); // 0x1FD
+            private static Player Ewan_Liner = new Player(85, 146, 50, 75, 63, 52, 65, 63, 56, 424, 20, 42, 11, 9, 9, 9, 13, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xAA, 0x85, 0xAB, 0xAD, 0x09, 0x14, 0x1D, 0x30, 3); // 0x1FE
+            private static Player Buster_Locke = new Player(127, 118, 56, 58, 49, 43, 49, 56, 58, 369, 67, 29, 15, 11, 10, 11, 9, 10, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x82, 0xE7, 0x6F, 0x7C, 0x09, 0x14, 0x1A, 0x3C, 1); // 0x1FF
+            private static Player Rex_Plorer = new Player(110, 141, 48, 53, 58, 63, 65, 60, 53, 400, 28, 51, 12, 9, 8, 8, 16, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x97, 0xCA, 0xC2, 0x75, 0x08, 0x13, 0x1F, 0x39, 1); // 0x200
+            private static Player Webber_Poster = new Player(121, 106, 55, 56, 46, 45, 40, 56, 56, 354, 33, 28, 14, 13, 10, 9, 10, 7, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x67, 0x66, 0x74, 0x92, 0x0A, 0x10, 0x1D, 0x27, 2); // 0x201
+            private static Player Sid_Parting = new Player(134, 133, 68, 60, 63, 69, 47, 64, 52, 423, 36, 45, 10, 10, 7, 11, 9, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x80, 0x68, 0xE8, 0x0B, 0x1A, 0x26, 0x35, 1); // 0x202
+            private static Player Eaton_Rampage = new Player(110, 112, 51, 44, 48, 50, 73, 47, 37, 350, 43, 42, 9, 8, 7, 8, 8, 10, 6, 4, 4, 4, 4, 4, 4, 2, 4, 4, 0x6D, 0x9C, 0x77, 0xCD, 0x08, 0x12, 0x19, 0x2E, 3); // 0x203
+            private static Player Parker_Leaper = new Player(167, 129, 54, 53, 62, 60, 58, 56, 56, 399, 46, 51, 14, 13, 11, 14, 12, 12, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xA1, 0xAE, 0xB2, 0x74, 0x09, 0x14, 0x21, 0x42, 1); // 0x204
+            private static Player Hank_Halberd = new Player(195, 156, 62, 62, 59, 61, 37, 62, 55, 398, 68, 38, 9, 11, 10, 12, 11, 14, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB3, 0xBF, 0x7A, 0xAE, 0x0A, 0x12, 0x19, 0x3C, 2); // 0x205
+            private static Player Robin_Catching = new Player(132, 112, 48, 49, 51, 48, 78, 49, 47, 370, 37, 50, 8, 10, 7, 9, 18, 10, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA1, 0xAF, 0xD5, 0xA7, 0x0A, 0x18, 0x34, 0x55, 1); // 0x206
+            private static Player Trey_Spotter = new Player(149, 132, 47, 54, 61, 51, 51, 44, 52, 360, 22, 64, 7, 6, 12, 8, 8, 6, 6, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xD6, 0xC2, 0x83, 0x68, 0x0C, 0x1E, 0x26, 0x2F, 1); // 0x207
+            private static Player Onslow_Ball = new Player(85, 146, 58, 69, 47, 70, 61, 63, 60, 428, 33, 62, 8, 7, 10, 13, 13, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x9C, 0x6D, 0x80, 0x05, 0x12, 0x1B, 0x26, 1); // 0x208
+            private static Player Tex_Tingle = new Player(132, 121, 40, 51, 54, 45, 60, 44, 45, 339, 32, 32, 8, 6, 7, 4, 13, 10, 4, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0xE7, 0xA5, 0xB5, 0x0A, 0x1A, 0x28, 0x4B, 1); // 0x209
+            private static Player Sam_Gale = new Player(151, 129, 48, 52, 66, 44, 55, 60, 63, 388, 33, 37, 11, 12, 14, 7, 11, 8, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x80, 0xA5, 0x7F, 0xB0, 0x0D, 0x14, 0x25, 0x3B, 3); // 0x20A
+            private static Player Ryder_Waverly = new Player(125, 146, 49, 39, 33, 62, 60, 62, 56, 361, 45, 48, 10, 8, 6, 11, 15, 13, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x92, 0xC6, 0x74, 0xD3, 0x08, 0x18, 0x24, 0x41, 1); // 0x20B
+            private static Player Leaf_Scarlett = new Player(167, 145, 56, 57, 60, 56, 60, 53, 60, 402, 64, 68, 16, 13, 13, 14, 14, 16, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9C, 0xD6, 0x90, 0x85, 0x0A, 0x0E, 0x18, 0x27, 2); // 0x20C
+            private static Player Horace_Coop = new Player(151, 116, 54, 59, 44, 48, 50, 60, 53, 368, 43, 36, 13, 12, 10, 8, 9, 7, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x87, 0x6E, 0x70, 0x81, 0x0C, 0x12, 0x22, 0x4B, 1); // 0x20D
+            private static Player Ness_Lockley = new Player(77, 186, 44, 56, 60, 63, 68, 52, 62, 405, 21, 48, 13, 10, 9, 19, 17, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7D, 0x6C, 0x83, 0xE8, 0x08, 0x10, 0x20, 0x32, 1); // 0x20E
+            private static Player Olef_Tennant = new Player(94, 198, 62, 54, 68, 60, 52, 28, 57, 381, 27, 96, 12, 12, 14, 14, 14, 8, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x99, 0x7A, 0x9C, 0xC2, 0x09, 0x0E, 0x1A, 0x26, 3); // 0x20F
+            private static Player Len_Scapp = new Player(127, 150, 41, 36, 33, 56, 74, 56, 63, 359, 37, 43, 9, 10, 5, 11, 16, 10, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xAA, 0xA3, 0x85, 0xAD, 0x08, 0x13, 0x1C, 0x31, 1); // 0x210
+            private static Player Monty_Hillary = new Player(88, 146, 42, 56, 59, 63, 65, 64, 52, 401, 27, 42, 11, 7, 8, 9, 13, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x94, 0x71, 0x86, 0x8E, 0x0A, 0x12, 0x15, 0x1B, 2); // 0x211
+            private static Player Penfold_Pulper = new Player(99, 158, 41, 52, 59, 59, 71, 64, 62, 408, 19, 40, 7, 7, 9, 9, 11, 13, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x92, 0xCA, 0x6C, 0xC2, 0x0C, 0x19, 0x23, 0x2E, 1); // 0x212
+            private static Player Thomas_Cott = new Player(147, 150, 53, 59, 53, 56, 63, 59, 56, 399, 68, 68, 14, 17, 17, 13, 15, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA1, 0x88, 0xAE, 0x81, 0x0B, 0x13, 0x37, 0x55, 2); // 0x213
+            private static Player Spike_Thorne = new Player(105, 130, 53, 64, 48, 61, 52, 62, 56, 396, 34, 61, 11, 8, 12, 13, 12, 15, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x85, 0x6C, 0xC7, 0x09, 0x14, 0x1A, 0x2F, 1); // 0x214
+            private static Player Lincoln_Hawking = new Player(173, 154, 57, 52, 62, 73, 54, 63, 60, 421, 69, 68, 16, 16, 16, 14, 16, 16, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xBF, 0xCA, 0xC4, 0x83, 0x0D, 0x1A, 0x23, 0x36, 3); // 0x215
+            private static Player Ted_Larkin = new Player(94, 136, 60, 59, 62, 63, 62, 70, 58, 434, 34, 39, 16, 9, 12, 15, 11, 8, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x87, 0x6E, 0xE8, 0xC0, 0x0C, 0x14, 0x1C, 0x20, 1); // 0x216
+            private static Player Madison_Cabinet = new Player(167, 172, 40, 52, 61, 42, 60, 63, 57, 375, 31, 66, 9, 9, 16, 9, 10, 9, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x92, 0x9D, 0x68, 0xB5, 0x0B, 0x14, 0x1B, 0x38, 2); // 0x217
+            private static Player Odo_Cologne = new Player(171, 138, 40, 57, 52, 57, 60, 37, 60, 363, 70, 47, 10, 10, 11, 7, 13, 8, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x80, 0x7E, 0x70, 0xBF, 0x0F, 0x1E, 0x29, 0x31, 1); // 0x218
+            private static Player Nester_Damus = new Player(143, 156, 63, 60, 63, 61, 53, 54, 56, 410, 44, 58, 12, 10, 13, 12, 12, 12, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6E, 0xB3, 0xAD, 0xA7, 0x0A, 0x10, 0x1C, 0x4E, 3); // 0x219
+            private static Player Herb_Ivore = new Player(156, 152, 56, 61, 60, 61, 59, 57, 60, 414, 44, 53, 12, 13, 12, 14, 12, 12, 10, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xC4, 0x6B, 0xE7, 0xCD, 0x12, 0x20, 0x2D, 0x46, 1); // 0x21A
+            private static Player Homer_Pidgeon = new Player(213, 130, 60, 60, 56, 52, 60, 77, 56, 421, 37, 44, 16, 9, 14, 15, 8, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x77, 0xBE, 0x8A, 0x09, 0x10, 0x1D, 0x52, 2); // 0x21B
+            private static Player Rob_Ottley = new Player(103, 146, 43, 53, 55, 52, 68, 61, 56, 388, 21, 46, 12, 11, 11, 8, 16, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0x6C, 0x95, 0x9D, 0x08, 0x11, 0x17, 0x2D, 1); // 0x21C
+            private static Player Scott_Springer = new Player(96, 134, 78, 59, 63, 53, 52, 60, 54, 419, 40, 43, 14, 10, 12, 14, 8, 11, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x94, 0x9C, 0x9B, 0x6A, 0x0B, 0x17, 0x27, 0x4C, 3); // 0x21D
+            private static Player Viv_Grey = new Player(140, 198, 55, 57, 42, 44, 47, 61, 56, 362, 37, 92, 17, 10, 9, 11, 10, 11, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x99, 0xC1, 0x68, 0xC0, 0x0A, 0x15, 0x1C, 0x2A, 1); // 0x21E
+            private static Player Don_Snow = new Player(200, 130, 60, 58, 60, 64, 35, 64, 61, 402, 42, 43, 10, 8, 9, 12, 9, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0xAB, 0x69, 0xB2, 0x0C, 0x14, 0x1B, 0x3B, 1); // 0x21F
+            private static Player Hal_Mullet = new Player(81, 132, 43, 76, 55, 60, 68, 68, 55, 425, 26, 35, 8, 9, 11, 10, 10, 18, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x72, 0x85, 0xBE, 0x76, 0x0D, 0x17, 0x27, 0x3F, 1); // 0x220
+            private static Player Isaiah_Shutt = new Player(107, 134, 64, 68, 54, 60, 52, 56, 52, 406, 46, 43, 17, 10, 12, 15, 11, 8, 11, 5, 1, 2, 1, 1, 2, 2, 2, 1, 0x85, 0xBE, 0x72, 0xC9, 0x10, 0x1B, 0x2A, 0x41, 1); // 0x221
+            private static Player Ace_Irvin = new Player(151, 172, 43, 52, 65, 51, 55, 60, 63, 389, 32, 78, 9, 10, 17, 7, 8, 11, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x67, 0x68, 0x95, 0x8E, 0x08, 0x12, 0x1A, 0x35, 2); // 0x222
+            private static Player Spike_Pitt = new Player(149, 132, 60, 52, 55, 57, 61, 54, 63, 402, 38, 38, 7, 7, 10, 8, 10, 11, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x92, 0x96, 0x75, 0xCD, 0x0C, 0x15, 0x28, 0x43, 1); // 0x223
+            private static Player Innes_Caving = new Player(147, 140, 44, 42, 48, 57, 69, 57, 56, 373, 36, 44, 11, 8, 6, 10, 15, 12, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xA3, 0x88, 0x7E, 0xAC, 0x0F, 0x19, 0x26, 0x41, 1); // 0x224
+            private static Player Keanu_Dell = new Player(160, 142, 46, 55, 68, 51, 61, 52, 29, 362, 40, 40, 9, 11, 17, 8, 11, 9, 6, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x82, 0xC4, 0x67, 0x75, 0x05, 0x1B, 0x21, 0x36, 3); // 0x225
+            private static Player Casey_Novak = new Player(149, 140, 60, 64, 51, 69, 57, 62, 63, 426, 44, 65, 7, 11, 14, 15, 12, 17, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7D, 0xE7, 0x72, 0xA7, 0x09, 0x13, 0x16, 0x43, 1); // 0x226
+            private static Player Ed_Halley = new Player(103, 146, 44, 39, 29, 54, 79, 30, 56, 331, 33, 46, 11, 10, 8, 11, 20, 6, 7, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x99, 0x69, 0x65, 0xC2, 0x0A, 0x12, 0x22, 0x35, 1); // 0x227
+            private static Player Burt_Mocking = new Player(134, 190, 61, 61, 51, 51, 45, 57, 58, 384, 37, 27, 17, 13, 8, 10, 11, 10, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x6D, 0xC2, 0xD6, 0x7F, 0x07, 0x18, 0x24, 0x34, 1); // 0x228
+            private static Player Oscar_Petty = new Player(129, 156, 76, 71, 63, 70, 44, 78, 82, 484, 56, 54, 10, 11, 14, 17, 14, 12, 11, 5, 1, 2, 1, 1, 2, 5, 2, 5, 0xB3, 0x7D, 0xA5, 0xAE, 0x0A, 0x14, 0x1E, 0x2C, 1); // 0x229
+            private static Player Waite_Forrit = new Player(165, 140, 61, 55, 59, 58, 59, 68, 59, 419, 55, 34, 16, 9, 12, 16, 10, 14, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xC6, 0x67, 0x9B, 0x8B, 0x32, 0x3E, 0x4E, 0x63, 2); // 0x22A
+            private static Player Bennett_Byers = new Player(96, 134, 57, 63, 48, 68, 52, 60, 54, 402, 21, 54, 9, 11, 12, 13, 12, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA1, 0xA5, 0x86, 0xAF, 0x08, 0x13, 0x2A, 0x4E, 1); // 0x22B
+            private static Player Mo_Eisner = new Player(101, 134, 48, 56, 61, 56, 66, 60, 62, 409, 26, 51, 11, 11, 10, 11, 17, 13, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x67, 0xAF, 0x6B, 0xB2, 0x08, 0x13, 0x22, 0x3D, 1); // 0x22C
+            private static Player Miles_Seaford = new Player(125, 150, 40, 35, 29, 60, 70, 52, 56, 342, 36, 38, 10, 10, 7, 10, 17, 13, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7D, 0x85, 0xC1, 0xC8, 0x08, 0x0F, 0x1B, 0x55, 3); // 0x22D
+            private static Player Sayer_Lemon = new Player(167, 144, 52, 61, 54, 52, 63, 59, 53, 394, 57, 77, 14, 16, 13, 14, 15, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7D, 0x86, 0x71, 0x7E, 0x07, 0x12, 0x1E, 0x30, 1); // 0x22E
+            private static Player Carey_Ginu = new Player(88, 132, 40, 52, 60, 62, 78, 55, 60, 407, 33, 34, 14, 7, 7, 8, 16, 11, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x72, 0xC4, 0x87, 0x05, 0x10, 0x27, 0x44, 2); // 0x22F
+            private static Player Cass_Crocker = new Player(125, 146, 68, 51, 64, 38, 44, 40, 44, 349, 24, 61, 7, 8, 10, 6, 7, 8, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x97, 0xCA, 0x9F, 0x85, 0x09, 0x15, 0x26, 0x34, 1); // 0x230
+            private static Player Paul_Downs = new Player(173, 194, 48, 52, 71, 41, 53, 57, 62, 384, 42, 34, 9, 13, 17, 8, 11, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7A, 0xE7, 0xD6, 0x7E, 0x09, 0x18, 0x22, 0x39, 1); // 0x231
+            private static Player Darrel_Jeeling = new Player(173, 150, 47, 60, 68, 46, 58, 59, 53, 391, 36, 47, 10, 14, 15, 11, 11, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x92, 0xC7, 0xA5, 0xAC, 0x0C, 0x21, 0x2E, 0x3C, 1); // 0x232
+            private static Player Nobby_Shinn = new Player(204, 194, 57, 56, 50, 41, 48, 58, 52, 362, 44, 27, 17, 12, 11, 11, 10, 10, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x7D, 0x65, 0x81, 0x9B, 0x08, 0x14, 0x1F, 0x2A, 3); // 0x233
+            private static Player Theo_Broma = new Player(140, 128, 52, 54, 49, 49, 41, 55, 53, 353, 30, 25, 17, 10, 10, 10, 8, 7, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x85, 0xE8, 0xC6, 0x0B, 0x10, 0x25, 0x3E, 1); // 0x234
+            private static Player Ramsey_Faroe = new Player(217, 82, 37, 77, 32, 71, 30, 79, 34, 360, 32, 25, 5, 8, 7, 4, 7, 5, 7, 4, 1, 1, 4, 1, 4, 1, 4, 1, 0x94, 0x7E, 0x70, 0xA2, 0x0A, 0x15, 0x25, 0x3A, 1); // 0x235
+            private static Player Buster_Chopps = new Player(169, 92, 59, 56, 57, 59, 58, 60, 79, 428, 58, 39, 12, 13, 13, 12, 12, 12, 14, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0xAB, 0xD3, 0xAE, 0xA7, 0x0E, 0x1B, 0x27, 0x55, 1); // 0x236
+            private static Player Vince_Bull = new Player(112, 133, 55, 56, 52, 60, 64, 64, 57, 408, 26, 33, 7, 7, 10, 10, 11, 11, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x94, 0x6E, 0x87, 0xC0, 0x0C, 0x0F, 0x16, 0x1E, 2); // 0x237
+            private static Player Pat_Maclean = new Player(167, 168, 63, 64, 62, 69, 60, 60, 68, 446, 58, 50, 11, 10, 13, 12, 14, 13, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x9A, 0x9C, 0x72, 0x9F, 0x09, 0x14, 0x20, 0x39, 2); // 0x238
+            private static Player Walter_Card = new Player(79, 186, 32, 30, 79, 33, 39, 36, 35, 284, 20, 32, 5, 8, 6, 4, 7, 4, 5, 1, 4, 1, 1, 4, 1, 1, 1, 1, 0x82, 0x6E, 0xE8, 0xCD, 0x05, 0x13, 0x2E, 0x55, 1); // 0x239
+            private static Player Derek_Terr = new Player(110, 138, 50, 32, 31, 61, 77, 58, 59, 368, 37, 36, 8, 11, 6, 10, 13, 14, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x88, 0x94, 0xC0, 0xE7, 0x0E, 0x16, 0x22, 0x5C, 3); // 0x23A
+            private static Player Alton_Oldhat = new Player(121, 104, 60, 62, 48, 40, 47, 60, 62, 379, 31, 36, 14, 14, 9, 10, 9, 11, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x70, 0xBF, 0xE8, 0x89, 0x1B, 0x23, 0x50, 0x59, 3); // 0x23B
+            private static Player Cal_Cooler = new Player(191, 152, 68, 56, 61, 60, 55, 69, 57, 426, 55, 66, 10, 13, 12, 11, 12, 10, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x92, 0x9F, 0x6D, 0x7F, 0x0E, 0x1C, 0x2A, 0x4E, 1); // 0x23C
+            private static Player Tom_Felix = new Player(143, 150, 54, 60, 71, 63, 71, 61, 59, 439, 55, 59, 11, 10, 18, 13, 18, 14, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x69, 0x65, 0xCA, 0xD3, 0x05, 0x17, 0x1D, 0x2D, 2); // 0x23D
+            private static Player Terry_Orr = new Player(217, 126, 50, 43, 40, 44, 71, 79, 68, 395, 39, 42, 11, 8, 7, 11, 8, 9, 7, 5, 1, 1, 1, 1, 1, 1, 2, 1, 0x83, 0x75, 0xB0, 0x7C, 0x0F, 0x1B, 0x26, 0x38, 1); // 0x23E
+            private static Player Rudolph_Rainder = new Player(132, 134, 48, 33, 38, 56, 67, 55, 58, 355, 36, 43, 8, 9, 7, 11, 17, 10, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x72, 0x7A, 0x83, 0x9C, 0x08, 0x14, 0x1D, 0x29, 1); // 0x23F
+            private static Player Nick_Swagg = new Player(143, 149, 68, 69, 71, 64, 64, 64, 60, 460, 48, 66, 12, 13, 16, 17, 15, 15, 14, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0xA1, 0x88, 0xAE, 0xE8, 0x09, 0x12, 0x26, 0x30, 2); // 0x240
+            private static Player Hal_Leeward = new Player(160, 138, 55, 71, 75, 56, 58, 63, 56, 434, 51, 55, 12, 13, 14, 14, 12, 14, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xD6, 0xD3, 0x87, 0x80, 0x0A, 0x12, 0x15, 0x1E, 1); // 0x241
+            private static Player Arthur_Dox = new Player(81, 144, 60, 67, 40, 66, 60, 68, 55, 416, 32, 50, 11, 10, 13, 14, 12, 17, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9E, 0x7D, 0x96, 0x6A, 0x09, 0x0F, 0x15, 0x30, 1); // 0x242
+            private static Player Reese_Ickle = new Player(169, 142, 53, 60, 62, 58, 52, 61, 54, 400, 60, 74, 17, 13, 17, 16, 17, 14, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9A, 0xCA, 0x68, 0xC2, 0x09, 0x12, 0x23, 0x38, 1); // 0x243
+            private static Player Finn_Attick = new Player(182, 178, 61, 61, 68, 69, 60, 70, 65, 454, 70, 80, 14, 16, 14, 16, 15, 16, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xE7, 0x70, 0x7F, 0xBE, 0x10, 0x1B, 0x24, 0x2F, 1); // 0x244
+            private static Player Col_Lector = new Player(121, 166, 55, 71, 59, 64, 57, 58, 55, 419, 44, 73, 7, 9, 10, 14, 7, 11, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x77, 0xBE, 0xC9, 0x6D, 0x0C, 0x17, 0x20, 0x28, 1); // 0x245
+            private static Player Crispin_Shooter = new Player(134, 198, 32, 46, 72, 29, 51, 40, 51, 321, 32, 48, 6, 6, 17, 4, 8, 5, 6, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAA, 0x78, 0xAC, 0x6D, 0x09, 0x1A, 0x21, 0x28, 3); // 0x246
+            private static Player Stu_Perstitious = new Player(147, 170, 40, 56, 69, 40, 63, 53, 53, 374, 31, 73, 10, 10, 17, 8, 9, 10, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x98, 0x85, 0xD5, 0x8A, 0x08, 0x12, 0x28, 0x4F, 1); // 0x247
+            private static Player Ashley_Fay = new Player(123, 100, 62, 56, 40, 51, 40, 57, 52, 358, 46, 39, 14, 11, 8, 7, 7, 11, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x97, 0x90, 0x68, 0xC9, 0x0A, 0x15, 0x20, 0x44, 1); // 0x248
+            private static Player Luke_Raffles = new Player(107, 154, 62, 59, 56, 52, 63, 68, 60, 420, 45, 40, 15, 8, 13, 16, 11, 10, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0xCA, 0xD3, 0xE8, 0x0C, 0x16, 0x26, 0x48, 3); // 0x249
+            private static Player Stu_Helmsley = new Player(151, 144, 56, 53, 62, 56, 63, 60, 58, 408, 55, 77, 14, 17, 15, 14, 17, 15, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0xA3, 0xB5, 0x83, 0x0C, 0x13, 0x22, 0x31, 1); // 0x24A
+            private static Player Terrence_Anthem = new Player(92, 158, 63, 55, 56, 60, 63, 64, 57, 418, 36, 50, 15, 8, 13, 14, 7, 10, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x87, 0x77, 0xE7, 0x0D, 0x1C, 0x24, 0x3E, 1); // 0x24B
+            private static Player Gene_Bottle = new Player(83, 138, 62, 60, 40, 68, 52, 69, 52, 403, 21, 50, 7, 9, 14, 14, 13, 14, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x88, 0x98, 0x74, 0xC8, 0x0A, 0x17, 0x22, 0x63, 2); // 0x24C
+            private static Player Sam_O_Reilly = new Player(118, 104, 63, 54, 44, 44, 41, 55, 56, 357, 32, 27, 17, 12, 10, 8, 9, 11, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x67, 0x76, 0x9B, 0xE7, 0x0A, 0x19, 0x22, 0x36, 1); // 0x24D
+            private static Player Ches_Nutcracker = new Player(88, 92, 71, 77, 69, 71, 78, 28, 70, 464, 19, 35, 14, 12, 12, 12, 12, 4, 14, 1, 1, 2, 2, 2, 2, 2, 1, 2, 0xB0, 0x83, 0xB5, 0xAE, 0x0C, 0x1E, 0x28, 0x47, 1); // 0x24E
+            private static Player Victor_Grand = new Player(94, 158, 66, 53, 60, 52, 59, 60, 53, 403, 40, 50, 14, 11, 13, 15, 10, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x6E, 0x87, 0x88, 0x81, 0x0B, 0x11, 0x14, 0x1C, 2); // 0x24F
+            private static Player Ant_Hophila = new Player(94, 138, 49, 59, 55, 52, 71, 59, 59, 404, 31, 35, 13, 8, 11, 8, 15, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x6F, 0x78, 0xCD, 0x05, 0x18, 0x20, 0x46, 1); // 0x250
+            private static Player Hunter_Glory = new Player(138, 176, 62, 70, 63, 71, 53, 55, 60, 434, 37, 89, 7, 9, 9, 15, 9, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6E, 0x87, 0x71, 0xC6, 0x07, 0x13, 0x26, 0x3A, 2); // 0x251
+            private static Player Joe_Rassock = new Player(154, 165, 44, 52, 66, 48, 60, 52, 60, 382, 46, 70, 10, 10, 16, 11, 11, 11, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA5, 0x6C, 0xB0, 0x90, 0x0F, 0x1B, 0x22, 0x30, 1); // 0x252
+            private static Player Patch_Borgnine = new Player(92, 115, 32, 45, 51, 44, 53, 50, 44, 319, 33, 25, 9, 7, 8, 6, 12, 10, 6, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0xC1, 0x95, 0x71, 0x08, 0x12, 0x1E, 0x38, 1); // 0x253
+            private static Player Ted_Fast = new Player(99, 130, 52, 64, 42, 70, 53, 61, 59, 401, 30, 58, 10, 10, 14, 17, 14, 13, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xAF, 0xB5, 0x7B, 0x6E, 0x0F, 0x20, 0x24, 0x39, 2); // 0x254
+            private static Player Clay_Modlin = new Player(209, 154, 63, 61, 61, 62, 36, 65, 52, 400, 75, 46, 16, 10, 12, 13, 10, 8, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x9C, 0x8E, 0x6A, 0x08, 0x11, 0x1E, 0x3F, 1); // 0x255
+            private static Player Alan_Mode = new Player(125, 120, 56, 58, 48, 40, 47, 63, 62, 374, 42, 20, 15, 12, 8, 9, 11, 9, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x66, 0x7D, 0x7E, 0xC2, 0x08, 0x0F, 0x1C, 0x32, 1); // 0x256
+            private static Player Harry_Harper = new Player(103, 132, 43, 52, 60, 60, 60, 56, 52, 383, 20, 43, 10, 8, 8, 10, 17, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0xAD, 0xB2, 0x9C, 0x0A, 0x1A, 0x2E, 0x44, 3); // 0x257
+            private static Player Pascal_Richter = new Player(167, 138, 51, 60, 62, 45, 52, 60, 57, 387, 46, 43, 8, 10, 20, 8, 9, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x83, 0x6C, 0x75, 0x7F, 0x0E, 0x14, 0x27, 0x4E, 2); // 0x258
+            private static Player Beau_Fort = new Player(145, 137, 48, 48, 45, 60, 68, 52, 54, 375, 32, 40, 8, 11, 6, 10, 13, 12, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x85, 0x68, 0x7F, 0x72, 0x0C, 0x14, 0x1D, 0x20, 1); // 0x259
+            private static Player Reid_Scarlet = new Player(94, 148, 61, 62, 50, 69, 54, 64, 57, 417, 19, 63, 7, 11, 10, 17, 11, 17, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x69, 0xBF, 0x65, 0xCA, 0x0F, 0x19, 0x28, 0x42, 1); // 0x25A
+            private static Player Joe_Lamkin = new Player(162, 152, 52, 60, 56, 53, 62, 58, 56, 397, 62, 66, 15, 15, 16, 15, 17, 15, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0x97, 0xD6, 0x7E, 0x0B, 0x1A, 0x30, 0x4F, 1); // 0x25B
+            private static Player Dylan_Magpie = new Player(83, 156, 48, 52, 58, 59, 74, 66, 57, 414, 34, 53, 8, 11, 7, 8, 12, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA1, 0xA3, 0xAD, 0xA7, 0x07, 0x1D, 0x29, 0x4B, 2); // 0x25C
+            private static Player Gil_Rivers = new Player(114, 196, 54, 61, 55, 63, 61, 59, 59, 412, 43, 48, 8, 8, 10, 13, 8, 10, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9A, 0x96, 0x72, 0xC7, 0x0E, 0x20, 0x31, 0x55, 1); // 0x25D
+            private static Player Des_Tiny = new Player(171, 156, 52, 53, 53, 59, 53, 63, 62, 395, 55, 76, 16, 16, 13, 14, 17, 13, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x87, 0x74, 0x95, 0x81, 0x0A, 0x18, 0x1E, 0x4D, 2); // 0x25E
+            private static Player Saul_Dowd = new Player(147, 130, 52, 56, 58, 54, 61, 53, 63, 397, 42, 51, 10, 13, 11, 14, 14, 12, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0x87, 0x70, 0x7C, 0x05, 0x0E, 0x19, 0x46, 1); // 0x25F
+            private static Player Kit_Chapman = new Player(125, 153, 69, 59, 57, 54, 53, 62, 61, 415, 37, 47, 17, 11, 11, 17, 9, 9, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x92, 0xC4, 0x67, 0xC9, 0x0C, 0x1A, 0x28, 0x52, 1); // 0x260
+            private static Player Fry_Vollity = new Player(88, 150, 66, 52, 52, 54, 61, 65, 56, 406, 31, 48, 13, 9, 14, 16, 9, 7, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x80, 0x66, 0x77, 0x0E, 0x1C, 0x24, 0x2F, 3); // 0x261
+            private static Player Clark_Roach = new Player(85, 144, 66, 54, 57, 60, 36, 63, 56, 392, 45, 35, 8, 11, 11, 12, 8, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x67, 0x6B, 0x8E, 0xC9, 0x0E, 0x19, 0x22, 0x2D, 1); // 0x262
+            private static Player Samuel_Peeps = new Player(191, 138, 55, 68, 40, 67, 60, 62, 56, 408, 67, 48, 9, 11, 13, 15, 11, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x80, 0x68, 0xBE, 0xC4, 0x10, 0x17, 0x1F, 0x34, 1); // 0x263
+            private static Player Dai_Hart = new Player(81, 90, 36, 39, 36, 36, 39, 36, 28, 250, 30, 31, 7, 8, 5, 8, 6, 4, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0x85, 0xD6, 0x81, 0x08, 0x13, 0x2C, 0x53, 2); // 0x264
+            private static Player Horty_Courture = new Player(103, 126, 29, 48, 43, 48, 60, 47, 42, 317, 30, 21, 7, 8, 5, 7, 11, 10, 6, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7A, 0x7D, 0x67, 0x97, 0x07, 0x0E, 0x15, 0x1E, 1); // 0x265
+            private static Player Bob_Baggum = new Player(149, 156, 49, 53, 66, 62, 56, 54, 62, 402, 38, 40, 9, 13, 14, 8, 8, 11, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAA, 0xAB, 0xB5, 0xA7, 0x0C, 0x17, 0x2D, 0x4E, 1); // 0x266
+            private static Player Ollie_Twister = new Player(158, 142, 59, 53, 60, 52, 52, 53, 60, 389, 48, 61, 14, 12, 14, 12, 14, 12, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x67, 0x9A, 0x8F, 0xC9, 0x08, 0x10, 0x2D, 0x45, 1); // 0x267
+            private static Player Fred_Makepeace = new Player(88, 115, 40, 63, 29, 76, 42, 55, 40, 345, 22, 50, 6, 6, 9, 12, 7, 11, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x85, 0x6C, 0x74, 0x07, 0x0E, 0x14, 0x1B, 2); // 0x268
+            private static Player Walker_Sleep = new Player(149, 158, 63, 61, 62, 56, 52, 52, 60, 406, 48, 54, 10, 12, 11, 13, 13, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAA, 0x82, 0xAD, 0x83, 0x08, 0x0C, 0x1A, 0x1E, 1); // 0x269
+            private static Player Sean_Trawler = new Player(173, 144, 57, 60, 62, 54, 52, 65, 54, 404, 56, 74, 15, 14, 13, 15, 13, 15, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x72, 0x9E, 0x85, 0x68, 0x0B, 0x18, 0x27, 0x38, 1); // 0x26A
+            private static Player Ken_Sewer = new Player(116, 108, 45, 47, 44, 73, 44, 46, 48, 347, 34, 39, 8, 7, 9, 9, 9, 7, 7, 2, 2, 2, 2, 2, 4, 2, 2, 2, 0xA4, 0xAB, 0x88, 0x81, 0x08, 0x12, 0x21, 0x4B, 2); // 0x26B
+            private static Player Bamber_Shoot = new Player(167, 178, 43, 63, 65, 44, 52, 58, 58, 383, 42, 84, 10, 9, 15, 7, 9, 7, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x96, 0x7A, 0x90, 0xB1, 0x0D, 0x14, 0x2C, 0x60, 1); // 0x26C
+            private static Player Sly_Winker = new Player(125, 156, 48, 34, 28, 62, 72, 52, 52, 348, 38, 53, 8, 9, 8, 9, 13, 11, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7D, 0x66, 0x99, 0x89, 0x07, 0x0B, 0x10, 0x1F, 1); // 0x26D
+            private static Player Teller_Scoap = new Player(195, 142, 49, 60, 56, 62, 70, 71, 52, 420, 68, 39, 11, 8, 10, 10, 12, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA1, 0xAE, 0x99, 0xD5, 0x07, 0x15, 0x1E, 0x40, 3); // 0x26E
+            private static Player Sam_Firman = new Player(90, 144, 60, 54, 60, 57, 52, 67, 52, 402, 38, 36, 15, 9, 14, 13, 10, 8, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB3, 0xAD, 0xAE, 0x7F, 0x08, 0x17, 0x30, 0x50, 2); // 0x26F
+            private static Player Bear_Turnbull = new Player(77, 148, 51, 54, 60, 59, 62, 60, 52, 398, 28, 50, 11, 10, 9, 7, 18, 14, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0x98, 0x71, 0xBE, 0x0F, 0x18, 0x29, 0x43, 1); // 0x270
+            private static Player Tabor_Drummond = new Player(114, 146, 40, 34, 29, 55, 61, 58, 57, 334, 45, 39, 9, 7, 7, 11, 17, 13, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xAB, 0xB0, 0xAD, 0xAC, 0x0D, 0x12, 0x1E, 0x49, 1); // 0x271
+            private static Player Brook_Atwater = new Player(151, 148, 57, 60, 54, 56, 53, 60, 59, 399, 56, 66, 15, 15, 14, 16, 13, 17, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x9A, 0x8E, 0x7F, 0x08, 0x12, 0x24, 0x4C, 2); // 0x272
+            private static Player Ike_Doerflinger = new Player(138, 152, 53, 60, 58, 61, 52, 56, 52, 392, 33, 36, 9, 11, 7, 13, 9, 12, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x98, 0xC4, 0xE8, 0x73, 0x0A, 0x28, 0x38, 0x55, 1); // 0x273
+            private static Player Aessop_Fabel = new Player(105, 156, 64, 54, 53, 53, 61, 63, 60, 408, 36, 38, 16, 7, 10, 15, 11, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0xC1, 0x87, 0x89, 0x08, 0x16, 0x1C, 0x4B, 3); // 0x274
+            private static Player Grant_Slammer = new Player(149, 152, 48, 57, 63, 43, 57, 54, 58, 380, 43, 46, 9, 12, 16, 10, 9, 7, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x9E, 0xC0, 0x9B, 0x74, 0x09, 0x13, 0x1B, 0x1F, 1); // 0x275
+            private static Player Robin_Cruise = new Player(103, 156, 64, 58, 55, 68, 32, 61, 56, 394, 46, 35, 7, 9, 11, 11, 10, 11, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB3, 0x7D, 0xB2, 0xCA, 0x0A, 0x14, 0x20, 0x37, 2); // 0x276
+            private static Player Mark_Perfect = new Player(92, 140, 44, 60, 61, 60, 68, 65, 62, 420, 31, 46, 7, 8, 9, 11, 11, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA3, 0xAC, 0x7B, 0x72, 0x12, 0x21, 0x23, 0x3E, 1); // 0x277
+            private static Player Rolly_Kerr = new Player(158, 134, 44, 62, 64, 45, 77, 52, 56, 400, 45, 38, 9, 13, 17, 9, 13, 11, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x6D, 0x72, 0x74, 0x80, 0x08, 0x13, 0x23, 0x31, 1); // 0x278
+            private static Player Moses_Pumper = new Player(85, 138, 63, 67, 46, 70, 60, 68, 54, 428, 18, 58, 11, 7, 13, 16, 11, 15, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x87, 0x6E, 0xC0, 0x75, 0x0B, 0x0E, 0x1C, 0x4E, 1); // 0x279
+            private static Player Knight_Reader = new Player(123, 106, 44, 48, 46, 72, 51, 49, 47, 357, 39, 44, 8, 10, 11, 10, 6, 11, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x86, 0x71, 0x8A, 0x81, 0x0A, 0x0F, 0x23, 0x43, 2); // 0x27A
+            private static Player Cash_Barganier = new Player(167, 156, 43, 35, 38, 52, 76, 37, 61, 342, 55, 50, 10, 10, 5, 11, 14, 8, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x99, 0x9C, 0x9D, 0xC7, 0x0F, 0x14, 0x20, 0x4B, 1); // 0x27B
+            private static Player Brendan_Branch = new Player(79, 142, 44, 58, 60, 61, 68, 56, 55, 402, 20, 36, 11, 11, 11, 10, 16, 10, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x99, 0xAA, 0x7D, 0xA5, 0x08, 0x10, 0x1B, 0x30, 1); // 0x27C
+            private static Player Clark_Rain = new Player(156, 152, 44, 60, 69, 42, 59, 52, 53, 379, 34, 39, 9, 12, 17, 11, 8, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x66, 0x7B, 0x92, 0x90, 0x07, 0x0C, 0x12, 0x24, 3); // 0x27D
+            private static Player Luther_Rio = new Player(101, 142, 46, 56, 55, 52, 64, 69, 60, 402, 22, 53, 9, 10, 11, 10, 10, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0x7B, 0xA3, 0xA7, 0x0C, 0x13, 0x1F, 0x48, 1); // 0x27E
+            private static Player Florian_Hutter = new Player(165, 196, 55, 54, 52, 56, 59, 62, 57, 395, 51, 89, 10, 13, 13, 12, 11, 11, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x6D, 0x72, 0x9C, 0x68, 0x08, 0x14, 0x20, 0x31, 1); // 0x27F
+            private static Player Scamp_Shrimplin = new Player(156, 144, 47, 58, 68, 45, 52, 53, 60, 383, 31, 51, 8, 14, 15, 9, 11, 7, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAA, 0xAF, 0x80, 0xA2, 0x07, 0x13, 0x26, 0x42, 1); // 0x280
+            private static Player Adam_Nesiac = new Player(158, 78, 68, 70, 55, 76, 52, 61, 55, 437, 45, 66, 13, 12, 11, 11, 14, 14, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x87, 0x69, 0x85, 0xE8, 0x11, 0x18, 0x2A, 0x43, 3); // 0x281
+            private static Player Rab_Acus = new Player(77, 196, 48, 63, 53, 52, 64, 57, 58, 395, 20, 39, 13, 8, 11, 9, 15, 12, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9A, 0xCA, 0x71, 0x86, 0x09, 0x13, 0x28, 0x40, 1); // 0x282
+            private static Player Chris_Miles = new Player(129, 190, 58, 69, 60, 60, 52, 57, 56, 412, 44, 38, 9, 7, 10, 17, 10, 12, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x69, 0x77, 0xD5, 0x08, 0x10, 0x21, 0x4E, 3); // 0x283
+            private static Player Shemmy_Ramis = new Player(173, 130, 60, 60, 60, 60, 62, 63, 56, 421, 45, 44, 13, 9, 13, 14, 8, 16, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x67, 0xD6, 0x76, 0x07, 0x0E, 0x1A, 0x51, 1); // 0x284
+            private static Player Lon_Grainger = new Player(213, 146, 60, 52, 55, 52, 63, 72, 60, 414, 62, 51, 15, 8, 10, 15, 10, 16, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA3, 0xAD, 0xAC, 0x85, 0x0A, 0x23, 0x2E, 0x3C, 1); // 0x285
+            private static Player Manny_Atom = new Player(213, 148, 67, 59, 54, 68, 64, 61, 54, 427, 73, 43, 8, 9, 9, 13, 14, 13, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x90, 0xC2, 0x6C, 0x08, 0x10, 0x20, 0x43, 1); // 0x286
+            private static Player Bill_Tardy = new Player(107, 138, 63, 63, 56, 61, 52, 60, 59, 414, 32, 43, 14, 9, 13, 13, 9, 11, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0xAD, 0x80, 0xB2, 0x0C, 0x1A, 0x31, 0x4E, 2); // 0x287
+            private static Player Fox_Copier = new Player(147, 200, 60, 52, 56, 54, 53, 56, 60, 391, 60, 93, 13, 15, 13, 13, 16, 17, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9A, 0x69, 0x92, 0x87, 0x1E, 0x2D, 0x46, 0x5A, 1); // 0x288
+            private static Player Cletus_Badden = new Player(173, 154, 58, 56, 54, 53, 56, 63, 56, 396, 62, 61, 14, 16, 16, 16, 16, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0x7A, 0x85, 0xD3, 0x07, 0x0F, 0x22, 0x38, 1); // 0x289
+            private static Player Skip_Sofrenic = new Player(217, 146, 60, 66, 49, 61, 54, 79, 61, 430, 82, 59, 11, 7, 12, 13, 12, 21, 11, 5, 1, 1, 5, 1, 5, 1, 5, 1, 0x82, 0x78, 0x9D, 0xC7, 0x01, 0x14, 0x1C, 0x3B, 1); // 0x28A
+            private static Player Mat_Char = new Player(83, 142, 40, 58, 52, 55, 70, 54, 62, 391, 25, 34, 12, 9, 7, 9, 15, 13, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6D, 0xC1, 0xD6, 0xC2, 0x08, 0x12, 0x19, 0x24, 1); // 0x28B
+            private static Player Trey_Cultivator = new Player(169, 168, 42, 56, 73, 51, 61, 62, 60, 405, 42, 74, 9, 8, 14, 11, 11, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x88, 0xE8, 0x6F, 0x82, 0x0C, 0x1E, 0x2D, 0x43, 3); // 0x28C
+            private static Player Vinny_Trioquist = new Player(125, 102, 60, 52, 45, 45, 40, 57, 54, 353, 38, 29, 15, 13, 10, 11, 9, 9, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x85, 0x95, 0xC9, 0x65, 0x0A, 0x18, 0x29, 0x42, 1); // 0x28D
+            private static Player Ton_Nino = new Player(151, 150, 66, 60, 63, 56, 55, 71, 63, 434, 48, 28, 18, 15, 11, 14, 11, 12, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x66, 0x6C, 0xE7, 0x9B, 0x08, 0x13, 0x1E, 0x38, 1); // 0x28E
+            private static Player Oscar_Esher = new Player(81, 94, 35, 31, 28, 36, 38, 32, 32, 232, 27, 20, 8, 8, 8, 6, 6, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0x82, 0xAB, 0xB1, 0x06, 0x0A, 0x18, 0x5F, 2); // 0x28F
+            private static Player Saul_Searcher = new Player(83, 150, 46, 59, 58, 62, 66, 52, 54, 397, 26, 43, 14, 10, 7, 8, 15, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0x72, 0x85, 0x7E, 0x0C, 0x13, 0x23, 0x3C, 2); // 0x290
+            private static Player Gerry_Attrick = new Player(96, 142, 60, 65, 44, 70, 62, 60, 60, 421, 27, 53, 10, 11, 12, 16, 12, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7D, 0x67, 0xE7, 0x81, 0x08, 0x10, 0x2A, 0x44, 1); // 0x291
+            private static Player Adam_Icklock = new Player(138, 128, 45, 44, 42, 48, 42, 42, 44, 307, 40, 40, 8, 9, 7, 8, 9, 7, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA4, 0xAB, 0x6D, 0xB2, 0x10, 0x1B, 0x1E, 0x3E, 3); // 0x292
+            private static Player Sol_Stiss = new Player(173, 166, 47, 62, 64, 40, 61, 62, 52, 388, 44, 76, 9, 8, 13, 9, 7, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x68, 0x7A, 0x8E, 0xC7, 0x12, 0x16, 0x1C, 0x2C, 1); // 0x293
+            private static Player Des_Ainer = new Player(160, 158, 71, 60, 61, 63, 34, 60, 59, 408, 67, 69, 15, 15, 13, 14, 5, 16, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0x7C, 0x72, 0xCD, 0x01, 0x15, 0x20, 0x30, 2); // 0x294
+            private static Player Homer_Sockshell = new Player(147, 173, 60, 64, 55, 69, 53, 61, 62, 424, 33, 52, 11, 9, 8, 16, 9, 13, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x71, 0x96, 0x7D, 0xBE, 0x10, 0x1A, 0x21, 0x31, 1); // 0x295
+            private static Player Harley_Trotter = new Player(112, 141, 70, 56, 56, 59, 61, 71, 54, 427, 40, 43, 15, 10, 11, 16, 10, 11, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x97, 0x9D, 0x67, 0x71, 0x0C, 0x18, 0x1E, 0x28, 3); // 0x296
+            private static Player Mark_Skidfree = new Player(138, 132, 60, 63, 59, 62, 48, 71, 58, 421, 34, 41, 11, 9, 8, 11, 10, 8, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x80, 0xC4, 0x72, 0x76, 0x10, 0x1C, 0x39, 0x58, 1); // 0x297
+            private static Player Del_Iverryboy = new Player(160, 136, 54, 55, 64, 46, 54, 54, 57, 384, 44, 52, 7, 14, 15, 8, 9, 11, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA1, 0x7D, 0xB2, 0x69, 0x0C, 0x14, 0x1D, 0x2F, 1); // 0x298
+            private static Player Scean_Spector = new Player(138, 154, 47, 30, 28, 56, 62, 56, 60, 339, 46, 35, 8, 11, 4, 10, 15, 11, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x88, 0x6E, 0x87, 0xE8, 0x09, 0x10, 0x1C, 0x37, 3); // 0x299
+            private static Player Nick_Knack = new Player(151, 133, 52, 54, 68, 48, 53, 57, 60, 392, 38, 44, 7, 12, 14, 8, 10, 7, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x85, 0x68, 0xBE, 0x8E, 0x0C, 0x18, 0x1E, 0x22, 1); // 0x29A
+            private static Player Dusty_Rellicks = new Player(90, 134, 48, 60, 60, 56, 72, 60, 52, 408, 19, 43, 7, 9, 10, 9, 11, 10, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0x65, 0x9B, 0x81, 0x09, 0x14, 0x19, 0x1F, 2); // 0x29B
+            private static Player Sandy_Insolls = new Player(204, 133, 44, 40, 46, 52, 66, 70, 57, 375, 74, 41, 9, 10, 5, 10, 13, 18, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x69, 0x88, 0xD3, 0x6B, 0x0C, 0x16, 0x21, 0x3E, 1); // 0x29C
+            private static Player Gregory_Bones = new Player(140, 129, 49, 60, 53, 60, 68, 66, 63, 419, 31, 45, 7, 9, 10, 9, 13, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9F, 0xD3, 0x7F, 0x70, 0x14, 0x1F, 0x2A, 0x4B, 1); // 0x29D
+            private static Player Loughrey_Mose = new Player(143, 178, 77, 69, 62, 52, 52, 73, 61, 446, 43, 39, 15, 13, 11, 11, 14, 12, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x94, 0x90, 0xC4, 0x76, 0x0D, 0x15, 0x24, 0x3E, 1); // 0x29E
+            private static Player Willow_Withers = new Player(90, 152, 42, 56, 59, 55, 60, 62, 76, 410, 22, 46, 11, 7, 8, 10, 14, 10, 19, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0x7D, 0x99, 0x6C, 0x08, 0x11, 0x19, 0x2C, 2); // 0x29F
+            private static Player Winn_deBreeze = new Player(145, 158, 62, 52, 53, 60, 52, 52, 60, 391, 52, 55, 12, 11, 12, 14, 12, 12, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x85, 0xBE, 0x7F, 0x84, 0x0E, 0x18, 0x22, 0x31, 1); // 0x2A0
+            private static Player Buster_Clout = new Player(112, 156, 60, 62, 63, 69, 59, 56, 63, 432, 37, 39, 9, 16, 9, 13, 10, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9C, 0x9D, 0x82, 0x78, 0x0A, 0x18, 0x23, 0x32, 1); // 0x2A1
+            private static Player Errol_Lorre = new Player(154, 188, 60, 63, 53, 56, 52, 61, 58, 403, 31, 51, 9, 10, 8, 9, 11, 9, 9, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x95, 0x7D, 0xC9, 0xE8, 0x12, 0x16, 0x25, 0x44, 3); // 0x2A2
+            private static Player Fred_Ferrell = new Player(217, 130, 61, 52, 59, 64, 32, 77, 56, 401, 39, 50, 9, 10, 11, 10, 10, 8, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xE7, 0xBE, 0x8A, 0x65, 0x0B, 0x15, 0x22, 0x48, 1); // 0x2A3
+            private static Player Rod_Headstock = new Player(129, 106, 59, 59, 41, 44, 42, 59, 56, 360, 45, 28, 17, 14, 8, 8, 11, 10, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xAB, 0x7D, 0xAE, 0xB5, 0x0E, 0x1A, 0x26, 0x3C, 1); // 0x2A4
+            private static Player Tim_Piece = new Player(156, 144, 47, 61, 54, 60, 66, 60, 62, 410, 50, 38, 12, 8, 9, 8, 15, 11, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x99, 0x7D, 0xC2, 0x71, 0x08, 0x0F, 0x1E, 0x2F, 2); // 0x2A5
+            private static Player Patrick_Edie = new Player(173, 140, 51, 58, 72, 40, 60, 56, 53, 390, 36, 50, 8, 11, 14, 10, 8, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7D, 0xE8, 0x72, 0x89, 0x0A, 0x1B, 0x25, 0x55, 1); // 0x2A6
+            private static Player Art_Teest = new Player(94, 138, 53, 64, 50, 71, 56, 64, 52, 410, 24, 63, 8, 11, 14, 13, 12, 17, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0xC6, 0xD6, 0x7E, 0x08, 0x1A, 0x22, 0x3B, 1); // 0x2A7
+            private static Player Bill_Mumm = new Player(195, 168, 55, 76, 68, 70, 48, 72, 68, 457, 49, 48, 17, 12, 14, 16, 14, 17, 12, 4, 1, 1, 5, 1, 5, 1, 1, 1, 0x9E, 0x96, 0x71, 0xCD, 0x0A, 0x12, 0x1D, 0x3F, 2); // 0x2A8
+            private static Player Luke_O_Cyte = new Player(94, 152, 61, 52, 54, 65, 36, 62, 58, 388, 37, 46, 8, 7, 9, 11, 8, 9, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x9E, 0x77, 0xCA, 0x08, 0x10, 0x20, 0x30, 1); // 0x2A9
+            private static Player Ernest_Byer = new Player(211, 178, 56, 57, 52, 57, 61, 78, 61, 422, 42, 61, 14, 13, 14, 10, 12, 14, 13, 2, 2, 4, 4, 4, 4, 4, 2, 4, 0x8F, 0xC4, 0x70, 0x7E, 0x12, 0x1A, 0x1E, 0x26, 1); // 0x2AA
+            private static Player Isaac_Goss = new Player(145, 156, 63, 52, 57, 53, 54, 58, 56, 393, 49, 59, 12, 10, 13, 11, 12, 13, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0x72, 0x75, 0xE7, 0x0A, 0x17, 0x21, 0x28, 2); // 0x2AB
+            private static Player Walter_Poseur = new Player(90, 146, 44, 61, 63, 61, 68, 60, 55, 412, 20, 44, 11, 8, 9, 9, 13, 13, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x88, 0x72, 0xE7, 0x7E, 0x0E, 0x16, 0x1E, 0x32, 1); // 0x2AC
+            private static Player Andy_Roff = new Player(103, 130, 52, 71, 45, 60, 60, 69, 54, 411, 25, 58, 10, 10, 12, 15, 14, 16, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x69, 0x85, 0x83, 0x07, 0x12, 0x22, 0x2D, 1); // 0x2AD
+            private static Player Ashley_Dale = new Player(187, 160, 54, 60, 78, 60, 70, 61, 68, 451, 51, 63, 11, 13, 17, 12, 12, 12, 12, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x9A, 0x94, 0x74, 0xC4, 0x08, 0x14, 0x2F, 0x44, 1); // 0x2AE
+            private static Player Rich_Cave = new Player(81, 156, 44, 63, 59, 56, 63, 71, 63, 419, 19, 42, 7, 9, 8, 10, 13, 10, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA1, 0xA3, 0xAD, 0x7B, 0x0C, 0x17, 0x26, 0x32, 3); // 0x2AF
+            private static Player Taka_Tanaka = new Player(83, 144, 62, 57, 55, 63, 33, 67, 58, 395, 43, 40, 8, 11, 8, 17, 7, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x72, 0xBE, 0xC4, 0x85, 0x0F, 0x15, 0x26, 0x35, 1); // 0x2B0
+            private static Player Manny_Carbs = new Player(151, 140, 50, 55, 68, 42, 53, 59, 54, 381, 42, 35, 7, 12, 16, 8, 10, 8, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x83, 0x75, 0x7C, 0x8A, 0x10, 0x19, 0x22, 0x44, 1); // 0x2B1
+            private static Player Al_Reddie = new Player(173, 174, 49, 53, 60, 50, 63, 63, 56, 394, 33, 68, 9, 13, 16, 7, 10, 9, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x67, 0x68, 0xD5, 0xC6, 0x0C, 0x16, 0x28, 0x39, 1); // 0x2B2
+            private static Player Rush_Tooset = new Player(92, 134, 69, 52, 62, 63, 54, 66, 53, 419, 36, 46, 16, 11, 12, 17, 9, 8, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x66, 0xD6, 0x87, 0xC1, 0x08, 0x10, 0x1B, 0x30, 3); // 0x2B3
+            private static Player Rod_Opsin = new Player(173, 144, 61, 52, 58, 52, 56, 71, 60, 410, 62, 48, 14, 8, 12, 13, 10, 11, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x83, 0x88, 0x8E, 0x05, 0x12, 0x1C, 0x3C, 1); // 0x2B4
+            private static Player Peyton_Pope = new Player(105, 148, 60, 62, 52, 58, 53, 62, 61, 408, 46, 34, 17, 7, 12, 15, 11, 8, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA1, 0xAE, 0x7D, 0xA7, 0x0A, 0x1A, 0x23, 0x2F, 1); // 0x2B5
+            private static Player Drew_Straws = new Player(160, 132, 60, 52, 55, 55, 62, 58, 52, 394, 67, 66, 13, 13, 16, 13, 16, 13, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x98, 0xD6, 0x80, 0x90, 0x09, 0x10, 0x24, 0x35, 3); // 0x2B6
+            private static Player Trey_Dalbum = new Player(112, 126, 52, 54, 41, 49, 45, 62, 60, 363, 40, 32, 15, 11, 9, 8, 9, 8, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x68, 0x9F, 0xC9, 0x6D, 0x0D, 0x14, 0x1D, 0x21, 1); // 0x2B7
+            private static Player Harly_Profett = new Player(103, 152, 61, 60, 61, 64, 32, 63, 59, 400, 43, 39, 11, 11, 8, 13, 8, 15, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x6E, 0x87, 0x88, 0x6A, 0x08, 0x0E, 0x14, 0x36, 2); // 0x2B8
+            private static Player Hank_O_Buff = new Player(112, 137, 46, 61, 60, 62, 66, 67, 52, 414, 20, 47, 7, 10, 10, 10, 12, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA3, 0x7A, 0x85, 0xAC, 0x09, 0x11, 0x28, 0x44, 2); // 0x2B9
+            private static Player Ash_Cloud = new Player(92, 136, 40, 59, 61, 62, 61, 70, 52, 405, 18, 48, 7, 8, 8, 11, 11, 13, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9C, 0x96, 0xC6, 0x73, 0x0A, 0x11, 0x24, 0x32, 1); // 0x2BA
+            private static Player Stan_Dupp = new Player(191, 134, 58, 65, 47, 67, 53, 69, 54, 413, 43, 47, 9, 9, 14, 15, 13, 15, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6D, 0xCA, 0x72, 0xC4, 0x07, 0x0D, 0x1F, 0x2D, 1); // 0x2BB
+            private static Player Max_Bright = new Player(147, 133, 50, 44, 41, 55, 67, 52, 58, 367, 30, 45, 9, 7, 5, 7, 13, 12, 7, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x67, 0xD6, 0x94, 0xC7, 0x07, 0x13, 0x22, 0x44, 3); // 0x2BC
+            private static Player Bill_Phee = new Player(99, 130, 70, 52, 52, 60, 60, 69, 60, 423, 33, 51, 17, 10, 11, 14, 9, 11, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0xE7, 0xB5, 0x84, 0x0A, 0x19, 0x28, 0x39, 1); // 0x2BD
+            private static Player Lee_Figreene = new Player(151, 156, 42, 52, 64, 44, 63, 55, 56, 376, 45, 35, 10, 11, 16, 8, 9, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xCD, 0x83, 0x8E, 0x84, 0x15, 0x1A, 0x26, 0x32, 2); // 0x2BE
+            private static Player Den_Taligene = new Player(129, 122, 72, 49, 50, 48, 50, 40, 70, 379, 36, 44, 11, 8, 9, 8, 9, 9, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x72, 0x71, 0x86, 0x70, 0x0C, 0x12, 0x16, 0x1E, 1); // 0x2BF
+            private static Player Adam_Hesive = new Player(136, 150, 52, 71, 56, 60, 62, 60, 53, 414, 40, 44, 11, 21, 9, 21, 10, 14, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x87, 0x7E, 0x76, 0xD4, 0x0D, 0x17, 0x21, 0x37, 1); // 0x2C0
+            private static Player Mel_Lowe = new Player(134, 160, 67, 77, 59, 74, 60, 77, 66, 480, 26, 72, 10, 10, 14, 20, 16, 20, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x83, 0x7C, 0x73, 0x14, 0x19, 0x1F, 0x3C, 1); // 0x2C1
+            private static Player Rip_Winkle = new Player(96, 140, 67, 64, 59, 64, 34, 71, 57, 416, 31, 47, 11, 14, 9, 13, 8, 7, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x67, 0x89, 0x76, 0x09, 0x11, 0x1D, 0x26, 1); // 0x2C2
+            private static Player Ben_deLimms = new Player(107, 144, 45, 60, 58, 58, 62, 56, 52, 391, 34, 50, 13, 11, 9, 9, 13, 11, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA1, 0x72, 0xAE, 0x70, 0x0A, 0x0F, 0x17, 0x20, 1); // 0x2C3
+            private static Player Pauly_Ontology = new Player(118, 148, 41, 31, 34, 54, 62, 63, 54, 339, 42, 40, 8, 10, 6, 9, 13, 11, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x92, 0x6D, 0x9D, 0x8E, 0x09, 0x0E, 0x14, 0x21, 1); // 0x2C4
+            private static Player Walter_Mendip = new Player(116, 102, 61, 62, 40, 51, 42, 54, 59, 369, 38, 27, 15, 12, 10, 7, 7, 11, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x97, 0x72, 0xCD, 0xC5, 0x0A, 0x11, 0x1E, 0x63, 2); // 0x2C5
+            private static Player Bud_Hunter = new Player(134, 132, 47, 56, 59, 52, 63, 64, 56, 397, 22, 51, 11, 10, 10, 8, 10, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0xE7, 0xD6, 0x68, 0x0C, 0x14, 0x17, 0x1E, 1); // 0x2C6
+            private static Player Sonny_Rentman = new Player(118, 178, 56, 71, 60, 69, 62, 63, 57, 438, 42, 34, 9, 10, 8, 16, 8, 13, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x98, 0x92, 0x85, 0xC7, 0x0A, 0x10, 0x17, 0x27, 1); // 0x2C7
+            private static Player Cam_Vass = new Player(154, 148, 43, 60, 61, 45, 52, 61, 52, 374, 31, 46, 7, 12, 16, 10, 7, 9, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA1, 0x88, 0xB2, 0xE8, 0x0C, 0x14, 0x21, 0x28, 3); // 0x2C8
+            private static Player Shay_Chez = new Player(134, 156, 56, 66, 59, 61, 63, 52, 63, 420, 44, 46, 8, 9, 9, 13, 9, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6F, 0x6B, 0x92, 0x9D, 0x11, 0x18, 0x1E, 0x24, 1); // 0x2C9
+            private static Player Cory_Andish = new Player(134, 136, 59, 70, 47, 69, 62, 62, 57, 426, 30, 60, 8, 8, 14, 17, 12, 16, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6D, 0x77, 0xC2, 0xC9, 0x09, 0x12, 0x18, 0x28, 1); // 0x2CA
+            private static Player Glen_Adeer = new Player(132, 156, 62, 61, 60, 67, 55, 56, 56, 417, 40, 36, 8, 8, 7, 15, 10, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9E, 0x7B, 0x90, 0x7F, 0x0B, 0x12, 0x17, 0x1F, 1); // 0x2CB
+            private static Player Norry_Sheets = new Player(83, 146, 57, 68, 43, 71, 56, 60, 60, 415, 31, 62, 10, 11, 12, 14, 12, 16, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA3, 0x97, 0xAC, 0xCA, 0x0E, 0x14, 0x21, 0x27, 1); // 0x2CC
+            private static Player Lou_Paster = new Player(193, 196, 58, 62, 63, 56, 60, 70, 55, 424, 49, 55, 12, 12, 11, 12, 13, 11, 11, 2, 2, 4, 4, 4, 4, 4, 2, 4, 0xBF, 0xC0, 0x7E, 0x65, 0x0D, 0x15, 0x20, 0x28, 1); // 0x2CD
+            private static Player Aran_Cheeks = new Player(154, 130, 50, 63, 64, 42, 57, 63, 62, 401, 37, 35, 10, 13, 17, 11, 8, 11, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA1, 0x72, 0xAE, 0x70, 0x0E, 0x1A, 0x1C, 0x27, 1); // 0x2CE
+            private static Player Abe_Seiler = new Player(77, 144, 70, 61, 60, 54, 54, 60, 52, 411, 45, 40, 14, 10, 14, 16, 9, 8, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x7E, 0xCD, 0xD5, 0x09, 0x17, 0x1F, 0x2C, 1); // 0x2CF
+            private static Player Al_Urgy = new Player(101, 130, 62, 68, 46, 60, 55, 67, 61, 419, 18, 61, 9, 11, 12, 15, 11, 16, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x83, 0xC4, 0x75, 0x0F, 0x0D, 0x17, 0x1F, 1); // 0x2D0
+            private static Player Conn_Pass = new Player(160, 154, 45, 61, 76, 41, 54, 55, 56, 388, 45, 77, 11, 9, 15, 11, 9, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x99, 0x7B, 0x66, 0x76, 0x09, 0x0E, 0x14, 0x1F, 1); // 0x2D1
+            private static Player Heath_Cover = new Player(145, 113, 54, 45, 51, 49, 47, 44, 52, 342, 34, 49, 10, 10, 10, 11, 9, 7, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x88, 0x72, 0xD6, 0x68, 0x0D, 0x15, 0x19, 0x1E, 3); // 0x2D2
+            private static Player Mack_Ramey = new Player(125, 102, 60, 53, 48, 44, 48, 61, 52, 366, 33, 36, 14, 13, 8, 10, 11, 9, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x69, 0x85, 0x98, 0xBE, 0x08, 0x12, 0x18, 0x21, 1); // 0x2D3
+            private static Player Miles_Ryan = new Player(171, 174, 59, 48, 46, 69, 76, 64, 65, 427, 58, 65, 11, 13, 6, 11, 19, 14, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x66, 0x6C, 0x76, 0x7F, 0x08, 0x14, 0x22, 0x28, 1); // 0x2D4
+            private static Player Ike_Banner = new Player(123, 104, 59, 73, 50, 48, 46, 60, 57, 393, 31, 29, 15, 10, 8, 9, 10, 9, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xB3, 0x86, 0xB5, 0x71, 0x0A, 0x13, 0x20, 0x27, 2); // 0x2D5
+            private static Player Frank_Meyer = new Player(123, 178, 54, 62, 52, 63, 63, 56, 61, 411, 30, 50, 11, 8, 9, 15, 9, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6C, 0x68, 0x6D, 0xC2, 0x0E, 0x14, 0x19, 0x20, 1); // 0x2D6
+            private static Player Phil_Fog = new Player(165, 140, 67, 60, 52, 56, 60, 68, 63, 426, 66, 35, 16, 8, 11, 16, 7, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA1, 0x9F, 0xAE, 0xC9, 0x0A, 0x14, 0x1B, 0x23, 3); // 0x2D7
+            private static Player Bob_Lioteck = new Player(149, 156, 58, 53, 58, 56, 63, 60, 52, 400, 45, 63, 13, 14, 12, 12, 13, 12, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xA4, 0x7A, 0xAF, 0x83, 0x08, 0x10, 0x15, 0x1E, 1); // 0x2D8
+            private static Player Rory_Polisher = new Player(173, 142, 47, 59, 61, 43, 58, 61, 62, 391, 36, 42, 10, 11, 14, 10, 8, 9, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA4, 0xA3, 0x75, 0xAC, 0x08, 0x12, 0x1B, 0x21, 1); // 0x2D9
+            private static Player Tex_Curvator = new Player(110, 164, 53, 70, 52, 67, 63, 52, 60, 417, 34, 35, 9, 10, 8, 16, 9, 10, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x78, 0xCD, 0xC7, 0x05, 0x13, 0x18, 0x28, 1); // 0x2DA
+            private static Player Perry_Pincher = new Player(162, 140, 58, 56, 55, 52, 59, 63, 61, 404, 55, 47, 13, 11, 11, 14, 13, 13, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9E, 0xC6, 0x6C, 0xD4, 0x0A, 0x10, 0x18, 0x28, 1); // 0x2DB
+            private static Player Al_Plates = new Player(171, 136, 44, 59, 64, 50, 62, 58, 61, 398, 43, 44, 9, 11, 14, 8, 11, 11, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x82, 0xCA, 0x7C, 0x9C, 0x05, 0x11, 0x17, 0x1E, 2); // 0x2DC
+            private static Player Bane_Marie = new Player(112, 190, 52, 67, 58, 60, 56, 58, 58, 409, 39, 34, 8, 7, 8, 15, 11, 11, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x92, 0x78, 0xE6, 0x05, 0x0F, 0x1A, 0x46, 1); // 0x2DD
+            private static Player Cam_Broadsheet = new Player(103, 142, 44, 60, 60, 56, 60, 71, 52, 403, 33, 36, 8, 10, 10, 9, 12, 12, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6D, 0x74, 0x94, 0xC2, 0x07, 0x14, 0x1C, 0x25, 2); // 0x2DE
+            private static Player Mo_Hawkes = new Player(140, 141, 60, 69, 47, 63, 60, 62, 60, 421, 30, 52, 8, 11, 11, 17, 12, 15, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x75, 0xCD, 0x7C, 0x08, 0x1A, 0x1F, 0x1E, 1); // 0x2DF
+            private static Player Chris_Pecracker = new Player(162, 153, 52, 57, 66, 44, 54, 60, 62, 395, 38, 74, 10, 10, 14, 10, 9, 9, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAF, 0x72, 0x70, 0xA7, 0x0A, 0x15, 0x1C, 0x21, 1); // 0x2E0
+            private static Player Andy_Crafter = new Player(143, 141, 56, 56, 53, 61, 58, 61, 59, 404, 55, 60, 14, 14, 12, 12, 11, 14, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x92, 0x67, 0xCD, 0x7E, 0x0A, 0x0F, 0x17, 0x1E, 3); // 0x2E1
+            private static Player Boe_Tyer = new Player(151, 149, 49, 59, 65, 51, 53, 63, 62, 402, 45, 76, 8, 8, 15, 7, 8, 11, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA3, 0x6D, 0xCD, 0xAC, 0x10, 0x15, 0x1E, 0x22, 1); // 0x2E2
+            private static Player Dave_O_Resis = new Player(149, 113, 48, 52, 48, 44, 51, 55, 52, 350, 36, 45, 9, 9, 9, 9, 11, 7, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x97, 0x87, 0x88, 0xC0, 0x0A, 0x10, 0x16, 0x1F, 1); // 0x2E3
+            private static Player Victor_Mancey = new Player(121, 152, 55, 63, 60, 66, 56, 54, 53, 407, 40, 49, 8, 11, 9, 16, 9, 11, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9E, 0x7A, 0x9F, 0x7F, 0x0C, 0x13, 0x1C, 0x26, 1); // 0x2E4
+            private static Player Ray_Dioset = new Player(127, 145, 65, 53, 52, 66, 50, 66, 59, 411, 46, 37, 10, 8, 11, 12, 9, 10, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x99, 0xC6, 0x68, 0xC2, 0x0A, 0x1B, 0x20, 0x29, 3); // 0x2E5
+            private static Player Preston_Gumbs = new Player(129, 101, 61, 62, 55, 45, 48, 63, 63, 397, 39, 25, 15, 12, 10, 8, 8, 10, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0x90, 0x67, 0x73, 0x0A, 0x11, 0x17, 0x21, 1); // 0x2E6
+            private static Player Tiny_Forester = new Player(162, 137, 55, 62, 70, 47, 60, 63, 61, 418, 30, 45, 11, 13, 15, 8, 7, 9, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x82, 0x78, 0xCD, 0x6F, 0x05, 0x18, 0x1E, 0x22, 1); // 0x2E7
+            private static Player Cardin_Hands = new Player(118, 148, 61, 52, 53, 62, 51, 71, 54, 404, 43, 36, 10, 10, 9, 10, 8, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x92, 0x69, 0x9D, 0x74, 0x0C, 0x12, 0x18, 0x1F, 3); // 0x2E8
+            private static Player Callan_Trens = new Player(121, 153, 62, 61, 57, 65, 55, 52, 57, 409, 40, 40, 10, 8, 9, 14, 9, 12, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9E, 0x67, 0x8E, 0x76, 0x09, 0x11, 0x1B, 0x21, 1); // 0x2E9
+            private static Player Tim_Mittus = new Player(110, 129, 68, 56, 62, 56, 53, 65, 60, 420, 33, 51, 17, 9, 11, 13, 11, 7, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0xD3, 0xE8, 0x8E, 0x09, 0x12, 0x1E, 0x22, 1); // 0x2EA
+            private static Player Keenan_Brainard = new Player(94, 152, 52, 68, 43, 61, 62, 63, 56, 405, 26, 53, 9, 9, 13, 17, 14, 14, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x69, 0x6C, 0x68, 0xBE, 0x08, 0x14, 0x1D, 0x24, 2); // 0x2EB
+            private static Player Orson_Douvre = new Player(118, 148, 71, 52, 52, 63, 52, 68, 52, 410, 33, 37, 14, 10, 14, 16, 9, 7, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAB, 0xAD, 0x72, 0xB5, 0x06, 0x10, 0x1D, 0x28, 1); // 0x2EC
+            private static Player Sandy_Hope = new Player(83, 134, 68, 58, 52, 70, 32, 60, 63, 403, 38, 43, 9, 9, 10, 13, 8, 9, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x69, 0x7F, 0x76, 0x0A, 0x12, 0x14, 0x1E, 1); // 0x2ED
+            private static Player Ort_Omaton = new Player(90, 156, 63, 54, 61, 60, 72, 70, 53, 433, 43, 38, 10, 9, 8, 12, 18, 7, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0xAF, 0x6B, 0xA7, 0x0A, 0x14, 0x1D, 0x26, 1); // 0x2EE
+            private static Player Clerk_Welcome = new Player(123, 120, 71, 72, 51, 48, 51, 42, 51, 386, 32, 35, 9, 11, 9, 10, 7, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7D, 0x67, 0x7F, 0x76, 0x09, 0x11, 0x1E, 0x22, 2); // 0x2EF
+            private static Player Rob_Ottman = new Player(121, 108, 58, 52, 55, 48, 54, 54, 58, 379, 42, 32, 15, 13, 10, 9, 7, 11, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xAA, 0x67, 0xAD, 0xB5, 0x09, 0x0F, 0x1E, 0x29, 1); // 0x2F0
+            private static Player Cam_O_Miles = new Player(83, 132, 70, 53, 56, 63, 28, 62, 55, 387, 31, 39, 11, 9, 7, 13, 8, 9, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0x7D, 0xAD, 0x84, 0x0C, 0x14, 0x1D, 0x2C, 2); // 0x2F1
+            private static Player Jack_Pott = new Player(169, 150, 54, 60, 52, 54, 61, 63, 53, 397, 42, 61, 13, 12, 12, 12, 12, 10, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xA4, 0x7A, 0xB5, 0xE8, 0x0B, 0x15, 0x1E, 0x23, 1); // 0x2F2
+            private static Player Florian_Selles = new Player(158, 150, 52, 60, 59, 63, 59, 52, 52, 397, 63, 76, 14, 16, 16, 15, 16, 17, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9A, 0x94, 0x69, 0xD4, 0x11, 0x16, 0x1D, 0x28, 1); // 0x2F3
+            private static Player Finn_Sawyer = new Player(158, 136, 48, 59, 76, 46, 62, 59, 59, 409, 33, 34, 10, 10, 17, 8, 8, 9, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAB, 0x7B, 0xAC, 0x7F, 0x0D, 0x15, 0x1E, 0x25, 1); // 0x2F4
+            private static Player Bobby_Constable = new Player(169, 154, 61, 61, 62, 62, 52, 61, 54, 413, 60, 80, 15, 13, 15, 15, 15, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x92, 0x96, 0x74, 0xC7, 0x09, 0x15, 0x20, 0x28, 2); // 0x2F5
+            private static Player Ray_Menn = new Player(105, 158, 45, 62, 56, 61, 68, 63, 61, 416, 24, 47, 10, 7, 8, 10, 10, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7A, 0xBE, 0xD3, 0x9F, 0x0C, 0x17, 0x1E, 0x25, 1); // 0x2F6
+            private static Player Odo_Toilette = new Player(85, 142, 44, 60, 59, 58, 66, 63, 52, 402, 32, 53, 7, 7, 9, 10, 12, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xAA, 0x69, 0xA7, 0x76, 0x0D, 0x14, 0x20, 0x28, 1); // 0x2F7
+            private static Player Tel_Egram = new Player(145, 144, 48, 60, 62, 43, 62, 62, 57, 394, 46, 34, 8, 11, 16, 9, 11, 10, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x72, 0x7B, 0x70, 0x7F, 0x0C, 0x14, 0x1C, 0x25, 3); // 0x2F8
+            private static Player Char_Shumaker = new Player(171, 132, 60, 60, 59, 57, 57, 59, 55, 407, 68, 69, 17, 17, 16, 16, 14, 14, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9C, 0x72, 0xCD, 0x75, 0x0E, 0x14, 0x1B, 0x20, 1); // 0x2F9
+            private static Player Sim_Pathy = new Player(149, 178, 76, 58, 64, 41, 57, 62, 56, 414, 40, 73, 9, 10, 16, 9, 9, 10, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x88, 0x6E, 0xD6, 0x68, 0x0A, 0x10, 0x16, 0x21, 3); // 0x2FA
+            private static Player Jon_Driedon = new Player(191, 190, 32, 56, 60, 62, 57, 69, 75, 411, 48, 65, 7, 13, 12, 13, 10, 14, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xBF, 0x87, 0x88, 0xC0, 0x0D, 0x14, 0x1A, 0x21, 1); // 0x2FB
+            private static Player Monty_Burrows = new Player(114, 136, 29, 32, 65, 38, 60, 57, 64, 345, 33, 53, 11, 10, 16, 9, 13, 14, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xB3, 0xAD, 0xB2, 0x85, 0x08, 0x12, 0x1E, 0x21, 1); // 0x2FC
+            private static Player Gaston_Berry = new Player(180, 174, 42, 37, 38, 33, 73, 71, 63, 357, 45, 40, 9, 6, 7, 5, 17, 11, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x9A, 0x6D, 0x7B, 0x89, 0x0B, 0x10, 0x14, 0x21, 3); // 0x2FD
+            private static Player Cruz_Ligner = new Player(169, 152, 59, 53, 52, 60, 62, 59, 58, 403, 43, 47, 13, 12, 13, 13, 14, 10, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x98, 0x69, 0x85, 0xD5, 0x0D, 0x19, 0x1D, 0x25, 1); // 0x2FE
+            private static Player Irv_Washinton = new Player(134, 128, 44, 40, 51, 42, 44, 51, 46, 318, 40, 50, 9, 10, 10, 9, 9, 9, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x83, 0x70, 0xD4, 0x84, 0x0D, 0x1B, 0x26, 0x31, 1); // 0x2FF
+            private static Player Shem_Bassey = new Player(147, 144, 54, 52, 56, 60, 55, 60, 63, 400, 55, 62, 11, 11, 10, 10, 12, 13, 10, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x85, 0xD6, 0x98, 0x68, 0x10, 0x14, 0x18, 0x23, 1); // 0x300
+            private static Player Pres_Cripton = new Player(123, 156, 56, 64, 53, 60, 52, 53, 62, 400, 44, 35, 11, 11, 10, 15, 10, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xBF, 0xD3, 0xC2, 0xD5, 0x10, 0x18, 0x1F, 0x2C, 3); // 0x301
+            private static Player Winston_Windfall = new Player(140, 129, 50, 48, 40, 62, 68, 58, 53, 379, 33, 48, 9, 9, 4, 8, 16, 12, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x6F, 0x6B, 0xC7, 0x8A, 0x0E, 0x1C, 0x22, 0x2B, 1); // 0x302
+            private static Player Rich_Eden = new Player(127, 149, 59, 71, 54, 64, 56, 52, 61, 417, 45, 45, 7, 7, 11, 17, 7, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xAA, 0x96, 0xAF, 0x9D, 0x0F, 0x13, 0x1D, 0x22, 1); // 0x303
+            private static Player Teagen_Brewer = new Player(147, 132, 47, 42, 40, 60, 67, 57, 56, 369, 37, 40, 11, 8, 6, 11, 15, 12, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7A, 0x78, 0x8A, 0x82, 0x09, 0x1A, 0x26, 0x2A, 3); // 0x304
+            private static Player Ry_Sling = new Player(165, 190, 46, 56, 71, 44, 63, 55, 54, 389, 37, 62, 7, 9, 17, 7, 7, 11, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x88, 0x81, 0xD6, 0x68, 0x0E, 0x14, 0x17, 0x1E, 1); // 0x305
+            private static Player Bard_Crooner = new Player(127, 116, 56, 48, 48, 60, 40, 54, 52, 358, 19, 29, 4, 7, 6, 10, 8, 7, 5, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x66, 0x7D, 0x65, 0x7F, 0x09, 0x10, 0x1B, 0x21, 1); // 0x306
+            private static Player Armstrong_Peck = new Player(114, 108, 53, 48, 54, 57, 42, 54, 47, 355, 27, 22, 8, 8, 6, 9, 6, 8, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0x67, 0xB5, 0x70, 0x08, 0x0F, 0x20, 0x27, 2); // 0x307
+            private static Player Carey_Vanpark = new Player(112, 101, 51, 44, 45, 55, 57, 63, 52, 367, 24, 24, 5, 4, 5, 4, 7, 9, 6, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x72, 0x75, 0xCD, 0x7E, 0x0D, 0x15, 0x1E, 0x29, 1); // 0x308
+            private static Player Garland_Gathers = new Player(118, 124, 56, 44, 52, 44, 52, 61, 46, 355, 24, 32, 12, 8, 10, 14, 7, 6, 5, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xD6, 0xBF, 0x68, 0x9F, 0x0D, 0x13, 0x1B, 0x26, 1); // 0x309
+            private static Player David_Burnum = new Player(138, 104, 44, 51, 52, 46, 48, 46, 49, 336, 26, 29, 4, 9, 13, 7, 8, 7, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x80, 0xE7, 0xBE, 0xC7, 0x10, 0x1A, 0x21, 0x2B, 3); // 0x30A
+            private static Player Tad_Trinket = new Player(149, 132, 44, 47, 52, 43, 53, 52, 48, 339, 34, 54, 5, 7, 11, 8, 8, 7, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xD3, 0x96, 0x73, 0x8F, 0x0E, 0x18, 0x27, 0x32, 1); // 0x30B
+            private static Player Harvey_Lifter = new Player(129, 101, 52, 53, 51, 52, 53, 46, 52, 359, 33, 43, 11, 9, 9, 9, 7, 10, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x87, 0x6E, 0x94, 0xC0, 0x0A, 0x10, 0x16, 0x23, 1); // 0x30C
+            private static Player Kurt_Price = new Player(116, 84, 45, 48, 47, 51, 41, 43, 42, 317, 27, 24, 5, 6, 5, 6, 4, 7, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x72, 0x83, 0x7C, 0xE6, 0x0F, 0x16, 0x1E, 0x37, 1); // 0x30D
+            private static Player Cameron_Hameha = new Player(129, 116, 44, 49, 58, 44, 46, 55, 50, 346, 20, 37, 4, 9, 14, 8, 6, 5, 6, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x6D, 0xD6, 0x74, 0xD5, 0x09, 0x12, 0x1F, 0x26, 3); // 0x30E
+            private static Player Will_Stonehead = new Player(121, 156, 70, 57, 57, 65, 51, 70, 59, 429, 31, 45, 10, 10, 9, 10, 10, 8, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x83, 0x7C, 0x75, 0x05, 0x0F, 0x1A, 0x20, 1); // 0x30F
+            private static Player Hugh_Marble = new Player(136, 112, 61, 59, 46, 46, 45, 54, 61, 372, 37, 36, 17, 14, 9, 10, 9, 9, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x7B, 0xE7, 0xE8, 0x65, 0x07, 0x12, 0x1E, 0x25, 1); // 0x310
+            private static Player Urson_Brown = new Player(129, 182, 57, 61, 40, 48, 43, 59, 56, 364, 38, 34, 15, 10, 10, 9, 9, 11, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x82, 0xAB, 0xB5, 0x7A, 0x03, 0x15, 0x21, 0x23, 2); // 0x311
+            private static Player Bo_Luger = new Player(158, 148, 78, 56, 54, 56, 54, 58, 61, 417, 54, 54, 18, 14, 12, 14, 14, 13, 10, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x6D, 0x68, 0xCD, 0xC2, 0x0C, 0x14, 0x1F, 0x26, 1); // 0x312
+            private static Player Kim_Ono = new Player(138, 152, 53, 60, 74, 61, 60, 56, 55, 419, 38, 46, 8, 11, 7, 17, 9, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xCA, 0x72, 0x95, 0x70, 0x0E, 0x17, 0x1F, 0x26, 1); // 0x313
+            private static Player Bully_Thrower = new Player(171, 156, 44, 54, 69, 41, 61, 55, 57, 381, 36, 53, 10, 10, 16, 9, 10, 10, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x66, 0xC4, 0xD3, 0x6C, 0x08, 0x10, 0x19, 0x1C, 3); // 0x314
+            private static Player Bill_Wordsworthy = new Player(116, 122, 45, 73, 40, 43, 42, 41, 46, 330, 43, 46, 9, 9, 10, 9, 9, 7, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6E, 0x87, 0x9B, 0x65, 0x0A, 0x12, 0x21, 0x25, 1); // 0x315
+            private static Player Mo_Lusk = new Player(136, 196, 56, 60, 60, 71, 53, 62, 56, 418, 46, 35, 7, 8, 10, 17, 10, 14, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x7C, 0xCD, 0xE6, 0x05, 0x1E, 0x26, 0x41, 1); // 0x316
+            private static Player Ben_Curd = new Player(127, 152, 70, 77, 58, 79, 68, 68, 65, 485, 34, 70, 13, 11, 13, 17, 16, 17, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x98, 0x72, 0x6B, 0x8A, 0x0A, 0x12, 0x1E, 0x25, 2); // 0x317
+            private static Player Powers_Squatts = new Player(187, 156, 62, 62, 40, 71, 28, 60, 56, 379, 70, 54, 9, 10, 14, 13, 5, 13, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6E, 0xB3, 0x88, 0xAD, 0x0A, 0x12, 0x16, 0x1E, 1); // 0x318
+            private static Player Paisley_Onepiece = new Player(77, 150, 62, 61, 51, 60, 52, 61, 60, 407, 25, 61, 10, 11, 12, 17, 13, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x80, 0xD3, 0xC4, 0xE8, 0x0E, 0x17, 0x23, 0x2A, 2); // 0x319
+            private static Player Gauge_Diven = new Player(118, 186, 54, 61, 59, 61, 57, 55, 55, 402, 44, 81, 11, 11, 11, 17, 8, 11, 7, 1, 2, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0x6C, 0x7F, 0x76, 0x0A, 0x0F, 0x14, 0x19, 1); // 0x31A
+            private static Player Zane_Laughead = new Player(217, 150, 56, 63, 44, 70, 57, 67, 54, 411, 66, 48, 8, 9, 11, 17, 12, 13, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x67, 0x69, 0x76, 0x7F, 0x0A, 0x11, 0x21, 0x25, 1); // 0x31B
+            private static Player Daz_Tighthead = new Player(156, 170, 68, 76, 62, 69, 63, 70, 64, 472, 44, 61, 12, 12, 10, 18, 10, 15, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x83, 0x6A, 0x84, 0x0A, 0x15, 0x1E, 0x2C, 2); // 0x31C
+            private static Player Sandy_Beecher = new Player(129, 136, 61, 59, 52, 59, 58, 65, 62, 416, 37, 51, 16, 9, 12, 14, 9, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x92, 0x6E, 0x8E, 0x81, 0x0A, 0x0F, 0x1A, 0x23, 1); // 0x31D
+            private static Player Ty_Priter = new Player(209, 154, 71, 53, 61, 52, 62, 60, 54, 413, 44, 50, 17, 10, 10, 17, 9, 8, 11, 2, 1, 2, 1, 1, 2, 5, 2, 1, 0x9A, 0x67, 0x90, 0x76, 0x0A, 0x11, 0x18, 0x1E, 1); // 0x31E
+            private static Player Nick_Savers = new Player(134, 170, 71, 70, 68, 72, 40, 76, 65, 462, 54, 50, 13, 12, 13, 13, 12, 10, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA1, 0xAE, 0xB2, 0xC9, 0x0C, 0x18, 0x20, 0x2A, 3); // 0x31F
+            private static Player Percy_Wrench = new Player(121, 102, 63, 60, 48, 48, 40, 60, 59, 378, 37, 23, 15, 12, 9, 9, 10, 7, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x67, 0x7A, 0xD3, 0x7F, 0x0D, 0x14, 0x1A, 0x20, 3); // 0x320
+            private static Player Max_Scara = new Player(127, 198, 62, 62, 40, 40, 40, 52, 52, 348, 38, 23, 15, 11, 9, 8, 9, 8, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x87, 0xD6, 0xB3, 0xA7, 0x0C, 0x13, 0x1E, 0x2D, 1); // 0x321
+            private static Player Jonny_Strutt = new Player(140, 120, 40, 48, 53, 55, 57, 47, 46, 346, 26, 25, 11, 4, 8, 6, 13, 8, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x90, 0x68, 0x8E, 0xE7, 0x11, 0x1A, 0x1E, 0x21, 1); // 0x322
+            private static Player Larry_Oldman = new Player(94, 118, 36, 49, 44, 40, 53, 54, 41, 317, 28, 25, 5, 8, 6, 7, 9, 10, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x98, 0x72, 0xBE, 0x65, 0x0C, 0x13, 0x1E, 0x25, 3); // 0x323
+            private static Player Dom_Anding = new Player(81, 150, 52, 60, 43, 62, 61, 69, 63, 410, 31, 66, 7, 10, 14, 16, 14, 13, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x69, 0x68, 0x85, 0x7F, 0x0A, 0x14, 0x19, 0x21, 3); // 0x324
+            private static Player Pip_Goodweather = new Player(143, 156, 53, 59, 57, 59, 60, 61, 52, 401, 45, 59, 13, 10, 10, 11, 12, 14, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x7A, 0xB3, 0xE8, 0xA7, 0x0C, 0x0F, 0x19, 0x25, 2); // 0x325
+            private static Player Bamber_Mandrina = new Player(213, 80, 32, 71, 31, 78, 36, 79, 30, 357, 26, 27, 8, 5, 5, 5, 7, 8, 7, 4, 1, 1, 4, 1, 4, 1, 4, 1, 0x87, 0x6E, 0x74, 0x88, 0x08, 0x10, 0x17, 0x1F, 1); // 0x326
+            private static Player Scrap_Salvadge = new Player(114, 104, 60, 57, 44, 44, 68, 57, 52, 382, 40, 29, 17, 11, 11, 10, 8, 7, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xB0, 0x80, 0xB5, 0x7E, 0x10, 0x16, 0x1E, 0x27, 1); // 0x327
+            private static Player Michael_Angeloni = new Player(156, 158, 40, 60, 74, 46, 60, 56, 61, 397, 30, 51, 10, 13, 17, 11, 9, 9, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA4, 0xAF, 0xAC, 0xCD, 0x07, 0x0F, 0x1F, 0x25, 1); // 0x328
+            private static Player Ryder_Wheeling = new Player(121, 101, 60, 55, 49, 44, 48, 56, 49, 361, 25, 37, 12, 4, 11, 14, 6, 8, 6, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0x7E, 0x89, 0x95, 0x0B, 0x15, 0x21, 0x27, 1); // 0x329
+            private static Player Stu_Venier = new Player(96, 150, 41, 59, 58, 52, 62, 68, 54, 394, 26, 50, 11, 8, 10, 8, 12, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x85, 0xE7, 0x7F, 0x98, 0x0E, 0x18, 0x24, 0x28, 3); // 0x32A
+            private static Player Linden_Dray = new Player(151, 142, 41, 57, 64, 45, 57, 55, 60, 379, 39, 46, 11, 10, 17, 7, 11, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7B, 0x72, 0x76, 0xC9, 0x0C, 0x15, 0x21, 0x27, 1); // 0x32B
+            private static Player Patsy_Cornish = new Player(151, 158, 41, 56, 62, 43, 58, 62, 57, 379, 42, 53, 8, 11, 16, 8, 11, 7, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x88, 0x67, 0x7E, 0xC0, 0x0D, 0x16, 0x1F, 0x27, 3); // 0x32C
+            private static Player Sharkey_Gobble = new Player(160, 146, 54, 62, 59, 60, 57, 58, 52, 402, 68, 62, 16, 17, 16, 15, 13, 14, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x80, 0xD3, 0x8A, 0xC4, 0x10, 0x16, 0x22, 0x2A, 1); // 0x32D
+            private static Player Olly_Popman = new Player(83, 158, 67, 63, 61, 58, 53, 60, 62, 424, 43, 50, 15, 11, 13, 15, 8, 10, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x69, 0x72, 0x7C, 0x05, 0x0C, 0x14, 0x1B, 3); // 0x32E
+            private static Player Tyche_Winham = new Player(81, 150, 60, 56, 59, 58, 63, 60, 52, 408, 34, 35, 17, 11, 12, 13, 9, 10, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0xAB, 0xAF, 0xB5, 0x05, 0x0D, 0x1C, 0x28, 1); // 0x32F
+            private static Player Page_Helper = new Player(103, 136, 49, 55, 57, 59, 77, 54, 52, 403, 34, 53, 13, 10, 10, 9, 16, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6C, 0xE7, 0x7F, 0x65, 0x0E, 0x18, 0x1E, 0x25, 1); // 0x330
+            private static Player Barry_Lugh = new Player(96, 146, 42, 58, 59, 54, 64, 67, 62, 406, 32, 35, 8, 8, 10, 11, 14, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9C, 0x69, 0x9D, 0x6B, 0x0F, 0x12, 0x18, 0x22, 2); // 0x331
+            private static Player Jen_Quibble = new Player(94, 144, 56, 67, 40, 70, 62, 67, 58, 420, 18, 62, 10, 9, 13, 15, 12, 13, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x85, 0xAE, 0x89, 0xA7, 0x0D, 0x18, 0x21, 0x2F, 1); // 0x332
+            private static Player Dan_Drobium = new Player(156, 150, 52, 60, 62, 53, 56, 62, 57, 402, 60, 72, 15, 15, 15, 13, 13, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x94, 0x88, 0xC0, 0x70, 0x10, 0x15, 0x1F, 0x23, 2); // 0x333
+            private static Player Lyle_O_Day = new Player(158, 146, 60, 61, 56, 52, 60, 60, 62, 411, 64, 74, 13, 15, 17, 16, 14, 14, 15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x99, 0x7B, 0x67, 0xC2, 0x0A, 0x0F, 0x14, 0x23, 1); // 0x334
+            private static Player Crane_Clawson = new Player(145, 157, 60, 64, 60, 68, 56, 52, 61, 421, 32, 40, 11, 10, 11, 17, 10, 14, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x72, 0xD3, 0x70, 0xC4, 0x0F, 0x15, 0x1D, 0x21, 1); // 0x335
+            private static Player Raven_Crowe = new Player(101, 146, 70, 55, 52, 66, 37, 67, 61, 408, 30, 47, 9, 9, 11, 10, 10, 10, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x88, 0x81, 0x65, 0x9B, 0x0C, 0x18, 0x1F, 0x27, 2); // 0x336
+            private static Player Shirley_Ladyman = new Player(167, 150, 51, 31, 30, 53, 68, 60, 62, 355, 69, 40, 9, 7, 6, 8, 15, 14, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7B, 0x67, 0x7F, 0x76, 0x0D, 0x13, 0x1E, 0x23, 1); // 0x337
+            private static Player Cody_Barani = new Player(140, 132, 47, 35, 32, 61, 68, 61, 52, 356, 32, 44, 10, 7, 8, 7, 15, 14, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xA1, 0x7A, 0xAE, 0x8A, 0x0C, 0x14, 0x1A, 0x25, 1); // 0x338
+            private static Player Bob_Shishker = new Player(200, 138, 44, 54, 52, 56, 62, 37, 57, 362, 58, 51, 8, 9, 9, 8, 12, 7, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xC1, 0x69, 0x95, 0xD4, 0x10, 0x16, 0x1E, 0x30, 1); // 0x339
+            private static Player Pica_Vellosum = new Player(145, 132, 59, 56, 56, 56, 52, 60, 63, 402, 56, 55, 10, 12, 11, 14, 13, 10, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x87, 0xC0, 0x9B, 0x65, 0x10, 0x1E, 0x24, 0x28, 2); // 0x33A
+            private static Player Sascha_Powder = new Player(123, 158, 51, 36, 33, 60, 68, 56, 60, 364, 46, 50, 10, 10, 8, 11, 18, 11, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xAA, 0xAF, 0x7E, 0xB2, 0x09, 0x15, 0x20, 0x28, 1); // 0x33B
+            private static Player Gore_Lyath = new Player(143, 140, 52, 54, 63, 53, 59, 56, 62, 399, 61, 72, 14, 16, 14, 15, 17, 14, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0x6B, 0xD3, 0x75, 0x07, 0x1A, 0x1F, 0x26, 3); // 0x33C
+            private static Player Marty_Gras = new Player(132, 115, 58, 53, 40, 51, 47, 53, 58, 360, 42, 25, 15, 14, 9, 9, 9, 7, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xBF, 0x87, 0x6E, 0x9B, 0x0D, 0x12, 0x17, 0x21, 2); // 0x33D
+            private static Player Bob_Dingnagian = new Player(107, 140, 46, 56, 59, 60, 60, 63, 59, 403, 24, 42, 10, 11, 10, 10, 13, 11, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x6D, 0x9A, 0xD6, 0x05, 0x0A, 0x0F, 0x16, 1); // 0x33E
+            private static Player Hugh_Dyer = new Player(77, 136, 48, 56, 61, 52, 70, 71, 60, 418, 21, 48, 10, 8, 11, 8, 18, 15, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0xBF, 0xB2, 0xC5, 0x0F, 0x17, 0x20, 0x46, 2); // 0x33F
+            private static Player Carl_Penter = new Player(96, 140, 66, 53, 54, 52, 59, 73, 58, 415, 33, 43, 14, 11, 10, 17, 10, 8, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x9A, 0x6C, 0x8F, 0xC9, 0x0A, 0x15, 0x27, 0x2E, 1); // 0x340
+            private static Player Jebb_Ettow = new Player(165, 133, 60, 60, 63, 56, 56, 57, 54, 406, 49, 59, 11, 11, 12, 13, 10, 12, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x9E, 0x7B, 0x77, 0x7F, 0x0C, 0x14, 0x1F, 0x23, 3); // 0x341
+            private static Player Julian_Siezer = new Player(167, 148, 40, 32, 34, 58, 64, 60, 58, 346, 54, 44, 10, 9, 7, 9, 15, 17, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x94, 0x72, 0x70, 0xC7, 0x10, 0x17, 0x1E, 0x26, 1); // 0x342
+            private static Player Bill_Dozer = new Player(154, 136, 54, 57, 52, 56, 54, 52, 59, 384, 54, 72, 16, 15, 17, 17, 17, 17, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA4, 0xAF, 0xB5, 0x85, 0x08, 0x14, 0x24, 0x28, 2); // 0x343
+            private static Player Benny_Factor = new Player(154, 142, 56, 61, 54, 56, 58, 63, 58, 406, 61, 63, 14, 14, 15, 17, 15, 15, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB3, 0xAD, 0xAC, 0x89, 0x0A, 0x17, 0x22, 0x2A, 1); // 0x344
+            private static Player Roman_Candler = new Player(171, 194, 44, 52, 70, 45, 62, 52, 53, 378, 34, 77, 11, 8, 13, 10, 9, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x66, 0x9C, 0x8E, 0x68, 0x11, 0x17, 0x1E, 0x21, 1); // 0x345
+            private static Player Ray_Whitehead = new Player(92, 158, 49, 59, 62, 60, 70, 62, 58, 420, 22, 39, 13, 9, 11, 9, 18, 12, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xD6, 0x88, 0x81, 0x65, 0x0C, 0x14, 0x1B, 0x20, 1); // 0x346
+            private static Player Aston_Isher = new Player(217, 142, 66, 54, 53, 54, 60, 57, 57, 401, 80, 39, 15, 8, 13, 16, 9, 11, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x72, 0x6C, 0xC2, 0xC9, 0x0C, 0x14, 0x1F, 0x28, 2); // 0x347
+            private static Player Grover_Bearing = new Player(149, 138, 61, 54, 52, 57, 52, 58, 60, 394, 58, 61, 13, 12, 14, 10, 13, 14, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAB, 0x7A, 0xB5, 0x84, 0x10, 0x15, 0x1A, 0x26, 1); // 0x348
+            private static Player Andy_Sided = new Player(134, 157, 63, 66, 60, 67, 59, 59, 52, 426, 38, 40, 7, 9, 8, 15, 10, 12, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x69, 0x6C, 0x68, 0xD5, 0x07, 0x12, 0x1A, 0x27, 3); // 0x349
+            private static Player Phil_O_Biblist = new Player(160, 142, 65, 58, 60, 67, 30, 52, 61, 393, 61, 35, 11, 9, 11, 12, 11, 14, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x6E, 0x87, 0xC6, 0xC2, 0x0C, 0x18, 0x21, 0x26, 1); // 0x34A
+            private static Player Roy_Plimsole = new Player(105, 130, 47, 52, 56, 55, 69, 58, 57, 394, 28, 35, 10, 11, 11, 9, 14, 10, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA3, 0x86, 0x7F, 0xAC, 0x0F, 0x14, 0x1E, 0x28, 1); // 0x34B
+            private static Player Jem_Paste = new Player(88, 138, 46, 57, 63, 55, 61, 64, 56, 402, 33, 35, 8, 7, 7, 10, 11, 11, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA1, 0xAE, 0xB2, 0xD4, 0x0A, 0x15, 0x21, 0x28, 2); // 0x34C
+            private static Player Mike_Creasewell = new Player(110, 150, 58, 67, 58, 67, 54, 60, 63, 427, 43, 40, 7, 9, 8, 17, 10, 12, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0x67, 0x85, 0x6C, 0x07, 0x11, 0x1A, 0x1E, 1); // 0x34D
+            private static Player Hale_Quinn = new Player(191, 142, 61, 69, 57, 68, 35, 75, 52, 417, 32, 34, 9, 11, 11, 14, 9, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x80, 0xD3, 0xE8, 0xC4, 0x11, 0x17, 0x1D, 0x25, 1); // 0x34E
+            private static Player Al_Askan = new Player(149, 140, 49, 63, 76, 69, 53, 56, 62, 428, 42, 34, 9, 13, 13, 9, 11, 7, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xCA, 0x77, 0xC2, 0x82, 0x0E, 0x17, 0x1F, 0x22, 1); // 0x34F
+            private static Player Scot_Chopper = new Player(132, 146, 48, 28, 30, 62, 70, 59, 56, 353, 33, 34, 9, 9, 6, 9, 15, 10, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7E, 0x89, 0xD4, 0xC7, 0x14, 0x20, 0x2E, 0x39, 3); // 0x350
+            private static Player Nick_Templeton = new Player(151, 153, 45, 58, 67, 47, 55, 59, 52, 383, 30, 64, 10, 8, 17, 9, 9, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x87, 0xC0, 0x7E, 0x89, 0x0D, 0x1A, 0x21, 0x27, 1); // 0x351
+            private static Player Butler_Chambers = new Player(123, 124, 71, 58, 40, 42, 48, 60, 56, 375, 44, 38, 14, 10, 10, 9, 10, 9, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xBF, 0x88, 0xD6, 0xC9, 0x10, 0x16, 0x18, 0x23, 2); // 0x352
+            private static Player Pip_Skinner = new Player(167, 142, 41, 52, 65, 46, 56, 57, 53, 370, 42, 39, 10, 13, 15, 10, 8, 7, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAB, 0xAD, 0x82, 0x7C, 0x0C, 0x17, 0x20, 0x25, 1); // 0x353
+            private static Player Dan_Vega = new Player(167, 154, 66, 64, 62, 60, 64, 62, 68, 446, 26, 29, 7, 8, 6, 6, 6, 7, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x87, 0x74, 0x7E, 0x89, 0x0B, 0x1A, 0x21, 0x29, 1); // 0x354
+            private static Player Manny_Kinsland = new Player(77, 148, 55, 63, 46, 68, 56, 60, 57, 405, 21, 62, 10, 9, 13, 15, 12, 17, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x92, 0xC6, 0xC7, 0xD5, 0x0D, 0x1F, 0x28, 0x2E, 3); // 0x355
+            private static Player Chick_Adiddy = new Player(110, 152, 52, 62, 56, 69, 63, 56, 55, 413, 31, 91, 11, 10, 9, 15, 11, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0xCA, 0x78, 0x75, 0x05, 0x13, 0x1B, 0x1E, 2); // 0x356
+            private static Player Jig_Charleston = new Player(103, 150, 60, 76, 61, 56, 56, 69, 61, 439, 43, 38, 15, 8, 12, 14, 11, 7, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x68, 0xE7, 0x85, 0x84, 0x13, 0x1F, 0x21, 0x31, 1); // 0x357
+            private static Player Powers_Flawless = new Player(132, 188, 57, 65, 52, 60, 60, 58, 56, 408, 46, 53, 9, 8, 9, 16, 10, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xD3, 0xA5, 0x86, 0x71, 0x11, 0x18, 0x1D, 0x1F, 3); // 0x358
+            private static Player Alistair_Horizon = new Player(162, 176, 42, 63, 77, 40, 61, 61, 59, 403, 46, 65, 10, 10, 16, 8, 8, 8, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xD6, 0x6E, 0x82, 0x87, 0x07, 0x10, 0x16, 0x1A, 1); // 0x359
+            private static Player Tim_Bergoods = new Player(198, 134, 51, 52, 62, 52, 78, 39, 62, 396, 67, 44, 9, 8, 7, 8, 16, 6, 9, 2, 5, 1, 1, 1, 1, 2, 2, 1, 0x72, 0x6C, 0x70, 0xD4, 0x0A, 0x10, 0x21, 0x32, 2); // 0x35A
+            private static Player Lux_Sidebottom = new Player(81, 158, 40, 59, 52, 60, 63, 61, 54, 389, 18, 36, 7, 11, 10, 9, 12, 14, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA1, 0xA5, 0xB2, 0x7E, 0x0D, 0x1A, 0x21, 0x28, 1); // 0x35B
+            private static Player Nat_Picker = new Player(125, 134, 51, 32, 28, 56, 68, 52, 56, 343, 33, 36, 9, 11, 5, 11, 15, 11, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x74, 0x7E, 0xD4, 0xC7, 0x15, 0x1F, 0x2B, 0x32, 2); // 0x35C
+            private static Player Harold_Derry = new Player(107, 104, 38, 34, 34, 68, 60, 64, 68, 366, 18, 23, 6, 7, 6, 6, 14, 15, 5, 5, 5, 1, 1, 5, 2, 2, 5, 2, 0x7A, 0x83, 0x6B, 0x81, 0x0A, 0x13, 0x1C, 0x25, 1); // 0x35D
+            private static Player Josh_Rogan = new Player(129, 117, 55, 60, 52, 47, 52, 53, 52, 371, 32, 28, 14, 13, 8, 7, 8, 7, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x6E, 0x87, 0xC0, 0xC8, 0x08, 0x10, 0x1E, 0x41, 1); // 0x35E
+            private static Player Ronny_O_Mania = new Player(145, 148, 62, 63, 56, 56, 54, 54, 60, 405, 56, 64, 12, 10, 12, 10, 13, 11, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xE7, 0x67, 0x7F, 0xBE, 0x0C, 0x12, 0x21, 0x27, 2); // 0x35F
+            private static Player Buck_Teachey = new Player(134, 164, 54, 60, 54, 60, 60, 52, 56, 396, 32, 44, 9, 11, 11, 14, 7, 11, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7D, 0x6C, 0x89, 0x6A, 0x09, 0x15, 0x21, 0x29, 1); // 0x360
+            private static Player Rayburn_Lightly = new Player(165, 145, 55, 54, 55, 60, 57, 61, 58, 400, 61, 62, 16, 16, 14, 14, 14, 17, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x72, 0x70, 0x9F, 0xC7, 0x0B, 0x16, 0x25, 0x2F, 1); // 0x361
+            private static Player Pat_Greene = new Player(112, 118, 53, 56, 44, 41, 46, 58, 63, 361, 32, 39, 16, 14, 7, 10, 10, 9, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x6C, 0x86, 0xCD, 0x84, 0x10, 0x1E, 0x25, 0x37, 2); // 0x362
+            private static Player Sylver_Stone = new Player(138, 136, 46, 57, 52, 56, 68, 66, 62, 407, 22, 36, 9, 9, 10, 10, 10, 13, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xC4, 0x7A, 0xD3, 0x84, 0x12, 0x16, 0x1C, 0x2C, 1); // 0x363
+            private static Player Equin_Knocks = new Player(125, 161, 60, 60, 58, 64, 60, 56, 54, 412, 43, 41, 10, 9, 8, 15, 10, 11, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x77, 0xC2, 0xC7, 0x73, 0x10, 0x1D, 0x28, 0x30, 3); // 0x364
+            private static Player Hans_Bigger = new Player(169, 132, 59, 60, 52, 60, 56, 53, 60, 400, 45, 63, 13, 14, 13, 13, 12, 13, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x85, 0x7E, 0x65, 0x84, 0x11, 0x18, 0x1E, 0x2B, 1); // 0x365
+            private static Player Creed_Wrighter = new Player(165, 180, 55, 56, 58, 53, 56, 60, 53, 391, 42, 91, 14, 14, 11, 11, 11, 12, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x6D, 0x94, 0xC2, 0xC0, 0x07, 0x0C, 0x1B, 0x21, 1); // 0x366
+            private static Player Fran_Zimmer = new Player(114, 137, 60, 56, 53, 61, 55, 64, 56, 405, 39, 36, 17, 8, 13, 16, 10, 7, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0xE7, 0x6C, 0x9F, 0x0E, 0x17, 0x1F, 0x26, 3); // 0x367
+            private static Player Chaz_Anover = new Player(151, 158, 53, 62, 53, 61, 58, 56, 53, 396, 55, 69, 15, 17, 16, 14, 17, 13, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0x68, 0x7B, 0x7F, 0x0A, 0x11, 0x16, 0x21, 1); // 0x368
+            private static Player Kurt_O_Graphy = new Player(85, 152, 45, 56, 56, 53, 62, 68, 52, 392, 32, 46, 7, 9, 9, 9, 12, 13, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0x7F, 0x76, 0x95, 0x07, 0x18, 0x20, 0x27, 3); // 0x369
+            private static Player Pace_Storey = new Player(114, 128, 52, 48, 61, 55, 53, 58, 52, 379, 22, 25, 8, 11, 11, 5, 7, 6, 5, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x82, 0xCA, 0xCD, 0x7C, 0x05, 0x10, 0x1F, 0x24, 1); // 0x36A
+            private static Player Paddy_Streehan = new Player(127, 126, 58, 61, 47, 43, 41, 58, 55, 363, 44, 21, 17, 14, 7, 7, 11, 8, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xB3, 0xAD, 0xE7, 0x8A, 0x0F, 0x1A, 0x1E, 0x26, 2); // 0x36B
+            private static Player Carson_Haynes = new Player(118, 162, 58, 60, 56, 58, 57, 60, 66, 415, 36, 42, 9, 9, 10, 15, 9, 10, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x85, 0x81, 0x76, 0xD4, 0x10, 0x1D, 0x24, 0x32, 1); // 0x36C
+            private static Player Earl_Grayson = new Player(169, 150, 64, 65, 60, 71, 67, 64, 60, 451, 46, 47, 11, 10, 10, 13, 10, 13, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x88, 0x86, 0x71, 0xD5, 0x0F, 0x14, 0x18, 0x26, 2); // 0x36D
+            private static Player Pip_Aminty = new Player(125, 156, 61, 67, 61, 70, 59, 55, 57, 430, 39, 48, 7, 11, 7, 17, 8, 13, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7A, 0xD3, 0xC4, 0xE8, 0x09, 0x12, 0x1D, 0x24, 1); // 0x36E
+            private static Player Noel_Vacancies = new Player(138, 194, 57, 65, 59, 70, 52, 62, 54, 419, 44, 34, 9, 9, 9, 17, 7, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA4, 0xAF, 0x80, 0x89, 0x0C, 0x14, 0x1B, 0x28, 1); // 0x36F
+            private static Player Jon_Quill = new Player(206, 150, 68, 62, 56, 53, 54, 63, 54, 410, 42, 40, 14, 7, 13, 16, 11, 11, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xBE, 0x9F, 0xC9, 0xC8, 0x11, 0x1C, 0x22, 0x4D, 2); // 0x370
+            private static Player Bill_Looney = new Player(114, 172, 52, 61, 72, 63, 61, 53, 52, 414, 44, 53, 7, 10, 7, 16, 7, 11, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x78, 0x7C, 0xE6, 0x82, 0x15, 0x24, 0x33, 0x35, 1); // 0x371
+            private static Player Dan_Nettles = new Player(189, 136, 62, 60, 58, 60, 61, 38, 53, 392, 70, 47, 16, 8, 10, 14, 9, 8, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAB, 0xE7, 0xA5, 0x8A, 0x0E, 0x14, 0x1B, 0x23, 1); // 0x372
+            private static Player Clark_Watcher = new Player(83, 142, 45, 56, 56, 63, 69, 60, 55, 404, 27, 42, 14, 8, 9, 8, 19, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0x85, 0x69, 0x65, 0x08, 0x10, 0x13, 0x1D, 1); // 0x373
+            private static Player Tim_Eisback = new Player(83, 136, 48, 58, 57, 57, 69, 60, 58, 407, 30, 44, 11, 11, 7, 8, 11, 10, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x67, 0x74, 0x7D, 0x7F, 0x0D, 0x1A, 0x1C, 0x25, 2); // 0x374
+            private static Player Sam_Aritan = new Player(125, 100, 52, 61, 47, 47, 49, 57, 62, 375, 31, 39, 16, 13, 9, 11, 7, 11, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x6C, 0x68, 0x7E, 0x84, 0x0F, 0x17, 0x21, 0x30, 1); // 0x375
+            private static Player Cal_Emarry = new Player(105, 150, 42, 56, 52, 55, 68, 57, 60, 390, 22, 40, 12, 10, 8, 9, 16, 11, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA1, 0x85, 0xAE, 0x7F, 0x0A, 0x10, 0x1A, 0x28, 1); // 0x376
+            private static Player Bambis_Shakin = new Player(118, 134, 50, 57, 59, 57, 76, 55, 60, 414, 39, 42, 12, 7, 9, 9, 15, 14, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x99, 0x9F, 0x68, 0x8E, 0x05, 0x1A, 0x21, 0x29, 3); // 0x377
+            private static Player Zin_Giber = new Player(103, 144, 41, 59, 54, 58, 74, 59, 54, 399, 25, 53, 11, 9, 10, 9, 20, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x72, 0xD6, 0xC4, 0xD3, 0x13, 0x17, 0x1E, 0x24, 2); // 0x378
+            private static Player Wes_Abbey = new Player(167, 158, 68, 64, 64, 61, 62, 66, 60, 445, 56, 54, 14, 14, 12, 12, 13, 11, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xCD, 0x75, 0x78, 0xE6, 0x15, 0x1E, 0x24, 0x63, 1); // 0x379
+            private static Player Alec_Dote = new Player(149, 198, 41, 55, 64, 40, 60, 58, 60, 378, 34, 81, 7, 7, 16, 8, 8, 7, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x81, 0x94, 0x9F, 0x89, 0x13, 0x17, 0x21, 0x2E, 2); // 0x37A
+            private static Player Dougie_McFlea = new Player(171, 142, 52, 56, 62, 61, 57, 59, 59, 406, 56, 54, 12, 12, 11, 13, 13, 13, 11, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x67, 0xC1, 0x95, 0x76, 0x0C, 0x15, 0x1C, 0x24, 3); // 0x37B
+            private static Player Jacky_Lantern = new Player(103, 156, 60, 46, 45, 67, 34, 54, 49, 355, 34, 39, 8, 4, 7, 9, 6, 8, 5, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0xA3, 0x7E, 0xAC, 0x10, 0x18, 0x20, 0x2C, 1); // 0x37C
+            private static Player Matt_Tudor = new Player(90, 124, 29, 46, 44, 79, 56, 62, 50, 366, 19, 25, 5, 5, 6, 7, 11, 9, 6, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7D, 0xE7, 0x74, 0x6A, 0x0C, 0x12, 0x18, 0x27, 1); // 0x37D
+            private static Player Gabriel_Shekinah = new Player(79, 132, 62, 58, 82, 60, 50, 64, 56, 432, 32, 50, 7, 7, 11, 13, 17, 11, 10, 5, 1, 2, 1, 2, 2, 5, 2, 1, 0x67, 0x9E, 0x76, 0xBE, 0x0A, 0x11, 0x18, 0x1F, 1); // 0x37E
+            private static Player Biron_Pendexter = new Player(112, 192, 62, 68, 53, 71, 63, 60, 59, 436, 31, 50, 10, 9, 8, 13, 9, 12, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x69, 0x6C, 0x65, 0xD4, 0x0A, 0x12, 0x1A, 0x26, 2); // 0x37F
+            private static Player Rod_Entwhistle = new Player(107, 136, 66, 58, 56, 68, 39, 79, 60, 426, 33, 35, 11, 9, 9, 11, 8, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB3, 0x7B, 0xAF, 0x7F, 0x0D, 0x10, 0x18, 0x25, 1); // 0x380
+            private static Player Toby_Patient = new Player(195, 152, 44, 57, 55, 60, 71, 32, 58, 377, 67, 42, 14, 10, 8, 8, 17, 6, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0x7C, 0x75, 0xCD, 0x05, 0x19, 0x1F, 0x25, 1); // 0x381
+            private static Player Glen_Garry = new Player(118, 126, 48, 51, 44, 44, 51, 48, 40, 326, 36, 44, 10, 8, 7, 10, 7, 10, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x72, 0x68, 0xD5, 0x89, 0x0E, 0x19, 0x23, 0x2C, 2); // 0x382
+            private static Player Bill_Yards = new Player(129, 108, 61, 55, 47, 46, 44, 57, 60, 370, 44, 24, 16, 11, 8, 8, 7, 9, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x9E, 0x86, 0x71, 0x7E, 0x0A, 0x0F, 0x16, 0x22, 1); // 0x383
+            private static Player Kay_Acker = new Player(182, 144, 58, 71, 48, 60, 62, 74, 60, 433, 56, 47, 9, 9, 11, 17, 11, 17, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x94, 0x9B, 0x65, 0xC9, 0x0C, 0x20, 0x25, 0x2E, 3); // 0x384
+            private static Player Django_Keyes = new Player(85, 198, 43, 76, 46, 76, 42, 38, 41, 362, 18, 23, 10, 5, 9, 6, 11, 5, 8, 2, 2, 2, 2, 2, 4, 2, 2, 2, 0xAA, 0xA5, 0x7E, 0xA7, 0x09, 0x13, 0x1E, 0x26, 1); // 0x385
+            private static Player John_Demi = new Player(167, 148, 59, 62, 60, 71, 62, 60, 57, 431, 64, 70, 14, 17, 13, 13, 16, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x85, 0x98, 0x65, 0x9B, 0x0A, 0x0F, 0x17, 0x22, 2); // 0x386
+            private static Player Sage_Wisdom = new Player(83, 146, 49, 63, 60, 56, 64, 52, 59, 403, 19, 48, 12, 11, 11, 9, 19, 14, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7A, 0xD3, 0x7F, 0x74, 0x0E, 0x1A, 0x1E, 0x25, 1); // 0x387
+            private static Player Nick_Washing = new Player(193, 152, 54, 69, 48, 67, 53, 64, 60, 415, 61, 57, 10, 10, 11, 14, 11, 14, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x88, 0xD6, 0x7E, 0xC2, 0x0C, 0x13, 0x21, 0x2B, 1); // 0x388
+            private static Player Steve_Pinner = new Player(96, 130, 43, 52, 61, 62, 61, 52, 61, 392, 18, 35, 12, 9, 11, 11, 20, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0xAD, 0x81, 0xB5, 0x0D, 0x1D, 0x25, 0x2D, 3); // 0x389
+            private static Player Vance_Bookings = new Player(99, 156, 49, 33, 39, 55, 66, 76, 56, 374, 33, 43, 8, 9, 4, 8, 16, 19, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xB0, 0xAC, 0x8A, 0x9F, 0x0E, 0x1D, 0x22, 0x28, 1); // 0x38A
+            private static Player Bud_Dahman = new Player(118, 100, 54, 56, 51, 48, 43, 59, 54, 365, 36, 34, 15, 11, 11, 9, 8, 9, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xBF, 0x88, 0xC0, 0xC8, 0x0A, 0x12, 0x1E, 0x37, 1); // 0x38B
+            private static Player Reagan_Boneman = new Player(158, 154, 54, 57, 54, 63, 58, 63, 60, 409, 57, 55, 11, 11, 10, 12, 10, 12, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0x76, 0xD4, 0x8E, 0x05, 0x1B, 0x26, 0x2A, 2); // 0x38C
+            private static Player Erhard_Blower = new Player(173, 138, 54, 60, 62, 55, 54, 56, 52, 393, 42, 47, 10, 11, 12, 12, 13, 11, 11, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0xC0, 0xE7, 0x84, 0xC8, 0x14, 0x24, 0x30, 0x3C, 2); // 0x38D
+            private static Player Jack_Tradesman = new Player(145, 136, 59, 54, 61, 60, 56, 61, 61, 412, 54, 76, 17, 17, 15, 15, 17, 17, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xC4, 0xD3, 0xE8, 0x70, 0x0F, 0x14, 0x1B, 0x20, 1); // 0x38E
+            private static Player Rufus_Judge = new Player(165, 134, 52, 58, 52, 61, 52, 52, 63, 390, 26, 28, 7, 5, 6, 7, 4, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0xC1, 0x9B, 0x65, 0x12, 0x18, 0x23, 0x28, 3); // 0x38F
+            private static Player Ace_Fettick = new Player(121, 176, 42, 44, 49, 69, 43, 40, 61, 348, 42, 51, 13, 12, 11, 11, 12, 12, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA3, 0xE8, 0xAC, 0x89, 0x12, 0x18, 0x21, 0x2C, 1); // 0x390
+            private static Player Lance_Lotts = new Player(121, 142, 62, 56, 53, 59, 63, 61, 62, 416, 31, 50, 14, 11, 12, 16, 8, 15, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0xAB, 0xB5, 0x89, 0x08, 0x10, 0x1E, 0x26, 1); // 0x391
+            private static Player Attley_Hightable = new Player(162, 164, 46, 62, 69, 48, 55, 59, 57, 396, 39, 88, 9, 8, 18, 8, 11, 7, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA1, 0xB2, 0x7F, 0x76, 0x0A, 0x1A, 0x23, 0x28, 2); // 0x392
+            private static Player Jim_Nastick = new Player(110, 182, 60, 61, 55, 64, 55, 59, 59, 413, 43, 42, 8, 11, 9, 16, 11, 13, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x88, 0xD6, 0x87, 0x6E, 0x08, 0x0F, 0x13, 0x1A, 1); // 0x393
+            private static Player Theo_Riser = new Player(140, 126, 42, 60, 60, 64, 43, 44, 48, 361, 42, 50, 12, 14, 10, 13, 12, 12, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0x85, 0x76, 0x84, 0x0A, 0x13, 0x1C, 0x27, 1); // 0x394
+            private static Player Weldon_Wrought = new Player(165, 170, 41, 55, 62, 42, 62, 55, 58, 375, 37, 61, 10, 7, 15, 11, 10, 9, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7B, 0x77, 0xE7, 0x8A, 0x07, 0x12, 0x17, 0x1E, 2); // 0x395
+            private static Player Seymour_Senary = new Player(83, 144, 45, 55, 52, 56, 71, 62, 59, 400, 32, 47, 8, 9, 9, 9, 10, 13, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9B, 0x65, 0x94, 0x87, 0x15, 0x1A, 0x1E, 0x20, 1); // 0x396
+            private static Player Finn_Carper = new Player(129, 112, 62, 52, 49, 60, 42, 63, 57, 385, 30, 21, 13, 11, 10, 17, 9, 10, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xB0, 0x83, 0xD3, 0xA7, 0x10, 0x15, 0x1C, 0x22, 2); // 0x397
+            private static Player Herc_Bigsby = new Player(118, 154, 56, 62, 56, 71, 54, 60, 56, 415, 34, 35, 8, 9, 7, 13, 7, 13, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x78, 0xCD, 0x75, 0x05, 0x1A, 0x1F, 0x27, 1); // 0x398
+            private static Player Bramley_Cox = new Player(158, 158, 64, 62, 54, 71, 61, 52, 60, 424, 57, 55, 13, 14, 11, 11, 12, 14, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6E, 0x87, 0xBF, 0xC0, 0x0E, 0x13, 0x1E, 0x25, 1); // 0x399
+            private static Player Mitch_Hett = new Player(160, 192, 54, 53, 72, 59, 57, 58, 55, 408, 56, 59, 14, 14, 14, 11, 12, 13, 12, 4, 2, 4, 4, 2, 4, 4, 4, 4, 0x9F, 0x88, 0x72, 0xC9, 0x17, 0x1D, 0x22, 0x2B, 3); // 0x39A
+            private static Player Mo_Zarella = new Player(99, 150, 70, 60, 61, 66, 29, 63, 53, 402, 30, 35, 10, 11, 10, 12, 9, 9, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x6F, 0xCD, 0x6A, 0x08, 0x10, 0x1E, 0x21, 1); // 0x39B
+            private static Player Scout_Messenger = new Player(154, 156, 69, 61, 56, 58, 63, 56, 52, 415, 51, 48, 11, 13, 10, 14, 12, 14, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7B, 0x69, 0x76, 0x7F, 0x08, 0x10, 0x1F, 0x28, 2); // 0x39C
+            private static Player Paul_Chucker = new Player(112, 106, 61, 52, 51, 44, 43, 63, 58, 372, 40, 28, 16, 12, 8, 11, 8, 9, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x6D, 0xC2, 0xD6, 0x68, 0x05, 0x17, 0x19, 0x1E, 3); // 0x39D
+            private static Player Andy_Wallpole = new Player(81, 154, 61, 61, 62, 54, 56, 67, 56, 417, 31, 34, 17, 11, 14, 15, 9, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x86, 0x71, 0xC6, 0x70, 0x10, 0x1E, 0x25, 0x28, 1); // 0x39E
+            private static Player Solomon_Justice = new Player(145, 148, 62, 60, 53, 53, 59, 62, 56, 405, 68, 62, 15, 16, 13, 16, 14, 17, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0x77, 0x83, 0x6B, 0x08, 0x10, 0x17, 0x1F, 3); // 0x39F
+            private static Player Mark_Tinney = new Player(149, 136, 60, 58, 56, 53, 52, 53, 60, 392, 55, 68, 16, 17, 13, 17, 14, 15, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0x7B, 0x76, 0x7F, 0x07, 0x10, 0x1C, 0x26, 1); // 0x3A0
+            private static Player Archy_Medez = new Player(151, 138, 53, 60, 62, 54, 63, 60, 58, 410, 55, 68, 16, 15, 15, 17, 17, 13, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA4, 0xC1, 0x95, 0xAD, 0x0A, 0x17, 0x21, 0x26, 2); // 0x3A1
+            private static Player Jay_Pan = new Player(143, 115, 64, 79, 48, 52, 36, 52, 77, 408, 58, 74, 16, 16, 15, 16, 5, 16, 20, 5, 5, 1, 2, 2, 1, 5, 5, 2, 0x82, 0x7C, 0xB1, 0x6D, 0x07, 0x1A, 0x2C, 0x32, 1); // 0x3A2
+            private static Player Jonah_Troutman = new Player(151, 158, 47, 59, 68, 48, 55, 57, 58, 392, 33, 63, 8, 7, 14, 11, 8, 7, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x9A, 0x94, 0x90, 0xC9, 0x09, 0x11, 0x1A, 0x28, 3); // 0x3A3
+            private static Player Carl_Nivor = new Player(101, 154, 48, 52, 58, 52, 67, 64, 56, 397, 27, 38, 8, 8, 11, 10, 13, 14, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xAB, 0xB5, 0x7C, 0x8B, 0x0C, 0x1C, 0x24, 0x46, 1); // 0x3A4
+            private static Player Phil_Occifer = new Player(169, 176, 51, 55, 65, 44, 60, 61, 62, 398, 42, 63, 11, 9, 14, 7, 11, 9, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xD6, 0x6E, 0x87, 0xC0, 0x0A, 0x10, 0x16, 0x21, 1); // 0x3A5
+            private static Player Noah_Gerkin = new Player(123, 124, 75, 49, 48, 49, 44, 40, 43, 348, 32, 50, 7, 8, 11, 9, 7, 7, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAB, 0x86, 0xAC, 0x7E, 0x0C, 0x14, 0x1E, 0x29, 1); // 0x3A6
+            private static Player Colin_Eager = new Player(121, 115, 52, 60, 45, 49, 48, 52, 56, 362, 42, 31, 16, 12, 9, 8, 11, 7, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x97, 0xCA, 0xC9, 0xE7, 0x08, 0x13, 0x24, 0x28, 3); // 0x3A7
+            private static Player Don_Ringo = new Player(121, 102, 50, 48, 77, 47, 43, 48, 39, 352, 46, 59, 11, 12, 12, 14, 13, 13, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB3, 0x85, 0xAE, 0x81, 0x0C, 0x13, 0x1A, 0x22, 1); // 0x3A8
+            private static Player Nick_Crew = new Player(149, 172, 45, 57, 60, 43, 60, 59, 61, 385, 33, 62, 11, 8, 14, 11, 11, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAA, 0xAF, 0x72, 0xB5, 0x0A, 0x17, 0x1E, 0x31, 2); // 0x3A9
+            private static Player Ivor_Parrot = new Player(127, 110, 62, 52, 48, 51, 41, 62, 56, 372, 46, 21, 13, 11, 10, 11, 8, 9, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x72, 0x70, 0xD4, 0x84, 0x12, 0x1D, 0x2B, 0x3C, 2); // 0x3AA
+            private static Player Matthew_Pencil = new Player(107, 115, 34, 41, 43, 50, 53, 51, 44, 316, 21, 21, 8, 7, 4, 4, 10, 9, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x8E, 0x66, 0x6C, 0xC7, 0x17, 0x1C, 0x20, 0x28, 1); // 0x3AB
+            private static Player Ropert_Chapp = new Player(92, 148, 61, 64, 50, 62, 55, 63, 62, 417, 19, 59, 10, 7, 12, 14, 12, 13, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xD3, 0x7A, 0xE8, 0xCD, 0x0F, 0x15, 0x1E, 0x24, 2); // 0x3AC
+            private static Player Hal_LeButt = new Player(158, 192, 41, 52, 68, 44, 59, 63, 60, 387, 38, 61, 9, 8, 13, 7, 9, 11, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA3, 0x67, 0x76, 0xAC, 0x10, 0x16, 0x1F, 0x26, 1); // 0x3AD
+            private static Player Al_Chemmy = new Player(138, 168, 69, 68, 60, 65, 64, 62, 60, 448, 46, 20, 7, 7, 6, 7, 8, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x87, 0x6E, 0xC0, 0x0F, 0x17, 0x1B, 0x23, 1); // 0x3AE
+            private static Player Rob_Zervatory = new Player(173, 154, 68, 52, 58, 57, 62, 63, 52, 412, 74, 34, 13, 7, 14, 14, 10, 20, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x96, 0x69, 0xC7, 0x0A, 0x13, 0x16, 0x20, 1); // 0x3AF
+            private static Player Joe_Stick = new Player(145, 188, 48, 63, 61, 43, 54, 62, 58, 389, 40, 73, 10, 9, 15, 8, 8, 8, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x72, 0x80, 0xD3, 0xE8, 0x10, 0x17, 0x1E, 0x25, 3); // 0x3B0
+            private static Player Nick_Turine = new Player(127, 141, 70, 62, 59, 63, 44, 64, 53, 415, 34, 35, 11, 8, 8, 14, 7, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x78, 0x7C, 0xE6, 0x05, 0x12, 0x1D, 0x2D, 1); // 0x3B1
+            private static Player Marc_O_Lepsy = new Player(127, 136, 68, 61, 58, 60, 57, 62, 57, 423, 33, 37, 16, 9, 13, 13, 9, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x88, 0xD6, 0x81, 0x70, 0x0F, 0x14, 0x1B, 0x22, 3); // 0x3B2
+            private static Player Jim_Makegood = new Player(105, 154, 42, 52, 62, 57, 64, 70, 60, 407, 32, 40, 9, 10, 9, 8, 15, 13, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xC4, 0x7A, 0xE8, 0xC9, 0x14, 0x17, 0x1B, 0x25, 1); // 0x3B3
+            private static Player Vin_Spinner = new Player(127, 198, 46, 29, 39, 59, 68, 60, 60, 361, 67, 104, 11, 9, 7, 15, 15, 15, 17, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x9A, 0x98, 0x80, 0xC9, 0x0B, 0x11, 0x15, 0x26, 1); // 0x3B4
+            private static Player Grew_Driver = new Player(165, 172, 67, 64, 64, 64, 68, 64, 64, 455, 19, 36, 5, 5, 5, 4, 6, 8, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x6C, 0xBE, 0x65, 0x8E, 0x11, 0x1A, 0x1E, 0x2F, 1); // 0x3B5
+            private static Player Ed_Dupee = new Player(116, 136, 40, 28, 38, 53, 68, 60, 60, 347, 40, 50, 7, 11, 5, 11, 14, 14, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x6E, 0x87, 0xC0, 0x88, 0x0C, 0x16, 0x1A, 0x1E, 3); // 0x3B6
+            private static Player Hank_Shortman = new Player(165, 152, 47, 52, 74, 43, 52, 61, 52, 381, 33, 51, 9, 12, 14, 8, 10, 11, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x67, 0x95, 0x65, 0x9B, 0x0C, 0x1B, 0x20, 0x28, 2); // 0x3B7
+            private static Player Aaron_Peacy = new Player(77, 156, 42, 54, 56, 59, 71, 52, 52, 386, 28, 35, 11, 11, 11, 9, 15, 12, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x86, 0xA5, 0xA7, 0x81, 0x10, 0x18, 0x25, 0x2C, 2); // 0x3B8
+            private static Player Harvey_Sweats = new Player(96, 130, 66, 61, 60, 68, 35, 60, 54, 404, 36, 48, 7, 8, 8, 11, 10, 9, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x9A, 0x94, 0x90, 0x9B, 0x08, 0x13, 0x1E, 0x22, 1); // 0x3B9
+            private static Player Harry_Overton = new Player(77, 130, 52, 68, 44, 68, 62, 60, 56, 410, 33, 58, 7, 8, 12, 14, 13, 14, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA1, 0xAE, 0x7F, 0xB2, 0x0D, 0x1A, 0x22, 0x28, 2); // 0x3BA
+            private static Player Archie_Tate = new Player(118, 144, 40, 28, 31, 52, 71, 53, 60, 335, 33, 51, 8, 11, 4, 8, 16, 11, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7A, 0xA3, 0x8A, 0xAC, 0x08, 0x12, 0x1A, 0x22, 1); // 0x3BB
+            private static Player Neville_List = new Player(77, 178, 40, 57, 55, 52, 74, 70, 52, 400, 31, 38, 9, 11, 7, 9, 16, 18, 8, 5, 5, 1, 1, 1, 1, 2, 2, 1, 0xC4, 0xC6, 0x85, 0x7F, 0x12, 0x1E, 0x20, 0x27, 3); // 0x3BC
+            private static Player Lee_Dorr = new Player(114, 120, 48, 44, 42, 42, 44, 47, 48, 315, 42, 44, 11, 7, 7, 7, 10, 9, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0xAA, 0x83, 0xB5, 0x06, 0x0D, 0x17, 0x21, 3); // 0x3BD
+            private static Player Sam_Which = new Player(92, 138, 69, 63, 60, 62, 56, 60, 56, 426, 45, 34, 17, 9, 10, 15, 8, 9, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB3, 0xAD, 0x85, 0xB2, 0x0C, 0x1B, 0x1E, 0x2A, 2); // 0x3BE
+            private static Player Dwight_Self = new Player(105, 152, 65, 52, 54, 53, 56, 70, 56, 406, 32, 34, 14, 10, 14, 14, 8, 9, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xBF, 0xD6, 0xC0, 0x68, 0x0F, 0x14, 0x20, 0x25, 3); // 0x3BF
+            private static Player Shep_Shank = new Player(96, 146, 48, 55, 61, 53, 62, 55, 61, 395, 18, 46, 14, 7, 9, 7, 15, 10, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xCA, 0x97, 0x95, 0xC1, 0x10, 0x17, 0x1E, 0x23, 1); // 0x3C0
+            private static Player Dylan_Swan = new Player(134, 128, 44, 40, 40, 43, 49, 41, 47, 304, 37, 53, 9, 9, 7, 7, 9, 10, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x92, 0x9C, 0x96, 0x9D, 0x0C, 0x13, 0x17, 0x1F, 2); // 0x3C1
+            private static Player Theo_Bernoulli = new Player(103, 148, 60, 70, 51, 68, 56, 70, 55, 430, 34, 55, 7, 8, 11, 17, 14, 16, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6D, 0xD6, 0x68, 0x9B, 0x06, 0x12, 0x1D, 0x28, 2); // 0x3C2
+            private static Player Sul_Tarner = new Player(125, 192, 60, 60, 57, 65, 52, 54, 54, 402, 38, 53, 7, 7, 11, 14, 8, 11, 11, 1, 2, 1, 5, 1, 5, 1, 1, 1, 0x67, 0x74, 0x76, 0xC9, 0x07, 0x15, 0x1E, 0x29, 3); // 0x3C3
+            private static Player Silas_Scrooge = new Player(176, 164, 70, 73, 68, 65, 64, 67, 60, 467, 76, 87, 17, 19, 18, 17, 19, 18, 17, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0x83, 0xD3, 0x8A, 0x09, 0x10, 0x17, 0x23, 1); // 0x3C4
+            private static Player Mario_Nette = new Player(127, 110, 43, 45, 47, 48, 48, 44, 42, 317, 31, 35, 7, 11, 11, 10, 10, 7, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6E, 0x87, 0xC0, 0x6D, 0x0C, 0x1A, 0x1F, 0x21, 2); // 0x3C5
+            private static Player Telly_Fonbocks = new Player(154, 136, 62, 54, 60, 53, 59, 52, 52, 392, 57, 65, 15, 14, 17, 17, 13, 15, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xD3, 0x71, 0x73, 0x8F, 0x0D, 0x12, 0x20, 0x2E, 1); // 0x3C6
+            private static Player Bones_Size = new Player(99, 142, 45, 55, 61, 59, 74, 60, 54, 408, 31, 42, 12, 9, 11, 10, 13, 11, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xE8, 0x89, 0xBF, 0xD6, 0x14, 0x1C, 0x1F, 0x28, 1); // 0x3C7
+            private static Player Frank_Koshar = new Player(96, 156, 54, 61, 40, 64, 58, 67, 56, 400, 26, 61, 9, 7, 13, 16, 11, 13, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xBE, 0x9B, 0x65, 0xE8, 0x13, 0x1B, 0x21, 0x2A, 3); // 0x3C8
+            private static Player Keifer_Tiliser = new Player(129, 160, 63, 60, 62, 64, 62, 63, 53, 427, 36, 34, 9, 8, 11, 17, 11, 10, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0x6C, 0x70, 0x81, 0x0C, 0x17, 0x1F, 0x2F, 1); // 0x3C9
+            private static Player Jak_Hammerslam = new Player(88, 158, 43, 59, 52, 63, 66, 64, 60, 407, 18, 36, 8, 11, 10, 9, 13, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7A, 0x87, 0x83, 0xCD, 0x10, 0x15, 0x1A, 0x1E, 3); // 0x3CA
+            private static Player Rob_Freeby = new Player(195, 156, 65, 63, 55, 67, 28, 60, 56, 394, 74, 51, 9, 11, 10, 14, 10, 14, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0xD3, 0xCD, 0x78, 0x05, 0x12, 0x18, 0x1E, 1); // 0x3CB
+            private static Player Chris_Talise = new Player(116, 132, 41, 34, 32, 59, 68, 60, 57, 351, 43, 36, 9, 8, 8, 9, 17, 13, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x9F, 0x6C, 0x7F, 0xD4, 0x15, 0x19, 0x23, 0x2B, 1); // 0x3CC
+            private static Player Derek_Longhand = new Player(140, 162, 63, 68, 53, 68, 62, 58, 61, 433, 40, 48, 9, 11, 8, 14, 11, 14, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x94, 0x7B, 0xC9, 0xD4, 0x0E, 0x13, 0x1C, 0x3A, 1); // 0x3CD
+            private static Player Manny_Gerry = new Player(165, 136, 43, 57, 72, 46, 57, 60, 52, 387, 34, 36, 11, 12, 19, 10, 9, 10, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xCA, 0xC2, 0x80, 0x6D, 0x0F, 0x1A, 0x1E, 0x21, 2); // 0x3CE
+            private static Player Des_Count = new Player(112, 150, 62, 60, 63, 71, 63, 60, 54, 433, 43, 40, 7, 9, 9, 14, 8, 12, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x68, 0x86, 0xC6, 0x05, 0x11, 0x1D, 0x29, 1); // 0x3CF
+            private static Player Rocky_Rollans = new Player(125, 162, 62, 71, 61, 68, 63, 63, 56, 444, 39, 62, 8, 8, 11, 16, 10, 14, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6D, 0x80, 0x70, 0x89, 0x08, 0x13, 0x1C, 0x24, 1); // 0x3D0
+            private static Player Shaun_Staid = new Player(101, 154, 43, 61, 53, 61, 79, 77, 56, 430, 20, 53, 8, 7, 10, 10, 14, 13, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6D, 0xD6, 0xAF, 0x68, 0x07, 0x0E, 0x15, 0x1E, 2); // 0x3D1
+            private static Player Heath_Freke = new Player(101, 136, 64, 56, 63, 52, 56, 61, 60, 412, 32, 38, 15, 11, 12, 17, 10, 9, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA3, 0x7A, 0xAC, 0x7F, 0x0D, 0x14, 0x1D, 0x26, 1); // 0x3D2
+            private static Player Olly_Gammy = new Player(191, 108, 51, 68, 50, 44, 48, 69, 66, 396, 43, 51, 9, 12, 11, 9, 8, 12, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0xD3, 0x7E, 0xC5, 0x08, 0x10, 0x23, 0x32, 1); // 0x3D3
+            private static Player Aidan_Model = new Player(140, 106, 64, 54, 40, 49, 44, 61, 60, 372, 39, 36, 18, 10, 11, 10, 9, 9, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x9C, 0x8E, 0xC7, 0x6B, 0x10, 0x1A, 0x1F, 0x2B, 3); // 0x3D4
+            private static Player Mick_Thatcher = new Player(156, 198, 44, 59, 72, 44, 54, 52, 61, 386, 31, 40, 9, 12, 15, 10, 8, 10, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAB, 0x86, 0xAF, 0xB1, 0x0D, 0x14, 0x21, 0x37, 1); // 0x3D5
+            private static Player Owen_Greenfield = new Player(187, 156, 60, 67, 72, 64, 63, 63, 60, 449, 55, 80, 17, 13, 15, 17, 14, 16, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xD6, 0x68, 0xD5, 0x73, 0x10, 0x1A, 0x21, 0x28, 1); // 0x3D6
+            private static Player Charlie_Krelborn = new Player(162, 158, 41, 59, 65, 41, 61, 55, 62, 384, 42, 80, 11, 7, 16, 11, 11, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xC0, 0x88, 0x87, 0xD6, 0x17, 0x19, 0x1B, 0x1E, 1); // 0x3D7
+            private static Player Rory_Circles = new Player(116, 132, 45, 37, 36, 55, 62, 63, 63, 361, 32, 46, 10, 9, 6, 7, 13, 12, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x72, 0x70, 0xD4, 0x82, 0x0F, 0x1A, 0x1F, 0x21, 3); // 0x3D8
+            private static Player Barry_Sterr = new Player(169, 138, 41, 63, 61, 48, 53, 62, 61, 389, 36, 35, 9, 11, 16, 9, 8, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0x88, 0x8A, 0xD4, 0x0C, 0x13, 0x1F, 0x28, 1); // 0x3D9
+            private static Player John_Baird = new Player(116, 192, 56, 60, 54, 65, 57, 60, 60, 412, 32, 46, 9, 9, 7, 15, 9, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x71, 0x86, 0x65, 0xE8, 0x11, 0x13, 0x1A, 0x21, 2); // 0x3DA
+            private static Player Tyson_Moodey = new Player(92, 146, 40, 54, 61, 55, 77, 61, 61, 409, 21, 53, 14, 9, 8, 9, 17, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA3, 0x7E, 0xAC, 0x89, 0x13, 0x18, 0x21, 0x31, 1); // 0x3DB
+            private static Player Al_Istatin = new Player(182, 140, 61, 57, 60, 59, 56, 65, 59, 417, 61, 44, 14, 10, 12, 13, 10, 14, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x70, 0x94, 0x7E, 0xC4, 0x15, 0x18, 0x20, 0x28, 1); // 0x3DC
+            private static Player Paddy_Popper = new Player(96, 130, 74, 61, 63, 52, 53, 55, 57, 415, 24, 34, 10, 10, 10, 11, 16, 12, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6D, 0xD6, 0x68, 0xC2, 0x08, 0x10, 0x24, 0x28, 2); // 0x3DD
+            private static Player Dwayne_Woo = new Player(169, 130, 63, 63, 54, 60, 56, 77, 63, 436, 49, 50, 13, 10, 14, 14, 7, 17, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x66, 0x7A, 0x7D, 0xC9, 0x07, 0x0C, 0x12, 0x1F, 1); // 0x3DE
+            private static Player Pete_Sadow = new Player(103, 146, 40, 62, 52, 61, 76, 72, 60, 423, 26, 51, 9, 10, 10, 7, 16, 11, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x69, 0xD3, 0x6B, 0x8F, 0x07, 0x11, 0x1C, 0x2B, 3); // 0x3DF
+            private static Player Troy_Glodight = new Player(154, 150, 60, 60, 60, 79, 62, 56, 52, 429, 54, 53, 14, 12, 12, 17, 11, 10, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x87, 0x7E, 0x70, 0x6A, 0x0C, 0x1A, 0x22, 0x2C, 1); // 0x3E0
+            private static Player Chris_Hypogee = new Player(167, 154, 46, 60, 62, 48, 56, 52, 59, 383, 32, 43, 10, 14, 14, 10, 10, 11, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0x72, 0x75, 0xCD, 0x09, 0x10, 0x1E, 0x2A, 2); // 0x3E1
+            private static Player Connor_Bation = new Player(140, 124, 55, 59, 45, 41, 44, 56, 61, 361, 46, 35, 17, 14, 8, 8, 8, 8, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x92, 0x9F, 0x8F, 0xC9, 0x0D, 0x1B, 0x23, 0x28, 1); // 0x3E2
+            private static Player Rhys_Masher = new Player(140, 102, 58, 52, 49, 48, 45, 55, 61, 368, 34, 36, 17, 10, 10, 9, 7, 9, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x6D, 0x6C, 0x70, 0x76, 0x07, 0x0F, 0x1D, 0x24, 1); // 0x3E3
+            private static Player Charlie_Shearing = new Player(165, 158, 59, 61, 52, 55, 62, 60, 56, 405, 34, 35, 5, 6, 4, 6, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x85, 0xE7, 0xBE, 0xC7, 0x11, 0x18, 0x1F, 0x28, 3); // 0x3E4
+            private static Player Al_Mannack = new Player(103, 156, 40, 56, 63, 63, 63, 60, 55, 400, 25, 47, 12, 9, 11, 11, 16, 11, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6C, 0x8E, 0x84, 0xC8, 0x13, 0x1B, 0x22, 0x3B, 2); // 0x3E5
+            private static Player Nathan_Weyton = new Player(125, 132, 45, 33, 33, 54, 64, 63, 60, 352, 33, 48, 9, 8, 5, 9, 17, 12, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7B, 0x85, 0x7F, 0x76, 0x07, 0x0E, 0x1C, 0x22, 1); // 0x3E6
+            private static Player Simon_Stryker = new Player(151, 160, 45, 60, 61, 46, 56, 59, 60, 387, 36, 62, 9, 8, 17, 9, 11, 10, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAA, 0x83, 0x8A, 0xB1, 0x0C, 0x19, 0x28, 0x41, 2); // 0x3E7
+            private static Player Will_Bayeux = new Player(151, 136, 61, 57, 55, 62, 58, 55, 52, 400, 45, 62, 11, 10, 10, 13, 10, 12, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xB3, 0xE7, 0x7F, 0xB2, 0x0D, 0x14, 0x1C, 0x1F, 1); // 0x3E8
+
+            private static Player Thomas_Ediston = new Player(127, 150, 59, 76, 60, 68, 56, 53, 75, 447, 40, 48, 9, 7, 11, 14, 9, 12, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6F, 0x75, 0x7E, 0xC2, 0x12, 0x1A, 0x20, 0x27, 1); // 0x3E9
+            private static Player Aubry_Dient = new Player(107, 150, 63, 61, 55, 64, 35, 69, 60, 407, 43, 48, 9, 7, 9, 12, 10, 8, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0xA3, 0x85, 0xAC, 0x0C, 0x19, 0x1E, 0x2E, 1); // 0x3EA
+            private static Player Les_Tarrant = new Player(123, 118, 52, 63, 40, 44, 47, 53, 56, 355, 34, 29, 13, 14, 11, 7, 9, 9, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xB3, 0xAD, 0x89, 0xB5, 0x0D, 0x1A, 0x20, 0x2B, 1); // 0x3EB
+            private static Player Sim_Cope = new Player(79, 134, 42, 56, 63, 56, 68, 60, 60, 405, 33, 44, 13, 9, 11, 11, 15, 14, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6E, 0x87, 0x81, 0xC0, 0x0D, 0x1A, 0x22, 0x2C, 3); // 0x3EC
+            private static Player Cal_O_Rees = new Player(107, 154, 49, 62, 56, 52, 67, 63, 52, 401, 32, 34, 14, 8, 7, 10, 16, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x83, 0x86, 0x71, 0x8A, 0x12, 0x1A, 0x20, 0x28, 1); // 0x3ED
+            private static Player Ringo_Spinning = new Player(94, 158, 60, 62, 44, 65, 52, 62, 60, 405, 18, 55, 10, 8, 10, 14, 11, 14, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xD6, 0xB2, 0x68, 0xA7, 0x10, 0x1B, 0x21, 0x32, 3); // 0x3EE
+            private static Player Dec_O_Rator = new Player(134, 106, 55, 62, 50, 45, 49, 54, 59, 374, 44, 20, 15, 10, 11, 11, 11, 8, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x98, 0xCA, 0xCD, 0xC5, 0x0E, 0x15, 0x20, 0x4D, 1); // 0x3EF
+            private static Player Pat_Shinko = new Player(110, 152, 43, 37, 28, 61, 76, 56, 59, 360, 38, 50, 11, 9, 4, 9, 15, 14, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7B, 0x85, 0x6C, 0xD5, 0x08, 0x11, 0x1D, 0x28, 2); // 0x3F0
+            private static Player Ryan_Ferry = new Player(143, 113, 58, 58, 51, 46, 44, 60, 61, 378, 46, 25, 13, 10, 7, 9, 10, 11, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x9C, 0x9D, 0xC7, 0x11, 0x1A, 0x20, 0x28, 1); // 0x3F1
+            private static Player Les_Belisha = new Player(121, 176, 59, 68, 54, 65, 53, 62, 55, 416, 45, 89, 9, 8, 9, 13, 7, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x92, 0x7A, 0x8A, 0xC7, 0x0E, 0x14, 0x1D, 0x22, 1); // 0x3F2
+            private static Player Tim_Crochett = new Player(125, 186, 52, 62, 57, 70, 62, 62, 53, 418, 46, 39, 8, 9, 9, 17, 9, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x80, 0xE8, 0x89, 0x9B, 0x11, 0x1A, 0x22, 0x29, 1); // 0x3F3
+            private static Player Hiroshi_Dot = new Player(187, 154, 58, 70, 40, 67, 53, 68, 53, 409, 26, 53, 8, 9, 13, 16, 14, 6, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x66, 0x68, 0xC2, 0xC9, 0x0A, 0x17, 0x1F, 0x28, 2); // 0x3F4
+            private static Player Jack_Nimble = new Player(167, 142, 50, 56, 61, 43, 55, 56, 62, 383, 31, 42, 10, 10, 16, 8, 8, 9, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7E, 0x72, 0x6A, 0x89, 0x16, 0x1A, 0x21, 0x2C, 1); // 0x3F5
+            private static Player Patch_Upright = new Player(143, 156, 51, 62, 69, 44, 60, 52, 57, 395, 38, 76, 9, 9, 17, 8, 9, 11, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x86, 0x71, 0x9D, 0x9F, 0x12, 0x1A, 0x1E, 0x2A, 3); // 0x3F6
+            private static Player Joe_Nalist = new Player(191, 142, 63, 53, 55, 68, 38, 68, 58, 403, 43, 48, 8, 8, 8, 13, 11, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB3, 0xA5, 0x7E, 0x70, 0x0A, 0x15, 0x21, 0x2A, 2); // 0x3F7
+            private static Player Esau_Fagus = new Player(85, 156, 46, 52, 46, 58, 41, 43, 40, 326, 27, 31, 6, 5, 6, 13, 6, 9, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6E, 0xBF, 0xC0, 0xC8, 0x0F, 0x17, 0x1F, 0x50, 2); // 0x3F8
+            private static Player Braden_Bakewell = new Player(90, 125, 76, 33, 39, 48, 70, 40, 44, 350, 28, 20, 15, 7, 7, 6, 13, 10, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x92, 0x96, 0x9D, 0x8E, 0x0C, 0x1A, 0x21, 0x28, 3); // 0x3F9
+            private static Player Virgil_Lantis = new Player(79, 104, 72, 58, 36, 62, 48, 55, 40, 371, 20, 36, 5, 8, 11, 13, 10, 13, 6, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xCA, 0xC2, 0x70, 0xD5, 0x11, 0x1E, 0x24, 0x2F, 2); // 0x3FA
+            private static Player Norm_Drilling = new Player(158, 134, 57, 53, 54, 58, 60, 57, 54, 393, 69, 68, 14, 14, 15, 16, 16, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0x85, 0xCD, 0xC7, 0x07, 0x13, 0x19, 0x21, 1); // 0x3FB
+            private static Player Kurt_Tweedy = new Player(94, 138, 53, 62, 44, 65, 60, 71, 52, 407, 28, 54, 10, 11, 11, 13, 12, 15, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x97, 0x82, 0x72, 0x7C, 0x0A, 0x10, 0x17, 0x1F, 1); // 0x3FC
+            private static Player Solomon_Osaka = new Player(143, 158, 47, 59, 68, 42, 54, 54, 55, 379, 32, 73, 7, 7, 13, 11, 10, 9, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x9C, 0x6D, 0x8E, 0x73, 0x12, 0x16, 0x22, 0x37, 3); // 0x3FD
+            private static Player Pike_Tucker = new Player(134, 154, 44, 34, 28, 61, 64, 56, 55, 342, 43, 43, 11, 10, 7, 11, 14, 14, 7, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xBF, 0x80, 0x9B, 0x65, 0x0D, 0x15, 0x21, 0x28, 2); // 0x3FE
+            private static Player Gary_Osoto = new Player(103, 142, 48, 60, 57, 56, 71, 61, 53, 406, 25, 46, 13, 8, 8, 11, 14, 13, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7A, 0x72, 0x78, 0x75, 0x0F, 0x17, 0x21, 0x2B, 1); // 0x3FF
+            private static Player Dec_Orum = new Player(209, 140, 70, 56, 63, 56, 63, 74, 60, 442, 37, 39, 17, 8, 11, 15, 7, 10, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x87, 0xBF, 0xC0, 0x68, 0x10, 0x1C, 0x24, 0x2A, 3); // 0x400
+            private static Player Alan_Carte = new Player(121, 115, 75, 52, 45, 40, 51, 56, 60, 379, 33, 21, 15, 13, 9, 9, 11, 9, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x69, 0xD3, 0x75, 0xCD, 0x12, 0x16, 0x1E, 0x32, 1); // 0x401
+            private static Player Morgan_Iser = new Player(162, 140, 62, 53, 59, 52, 55, 60, 54, 395, 56, 50, 12, 14, 12, 12, 14, 13, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xD6, 0x80, 0x68, 0xC2, 0x0C, 0x15, 0x1E, 0x2A, 2); // 0x402
+            private static Player Ken_Broad = new Player(187, 136, 45, 32, 31, 55, 62, 60, 52, 337, 57, 44, 9, 11, 5, 7, 16, 10, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x6D, 0x72, 0xD3, 0x6A, 0x0C, 0x14, 0x1E, 0x29, 1); // 0x403
+            private static Player Scot_Enguard = new Player(195, 152, 65, 60, 64, 60, 60, 62, 64, 435, 32, 24, 17, 11, 7, 11, 9, 10, 9, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0xE7, 0xC4, 0x72, 0x6D, 0x0F, 0x18, 0x1F, 0x28, 2); // 0x404
+            private static Player Dick_Turbin = new Player(136, 156, 44, 31, 36, 54, 64, 56, 60, 345, 33, 44, 9, 10, 8, 9, 16, 11, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7D, 0x80, 0x65, 0x8A, 0x07, 0x12, 0x1F, 0x27, 1); // 0x405
+            private static Player Benedict_Eggers = new Player(101, 148, 64, 60, 58, 71, 36, 65, 62, 416, 43, 40, 9, 10, 8, 11, 9, 7, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x72, 0x7C, 0xCD, 0x0C, 0x1A, 0x21, 0x28, 2); // 0x406
+            private static Player Beau_Painton = new Player(92, 134, 67, 52, 62, 52, 52, 60, 60, 405, 45, 38, 16, 11, 14, 17, 7, 8, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x74, 0x6B, 0xD5, 0x0F, 0x1D, 0x26, 0x2F, 1); // 0x407
+            private static Player Butch_Pythons = new Player(110, 158, 63, 67, 61, 61, 60, 52, 54, 418, 34, 50, 8, 9, 11, 17, 8, 13, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xAB, 0x7B, 0x72, 0xAC, 0x0C, 0x13, 0x17, 0x28, 3); // 0x408
+            private static Player Sam_Murray = new Player(107, 142, 67, 54, 52, 69, 35, 68, 59, 404, 38, 44, 11, 7, 11, 13, 10, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x81, 0x70, 0x65, 0x9B, 0x17, 0x1F, 0x24, 0x28, 1); // 0x409
+            private static Player Eathan_Ringer = new Player(88, 156, 63, 61, 61, 63, 36, 66, 61, 411, 43, 39, 7, 7, 8, 12, 8, 7, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0xCD, 0x75, 0x7C, 0x05, 0x1E, 0x23, 0x29, 1); // 0x40A
+            private static Player Jack_Lumbar = new Player(189, 150, 58, 60, 51, 64, 52, 72, 55, 412, 20, 55, 11, 11, 14, 16, 12, 15, 7, 5, 1, 1, 5, 1, 5, 1, 1, 1, 0xAD, 0xAF, 0xAE, 0xB2, 0x10, 0x15, 0x1D, 0x26, 3); // 0x40B
+            private static Player Todd_Tempole = new Player(140, 165, 61, 70, 56, 65, 56, 54, 55, 417, 39, 52, 8, 9, 7, 14, 11, 13, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0x85, 0xE7, 0x84, 0x0C, 0x14, 0x1C, 0x2B, 1); // 0x40C
+            private static Player Jacob_Grimley = new Player(138, 194, 69, 58, 44, 51, 44, 62, 62, 390, 31, 25, 5, 11, 9, 10, 11, 9, 9, 1, 5, 5, 1, 1, 1, 1, 1, 1, 0x98, 0x92, 0x95, 0xC9, 0x0C, 0x18, 0x23, 0x29, 1); // 0x40D
+            private static Player John_Coralli = new Player(160, 136, 76, 53, 52, 56, 53, 59, 60, 409, 42, 62, 12, 11, 13, 12, 14, 10, 12, 4, 4, 5, 4, 4, 4, 4, 4, 4, 0xB3, 0x88, 0xAE, 0xA7, 0x0C, 0x14, 0x1E, 0x2B, 3); // 0x40E
+            private static Player Drew_Faxon = new Player(83, 150, 40, 52, 62, 56, 64, 54, 54, 382, 19, 44, 12, 9, 10, 9, 13, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x92, 0x67, 0xC7, 0x76, 0x10, 0x17, 0x1E, 0x25, 1); // 0x40F
+            private static Player Cole_Easteroll = new Player(123, 106, 40, 51, 48, 42, 45, 49, 40, 315, 33, 51, 9, 7, 10, 10, 9, 9, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xCA, 0xC9, 0x68, 0x9B, 0x10, 0x1C, 0x22, 0x28, 1); // 0x410
+            private static Player Cam_Lensman = new Player(158, 174, 41, 56, 66, 46, 52, 56, 52, 369, 31, 61, 8, 10, 16, 11, 8, 11, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xD6, 0x68, 0x94, 0xC0, 0x10, 0x1D, 0x21, 0x24, 1); // 0x411
+            private static Player Tighe_Windsor = new Player(206, 154, 64, 61, 56, 60, 32, 73, 60, 406, 72, 44, 11, 8, 11, 12, 7, 19, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0x6C, 0x75, 0xCD, 0x06, 0x10, 0x1C, 0x28, 1); // 0x412
+            private static Player Phil_Dippedes = new Player(96, 146, 44, 63, 60, 52, 70, 59, 60, 408, 30, 44, 10, 9, 10, 9, 13, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9A, 0x90, 0xC9, 0x65, 0x06, 0x14, 0x1D, 0x22, 2); // 0x413
+            private static Player Lenny_Lakeman = new Player(138, 113, 54, 60, 52, 46, 48, 52, 63, 375, 31, 32, 17, 14, 7, 8, 8, 11, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xAA, 0xA5, 0x83, 0xB5, 0x0A, 0x15, 0x1D, 0x26, 1); // 0x414
+            private static Player Vaughn_DeVille = new Player(125, 129, 55, 62, 55, 55, 61, 66, 59, 413, 33, 43, 8, 7, 8, 8, 12, 11, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6D, 0xD6, 0xBF, 0x7F, 0x05, 0x0F, 0x1A, 0x22, 3); // 0x415
+            private static Player Arthur_Myrddin = new Player(158, 140, 60, 58, 63, 61, 55, 60, 54, 411, 42, 59, 12, 14, 13, 14, 10, 14, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x7A, 0xD3, 0x6B, 0xC7, 0x0D, 0x19, 0x21, 0x28, 1); // 0x416
+            private static Player Guy_Forker = new Player(129, 88, 50, 50, 44, 51, 48, 44, 46, 333, 34, 25, 5, 6, 8, 5, 7, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0x88, 0x78, 0xCD, 0x05, 0x1C, 0x21, 0x28, 1); // 0x417
+            private static Player Bob_Stretcher = new Player(127, 113, 44, 49, 54, 52, 46, 54, 49, 348, 34, 39, 10, 8, 11, 10, 7, 9, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x9A, 0x94, 0xC2, 0x7E, 0x0A, 0x10, 0x1D, 0x21, 2); // 0x418
+            private static Player Spike_Clutcher = new Player(116, 137, 53, 53, 53, 54, 60, 55, 56, 384, 27, 47, 13, 8, 10, 7, 14, 13, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x69, 0xBE, 0x68, 0xC4, 0x0C, 0x15, 0x1F, 0x28, 1); // 0x419
+            private static Player Austin_Tayssus = new Player(154, 132, 47, 56, 69, 47, 58, 63, 57, 397, 30, 42, 7, 12, 16, 8, 8, 10, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xD6, 0x74, 0x65, 0x9B, 0x0F, 0x18, 0x1E, 0x26, 2); // 0x41A
+            private static Player Tom_Stevenson = new Player(127, 132, 52, 56, 60, 60, 66, 59, 52, 405, 28, 48, 12, 11, 11, 9, 15, 10, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x83, 0xD3, 0x76, 0x8A, 0x10, 0x18, 0x1E, 0x26, 1); // 0x41B
+            private static Player Ricky_Charmers = new Player(116, 132, 54, 52, 52, 62, 60, 60, 63, 403, 20, 45, 11, 10, 10, 10, 15, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9A, 0xC6, 0xC2, 0x75, 0x09, 0x17, 0x1F, 0x28, 2); // 0x41C
+            private static Player Max_Hurt = new Player(132, 132, 45, 59, 52, 60, 69, 65, 63, 413, 25, 45, 10, 9, 10, 8, 12, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0x7A, 0xE8, 0xA7, 0x10, 0x17, 0x1E, 0x25, 1); // 0x41D
+            private static Player Dexter_Raleigh = new Player(118, 146, 46, 34, 35, 59, 69, 55, 60, 358, 34, 43, 8, 9, 4, 10, 19, 11, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x83, 0x72, 0x75, 0xCD, 0x12, 0x15, 0x1A, 0x1F, 3); // 0x41E
+            private static Player Pete_Pang = new Player(173, 138, 60, 70, 56, 69, 61, 58, 52, 426, 55, 69, 14, 16, 13, 15, 17, 16, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0xAA, 0xAF, 0xB5, 0x06, 0x0D, 0x1A, 0x22, 1); // 0x41F
+            private static Player Sam_Fitspire = new Player(88, 136, 63, 63, 42, 60, 56, 64, 60, 408, 24, 66, 7, 9, 13, 16, 13, 16, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA3, 0x78, 0x6F, 0xAC, 0x11, 0x1A, 0x21, 0x28, 3); // 0x420
+            private static Player Carter_Nightly = new Player(176, 166, 68, 65, 63, 61, 68, 60, 63, 448, 67, 72, 17, 17, 17, 13, 17, 15, 17, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x67, 0x7D, 0x7F, 0x76, 0x07, 0x0E, 0x1D, 0x22, 1); // 0x421
+            private static Player Daley_Switcher = new Player(132, 176, 61, 66, 63, 63, 59, 60, 56, 428, 46, 43, 8, 9, 7, 15, 8, 11, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x72, 0x85, 0x98, 0xD4, 0x0D, 0x19, 0x1E, 0x26, 1); // 0x422
+            private static Player Dexter_Ambie = new Player(103, 146, 68, 59, 57, 54, 61, 61, 52, 412, 46, 38, 17, 9, 12, 14, 11, 11, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0x67, 0x7F, 0xD4, 0x0A, 0x14, 0x1E, 0x2D, 3); // 0x423
+            private static Player Gill_Able = new Player(211, 140, 68, 52, 60, 60, 59, 76, 60, 435, 43, 38, 15, 8, 12, 16, 8, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0xA3, 0x7A, 0xAC, 0x0A, 0x12, 0x16, 0x22, 1); // 0x424
+            private static Player Drew_Reiner = new Player(165, 168, 66, 71, 70, 66, 62, 68, 63, 466, 43, 54, 12, 12, 10, 11, 11, 10, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x7B, 0xE7, 0x7E, 0xBE, 0x08, 0x11, 0x1E, 0x29, 2); // 0x425
+            private static Player Kevin_Boardman = new Player(145, 130, 41, 60, 75, 42, 56, 61, 62, 397, 30, 44, 9, 12, 15, 11, 11, 9, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAA, 0x85, 0x67, 0xB1, 0x08, 0x12, 0x1B, 0x2D, 1); // 0x426
+            private static Player Andy_Craft = new Player(134, 106, 40, 40, 47, 44, 47, 41, 40, 299, 30, 53, 8, 7, 10, 10, 7, 11, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xBF, 0x6E, 0xC0, 0x65, 0x10, 0x18, 0x1E, 0x25, 2); // 0x427
+            private static Player Julius_Vernon = new Player(140, 184, 77, 45, 44, 76, 39, 51, 48, 380, 44, 40, 11, 9, 10, 7, 4, 8, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB0, 0x69, 0xAD, 0xE8, 0x13, 0x17, 0x1E, 0x29, 1); // 0x428
+            private static Player Robin_Sherwood = new Player(125, 108, 49, 79, 40, 70, 40, 49, 40, 367, 33, 47, 10, 7, 11, 11, 10, 8, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0xD3, 0xC4, 0x73, 0x11, 0x1E, 0x21, 0x28, 1); // 0x429
+            private static Player Ei_King = new Player(101, 148, 71, 55, 56, 56, 60, 68, 70, 436, 42, 50, 17, 9, 11, 17, 11, 7, 14, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0x66, 0x7F, 0x95, 0x09, 0x10, 0x1D, 0x25, 2); // 0x42A
+            private static Player Travis_McClean = new Player(107, 138, 70, 52, 54, 64, 39, 66, 57, 402, 42, 39, 9, 11, 9, 13, 9, 10, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x66, 0x6C, 0x76, 0x09, 0x10, 0x17, 0x22, 3); // 0x42B
+            private static Player Rusty_Spoakes = new Player(138, 154, 40, 36, 33, 61, 68, 62, 54, 354, 38, 46, 11, 9, 6, 8, 20, 14, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xAA, 0xA3, 0xB5, 0x8A, 0x0C, 0x17, 0x21, 0x29, 1); // 0x42C
+            private static Player Clint_Wester = new Player(169, 154, 67, 68, 67, 68, 64, 68, 60, 462, 32, 29, 4, 6, 5, 8, 7, 6, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x92, 0x86, 0x9D, 0x71, 0x0D, 0x1A, 0x1F, 0x28, 3); // 0x42D
+            private static Player Pete_Nokeyo = new Player(83, 144, 42, 54, 52, 55, 73, 54, 59, 389, 31, 46, 14, 9, 9, 9, 15, 10, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x80, 0xD6, 0x68, 0xE8, 0x12, 0x15, 0x1A, 0x27, 1); // 0x42E
+            private static Player Will_Racer = new Player(171, 158, 56, 61, 56, 60, 60, 54, 60, 407, 55, 48, 10, 14, 11, 13, 12, 12, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x97, 0xCA, 0xCD, 0xC5, 0x09, 0x12, 0x1F, 0x3A, 1); // 0x42F
+            private static Player Ollie_Seeker = new Player(112, 133, 71, 60, 52, 58, 52, 63, 62, 418, 42, 40, 17, 7, 14, 17, 8, 8, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x75, 0x78, 0xCD, 0x05, 0x1A, 0x23, 0x2D, 3); // 0x430
+            private static Player Graham_Hush = new Player(127, 184, 56, 65, 60, 63, 58, 58, 54, 414, 31, 53, 7, 11, 9, 15, 9, 12, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x97, 0xCA, 0x69, 0x75, 0x0C, 0x17, 0x1E, 0x27, 2); // 0x431
+            private static Player Ronny_Knowles = new Player(103, 138, 60, 62, 40, 60, 60, 62, 52, 396, 34, 53, 10, 10, 12, 14, 13, 17, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x88, 0x87, 0x81, 0xC0, 0x0F, 0x15, 0x1E, 0x26, 1); // 0x432
+            private static Player Les_Abel = new Player(90, 156, 46, 57, 57, 52, 64, 56, 52, 384, 20, 53, 13, 10, 8, 9, 15, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x92, 0x7A, 0xD3, 0xC7, 0x0C, 0x14, 0x20, 0x27, 3); // 0x433
+            private static Player Reg_Thrift = new Player(94, 146, 45, 56, 54, 63, 77, 53, 60, 408, 25, 42, 10, 11, 9, 9, 14, 10, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0x7D, 0x7E, 0x68, 0x09, 0x12, 0x1D, 0x29, 1); // 0x434
+            private static Player Jools_Iceberg = new Player(158, 132, 48, 52, 65, 48, 56, 57, 54, 380, 33, 48, 9, 12, 16, 11, 9, 9, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x92, 0x9F, 0x74, 0xB2, 0x0C, 0x1C, 0x21, 0x4B, 1); // 0x435
+            private static Player Mark_Brent = new Player(92, 154, 40, 54, 52, 60, 64, 62, 60, 392, 27, 44, 14, 10, 8, 9, 15, 11, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xD6, 0x68, 0xD5, 0x9B, 0x0F, 0x17, 0x20, 0x46, 2); // 0x436
+            private static Player Vern_Ironfist = new Player(195, 136, 44, 63, 61, 56, 67, 71, 52, 414, 21, 48, 10, 9, 9, 8, 10, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x83, 0x92, 0xD3, 0x9D, 0x10, 0x13, 0x17, 0x1C, 1); // 0x437
+            private static Player Rob_Burnsides = new Player(195, 150, 46, 55, 61, 62, 69, 63, 54, 410, 67, 47, 7, 7, 9, 9, 16, 16, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x99, 0x7D, 0x89, 0xC7, 0x0A, 0x12, 0x1E, 0x50, 2); // 0x438
+            private static Player Ace_Bragg = new Player(189, 152, 67, 68, 65, 68, 66, 67, 60, 461, 69, 80, 15, 15, 15, 16, 15, 14, 17, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x97, 0x7D, 0x7F, 0xC9, 0x09, 0x0F, 0x1A, 0x21, 1); // 0x439
+            private static Player Claude_Snap = new Player(195, 154, 66, 62, 61, 64, 67, 68, 68, 456, 68, 61, 15, 14, 15, 13, 13, 14, 17, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x69, 0x9F, 0x8E, 0x65, 0x07, 0x17, 0x21, 0x24, 3); // 0x43A
+            private static Player Paul_Rush = new Player(176, 156, 60, 71, 60, 68, 79, 62, 67, 467, 49, 63, 14, 12, 11, 13, 20, 14, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x67, 0x74, 0x81, 0x9B, 0x05, 0x18, 0x1E, 0x26, 3); // 0x43B
+            private static Player Guile_Crocket = new Player(158, 172, 63, 47, 44, 61, 72, 71, 66, 424, 54, 60, 10, 12, 4, 14, 20, 15, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x67, 0xC1, 0x95, 0x73, 0x08, 0x12, 0x1B, 0x27, 2); // 0x43C
+            private static Player Carey_Bean = new Player(160, 174, 60, 49, 40, 69, 68, 61, 60, 407, 55, 57, 11, 14, 4, 12, 19, 14, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x9A, 0x74, 0xC2, 0xD5, 0x08, 0x10, 0x1C, 0x23, 2); // 0x43D
+            private static Player John_Maggie = new Player(121, 76, 76, 79, 61, 72, 31, 79, 72, 470, 30, 38, 19, 16, 14, 19, 7, 16, 17, 5, 5, 2, 2, 5, 2, 5, 2, 2, 0x82, 0xAB, 0x7C, 0xA7, 0x03, 0x0A, 0x1E, 0x2E, 2); // 0x43E
+            private static Player Chops_Denton = new Player(191, 132, 79, 76, 46, 70, 56, 76, 53, 456, 81, 47, 20, 16, 7, 17, 9, 18, 16, 2, 5, 2, 2, 5, 2, 5, 2, 2, 0x6D, 0x83, 0xCD, 0x89, 0x07, 0x10, 0x19, 0x21, 1); // 0x43F
+            private static Player Bobby_Yellow = new Player(129, 100, 47, 44, 46, 52, 48, 49, 44, 330, 57, 56, 11, 12, 14, 10, 13, 12, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA1, 0xAE, 0xB2, 0x84, 0x09, 0x12, 0x1B, 0x25, 3); // 0x440
+            private static Player Ace_Breaker = new Player(112, 170, 57, 60, 67, 71, 71, 68, 70, 464, 44, 61, 13, 12, 14, 12, 20, 16, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7D, 0x72, 0x7F, 0xD4, 0x08, 0x0F, 0x1A, 0x23, 1); // 0x441
+            private static Player Percy_Verence = new Player(127, 173, 52, 62, 64, 68, 68, 72, 60, 446, 20, 60, 10, 10, 12, 11, 17, 15, 14, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x86, 0x71, 0xBF, 0xC8, 0x0F, 0x14, 0x1C, 0x30, 3); // 0x442
+            private static Player Erik_Eagle = new Player(154, 197, 79, 60, 76, 64, 63, 53, 71, 466, 67, 66, 13, 16, 23, 14, 20, 17, 19, 4, 2, 2, 2, 2, 5, 1, 4, 4, 0x98, 0x85, 0x68, 0xD7, 0x01, 0x12, 0x1E, 0x2F, 1); // 0x443
+            private static Player Bobby_Shearer = new Player(202, 176, 76, 61, 72, 76, 60, 72, 72, 489, 67, 76, 12, 10, 13, 19, 14, 11, 12, 1, 1, 2, 2, 4, 2, 2, 2, 2, 0x7A, 0xE7, 0xC9, 0x84, 0x01, 0x13, 0x20, 0x2D, 3); // 0x444
+            private static Player Paul_Peabody = new Player(217, 192, 65, 76, 62, 69, 64, 73, 74, 483, 28, 24, 10, 11, 6, 12, 13, 11, 9, 4, 2, 5, 5, 5, 5, 5, 2, 2, 0x6D, 0xE8, 0xA2, 0xB6, 0x05, 0x16, 0x23, 0x44, 1); // 0x445
+            private static Player Chester_Horse_Jr = new Player(158, 129, 55, 72, 71, 58, 63, 59, 59, 437, 18, 36, 8, 7, 5, 10, 7, 6, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x72, 0x77, 0xC4, 0x65, 0x05, 0x0F, 0x19, 0x23, 1); // 0x446
+            private static Player Chester_Horse_Jr_2 = new Player(158, 129, 55, 72, 71, 58, 63, 59, 59, 437, 18, 36, 8, 7, 5, 10, 7, 6, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x447
+            private static Player Sagaminator = new Player(195, 165, 77, 71, 60, 70, 64, 70, 67, 479, 82, 93, 17, 20, 16, 20, 20, 18, 18, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0x71, 0x9D, 0xC5, 0x04, 0x12, 0x1A, 0x2A, 2); // 0x448
+            private static Player Jude_Sharp = new Player(191, 180, 63, 79, 79, 79, 76, 76, 68, 520, 58, 78, 18, 19, 15, 17, 13, 15, 13, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0x85, 0x68, 0x8E, 0xCF, 0x01, 0x01, 0x01, 0x64, 1); // 0x449
+            private static Player Shadow_Cimmerian = new Player(193, 176, 60, 74, 68, 73, 63, 60, 64, 462, 32, 47, 13, 11, 16, 12, 14, 10, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x81, 0xD9, 0x88, 0x93, 0x01, 0x12, 0x18, 0x2C, 3); // 0x44A
+           /* private static Player Arnold_Horrel = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x44D
+            private static Player Donovan_Lardy = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x44E
+            private static Player Sonny_Raimon = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x44F
+            private static Player Ray_Dark = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x450
+            private static Player George_Firewill = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x451
+            private static Player Gregory_Smith = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x452
+            private static Player David_Evans = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x453
+            private static Player Tom_Dark = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x454
+            private static Player Gregory_Smith_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x455
+            private static Player Celia_Hills_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x456
+            private static Player Julia_Blaze = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x457
+            private static Player Harry_Evans = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x458
+            private static Player Sharon_Evans = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x459
+            private static Player Unknown = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x45A
+            private static Player Shearer_shadow = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x45B
+            private static Player Wintersea_shadow = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x45C
+            private static Player Zak_Wallside = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x45D
+            private static Player Mr_Veteran = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x45E
+            private static Player Dark_shadow = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x45F
+            private static Player Stephen_Black = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x461
+            private static Player Hekyll_Jyde = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x462
+            private static Player Harry_Savage = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x463
+            private static Player Newton_Thomas = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x464
+            private static Player Manny_Artic = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x465
+            private static Player Sammy_Igajima = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x466
+            private static Player Turtle_Newfield = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x467
+            private static Player Seth_Nichols = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x468
+            private static Player Clint_Loggan = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x469
+            private static Player Thug_1 = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 16, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x47F
+            private static Player Thug_2 = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 18, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x480
+            private static Player Thug_3 = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 16, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x481
+            private static Player Thug_4 = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x482
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 18, 13, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x483
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 18, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x484
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 18, 13, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x485
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 16, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x486
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 18, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x487
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x488
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x489
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 18, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x48A
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 18, 13, 13, 13, 13, 13, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x48B
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x48C
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 13, 13, 16, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x48D
+            private static Player Suit = new Player(255, 255, 84, 84, 84, 84, 84, 84, 84, 588, 39, 47, 13, 13, 18, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 3, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x48E
+            private static Player ?? ?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x515
+            private static Player ?? ??? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x516
+            private static Player ?? ?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x517
+            private static Player ?? ?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x518
+            private static Player ??????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x519
+            private static Player ?? ??(??) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x51A
+            private static Player ?? ???(??) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x51B
+            private static Player ?? ??? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x51C
+            private static Player ?? ??? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x51D
+            private static Player ??? ??? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x51E
+            private static Player ????? ???? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x51F
+            private static Player ???? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x520
+            private static Player ????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x521
+            private static Player ????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x522
+            private static Player ????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x523
+            private static Player ??? ?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x524
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x525
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x526
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x527
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x528
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x529
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x52A
+            private static Player ???(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x52B
+            private static Player ???(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x52C
+            private static Player ???(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x52D
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x52E
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x52F
+            private static Player ??(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x530
+            private static Player ???(?) (??) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x531
+            private static Player ???(?) (??) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x532
+            private static Player ???(?) (??) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x533
+            private static Player ???????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x534
+            private static Player ???????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x535
+            private static Player ???????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x536
+            private static Player ?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x537
+            private static Player? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x538
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x539
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x53A
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x53B
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x53C
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x53D
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x53E
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x53F
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x540
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x541
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x542
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x543
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x544
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x545
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x546
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x547
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x548
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x549
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x54A
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x54B
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x54C
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x54D
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x54E
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x54F
+            private static Player ????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x550
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x551
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x552
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x553
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x554
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x555
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x556
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x557
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x558
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x559
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x55A
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x55B
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x55C
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x55D
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x55E
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x55F
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x560
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x561
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x562
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x563
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x564
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x565
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x566
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x567
+            private static Player ?????(?) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x568
+            private static Player ?? ? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x569
+            private static Player ?? ? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x56A
+            private static Player ?? ? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x56B
+            private static Player ??? ??(???) = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x56C
+            private static Player ????FP?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x56D
+            private static Player ????GK?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x56E
+            private static Player ???? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x56F
+            private static Player Raimon_boy_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5DD
+            private static Player Raimon_boy_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x5DE
+            private static Player Raimon_boy_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x5DF
+            private static Player Raimon_boy_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5E0
+            private static Player Raimon_boy_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5E1
+            private static Player Raimon_boy_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x5E2
+            private static Player Raimon_boy_7 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x5E3
+            private static Player Raimon_boy_8 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x5E4
+            private static Player Raimon_boy_9 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x5E5
+            private static Player Raimon_boy_10 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x5E6
+            private static Player Raimon_boy_11 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x5E7
+            private static Player Raimon_boy_12 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x5E8
+            private static Player Raimon_boy_13 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5E9
+            private static Player Raimon_boy_14 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x5EA
+            private static Player Raimon_boy_15 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5EB
+            private static Player Raimon_boy_16 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5EC
+            private static Player Raimon_boy_17 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5ED
+            private static Player Raimon_boy_18 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 3); // 0x5EE
+            private static Player Raimon_boy_19 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5EF
+            private static Player Raimon_boy_20 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F0
+            private static Player Raimon_boy_21 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F1
+            private static Player Raimon_boy_22 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F2
+            private static Player Raimon_boy_23 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 2); // 0x5F3
+            private static Player Raimon_boy_24 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F4
+            private static Player Raimon_boy_25 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F5
+            private static Player Raimon_boy_26 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F6
+            private static Player Raimon_boy_27 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F7
+            private static Player Raimon_boy_28 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F8
+            private static Player Raimon_boy_29 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5F9
+            private static Player Raimon_boy_30 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5FA
+            private static Player Raimon_boy_31 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5FB
+            private static Player Raimon_boy_32 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5FC
+            private static Player Raimon_boy_33 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5FD
+            private static Player Raimon_boy_34 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5FE
+            private static Player Raimon_boy_35 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x5FF
+            private static Player Raimon_boy_36 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x600
+            private static Player Raimon_boy_37 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x601
+            private static Player Raimon_boy_38 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x602
+            private static Player Raimon_boy_39 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x603
+            private static Player Raimon_boy_40 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x604
+            private static Player Raimon_boy_41 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x605
+            private static Player Raimon_boy_42 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x606
+            private static Player Raimon_boy_43 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x607
+            private static Player Raimon_boy_44 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x608
+            private static Player Raimon_boy_45 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x609
+            private static Player Raimon_boy_46 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x60A
+            private static Player Raimon_boy_47 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x60B
+            private static Player Raimon_boy_48 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x60C
+            private static Player Raimon_boy_49 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x60D
+            private static Player Raimon_boy_50 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x60E
+            private static Player Raimon_boy_51 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x60F
+            private static Player Raimon_boy_52 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x610
+            private static Player Raimon_boy_53 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x611
+            private static Player Raimon_boy_54 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x612
+            private static Player Connor_Newlin = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x613
+            private static Player Raimon_boy_56 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x614
+            private static Player Raimon_boy_57 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x615
+            private static Player Raimon_boy_58 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x616
+            private static Player Raimon_boy_59 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x617
+            private static Player Raimon_boy_60 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x618
+            private static Player Raimon_girl_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x619
+            private static Player Raimon_girl_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x61A
+            private static Player Raimon_girl_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x61B
+            private static Player Raimon_girl_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x61C
+            private static Player Raimon_girl_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x61D
+            private static Player Raimon_girl_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x61E
+            private static Player Raimon_girl_7 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x61F
+            private static Player Raimon_girl_8 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x620
+            private static Player Raimon_girl_9 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x621
+            private static Player Raimon_girl_10 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x622
+            private static Player Raimon_girl_11 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x623
+            private static Player Raimon_girl_12 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x624
+            private static Player Raimon_girl_13 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x625
+            private static Player Raimon_girl_14 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x626
+            private static Player Raimon_girl_15 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x627
+            private static Player Raimon_girl_16 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x628
+            private static Player Raimon_girl_17 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x629
+            private static Player Raimon_girl_18 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x62A
+            private static Player Raimon_girl_19 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x62B
+            private static Player Raimon_girl_20 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x62C
+            private static Player Raimon_girl_21 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x62D
+            private static Player Raimon_girl_22 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x62E
+            private static Player Raimon_girl_23 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x62F
+            private static Player Raimon_girl_24 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x630
+            private static Player Raimon_girl_25 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x631
+            private static Player Raimon_girl_26 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x632
+            private static Player Raimon_girl_27 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x633
+            private static Player Raimon_girl_28 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x634
+            private static Player Raimon_girl_29 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x635
+            private static Player Raimon_girl_30 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x636
+            private static Player Teacher_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x641
+            private static Player Teacher_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x642
+            private static Player Teacher_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x643
+            private static Player Teacher_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x644
+            private static Player Teacher_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x645
+            private static Player Teacher_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x646
+            private static Player Teacher_7 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x647
+            private static Player Teacher_8 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x648
+            private static Player Teacher_9 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x649
+            private static Player Lady_teacher_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x655
+            private static Player Lady_teacher_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x656
+            private static Player Lady_teacher_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x657
+            private static Player Lady_teacher_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x658
+            private static Player Lady_teacher_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x659
+            private static Player Lady_teacher_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x65A
+            private static Player Lady_teacher_7 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x65B
+            private static Player Lady_teacher_8 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x65C
+            private static Player Lady_teacher_9 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x65D
+            private static Player Cat = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x669
+            private static Player Chicken = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x66A
+            private static Player Dog = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x66B
+            private static Player Rabbit = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x66C
+            private static Player Regular_guy_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x673
+            private static Player Regular_guy_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x674
+            private static Player Regular_guy_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x675
+            private static Player Regular_guy_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x676
+            private static Player Regular_guy_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x677
+            private static Player Regular_guy_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x678
+            private static Player Regular_guy_7 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x679
+            private static Player Regular_guy_8 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x67A
+            private static Player Regular_guy_9 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x67B
+            private static Player Regular_guy_10 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x67C
+            private static Player Regular_guy_11 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x67D
+            private static Player Regular_guy_12 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x67E
+            private static Player Regular_girl_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x687
+            private static Player Regular_girl_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x688
+            private static Player Regular_girl_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x689
+            private static Player Regular_girl_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x68A
+            private static Player Regular_girl_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x68B
+            private static Player Regular_girl_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x68C
+            private static Player Regular_girl_7 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x68D
+            private static Player Regular_girl_8 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x68E
+            private static Player Regular_girl_9 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x68F
+            private static Player Regular_girl_10 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x690
+            private static Player Regular_girl_11 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x691
+            private static Player Regular_girl_12 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x692
+            private static Player ???? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x693
+            private static Player Old_man_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x69B
+            private static Player Old_man_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x69C
+            private static Player Old_man_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x69D
+            private static Player Old_man_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x69E
+            private static Player Old_man_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x69F
+            private static Player Old_man_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6A0
+            private static Player ???? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6A1
+            private static Player Old_woman_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6A5
+            private static Player Old_woman_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6A6
+            private static Player Old_woman_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6A7
+            private static Player Old_woman_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6A8
+            private static Player Old_woman_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6A9
+            private static Player Old_woman_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6AA
+            private static Player Boy_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6AF
+            private static Player Boy_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B0
+            private static Player Boy_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B1
+            private static Player Boy_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B2
+            private static Player Boy_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B3
+            private static Player Boy_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B4
+            private static Player ????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B5
+            private static Player ???? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B6
+            private static Player Girl_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6B9
+            private static Player Girl_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6BA
+            private static Player Girl_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6BB
+            private static Player Girl_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6BC
+            private static Player Girl_5 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6BD
+            private static Player Girl_6 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6BE
+            private static Player Staff_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6C3
+            private static Player Staff_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6C4
+            private static Player Staff_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6C5
+            private static Player Staff_4 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6C6
+            private static Player ????? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6C7
+            private static Player Maid_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6C8
+            private static Player Maid_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6C9
+            private static Player Maid_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6CA
+            private static Player Doctor_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6CD
+            private static Player Doctor_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6CE
+            private static Player Nurse_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6D2
+            private static Player Nurse_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6D3
+            private static Player Nurse_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6D4
+            private static Player Railway_worker_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6D7
+            private static Player Railman_Unused = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6D8
+            private static Player Police_officer_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6D9
+            private static Player Police_officer = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6DA
+            private static Player Flash_staff = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6DB
+            private static Player Nelly_s_aide = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6DC
+            private static Player Zeus_clerk_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6DD
+            private static Player Zeus_suit = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6DE
+            private static Player Academy_guy_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6E1
+            private static Player Academy_guy_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6E2
+            private static Player Academy_guy_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6E3
+            private static Player Wild_guy_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6E6
+            private static Player Wild_guy_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6E7
+            private static Player Wild_guy_3 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x6E8
+            private static Player ?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x7D1
+            private static Player ?? = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x7D2
+            private static Player Map_point_1 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x7D3
+            private static Player Map_point_2 = new Player(1, 0, 1, 1, 1, 1, 1, 1, 1, 7, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1);*/ // 0x7D4
+            private static Player Grent_Chaos = new Player(193, 152, 79, 64, 64, 77, 76, 65, 76, 501, 61, 96, 14, 16, 13, 17, 14, 13, 17, 1, 1, 3, 1, 1, 3, 1, 1, 1, 0x3D, 0x1A7, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 4); // 0x821
+            private static Player Baller_Chaos = new Player(187, 102, 76, 64, 60, 68, 71, 68, 76, 483, 55, 103, 15, 16, 14, 16, 17, 13, 15, 1, 1, 1, 1, 1, 1, 1, 1, 3, 0x3A, 0x181, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 2); // 0x822
+            private static Player Clear_Chaos = new Player(198, 106, 68, 61, 65, 76, 79, 76, 79, 504, 58, 103, 15, 16, 14, 15, 13, 17, 15, 1, 1, 1, 1, 1, 1, 3, 1, 3, 0x3A, 0x185, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 5); // 0x823
+            private static Player Gocker_Chaos = new Player(204, 106, 79, 66, 66, 69, 73, 62, 75, 490, 60, 92, 13, 14, 13, 16, 13, 15, 15, 1, 1, 3, 1, 1, 1, 1, 1, 1, 0x36, 0x185, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 2); // 0x824
+            private static Player Bomber_Chaos = new Player(217, 120, 74, 79, 72, 61, 79, 74, 69, 508, 61, 99, 15, 17, 16, 17, 17, 13, 14, 3, 1, 1, 1, 1, 1, 3, 1, 1, 0x3D, 0x181, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 2); // 0x825
+            private static Player Heat_Chaos = new Player(211, 102, 72, 79, 68, 60, 79, 79, 72, 509, 68, 97, 17, 13, 17, 16, 14, 13, 15, 3, 1, 1, 3, 1, 1, 3, 1, 1, 0x45, 0x121, 0x152, 0x00, 0x01, 0x01, 0x01, 0x00, 2); // 0x826
+            private static Player Droll_Chaos = new Player(217, 106, 76, 68, 73, 68, 79, 76, 71, 511, 58, 96, 16, 17, 14, 15, 17, 17, 16, 3, 1, 1, 1, 1, 1, 3, 1, 1, 0x49, 0x157, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 5); // 0x827
+            private static Player Rhine_Chaos = new Player(217, 126, 70, 76, 74, 61, 77, 73, 70, 501, 58, 107, 16, 16, 16, 16, 17, 15, 15, 3, 1, 1, 1, 1, 1, 3, 1, 1, 0x3A, 0x135, 0x157, 0x00, 0x01, 0x01, 0x01, 0x00, 3); // 0x828
+            private static Player Bryce_Whitingale_Chaos = new Player(204, 150, 78, 78, 79, 79, 79, 72, 76, 541, 56, 92, 17, 17, 15, 17, 16, 16, 14, 1, 1, 3, 1, 3, 3, 3, 1, 1, 0x41, 0x138, 0x157, 0x00, 0x01, 0x01, 0x01, 0x00, 4); // 0x829
+            private static Player Claude_Beacons_Chaos = new Player(213, 130, 76, 79, 73, 72, 79, 76, 77, 532, 68, 91, 14, 16, 16, 15, 13, 14, 16, 1, 1, 3, 3, 1, 1, 3, 3, 1, 0x41, 0x136, 0x156, 0x00, 0x01, 0x01, 0x01, 0x00, 4); // 0x82A
+            private static Player Neppten_Chaos = new Player(193, 106, 68, 76, 76, 68, 79, 75, 79, 521, 67, 89, 15, 16, 15, 13, 15, 15, 16, 1, 1, 1, 1, 1, 1, 3, 1, 3, 0x42, 0x134, 0x156, 0x181, 0x01, 0x01, 0x01, 0x01, 4); // 0x82B
+            private static Player Galileo = new Player(202, 85, 77, 68, 58, 67, 58, 76, 59, 463, 48, 37, 22, 16, 16, 19, 21, 17, 16, 5, 5, 5, 5, 5, 5, 1, 4, 4, 0x3D, 0x1A1, 0x7C, 0x198, 0x01, 0x01, 0x22, 0x3E, 5); // 0x835
+            private static Player Coral = new Player(147, 73, 53, 57, 76, 63, 79, 56, 56, 440, 57, 43, 14, 17, 15, 17, 21, 18, 13, 3, 5, 3, 3, 3, 3, 2, 3, 3, 0x17B, 0xD5, 0x16F, 0x1A5, 0x01, 0x17, 0x22, 0x45, 2); // 0x836
+            private static Player Gigs = new Player(147, 97, 60, 55, 69, 67, 70, 56, 55, 432, 66, 45, 15, 14, 12, 20, 22, 17, 17, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x38, 0x170, 0x175, 0x151, 0x01, 0x14, 0x26, 0x2E, 2); // 0x837
+            private static Player Ganymede = new Player(189, 81, 64, 68, 67, 58, 69, 68, 56, 450, 57, 47, 15, 15, 20, 22, 20, 18, 16, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x170, 0xC0, 0x16D, 0x11C, 0x01, 0x16, 0x26, 0x2C, 1); // 0x838
+            private static Player Charon = new Player(167, 88, 56, 55, 57, 70, 61, 52, 70, 421, 42, 37, 13, 20, 17, 20, 19, 16, 15, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x16F, 0x7F, 0x10B, 0x17B, 0x01, 0x1A, 0x20, 0x31, 1); // 0x839
+            private static Player Pandora = new Player(147, 81, 60, 61, 76, 54, 66, 60, 60, 437, 44, 39, 17, 15, 16, 16, 23, 15, 17, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x170, 0x151, 0x1A3, 0x1A4, 0x01, 0x01, 0x26, 0x48, 3); // 0x83A
+            private static Player Grengo = new Player(176, 96, 56, 66, 52, 69, 57, 67, 65, 432, 64, 33, 13, 18, 11, 19, 23, 14, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x151, 0xD6, 0x88, 0x133, 0x01, 0x13, 0x1C, 0x3C, 2); // 0x83B
+            private static Player Io = new Player(165, 76, 52, 60, 66, 69, 73, 67, 63, 450, 56, 49, 17, 15, 18, 19, 21, 15, 17, 3, 5, 3, 3, 3, 3, 3, 3, 3, 0x151, 0x170, 0x9C, 0x132, 0x01, 0x0A, 0x13, 0x38, 1); // 0x83C
+            private static Player Rihm = new Player(121, 72, 60, 61, 72, 61, 68, 63, 57, 442, 57, 47, 15, 19, 16, 18, 20, 12, 18, 2, 5, 2, 2, 4, 4, 2, 4, 2, 0x120, 0x94, 0x151, 0x127, 0x01, 0x13, 0x25, 0x4B, 2); // 0x83D
+            private static Player Janus = new Player(173, 89, 63, 63, 73, 61, 68, 51, 71, 450, 55, 47, 16, 19, 19, 16, 19, 17, 17, 2, 5, 2, 2, 4, 4, 2, 4, 2, 0x10B, 0x151, 0x120, 0x121, 0x01, 0x01, 0x20, 0x35, 4); // 0x83E
+            private static Player Diam = new Player(154, 97, 79, 69, 68, 61, 52, 67, 52, 448, 63, 44, 20, 18, 19, 18, 21, 16, 15, 3, 5, 3, 2, 3, 3, 3, 3, 3, 0x10B, 0x151, 0x17B, 0x120, 0x01, 0x0F, 0x1B, 0x27, 5); // 0x83F
+            private static Player Dvalin = new Player(195, 72, 80, 70, 57, 60, 60, 69, 54, 450, 54, 66, 21, 19, 16, 17, 22, 17, 20, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x1A3, 0x198, 0x7D, 0x170, 0x01, 0x01, 0x2A, 0x4E, 5); // 0x849
+            private static Player Kenville = new Player(173, 69, 59, 53, 64, 52, 64, 70, 60, 422, 68, 54, 20, 16, 18, 18, 22, 18, 18, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x151, 0x16D, 0x76, 0x17B, 0x01, 0x01, 0x26, 0x46, 2); // 0x84A
+            private static Player Mole = new Player(151, 76, 71, 59, 73, 56, 76, 62, 58, 455, 55, 59, 18, 16, 18, 16, 22, 16, 18, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x151, 0x16F, 0x1A1, 0x198, 0x01, 0x01, 0x2C, 0x3C, 1); // 0x84B
+            private static Player Kayson = new Player(162, 84, 67, 65, 68, 60, 68, 70, 64, 462, 57, 41, 18, 19, 18, 18, 23, 19, 18, 4, 5, 4, 4, 4, 4, 4, 4, 4, 0x16D, 0x17B, 0x70, 0xD3, 0x01, 0x01, 0x29, 0x37, 2); // 0x84C
+            private static Player Tytan = new Player(193, 77, 70, 64, 54, 52, 60, 78, 74, 452, 82, 41, 19, 19, 19, 17, 21, 20, 17, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x170, 0x7C, 0x16D, 0x176, 0x01, 0x28, 0x2E, 0x41, 1); // 0x84D
+            private static Player Fedora = new Player(127, 93, 63, 56, 63, 52, 60, 57, 60, 411, 56, 45, 17, 12, 17, 12, 23, 18, 20, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x152, 0x16F, 0xE7, 0x12E, 0x01, 0x1F, 0x27, 0x41, 3); // 0x84E
+            private static Player Krypto = new Player(129, 85, 59, 71, 61, 56, 72, 53, 62, 434, 58, 55, 13, 17, 20, 17, 23, 17, 18, 4, 5, 2, 2, 4, 2, 4, 4, 4, 0x10B, 0x152, 0x180, 0x153, 0x01, 0x01, 0x2A, 0x35, 2); // 0x84F
+            private static Player Sworm = new Player(160, 69, 53, 68, 75, 63, 71, 61, 68, 459, 56, 35, 20, 16, 20, 15, 20, 19, 19, 4, 5, 2, 2, 4, 4, 2, 4, 2, 0x152, 0x16F, 0x10F, 0x11C, 0x01, 0x27, 0x33, 0x3F, 1); // 0x850
+            private static Player Mercury = new Player(149, 76, 70, 58, 61, 52, 71, 53, 53, 418, 70, 52, 16, 17, 17, 17, 22, 20, 14, 3, 5, 3, 3, 3, 3, 3, 3, 3, 0x121, 0x152, 0x116, 0x133, 0x01, 0x01, 0x24, 0x46, 4); // 0x851
+            private static Player Metron = new Player(149, 72, 70, 60, 71, 63, 67, 65, 64, 460, 66, 56, 18, 17, 20, 18, 21, 17, 19, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x121, 0x151, 0xBE, 0x10B, 0x01, 0x01, 0x25, 0x37, 3); // 0x852
+            private static Player Zell = new Player(180, 72, 69, 64, 52, 75, 63, 68, 60, 451, 80, 49, 17, 20, 18, 15, 20, 20, 19, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x11C, 0x121, 0x1A3, 0x1A4, 0x01, 0x01, 0x3C, 0x58, 5); // 0x853
+            private static Player Dvalin_FW = new Player(195, 72, 85, 80, 57, 55, 75, 69, 54, 475, 54, 66, 21, 19, 16, 17, 22, 17, 20, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x11C, 0x133, 0x68, 0xD3, 0x01, 0x01, 0x29, 0x36, 5); // 0x854
+            private static Player Nero = new Player(169, 89, 77, 60, 57, 63, 78, 60, 70, 465, 55, 59, 17, 20, 18, 18, 21, 16, 16, 5, 5, 1, 1, 1, 1, 1, 1, 1, 0x1A5, 0x1A4, 0x16F, 0xA6, 0x01, 0x23, 0x2C, 0x35, 4); // 0x85D
+            private static Player Gele = new Player(158, 88, 57, 53, 60, 55, 79, 60, 56, 420, 74, 62, 18, 20, 20, 16, 23, 19, 17, 1, 5, 2, 2, 2, 2, 2, 2, 2, 0x16F, 0x177, 0x74, 0x14D, 0x01, 0x01, 0x35, 0x49, 2); // 0x85E
+            private static Player Kiburn = new Player(156, 77, 56, 63, 77, 54, 62, 60, 62, 434, 60, 62, 16, 18, 18, 17, 22, 17, 20, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x14D, 0x170, 0x1A1, 0x1A5, 0x01, 0x01, 0x34, 0x48, 2); // 0x85F
+            private static Player Zohen = new Player(156, 72, 68, 76, 71, 70, 77, 56, 56, 474, 63, 55, 19, 14, 17, 15, 23, 19, 20, 2, 5, 4, 4, 4, 4, 4, 4, 4, 0x38, 0x176, 0x6F, 0x170, 0x01, 0x01, 0x37, 0x43, 2); // 0x860
+            private static Player Hauser = new Player(167, 89, 64, 66, 65, 66, 58, 68, 66, 453, 82, 37, 16, 16, 17, 14, 23, 18, 20, 1, 5, 2, 2, 2, 2, 2, 2, 2, 0x16D, 0x82, 0x6F, 0x176, 0x01, 0x34, 0x37, 0x45, 2); // 0x861
+            private static Player Kormer = new Player(165, 80, 60, 64, 78, 61, 65, 55, 60, 443, 61, 51, 20, 14, 18, 13, 21, 19, 17, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x14D, 0xBF, 0xD5, 0x127, 0x01, 0x35, 0x41, 0x4D, 2); // 0x862
+            private static Player Kiwill = new Player(154, 81, 55, 58, 68, 57, 69, 59, 61, 427, 70, 48, 18, 18, 16, 17, 19, 20, 20, 4, 5, 4, 4, 4, 4, 4, 4, 4, 0x153, 0x6D, 0x148, 0x177, 0x01, 0x37, 0x3C, 0x43, 5); // 0x863
+            private static Player Ark = new Player(165, 77, 56, 60, 78, 69, 72, 62, 70, 467, 72, 56, 16, 13, 16, 15, 19, 19, 20, 2, 5, 4, 4, 4, 4, 4, 4, 4, 0x14D, 0xC0, 0x132, 0x153, 0x01, 0x34, 0x38, 0x44, 3); // 0x864
+            private static Player Wittz = new Player(195, 88, 68, 67, 62, 63, 70, 68, 67, 465, 69, 59, 22, 20, 18, 16, 19, 17, 16, 3, 5, 3, 3, 3, 3, 3, 3, 3, 0x3D, 0x10B, 0x11C, 0x126, 0x01, 0x01, 0x01, 0x4B, 4); // 0x865
+            private static Player Bellatrix = new Player(158, 97, 65, 65, 79, 55, 78, 64, 68, 474, 68, 62, 17, 17, 17, 15, 21, 15, 17, 5, 5, 1, 1, 1, 1, 1, 1, 1, 0x10B, 0x152, 0x127, 0x6C, 0x01, 0x01, 0x23, 0x37, 4); // 0x866
+            private static Player Xene = new Player(178, 92, 79, 79, 73, 63, 62, 68, 63, 487, 82, 59, 18, 18, 18, 19, 20, 18, 20, 4, 5, 2, 2, 2, 2, 2, 2, 2, 0x132, 0x126, 0x16F, 0x153, 0x01, 0x23, 0x29, 0x3E, 5); // 0x867
+            private static Player Dvalin2 = new Player(195, 72, 85, 80, 57, 55, 75, 69, 54, 475, 54, 66, 21, 19, 16, 17, 22, 17, 20, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x41, 0x1A3, 0x198, 0x133, 0x01, 0x01, 0x01, 0x01, 5); // 0x871
+            private static Player Kenville2 = new Player(143, 77, 56, 62, 69, 57, 65, 71, 53, 433, 64, 49, 16, 17, 16, 18, 20, 17, 20, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x16D, 0x151, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 2); // 0x872
+            private static Player Mole2 = new Player(162, 97, 63, 63, 74, 56, 73, 55, 55, 439, 55, 51, 18, 13, 18, 18, 22, 16, 17, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x16F, 0x151, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x873
+            private static Player Kayson2 = new Player(154, 85, 63, 61, 64, 65, 68, 67, 68, 456, 69, 51, 20, 18, 16, 18, 22, 18, 17, 4, 5, 4, 4, 4, 4, 4, 4, 4, 0x16D, 0x17B, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 2); // 0x874
+            private static Player Tytan2 = new Player(209, 84, 75, 68, 55, 61, 56, 71, 72, 458, 67, 39, 18, 16, 19, 20, 21, 20, 20, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x16D, 0x170, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x875
+            private static Player Fedora2 = new Player(151, 93, 71, 57, 68, 57, 61, 54, 65, 433, 45, 44, 18, 10, 19, 12, 23, 20, 17, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x152, 0x16F, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 3); // 0x876
+            private static Player Krypto2 = new Player(140, 81, 62, 63, 62, 56, 68, 57, 58, 426, 42, 64, 16, 15, 16, 15, 21, 17, 18, 4, 5, 4, 4, 4, 4, 4, 4, 4, 0x152, 0x10B, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 2); // 0x877
+            private static Player Sworm2 = new Player(162, 84, 62, 65, 68, 68, 72, 62, 60, 457, 67, 48, 17, 16, 19, 15, 23, 18, 16, 4, 5, 4, 4, 4, 4, 4, 4, 4, 0x152, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x878
+            private static Player Mercury2 = new Player(171, 92, 61, 62, 61, 52, 79, 57, 61, 433, 70, 48, 16, 15, 18, 19, 23, 20, 13, 3, 5, 3, 3, 3, 3, 3, 3, 3, 0x152, 0x121, 0x17B, 0x00, 0x01, 0x01, 0x01, 0x00, 4); // 0x879
+            private static Player Metron2 = new Player(149, 77, 66, 68, 67, 68, 68, 65, 68, 470, 56, 49, 20, 17, 18, 18, 20, 19, 17, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x152, 0x121, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 3); // 0x87A
+            private static Player Zell2 = new Player(193, 96, 73, 66, 53, 76, 60, 73, 70, 471, 76, 33, 20, 17, 19, 14, 22, 20, 19, 2, 5, 2, 2, 2, 2, 2, 2, 2, 0x11C, 0x121, 0x1A3, 0x00, 0x01, 0x01, 0x01, 0x00, 5); // 0x87B
+            private static Player Cam_Mando = new Player(213, 197, 76, 74, 72, 78, 68, 77, 68, 513, 67, 99, 18, 20, 20, 21, 20, 17, 18, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x42, 0xB1, 0xB0, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x885
+            private static Player Harry_Boufante = new Player(187, 193, 79, 79, 72, 79, 76, 71, 79, 535, 82, 85, 16, 18, 17, 21, 18, 17, 16, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x42, 0xCE, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x886
+            private static Player Stu_Shroom = new Player(191, 185, 76, 68, 69, 77, 78, 73, 72, 513, 66, 89, 20, 18, 17, 20, 20, 18, 19, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x42, 0x78, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x887
+            private static Player Aspen_Blewit = new Player(211, 169, 70, 72, 71, 79, 76, 75, 70, 513, 68, 82, 17, 20, 17, 21, 18, 20, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x42, 0x7F, 0x7E, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x888
+            private static Player Marismus_Oregon = new Player(200, 184, 73, 68, 68, 79, 68, 75, 79, 510, 79, 90, 20, 19, 18, 21, 20, 19, 18, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x42, 0x8B, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x889
+            private static Player Garjan_Cypress = new Player(195, 181, 69, 79, 72, 78, 78, 78, 79, 533, 82, 88, 18, 23, 17, 18, 21, 20, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x42, 0x150, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x88A
+            private static Player Judas_Deathcap = new Player(198, 169, 70, 79, 70, 71, 79, 79, 68, 516, 72, 80, 17, 21, 19, 18, 23, 18, 16, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x42, 0x70, 0x7E, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x88B
+            private static Player Chase_Faithfull = new Player(189, 172, 72, 79, 79, 76, 79, 73, 70, 528, 75, 81, 19, 20, 19, 17, 19, 18, 19, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x42, 0x119, 0x72, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x88C
+            private static Player Chris_Ticker = new Player(204, 180, 72, 77, 79, 70, 79, 77, 69, 523, 69, 86, 18, 18, 21, 16, 22, 19, 16, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x42, 0x95, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x88D
+            private static Player Roy_Daring = new Player(217, 197, 79, 68, 79, 70, 70, 70, 69, 505, 74, 107, 21, 18, 18, 17, 20, 16, 20, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x42, 0x9B, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x88E
+            private static Player Scaber_Enoki = new Player(191, 197, 79, 76, 69, 76, 74, 76, 78, 528, 68, 101, 23, 18, 18, 16, 16, 18, 19, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x42, 0xC7, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x88F
+            private static Player Robot_S = new Player(191, 176, 60, 63, 53, 70, 55, 78, 68, 447, 78, 60, 14, 14, 11, 14, 10, 20, 16, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xAF, 0x1A2, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x899
+            private static Player Robot_P = new Player(187, 173, 56, 52, 52, 62, 52, 70, 66, 410, 73, 80, 12, 14, 10, 17, 10, 19, 16, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x12E, 0x71, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x89A
+            private static Player Robot_T = new Player(213, 168, 62, 52, 59, 66, 56, 68, 66, 429, 75, 68, 12, 12, 11, 16, 12, 17, 15, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x17D, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x89B
+            private static Player Robot_V = new Player(187, 168, 57, 56, 58, 70, 60, 77, 60, 438, 75, 80, 14, 14, 13, 15, 12, 18, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x12E, 0x71, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x89C
+            private static Player Robot_C = new Player(217, 153, 58, 62, 62, 63, 57, 78, 61, 441, 79, 72, 13, 13, 12, 16, 12, 19, 15, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x17D, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x89D
+            private static Player Robot_O = new Player(211, 157, 52, 60, 53, 56, 62, 69, 64, 416, 78, 78, 12, 13, 12, 12, 13, 20, 16, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x71, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x89E
+            private static Player Robot_B = new Player(215, 157, 61, 62, 60, 52, 57, 69, 61, 422, 79, 66, 13, 15, 11, 13, 11, 19, 14, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x71, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x89F
+            private static Player Robot_G = new Player(200, 176, 58, 54, 63, 60, 54, 70, 65, 424, 67, 72, 12, 12, 17, 12, 10, 17, 15, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x71, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x8A0
+            private static Player Robot_K = new Player(187, 153, 57, 55, 64, 52, 52, 70, 71, 421, 73, 72, 12, 12, 17, 13, 10, 20, 15, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x142, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x8A1
+            private static Player Robot_F = new Player(215, 160, 63, 59, 55, 58, 62, 69, 62, 428, 78, 72, 14, 11, 10, 10, 16, 18, 15, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x118, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x8A2
+            private static Player Robot_L = new Player(198, 157, 68, 53, 58, 55, 52, 70, 68, 424, 68, 72, 15, 10, 13, 11, 10, 16, 16, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x125, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x8A3
+            private static Player Seymour_Hillman_young = new Player(213, 173, 61, 60, 69, 65, 60, 74, 77, 466, 51, 76, 16, 17, 13, 13, 16, 19, 18, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x47, 0xA2, 0xB5, 0x1A0, 0x01, 0x01, 0x01, 0x3C, 3); // 0x8AD
+            private static Player Charles_Island_young = new Player(204, 197, 62, 64, 68, 67, 75, 71, 66, 473, 32, 66, 12, 14, 14, 10, 13, 14, 12, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x3B, 0x7F, 0x178, 0x171, 0x01, 0x01, 0x01, 0x4E, 2); // 0x8AE
+            private static Player Garret_Hairtown_young = new Player(215, 152, 68, 75, 64, 68, 66, 70, 68, 479, 40, 78, 9, 12, 11, 11, 11, 14, 10, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x85, 0xCE, 0x7F, 0x16C, 0x01, 0x01, 0x44, 0x50, 3); // 0x8AF
+            private static Player Arthur_Sweet_young = new Player(213, 185, 65, 79, 76, 73, 60, 68, 67, 488, 36, 80, 8, 8, 7, 13, 11, 10, 9, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x39, 0x8D, 0x78, 0x128, 0x01, 0x01, 0x01, 0x01, 1); // 0x8B0
+            private static Player Peter_Mildred_young = new Player(195, 193, 68, 64, 63, 63, 61, 68, 78, 465, 42, 72, 11, 9, 8, 8, 9, 10, 11, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xE7, 0x74, 0x17D, 0x171, 0x01, 0x01, 0x41, 0x4E, 2); // 0x8B1
+            private static Player Josh_Nathaniel_young = new Player(187, 180, 68, 78, 75, 68, 79, 76, 78, 522, 39, 78, 10, 8, 13, 8, 11, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6C, 0xD3, 0x7E, 0x155, 0x01, 0x01, 0x01, 0x44, 1); // 0x8B2
+            private static Player Edward_Gladstone_young = new Player(215, 192, 68, 61, 67, 62, 68, 69, 70, 465, 46, 78, 15, 14, 14, 15, 16, 20, 17, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x112, 0x146, 0x173, 0x8B, 0x01, 0x01, 0x3C, 0x46, 1); // 0x8B3
+            private static Player Tyler_Thomas_young = new Player(211, 189, 70, 63, 70, 62, 62, 70, 73, 470, 58, 68, 15, 17, 17, 14, 13, 20, 17, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xD6, 0x71, 0x173, 0x10C, 0x01, 0x01, 0x3C, 0x49, 1); // 0x8B4
+            private static Player Joseph_Yosemite_young = new Player(209, 173, 69, 64, 62, 65, 60, 68, 69, 457, 43, 68, 16, 15, 13, 15, 14, 18, 16, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x8C, 0xCF, 0xD5, 0x110, 0x01, 0x01, 0x01, 0x4B, 1); // 0x8B5
+            private static Player Ian_Suffolk_young = new Player(217, 177, 64, 70, 69, 60, 61, 73, 76, 473, 45, 60, 16, 14, 15, 17, 16, 16, 20, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xCE, 0x6B, 0xC4, 0x6C, 0x01, 0x01, 0x43, 0x4C, 1); // 0x8B6
+            private static Player Constant_Builder_young = new Player(189, 188, 63, 61, 63, 62, 60, 78, 72, 459, 44, 74, 13, 16, 15, 17, 13, 18, 19, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x41, 0x91, 0x6B, 0x119, 0x01, 0x01, 0x01, 0x46, 2); // 0x8B7
+            private static Player Grent = new Player(182, 81, 78, 60, 52, 61, 52, 56, 60, 419, 50, 64, 11, 19, 19, 22, 21, 16, 15, 1, 5, 4, 2, 2, 4, 1, 1, 1, 0x1A7, 0x173, 0xA4, 0x181, 0x01, 0x01, 0x3C, 0x4B, 4); // 0x8C1
+            private static Player Baller = new Player(187, 93, 65, 64, 62, 65, 61, 58, 71, 446, 50, 60, 13, 14, 15, 16, 23, 17, 20, 1, 5, 4, 2, 2, 4, 1, 1, 1, 0x181, 0x86, 0x71, 0x1A7, 0x01, 0x34, 0x3D, 0x45, 2); // 0x8C2
+            private static Player Balcke = new Player(178, 69, 71, 64, 57, 63, 57, 60, 62, 434, 48, 48, 10, 15, 17, 16, 23, 14, 20, 1, 5, 2, 2, 3, 2, 1, 1, 4, 0x170, 0x153, 0x12C, 0x1A7, 0x01, 0x01, 0x41, 0x49, 1); // 0x8C3
+            private static Player Seats = new Player(184, 93, 66, 62, 63, 68, 56, 56, 70, 441, 48, 60, 10, 14, 15, 17, 19, 15, 20, 1, 5, 4, 2, 2, 4, 1, 1, 1, 0x16D, 0x181, 0x88, 0x12E, 0x01, 0x01, 0x3E, 0x41, 1); // 0x8C4
+            private static Player Bomber = new Player(200, 85, 55, 63, 68, 62, 64, 70, 65, 447, 46, 62, 17, 16, 18, 15, 21, 17, 17, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x181, 0x173, 0x6F, 0x1A4, 0x01, 0x3B, 0x3F, 0x46, 3); // 0x8C5
+            private static Player Heat = new Player(193, 72, 52, 79, 60, 60, 62, 71, 55, 439, 70, 56, 18, 18, 14, 14, 23, 16, 15, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x3B, 0x121, 0x152, 0x123, 0x01, 0x01, 0x01, 0x3F, 2); // 0x8C6
+            private static Player Lean = new Player(217, 97, 55, 72, 70, 63, 69, 61, 52, 442, 63, 68, 16, 16, 17, 15, 23, 16, 15, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x10B, 0x153, 0x149, 0x134, 0x01, 0x01, 0x41, 0x4B, 1); // 0x8C7
+            private static Player Bountine = new Player(211, 69, 63, 62, 67, 62, 68, 67, 64, 453, 45, 60, 17, 13, 17, 14, 20, 19, 17, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x156, 0x68, 0x116, 0x133, 0x01, 0x3B, 0x40, 0x48, 2); // 0x8C8
+            private static Player Sidern = new Player(171, 96, 52, 69, 59, 52, 62, 70, 69, 433, 79, 74, 16, 17, 14, 14, 21, 20, 19, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x3D, 0x10B, 0xCE, 0x134, 0x01, 0x01, 0x41, 0x4B, 2); // 0x8C9
+            private static Player Claude_Beacons = new Player(187, 96, 69, 71, 64, 64, 66, 70, 63, 467, 67, 79, 21, 20, 17, 15, 23, 17, 18, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x3E, 0x134, 0x156, 0x136, 0x01, 0x01, 0x01, 0x4D, 4); // 0x8CA
+            private static Player Neppten = new Player(180, 93, 60, 65, 61, 63, 61, 67, 60, 437, 79, 80, 18, 13, 15, 17, 19, 19, 18, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x11C, 0x156, 0x123, 0x134, 0x01, 0x01, 0x3C, 0x46, 2); // 0x8CB
+            private static Player Beluga = new Player(193, 85, 70, 68, 53, 66, 60, 60, 64, 441, 50, 79, 11, 17, 20, 19, 23, 16, 15, 1, 5, 2, 2, 3, 2, 1, 1, 4, 0x1A8, 0x7F, 0xA1, 0x185, 0x01, 0x01, 0x3C, 0x46, 2); // 0x8D5
+            private static Player Arkew = new Player(176, 80, 70, 67, 56, 60, 62, 52, 69, 436, 43, 80, 13, 19, 20, 19, 21, 14, 13, 1, 5, 4, 2, 2, 4, 1, 1, 1, 0x3B, 0x185, 0x86, 0x1A8, 0x01, 0x01, 0x3E, 0x4B, 1); // 0x8D6
+            private static Player Clear = new Player(167, 84, 65, 67, 60, 62, 60, 60, 68, 442, 58, 60, 12, 14, 16, 18, 21, 17, 17, 1, 5, 2, 2, 3, 2, 1, 1, 4, 0x16F, 0x157, 0x1A3, 0x1A8, 0x01, 0x01, 0x3C, 0x4B, 5); // 0x8D7
+            private static Player Gocker = new Player(195, 96, 69, 70, 52, 64, 53, 54, 63, 425, 49, 88, 12, 19, 20, 18, 23, 14, 17, 1, 5, 2, 2, 3, 2, 1, 1, 4, 0x176, 0x17F, 0x82, 0x185, 0x01, 0x3B, 0x40, 0x48, 2); // 0x8D8
+            private static Player Icer = new Player(213, 93, 58, 68, 63, 60, 70, 65, 54, 438, 61, 80, 17, 16, 16, 16, 22, 18, 15, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x3A, 0x185, 0x145, 0x135, 0x01, 0x01, 0x3B, 0x4B, 2); // 0x8D9
+            private static Player Balen = new Player(211, 79, 58, 69, 67, 58, 64, 60, 62, 438, 57, 64, 18, 18, 16, 17, 19, 20, 14, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x157, 0x85, 0x16F, 0x10D, 0x01, 0x3B, 0x3E, 0x44, 3); // 0x8DA
+            private static Player Droll = new Player(198, 84, 62, 68, 62, 59, 69, 62, 61, 443, 52, 72, 18, 14, 20, 16, 22, 20, 17, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x157, 0x7D, 0x66, 0x120, 0x01, 0x3C, 0x41, 0x46, 5); // 0x8DB
+            private static Player Rhine = new Player(215, 79, 63, 71, 61, 55, 60, 60, 60, 430, 46, 64, 16, 16, 17, 14, 20, 19, 16, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x11D, 0x14D, 0x9E, 0x135, 0x01, 0x01, 0x3C, 0x4B, 3); // 0x8DC
+            private static Player Blown = new Player(189, 77, 59, 60, 56, 55, 68, 65, 64, 427, 54, 70, 13, 16, 15, 13, 20, 16, 17, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x10B, 0x157, 0x7B, 0x135, 0x01, 0x01, 0x3B, 0x46, 2); // 0x8DD
+            private static Player Bryce_Whitingale = new Player(189, 96, 78, 65, 76, 74, 66, 67, 68, 494, 81, 79, 22, 14, 22, 21, 21, 17, 20, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x3E, 0x135, 0x157, 0x138, 0x01, 0x01, 0x01, 0x4D, 4); // 0x8DE
+            private static Player Frost = new Player(182, 81, 60, 64, 62, 56, 68, 68, 63, 441, 62, 64, 13, 15, 14, 14, 20, 17, 18, 2, 5, 2, 1, 1, 2, 1, 2, 3, 0x10B, 0xC8, 0x157, 0x126, 0x01, 0x3B, 0x44, 0x50, 2); // 0x8DF
+            //private static Player Mysterious_guy = new Player(171, 144, 56, 60, 60, 56, 57, 60, 60, 409, 43, 56, 14, 12, 12, 14, 12, 11, 11, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8E9
+            //private static Player Mysterious_guy = new Player(143, 133, 53, 63, 52, 59, 56, 55, 55, 393, 56, 62, 14, 11, 13, 14, 11, 14, 14, 1, 1, 4, 2, 2, 4, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8EA
+            //private static Player Mysterious_guy = new Player(158, 137, 56, 57, 61, 60, 53, 52, 56, 395, 48, 48, 12, 14, 13, 13, 10, 13, 12, 2, 4, 2, 3, 4, 2, 1, 2, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8EB
+            //private static Player Mysterious_guy = new Player(156, 132, 58, 62, 60, 60, 54, 52, 61, 407, 48, 47, 12, 11, 13, 13, 12, 11, 12, 1, 2, 2, 2, 3, 2, 1, 1, 4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8EC
+            //private static Player Mysterious_guy = new Player(154, 145, 59, 53, 62, 55, 54, 54, 61, 398, 58, 49, 10, 12, 10, 14, 10, 12, 14, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8ED
+            //private static Player Mysterious_guy = new Player(151, 133, 53, 60, 56, 55, 60, 58, 59, 401, 50, 48, 12, 11, 11, 12, 12, 13, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8EE
+            //private static Player Mysterious_guy = new Player(173, 140, 59, 52, 56, 59, 62, 58, 59, 405, 48, 56, 12, 12, 14, 11, 11, 13, 12, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8EF
+            //private static Player Mysterious_guy = new Player(145, 152, 62, 53, 60, 52, 54, 60, 61, 402, 54, 48, 14, 11, 12, 11, 12, 11, 14, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 1); // 0x8F0
+            private static Player Ken_Ironwall = new Player(206, 145, 68, 69, 60, 66, 52, 68, 56, 439, 44, 62, 18, 16, 14, 14, 14, 16, 13, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x1A2, 0xAB, 0x78, 0xB1, 0x01, 0x13, 0x1D, 0x31, 4); // 0x8FD
+            private static Player Timothy_Western = new Player(143, 144, 57, 60, 74, 61, 69, 53, 63, 437, 37, 48, 10, 14, 12, 13, 17, 13, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x86, 0x71, 0x17D, 0x8B, 0x08, 0x11, 0x1D, 0x2B, 2); // 0x8FE
+            private static Player Wallace_Hammond = new Player(129, 120, 65, 63, 68, 56, 68, 52, 59, 431, 48, 55, 14, 11, 18, 11, 21, 12, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x66, 0x142, 0x17D, 0x6A, 0x01, 0x01, 0x1A, 0x2D, 2); // 0x8FF
+            private static Player Shirley_Stevens = new Player(173, 176, 64, 60, 59, 60, 56, 60, 54, 413, 54, 76, 17, 15, 12, 16, 12, 14, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x17D, 0x16C, 0x193, 0x17C, 0x01, 0x18, 0x1E, 0x3C, 2); // 0x900
+            private static Player Ian_Smith = new Player(167, 157, 71, 67, 64, 58, 56, 66, 61, 443, 54, 62, 13, 17, 11, 11, 14, 20, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x17C, 0xAB, 0x86, 0x1A2, 0x01, 0x19, 0x21, 0x27, 4); // 0x901
+            private static Player Taylor_Firepool = new Player(169, 136, 57, 57, 62, 66, 60, 56, 61, 419, 40, 47, 10, 11, 13, 11, 13, 13, 13, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0xD6, 0x9D, 0x14E, 0x12E, 0x09, 0x13, 0x20, 0x37, 4); // 0x902
+            private static Player Marge_Fielding = new Player(129, 129, 60, 58, 64, 53, 69, 58, 60, 422, 33, 66, 14, 12, 13, 14, 17, 10, 14, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x3A, 0x14E, 0x71, 0x110, 0x01, 0x01, 0x10, 0x3D, 2); // 0x903
+            private static Player Marshall_Firsthand = new Player(169, 161, 63, 58, 55, 55, 68, 62, 62, 423, 33, 54, 12, 16, 11, 14, 12, 12, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x71, 0x173, 0x17D, 0x125, 0x0A, 0x15, 0x1E, 0x29, 4); // 0x904
+            private static Player Holly_Mirror = new Player(138, 117, 67, 64, 60, 71, 60, 68, 64, 454, 50, 55, 19, 13, 15, 13, 14, 20, 19, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x125, 0x9E, 0x6C, 0x110, 0x01, 0x0D, 0x18, 0x34, 4); // 0x905
+            private static Player Victoria_Vanguard = new Player(167, 176, 70, 69, 78, 66, 52, 69, 67, 471, 50, 48, 15, 11, 16, 10, 19, 20, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x16E, 0x10A, 0x10C, 0x187, 0x01, 0x15, 0x22, 0x45, 1); // 0x906
+            private static Player Joe_Kenneddy = new Player(169, 129, 60, 68, 65, 64, 53, 57, 56, 423, 49, 66, 18, 12, 18, 13, 17, 18, 20, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x10C, 0x9C, 0x173, 0x125, 0x01, 0x10, 0x1B, 0x2C, 4); // 0x907
+            private static Player Ian_Sights = new Player(171, 132, 52, 58, 60, 63, 69, 65, 62, 429, 36, 78, 17, 18, 17, 17, 11, 12, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB3, 0xAF, 0x72, 0x1A2, 0x01, 0x13, 0x24, 0x28, 4); // 0x908
+            private static Player Greene_Beray = new Player(123, 133, 63, 60, 73, 54, 52, 54, 60, 416, 40, 85, 14, 13, 7, 10, 11, 8, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0x80, 0x72, 0x17D, 0x08, 0x10, 0x1E, 0x2D, 2); // 0x909
+            private static Player Ryan_Tappin = new Player(160, 132, 68, 48, 68, 52, 54, 58, 59, 407, 46, 48, 17, 15, 13, 16, 12, 13, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x88, 0x6C, 0x142, 0x09, 0x0F, 0x1C, 0x30, 2); // 0x90A
+            private static Player Linda_Shadey = new Player(129, 112, 69, 67, 70, 60, 54, 57, 56, 433, 27, 35, 12, 11, 13, 10, 10, 10, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9A, 0x67, 0x14E, 0x10C, 0x07, 0x0B, 0x26, 0x2E, 2); // 0x90B
+            private static Player Sid_Safehouse = new Player(169, 117, 59, 67, 59, 71, 57, 64, 58, 435, 63, 68, 9, 15, 17, 17, 10, 14, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x172, 0x82, 0xAB, 0x17C, 0x10, 0x14, 0x1D, 0x3B, 2); // 0x90C
+            private static Player Adam_Ropes = new Player(195, 129, 62, 56, 62, 62, 77, 67, 66, 452, 73, 76, 18, 17, 17, 15, 13, 14, 13, 1, 4, 4, 4, 4, 1, 4, 1, 4, 0x194, 0xB2, 0x16A, 0x178, 0x01, 0x10, 0x1D, 0x2D, 1); // 0x911
+            private static Player Joaquine_Downtown = new Player(127, 133, 57, 54, 68, 59, 58, 56, 60, 412, 57, 55, 13, 13, 15, 15, 15, 12, 19, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x16A, 0x180, 0x10A, 0x145, 0x15, 0x1B, 0x22, 0x28, 5); // 0x912
+            private static Player Milton_Bindings = new Player(169, 153, 52, 67, 57, 55, 54, 60, 62, 407, 58, 48, 16, 15, 15, 19, 17, 16, 16, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x87, 0x16A, 0xC2, 0x7F, 0x0D, 0x19, 0x1F, 0x27, 3); // 0x913
+            private static Player Spike_Gleeson = new Player(154, 149, 60, 63, 65, 52, 52, 60, 69, 421, 58, 66, 19, 19, 20, 20, 20, 13, 13, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x6D, 0x88, 0x7E, 0x81, 0x08, 0x12, 0x1E, 0x25, 3); // 0x914
+            private static Player Sean_Snowfield = new Player(195, 169, 59, 65, 60, 72, 72, 76, 68, 472, 32, 51, 17, 14, 15, 12, 7, 11, 16, 2, 4, 4, 4, 4, 2, 4, 2, 4, 0x49, 0xE8, 0x175, 0xE6, 0x01, 0x01, 0x1D, 0x34, 4); // 0x915
+            private static Player Kerry_Bootgaiter = new Player(154, 136, 62, 59, 57, 60, 63, 64, 60, 425, 42, 64, 14, 13, 14, 15, 18, 13, 16, 2, 4, 4, 4, 4, 4, 4, 2, 4, 0x67, 0xE8, 0x141, 0x6A, 0x0A, 0x10, 0x1E, 0x30, 5); // 0x916
+            private static Player Maddox_Rock = new Player(167, 140, 56, 60, 61, 54, 61, 53, 65, 410, 52, 60, 14, 15, 13, 18, 14, 12, 15, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x141, 0x146, 0x10F, 0x145, 0x01, 0x12, 0x1B, 0x2A, 3); // 0x917
+            private static Player Robert_Skipolson = new Player(132, 137, 56, 52, 62, 53, 68, 54, 55, 400, 42, 60, 13, 16, 18, 16, 15, 11, 14, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x99, 0xBE, 0x95, 0x141, 0x0C, 0x14, 0x1D, 0x26, 5); // 0x918
+            private static Player Shawn_Froste = new Player(187, 136, 72, 71, 68, 64, 68, 69, 53, 465, 56, 66, 16, 14, 16, 15, 18, 14, 14, 1, 2, 4, 2, 2, 2, 2, 1, 4, 0x16A, 0x7B, 0x7F, 0x178, 0x01, 0x10, 0x2A, 0x4F, 2); // 0x919
+            private static Player Roland_Climbstein = new Player(156, 129, 65, 62, 52, 59, 58, 58, 61, 415, 58, 36, 19, 16, 16, 18, 16, 14, 14, 1, 4, 1, 1, 4, 4, 4, 1, 4, 0x3B, 0x16A, 0x9F, 0x105, 0x01, 0x01, 0x13, 0x26, 2); // 0x91A
+            private static Player Quentin_Rackner = new Player(145, 149, 56, 57, 56, 58, 64, 65, 64, 420, 52, 59, 20, 13, 14, 18, 17, 15, 18, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x9F, 0x66, 0x76, 0x105, 0x01, 0x0B, 0x19, 0x20, 4); // 0x91B
+            private static Player Steve_Camping = new Player(147, 144, 60, 60, 59, 66, 57, 66, 78, 446, 56, 64, 17, 15, 16, 17, 10, 11, 16, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0xAD, 0xB2, 0xAE, 0x194, 0x09, 0x18, 0x27, 0x3A, 3); // 0x91C
+            private static Player Martin_Ursus = new Player(189, 132, 60, 69, 56, 68, 56, 58, 56, 423, 57, 51, 13, 19, 11, 12, 12, 18, 19, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x7A, 0x75, 0x16A, 0x174, 0x01, 0x1B, 0x21, 0x40, 1); // 0x91D
+            private static Player Pete_Bogg = new Player(123, 109, 60, 54, 69, 57, 60, 53, 58, 411, 43, 66, 18, 17, 11, 16, 17, 15, 16, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x146, 0x96, 0x145, 0xC4, 0x0A, 0x12, 0x21, 0x31, 3); // 0x91E
+            private static Player Gem_Strata = new Player(143, 116, 56, 57, 52, 53, 60, 53, 60, 391, 44, 64, 17, 16, 14, 20, 16, 20, 13, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x83, 0x6F, 0x78, 0x7C, 0x09, 0x13, 0x1A, 0x22, 3); // 0x91F
+            private static Player Horace_Onlign = new Player(132, 113, 55, 63, 52, 52, 60, 58, 60, 400, 51, 35, 14, 14, 17, 16, 14, 17, 15, 1, 4, 4, 4, 4, 4, 4, 1, 4, 0x9A, 0x66, 0xC2, 0x9F, 0x01, 0x01, 0x19, 0x23, 1); // 0x920
+            private static Player Shawn_Froste_Aiden = new Player(187, 136, 76, 69, 64, 68, 77, 60, 50, 464, 56, 66, 20, 15, 14, 11, 18, 16, 13, 1, 2, 2, 2, 1, 4, 2, 1, 2, 0x105, 0x66, 0x145, 0x9F, 0x01, 0x0C, 0x26, 0x3C, 2); // 0x921
+            private static Player Shawn_Froste_Fusion = new Player(190, 140, 80, 71, 68, 68, 77, 70, 57, 491, 56, 66, 16, 14, 16, 14, 20, 17, 13, 1, 2, 2, 2, 2, 2, 2, 1, 2, 0x105, 0x145, 0x16A, 0x114, 0x01, 0x01, 0x01, 0x64, 2); // 0x922
+            private static Player Gen_Fenced = new Player(200, 149, 71, 71, 76, 62, 58, 75, 69, 482, 36, 68, 19, 14, 17, 16, 15, 14, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x49, 0x196, 0xAD, 0x199, 0x01, 0x01, 0x14, 0x2D, 4); // 0x925
+            private static Player Key_Enlightened = new Player(171, 129, 64, 64, 68, 64, 62, 60, 60, 442, 52, 76, 14, 19, 17, 17, 17, 16, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7E, 0x16B, 0x6E, 0x8B, 0x01, 0x01, 0x15, 0x2E, 2); // 0x926
+            private static Player Howard_Light = new Player(187, 149, 56, 53, 62, 52, 57, 69, 64, 413, 45, 70, 17, 19, 17, 17, 17, 15, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x70, 0x81, 0x150, 0x65, 0x0D, 0x14, 0x1D, 0x32, 2); // 0x927
+            private static Player Mike_Luck = new Player(213, 129, 56, 67, 55, 59, 68, 71, 70, 446, 45, 74, 17, 15, 17, 14, 18, 15, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0x7D, 0x10D, 0x8B, 0x01, 0x0E, 0x1B, 0x2A, 2); // 0x928
+            private static Player Silas_Unbend = new Player(193, 144, 53, 58, 67, 56, 62, 59, 53, 408, 56, 55, 15, 18, 13, 17, 16, 20, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0x175, 0x6B, 0x75, 0x01, 0x01, 0x1A, 0x25, 2); // 0x929
+            private static Player Junior_Fardream = new Player(187, 153, 58, 53, 70, 62, 60, 66, 63, 432, 55, 80, 13, 17, 16, 15, 13, 16, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x146, 0x150, 0x81, 0x9B, 0x01, 0x17, 0x22, 0x2A, 2); // 0x92A
+            private static Player Ike_Learning = new Player(191, 149, 60, 57, 62, 52, 61, 69, 56, 417, 55, 64, 19, 16, 15, 18, 17, 17, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x65, 0x72, 0xC4, 0x76, 0x11, 0x15, 0x1E, 0x2D, 2); // 0x92B
+            private static Player Manny_Riverun = new Player(184, 164, 57, 52, 70, 61, 56, 68, 64, 428, 48, 48, 20, 15, 18, 13, 16, 16, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xC6, 0x9B, 0x88, 0xD5, 0x01, 0x01, 0x12, 0x27, 2); // 0x92C
+            private static Player Albert_Heavenside = new Player(215, 160, 63, 56, 68, 63, 68, 74, 76, 468, 62, 93, 14, 11, 16, 18, 16, 15, 18, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x3D, 0x10D, 0x67, 0x113, 0x01, 0x01, 0x01, 0x35, 4); // 0x92D
+            private static Player Mel_Shadow = new Player(149, 132, 60, 56, 65, 61, 70, 58, 55, 425, 58, 66, 17, 15, 14, 14, 18, 17, 20, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x146, 0x8D, 0x81, 0x112, 0x01, 0x01, 0x21, 0x2A, 2); // 0x92E
+            private static Player Ulbert_Heavenside = new Player(154, 180, 77, 55, 68, 57, 72, 52, 71, 452, 49, 66, 18, 11, 13, 19, 17, 17, 16, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x41, 0x112, 0x143, 0x11E, 0x01, 0x01, 0x01, 0x39, 4); // 0x92F
+            private static Player Scott_Banyan = new Player(198, 160, 63, 71, 64, 64, 65, 61, 70, 458, 54, 80, 12, 15, 15, 18, 17, 17, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x183, 0x67, 0xE8, 0x72, 0x01, 0x12, 0x18, 0x1C, 3); // 0x930
+            private static Player Earnest_Search = new Player(162, 145, 53, 70, 60, 60, 55, 55, 70, 423, 44, 54, 13, 17, 13, 17, 11, 14, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA1, 0x193, 0xC6, 0x196, 0x01, 0x16, 0x21, 0x31, 2); // 0x931
+            private static Player Phil_Actery = new Player(171, 133, 62, 57, 59, 58, 57, 60, 58, 411, 52, 59, 12, 17, 11, 15, 16, 17, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x87, 0x6E, 0xBF, 0x7E, 0x01, 0x01, 0x1C, 0x2B, 2); // 0x932
+            private static Player Brand_Gozan = new Player(176, 149, 60, 61, 54, 52, 57, 58, 60, 402, 40, 76, 18, 19, 17, 13, 16, 17, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x77, 0x6B, 0x8F, 0x174, 0x01, 0x1D, 0x23, 0x32, 2); // 0x933
+            private static Player Dan_Omination = new Player(151, 165, 69, 60, 54, 57, 52, 56, 57, 405, 37, 64, 11, 15, 16, 12, 10, 16, 18, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xBF, 0xC6, 0x67, 0x112, 0x01, 0x1E, 0x22, 0x37, 2); // 0x934
+            private static Player Scott_Banyan_FW = new Player(198, 160, 76, 82, 82, 59, 64, 72, 80, 515, 54, 80, 12, 15, 15, 18, 17, 17, 14, 4, 4, 4, 2, 2, 4, 4, 4, 2, 0x44, 0xC6, 0x143, 0x112, 0x01, 0x0E, 0x22, 0x2E, 3); // 0x935
+            private static Player Joseph_King_Redux = new Player(200, 153, 72, 75, 69, 72, 55, 74, 60, 477, 55, 96, 15, 11, 13, 16, 13, 14, 14, 1, 3, 1, 2, 1, 3, 1, 1, 2, 0x41, 0x197, 0xA3, 0xAC, 0x01, 0x01, 0x20, 0x25, 1); // 0x939
+            private static Player Rowan_Beltzer = new Player(149, 136, 60, 62, 63, 60, 64, 69, 58, 436, 61, 78, 17, 17, 11, 15, 18, 13, 17, 1, 2, 1, 1, 1, 2, 1, 1, 1, 0x7F, 0x178, 0x92, 0xC9, 0x01, 0x01, 0x01, 0x20, 1); // 0x93A
+            private static Player Blade_Healen = new Player(147, 136, 53, 56, 70, 60, 62, 63, 62, 426, 62, 93, 14, 13, 11, 14, 20, 16, 17, 1, 2, 1, 1, 1, 2, 1, 1, 1, 0x7A, 0x14B, 0xE8, 0x146, 0x01, 0x01, 0x1C, 0x1E, 2); // 0x93B
+            private static Player Topher_Groin = new Player(200, 153, 76, 60, 62, 64, 64, 79, 60, 465, 61, 92, 16, 17, 15, 18, 10, 14, 17, 1, 2, 1, 1, 1, 2, 1, 1, 1, 0x38, 0x83, 0xCA, 0xE6, 0x01, 0x01, 0x1A, 0x2E, 1); // 0x93C
+            private static Player Lee_Bamboo = new Player(149, 137, 68, 62, 68, 69, 62, 59, 62, 450, 63, 78, 17, 14, 10, 16, 18, 17, 12, 1, 2, 1, 1, 1, 2, 1, 1, 1, 0x7A, 0xD3, 0x85, 0x14B, 0x01, 0x01, 0x19, 0x2E, 1); // 0x93D
+            private static Player Eton_Messer = new Player(154, 165, 60, 63, 70, 52, 68, 56, 67, 436, 57, 88, 11, 16, 18, 17, 17, 15, 17, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0x90, 0x71, 0x86, 0x142, 0x01, 0x01, 0x01, 0x2A, 1); // 0x93E
+            private static Player Jonah_Spark = new Player(195, 156, 62, 64, 61, 62, 70, 63, 74, 456, 49, 76, 11, 11, 14, 12, 15, 13, 14, 1, 2, 1, 2, 1, 1, 2, 1, 1, 0x87, 0x68, 0x150, 0x81, 0x01, 0x01, 0x1C, 0x24, 1); // 0x93F
+            private static Player Sue_Sparrow = new Player(158, 164, 57, 63, 64, 54, 62, 59, 60, 419, 66, 103, 16, 12, 11, 11, 17, 10, 14, 1, 2, 1, 2, 3, 1, 2, 1, 1, 0xC9, 0x7F, 0x70, 0x65, 0x01, 0x01, 0x1C, 0x31, 2); // 0x940
+            private static Player Riley_Jamm = new Player(154, 129, 70, 55, 64, 64, 60, 69, 60, 442, 48, 99, 18, 19, 16, 20, 17, 13, 18, 1, 2, 1, 2, 1, 1, 1, 2, 1, 0x90, 0x118, 0xD3, 0x93, 0x01, 0x01, 0x01, 0x40, 2); // 0x941
+            private static Player Caleb_Stonewall = new Player(182, 169, 75, 60, 78, 60, 64, 66, 69, 472, 55, 99, 18, 16, 15, 10, 19, 18, 18, 1, 3, 1, 2, 1, 1, 1, 2, 2, 0x4A, 0x12C, 0x14B, 0x7A, 0x01, 0x01, 0x01, 0x01, 4); // 0x942
+            private static Player David_Samford_Redux = new Player(193, 193, 70, 60, 78, 66, 66, 67, 71, 478, 62, 90, 16, 12, 17, 13, 17, 13, 16, 1, 3, 3, 2, 3, 1, 1, 2, 2, 0x48, 0x115, 0xD3, 0xD1, 0x01, 0x01, 0x1C, 0x3C, 3); // 0x943
+            private static Player Jimbo_Cellar = new Player(165, 149, 52, 76, 56, 72, 54, 63, 68, 441, 76, 72, 13, 16, 14, 15, 14, 10, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0xA5, 0xAC, 0x85, 0x01, 0x01, 0x1E, 0x28, 1); // 0x944
+            private static Player Zenn_Wildhorse = new Player(165, 137, 60, 57, 61, 61, 60, 56, 64, 419, 48, 54, 16, 16, 17, 14, 17, 13, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6D, 0x94, 0xC9, 0x14A, 0x01, 0x01, 0x1F, 0x35, 1); // 0x945
+            private static Player Dawson_Little = new Player(169, 153, 73, 54, 61, 54, 65, 60, 53, 420, 60, 58, 10, 14, 17, 14, 14, 12, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7D, 0x86, 0x6C, 0x7F, 0x01, 0x1D, 0x24, 0x2E, 1); // 0x946
+            private static Player Cosimo_Beck = new Player(149, 132, 59, 52, 63, 60, 61, 52, 68, 415, 62, 64, 20, 14, 20, 13, 12, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x69, 0xD5, 0xC4, 0x117, 0x01, 0x1E, 0x26, 0x34, 1); // 0x947
+            private static Player Maston_Color = new Player(169, 156, 68, 53, 59, 64, 53, 66, 69, 432, 55, 60, 10, 18, 14, 10, 19, 13, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xD6, 0x7A, 0x175, 0x75, 0x01, 0x01, 0x1F, 0x28, 1); // 0x948
+            private static Player Darren_LaChance = new Player(217, 157, 60, 76, 66, 79, 56, 71, 64, 472, 42, 47, 14, 14, 19, 16, 15, 18, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xBB, 0xBA, 0x155, 0x191, 0x01, 0x64, 0x23, 0x64, 3); // 0x94D
+            private static Player Orson_Pot = new Player(162, 160, 55, 56, 60, 55, 60, 60, 60, 406, 62, 54, 15, 20, 14, 16, 19, 16, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x3B, 0x16C, 0x7B, 0x155, 0x01, 0x01, 0x1C, 0x2E, 3); // 0x94E
+            private static Player Mick_Mishap = new Player(160, 136, 60, 60, 53, 60, 59, 66, 60, 418, 58, 51, 18, 20, 13, 15, 13, 20, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x169, 0x83, 0x66, 0x6A, 0x01, 0x1D, 0x21, 0x37, 1); // 0x94F
+            private static Player Louis_Leave = new Player(191, 129, 69, 63, 60, 70, 60, 64, 52, 438, 67, 51, 20, 14, 16, 16, 11, 20, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x117, 0x83, 0x6B, 0x173, 0x01, 0x01, 0x23, 0x2F, 3); // 0x950
+            private static Player Maurice_Badgame = new Player(206, 133, 73, 66, 52, 60, 57, 65, 71, 444, 49, 56, 14, 19, 20, 18, 17, 18, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x78, 0x155, 0xAD, 0x195, 0x01, 0x01, 0x21, 0x33, 3); // 0x951
+            private static Player Cannon_Random = new Player(169, 148, 53, 62, 60, 53, 68, 63, 55, 414, 54, 51, 17, 14, 13, 11, 20, 17, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7D, 0x14A, 0x193, 0x196, 0x01, 0x01, 0x20, 0x30, 2); // 0x952
+            private static Player Ulric_Richmen = new Player(151, 133, 62, 61, 59, 55, 57, 61, 58, 413, 54, 66, 18, 17, 20, 17, 17, 20, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x97, 0x16C, 0xCD, 0x10C, 0x01, 0x01, 0x1D, 0x2B, 1); // 0x953
+            private static Player Dave_Fate = new Player(143, 136, 54, 64, 54, 56, 70, 62, 61, 421, 60, 39, 14, 17, 17, 13, 16, 11, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x4A, 0x82, 0x155, 0x175, 0x01, 0x01, 0x01, 0x27, 1); // 0x954
+            private static Player Spencer_Duskplay = new Player(147, 140, 77, 52, 62, 57, 52, 64, 53, 417, 64, 56, 16, 17, 19, 16, 15, 18, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x10E, 0xD6, 0x155, 0x117, 0x01, 0x1D, 0x27, 0x2F, 2); // 0x955
+            private static Player Jonathan_Luckyman = new Player(173, 149, 65, 62, 62, 71, 69, 61, 64, 454, 68, 49, 18, 17, 20, 13, 20, 16, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x49, 0x10A, 0x144, 0x9C, 0x01, 0x01, 0x01, 0x29, 4); // 0x956
+            private static Player Joe_Poker = new Player(158, 129, 54, 62, 63, 55, 67, 55, 64, 420, 57, 63, 15, 13, 11, 11, 17, 18, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xC4, 0x155, 0x96, 0x144, 0x01, 0x01, 0x21, 0x35, 1); // 0x957
+            private static Player Wiley_Cracker = new Player(138, 140, 52, 64, 56, 66, 60, 56, 56, 410, 44, 51, 19, 18, 11, 19, 16, 10, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAB, 0xA4, 0x192, 0xA7, 0x01, 0x01, 0x24, 0x34, 3); // 0x958
+            private static Player Mark_Failing = new Player(145, 133, 61, 61, 56, 57, 54, 54, 55, 398, 38, 68, 16, 20, 17, 15, 12, 14, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x148, 0x92, 0x9C, 0xD3, 0x01, 0x1C, 0x22, 0x2A, 1); // 0x959
+            private static Player Alton_Cotts = new Player(171, 169, 60, 68, 62, 71, 54, 68, 71, 454, 55, 48, 13, 18, 11, 19, 10, 12, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x92, 0x83, 0x10A, 0x173, 0x01, 0x1E, 0x24, 0x2D, 3); // 0x95A
+            private static Player Mike_Passing = new Player(127, 141, 52, 56, 71, 57, 68, 57, 63, 424, 36, 37, 14, 12, 20, 12, 13, 14, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9E, 0x10F, 0x8E, 0x144, 0x01, 0x1D, 0x28, 0x36, 1); // 0x95B
+            private static Player Knowle_Bathers = new Player(180, 100, 59, 59, 52, 58, 59, 71, 62, 420, 78, 45, 17, 16, 12, 15, 14, 18, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xA3, 0x193, 0x85, 0x169, 0x01, 0x01, 0x21, 0x31, 3); // 0x95C
+            private static Player Rocky_Black = new Player(204, 104, 76, 72, 52, 76, 50, 72, 72, 470, 70, 60, 18, 20, 14, 18, 15, 20, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x3D, 0x195, 0xB4, 0xB0, 0x01, 0x01, 0x01, 0x2E, 2); // 0x961
+            private static Player Chad_Taylor = new Player(165, 140, 61, 55, 60, 53, 58, 61, 57, 405, 70, 72, 15, 20, 16, 20, 16, 18, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7B, 0x67, 0xD5, 0x173, 0x01, 0x21, 0x26, 0x2B, 1); // 0x962
+            private static Player Victor_Hills = new Player(191, 140, 68, 61, 64, 71, 52, 60, 68, 444, 57, 76, 17, 19, 14, 18, 17, 15, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x179, 0xAB, 0xA3, 0x82, 0x01, 0x23, 0x2A, 0x33, 1); // 0x963
+            private static Player Hurley_Kane = new Player(171, 145, 72, 70, 71, 73, 71, 71, 65, 493, 68, 62, 21, 20, 17, 17, 15, 17, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x4B, 0x107, 0x85, 0x182, 0x01, 0x01, 0x23, 0x32, 4); // 0x964
+            private static Player Hector_Redding = new Player(145, 145, 62, 57, 63, 54, 56, 62, 56, 410, 55, 66, 12, 15, 16, 19, 16, 20, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x6B, 0xAA, 0x173, 0x01, 0x23, 0x26, 0x2D, 2); // 0x965
+            private static Player Mackenzie_Fordline = new Player(158, 156, 60, 57, 53, 56, 61, 53, 60, 400, 55, 45, 13, 13, 20, 20, 17, 17, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x94, 0xE7, 0xD3, 0x7F, 0x01, 0x01, 0x25, 0x2A, 2); // 0x966
+            private static Player Cadence_Soundtown = new Player(173, 149, 61, 56, 62, 62, 60, 63, 60, 424, 78, 76, 14, 20, 19, 18, 17, 13, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x17A, 0x148, 0x86, 0x14F, 0x01, 0x21, 0x28, 0x32, 2); // 0x967
+            private static Player Dora_Delight = new Player(173, 109, 59, 60, 53, 55, 52, 59, 60, 398, 56, 60, 15, 18, 17, 19, 17, 18, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x49, 0x148, 0x17A, 0x14A, 0x01, 0x01, 0x2C, 0x38, 3); // 0x968
+            private static Player Tom_Contented = new Player(160, 141, 64, 60, 69, 52, 54, 59, 59, 417, 42, 56, 20, 18, 19, 18, 20, 19, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x11E, 0x95, 0x111, 0x77, 0x01, 0x01, 0x24, 0x2F, 1); // 0x969
+            private static Player Joston_Easton = new Player(165, 164, 61, 67, 60, 66, 68, 64, 55, 441, 55, 70, 20, 19, 18, 20, 18, 17, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x14C, 0x6D, 0x148, 0xD5, 0x01, 0x01, 0x2B, 0x37, 1); // 0x96A
+            private static Player Spring_Millpond = new Player(209, 129, 59, 63, 76, 60, 77, 57, 55, 447, 55, 81, 20, 19, 20, 20, 17, 14, 15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xC7, 0x6C, 0xBE, 0x11E, 0x01, 0x01, 0x22, 0x31, 4); // 0x96B
+            private static Player Gaston_Cooley = new Player(173, 137, 57, 63, 52, 64, 59, 59, 66, 420, 57, 89, 10, 18, 19, 18, 15, 14, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x19F, 0x67, 0xB2, 0xB4, 0x01, 0x24, 0x28, 0x35, 2); // 0x96C
+            private static Player Barnaby_Pension = new Player(151, 113, 58, 66, 71, 62, 61, 52, 70, 440, 54, 45, 13, 17, 18, 20, 16, 18, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x77, 0xE8, 0xCD, 0x179, 0x01, 0x01, 0x25, 0x40, 3); // 0x96D
+            private static Player Jack_Griddle = new Player(165, 140, 60, 53, 58, 56, 61, 62, 61, 411, 57, 41, 14, 10, 19, 17, 15, 15, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xCA, 0xC1, 0x72, 0x14F, 0x01, 0x01, 0x22, 0x36, 1); // 0x96E
+            private static Player Stan_Andagi = new Player(162, 120, 65, 52, 58, 61, 56, 68, 69, 429, 58, 72, 15, 14, 15, 19, 12, 18, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x82, 0x6F, 0x7C, 0x174, 0x01, 0x01, 0x24, 0x2F, 1); // 0x96F
+            private static Player Coral_Talent = new Player(151, 157, 63, 52, 57, 63, 65, 58, 60, 418, 57, 22, 10, 10, 20, 13, 17, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x90, 0x146, 0xC7, 0x11F, 0x01, 0x22, 0x27, 0x34, 5); // 0x970
+            private static Player Thomas_Feldt2 = new Player(238, 240, 75, 75, 79, 93, 69, 80, 79, 550, 88, 110, 19, 19, 17, 23, 18, 17, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x3D, 0xA5, 0x19D, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x975
+            private static Player Malcolm_Night2 = new Player(236, 208, 86, 75, 93, 93, 79, 83, 83, 592, 72, 79, 20, 20, 22, 22, 19, 18, 17, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x47, 0x85, 0x12C, 0x00, 0x01, 0x01, 0x01, 0x00, 3); // 0x976
+            private static Player Shadow_Cimmerian2 = new Player(234, 225, 93, 79, 77, 85, 93, 78, 74, 579, 86, 84, 22, 17, 22, 20, 20, 19, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x3D, 0xD9, 0x93, 0x81, 0x01, 0x01, 0x01, 0x01, 3); // 0x977
+            private static Player Jim_Wraith2 = new Player(236, 201, 70, 74, 93, 93, 68, 74, 74, 546, 85, 81, 18, 16, 25, 25, 15, 15, 17, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x49, 0x81, 0x89, 0x113, 0x01, 0x01, 0x01, 0x01, 3); // 0x978
+            private static Player Tod_Ironside2 = new Player(217, 199, 78, 77, 93, 75, 72, 66, 93, 554, 77, 75, 14, 18, 25, 16, 16, 15, 25, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x3E, 0xC4, 0x77, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x979
+            private static Player Steve_Grim2 = new Player(214, 213, 85, 86, 85, 74, 84, 85, 85, 584, 46, 67, 13, 7, 9, 11, 7, 9, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x3B, 0x110, 0x14F, 0x00, 0x01, 0x01, 0x01, 0x00, 2); // 0x97A
+            private static Player Tim_Saunders2 = new Player(210, 225, 80, 74, 93, 93, 69, 93, 70, 572, 61, 89, 19, 14, 25, 24, 16, 23, 17, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x4A, 0x10D, 0x169, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x97B
+            private static Player Sam_Kincaid2 = new Player(212, 192, 75, 70, 69, 93, 77, 66, 93, 543, 70, 74, 20, 18, 16, 25, 16, 14, 24, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x39, 0x10E, 0x14B, 0x00, 0x01, 0x01, 0x01, 0x00, 2); // 0x97C
+            private static Player Maxwell_Carson2 = new Player(195, 223, 74, 93, 93, 82, 77, 70, 75, 564, 59, 83, 16, 25, 23, 19, 22, 16, 18, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x41, 0x110, 0xD4, 0x00, 0x01, 0x01, 0x01, 0x00, 1); // 0x97D
+            private static Player Nathan_Swift2 = new Player(238, 218, 93, 74, 83, 71, 93, 93, 66, 573, 101, 81, 22, 16, 18, 17, 24, 24, 18, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x3D, 0x45, 0x12B, 0x65, 0x01, 0x01, 0x01, 0x01, 2); // 0x97E
+            private static Player Kevin_Dragonfly2 = new Player(232, 240, 93, 74, 70, 75, 64, 77, 83, 536, 77, 117, 24, 17, 14, 18, 17, 18, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x4A, 0x8D, 0x128, 0x00, 0x01, 0x01, 0x01, 0x00, 2); // 0x97F
+            private static Player Daisy_Fields = new Player(182, 133, 60, 61, 70, 67, 69, 52, 71, 450, 67, 80, 16, 18, 14, 19, 13, 20, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x19E, 0x19B, 0x172, 0x195, 0x01, 0x01, 0x19, 0x25, 4); // 0x989
+            private static Player Alexia_Sand = new Player(151, 137, 61, 56, 61, 65, 60, 52, 52, 407, 48, 54, 17, 20, 19, 15, 17, 19, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6D, 0x173, 0x72, 0x16C, 0x01, 0x01, 0x20, 0x2A, 5); // 0x98A
+            private static Player Hellen_Hearth = new Player(123, 144, 63, 52, 56, 55, 60, 55, 57, 398, 48, 52, 17, 17, 18, 11, 11, 20, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x3A, 0x180, 0x149, 0x116, 0x01, 0x01, 0x01, 0x2F, 1); // 0x98B
+            private static Player Rose_Pinkpetal = new Player(138, 133, 52, 60, 68, 60, 66, 52, 52, 410, 54, 55, 14, 18, 19, 19, 18, 14, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x173, 0x148, 0xD5, 0x154, 0x01, 0x01, 0x1E, 0x26, 2); // 0x98C
+            private static Player Esther_Greenland = new Player(154, 132, 62, 67, 60, 58, 68, 52, 63, 430, 58, 66, 17, 20, 19, 13, 14, 18, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x180, 0xE7, 0x99, 0xC7, 0x01, 0x1A, 0x21, 0x27, 2); // 0x98D
+            private static Player Bela_Bluebells = new Player(125, 116, 56, 55, 64, 63, 61, 63, 59, 421, 55, 48, 14, 16, 18, 17, 16, 15, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x98, 0xE8, 0x77, 0x154, 0x01, 0x01, 0x1A, 0x28, 1); // 0x98E
+            private static Player Natalie_Sunrise = new Player(160, 156, 57, 58, 63, 57, 67, 60, 58, 420, 50, 64, 19, 17, 16, 17, 16, 15, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x148, 0xE8, 0x173, 0xD3, 0x01, 0x01, 0x1D, 0x25, 2); // 0x98F
+            private static Player Hillary_Bush = new Player(143, 132, 63, 66, 59, 71, 53, 60, 54, 426, 68, 66, 16, 14, 14, 20, 16, 18, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x154, 0x9E, 0x7B, 0x10A, 0x01, 0x01, 0x19, 0x23, 1); // 0x990
+            private static Player Mary_Moor = new Player(143, 129, 56, 65, 58, 56, 66, 54, 69, 424, 82, 64, 18, 15, 14, 17, 19, 15, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9A, 0xD5, 0x154, 0xC4, 0x01, 0x01, 0x20, 0x2B, 1); // 0x991
+            private static Player Suzette_Hartland = new Player(162, 153, 62, 65, 70, 62, 68, 60, 64, 451, 61, 81, 20, 18, 16, 16, 18, 16, 18, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x116, 0x11F, 0x149, 0x131, 0x01, 0x01, 0x1F, 0x2D, 2); // 0x992
+            private static Player Lily_Willow = new Player(151, 132, 67, 64, 62, 63, 53, 56, 61, 426, 56, 72, 19, 13, 20, 15, 17, 18, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x3A, 0x11F, 0x154, 0x180, 0x01, 0x01, 0x01, 0x28, 4); // 0x993
+            private static Player Dell_Closeout = new Player(145, 133, 52, 60, 52, 60, 55, 58, 52, 389, 50, 63, 10, 19, 15, 16, 14, 16, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xB3, 0x19E, 0xE8, 0x19B, 0x01, 0x1C, 0x1E, 0x2E, 1); // 0x994
+            private static Player Amy_Spires = new Player(121, 112, 54, 55, 56, 55, 52, 60, 52, 384, 44, 49, 17, 20, 18, 16, 11, 16, 17, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x6D, 0xE7, 0x7E, 0x131, 0x01, 0x01, 0x24, 0x36, 3); // 0x995
+            private static Player Peony_Cash = new Player(154, 124, 52, 58, 60, 52, 58, 62, 68, 410, 55, 80, 18, 15, 17, 11, 14, 19, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x146, 0x148, 0x154, 0x149, 0x01, 0x20, 0x28, 0x38, 3); // 0x996
+            private static Player Gayle_Revel = new Player(167, 109, 71, 64, 60, 56, 64, 63, 70, 448, 48, 58, 16, 16, 13, 18, 17, 14, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x9E, 0xD5, 0x9C, 0x155, 0x01, 0x1D, 0x25, 0x31, 2); // 0x997
+            private static Player Janine_Brook = new Player(149, 109, 62, 70, 63, 62, 61, 57, 58, 433, 54, 33, 15, 16, 14, 11, 11, 17, 15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAB, 0x172, 0xC4, 0xA8, 0x01, 0x1E, 0x26, 0x35, 2); // 0x998
+            private static Player Colin_Binder = new Player(167, 132, 58, 61, 79, 52, 55, 59, 79, 443, 58, 76, 14, 5, 16, 5, 13, 15, 5, 5, 2, 5, 5, 2, 5, 5, 5, 5, 0x66, 0xE7, 0x17A, 0x141, 0x01, 0x13, 0x1F, 0x30, 2); // 0x99D
+            private static Player Larry_Pogue = new Player(217, 149, 79, 67, 58, 68, 52, 56, 57, 437, 94, 86, 21, 10, 4, 14, 7, 11, 10, 2, 2, 2, 5, 5, 5, 5, 2, 2, 0x6D, 0x10F, 0xD8, 0x118, 0x01, 0x0C, 0x18, 0x2C, 3); // 0x99E
+            private static Player Rob_Cardson = new Player(187, 165, 77, 68, 69, 79, 62, 78, 60, 493, 21, 39, 12, 15, 17, 22, 8, 6, 8, 2, 5, 5, 2, 2, 2, 5, 5, 5, 0x41, 0x172, 0x174, 0x179, 0x01, 0x01, 0x26, 0x33, 1); // 0x99F
+            private static Player Ken_Mayfield = new Player(156, 197, 79, 62, 53, 79, 63, 63, 56, 455, 63, 62, 15, 13, 13, 17, 14, 15, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0x88, 0x85, 0x75, 0x169, 0x01, 0x16, 0x1D, 0x2F, 4); // 0x9A0
+            private static Player Casey_Leather = new Player(140, 145, 56, 62, 79, 76, 52, 79, 60, 464, 44, 47, 13, 11, 23, 14, 12, 14, 14, 1, 1, 1, 1, 2, 1, 1, 5, 1, 0x92, 0x95, 0x76, 0x65, 0x01, 0x14, 0x20, 0x2B, 2); // 0x9A1
+            private static Player Ethan_Swallow = new Player(151, 156, 57, 53, 60, 60, 79, 74, 71, 454, 49, 36, 6, 7, 8, 5, 21, 23, 22, 5, 5, 5, 5, 5, 5, 2, 2, 2, 0x6D, 0x173, 0xC2, 0xD4, 0x01, 0x12, 0x19, 0x35, 1); // 0x9A2
+            private static Player Bob_Daruma = new Player(213, 129, 52, 52, 50, 52, 68, 79, 79, 432, 55, 21, 8, 6, 5, 6, 21, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x38, 0x6D, 0xC2, 0x14A, 0x01, 0x01, 0x1B, 0x32, 3); // 0x9A3
+            private static Player Mitch_Blackston = new Player(162, 153, 77, 69, 61, 56, 64, 57, 78, 462, 25, 25, 22, 8, 6, 4, 5, 8, 6, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0x39, 0xD9, 0x70, 0x93, 0x01, 0x01, 0x01, 0x39, 2); // 0x9A4
+            private static Player Aurelia_Dingle = new Player(134, 192, 42, 48, 79, 63, 71, 47, 42, 392, 28, 24, 5, 7, 8, 8, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x3A, 0x43, 0x3F, 0x4B, 0x01, 0x0A, 0x19, 0x32, 5); // 0x9A5
+            private static Player Canon_Evans = new Player(193, 180, 60, 79, 64, 79, 70, 72, 77, 501, 30, 84, 12, 17, 14, 17, 9, 15, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x111, 0x6B, 0x16C, 0x114, 0x01, 0x01, 0x1E, 0x2D, 6); // 0x9A6
+            private static Player Syon_Blaze = new Player(209, 185, 70, 60, 76, 67, 72, 64, 68, 477, 51, 56, 20, 14, 12, 14, 15, 13, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x8F, 0x8C, 0x143, 0x106, 0x01, 0x01, 0x1E, 0x2D, 2); // 0x9A7
+            private static Player Thor_Stoutberg = new Player(191, 149, 71, 62, 68, 75, 68, 71, 68, 483, 57, 49, 19, 19, 14, 20, 14, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x3D, 0x107, 0x175, 0x186, 0x01, 0x01, 0x1E, 0x38, 2); // 0x9A8
+            private static Player Nelly_Raimon = new Player(140, 197, 79, 51, 45, 52, 44, 49, 62, 382, 33, 21, 8, 5, 5, 4, 6, 4, 7, 4, 2, 4, 4, 4, 4, 4, 4, 4, 0x3A, 0x94, 0x116, 0x109, 0x01, 0x01, 0x1F, 0x4B, 1); // 0x9A9
+            private static Player Celia_Hills = new Player(138, 149, 48, 54, 69, 45, 69, 51, 70, 406, 19, 29, 5, 6, 8, 7, 6, 6, 7, 4, 4, 4, 4, 4, 4, 2, 4, 4, 0x43, 0x71, 0x85, 0x108, 0x01, 0x01, 0x1B, 0x46, 1); // 0x9AA
+            private static Player Silvia_Woods = new Player(143, 116, 44, 72, 52, 69, 51, 64, 68, 420, 19, 27, 8, 6, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 2, 4, 4, 4, 0x49, 0xA4, 0xA2, 0x1A6, 0x01, 0x01, 0x17, 0x46, 1); // 0x9AB
+            private static Player Hidetoshi_Nakata = new Player(193, 192, 72, 80, 85, 72, 74, 81, 82, 546, 78, 96, 19, 19, 18, 20, 20, 18, 20, 1, 2, 2, 2, 2, 1, 1, 1, 2, 0x48, 0x143, 0x147, 0x12D, 0x01, 0x01, 0x30, 0x4B, 1); // 0x9AC
+            /*private static Player ____ = new Player(173, 149, 56, 52, 53, 70, 60, 69, 59, 419, 60, 72, 14, 10, 14, 15, 11, 15, 14, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x47, 0xB5, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9B1
+            private static Player ____ = new Player(184, 165, 55, 54, 56, 62, 54, 66, 57, 404, 66, 76, 11, 13, 12, 15, 14, 15, 13, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x7F, 0x178, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9B2
+            private static Player ____ = new Player(178, 157, 58, 52, 55, 60, 58, 68, 60, 411, 64, 64, 13, 10, 10, 16, 10, 16, 13, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x85, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x9B3
+            private static Player ____ = new Player(173, 173, 54, 55, 59, 65, 62, 68, 54, 417, 58, 76, 14, 11, 13, 13, 11, 16, 14, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x39, 0x8D, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9B4
+            private static Player ____ = new Player(182, 156, 60, 63, 61, 69, 59, 64, 54, 430, 70, 62, 11, 13, 12, 15, 11, 13, 10, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xE7, 0x74, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9B5
+            private static Player ____ = new Player(165, 157, 56, 71, 59, 52, 63, 60, 58, 419, 60, 74, 11, 16, 11, 10, 12, 16, 10, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x6C, 0xD3, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9B6
+            private static Player ____ = new Player(178, 152, 54, 60, 61, 56, 62, 67, 60, 420, 69, 72, 11, 17, 14, 11, 10, 14, 14, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x112, 0x146, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9B7
+            private static Player ____ = new Player(189, 161, 56, 60, 60, 56, 60, 63, 56, 411, 58, 68, 13, 13, 13, 12, 12, 16, 14, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xD6, 0x71, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9B8
+            private static Player ____ = new Player(169, 169, 63, 55, 60, 53, 58, 60, 62, 411, 68, 63, 13, 14, 14, 14, 11, 17, 12, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x8C, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 1); // 0x9B9
+            private static Player ____ = new Player(182, 161, 69, 60, 52, 53, 69, 69, 60, 432, 63, 66, 15, 14, 10, 11, 13, 14, 13, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0xCE, 0x6B, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1); // 0x9BA
+            private static Player ____ = new Player(187, 165, 66, 60, 57, 56, 65, 60, 55, 419, 60, 63, 13, 10, 13, 13, 14, 14, 13, 2, 1, 2, 1, 1, 2, 1, 2, 3, 0x41, 0x119, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 1);*/ // 0x9BB
+            private static Player Curtis_Croon = new Player(209, 188, 68, 55, 52, 64, 31, 68, 28, 366, 43, 51, 11, 9, 8, 11, 9, 10, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xE7, 0x74, 0x7F, 0x143, 0x14, 0x1A, 0x22, 0x2D, 1); // 0x9C5
+            private static Player Georgio_Plumber = new Player(145, 136, 67, 68, 58, 56, 58, 69, 64, 440, 42, 32, 19, 13, 14, 10, 10, 10, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xC6, 0x10D, 0xD9, 0x91, 0x10, 0x21, 0x26, 0x37, 1); // 0x9C6
+            private static Player Vince_Firewall = new Player(123, 136, 68, 56, 57, 60, 51, 71, 56, 419, 38, 47, 8, 9, 10, 13, 10, 7, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0xA3, 0x17A, 0x194, 0x0C, 0x14, 0x20, 0x2F, 2); // 0x9C7
+            private static Player Roy_Diggins = new Player(136, 140, 52, 60, 52, 58, 60, 52, 59, 393, 26, 52, 13, 8, 10, 11, 14, 14, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x87, 0x7E, 0x148, 0x174, 0x0E, 0x1C, 0x2B, 0x33, 3); // 0x9C8
+            private static Player Quill_Inker = new Player(154, 140, 60, 59, 52, 60, 58, 61, 56, 406, 43, 48, 11, 10, 12, 13, 11, 13, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x3B, 0x145, 0x10C, 0x85, 0x01, 0x1C, 0x27, 0x2B, 1); // 0x9C9
+            private static Player Bertram_Manning = new Player(136, 152, 57, 66, 60, 61, 75, 76, 67, 462, 30, 60, 14, 11, 10, 12, 15, 17, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x3B, 0x95, 0x173, 0x14F, 0x01, 0x14, 0x29, 0x36, 3); // 0x9CA
+            private static Player Laura_Quilter = new Player(193, 152, 52, 64, 79, 55, 61, 65, 66, 442, 48, 51, 11, 14, 20, 12, 13, 12, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xD6, 0x141, 0x113, 0x14A, 0x0F, 0x22, 0x31, 0x3A, 3); // 0x9CB
+            private static Player Des_Igner = new Player(123, 105, 44, 49, 46, 52, 50, 55, 54, 350, 40, 43, 10, 9, 10, 8, 9, 11, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xE8, 0xE7, 0x6B, 0x81, 0x18, 0x21, 0x27, 0x2B, 3); // 0x9CC
+            private static Player Jarmon_Fisk = new Player(127, 132, 52, 61, 50, 66, 60, 60, 61, 410, 34, 48, 8, 7, 13, 16, 10, 17, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0x80, 0x143, 0x142, 0x0D, 0x15, 0x26, 0x31, 1); // 0x9CD
+            private static Player Hugh_Tinter = new Player(125, 156, 76, 66, 65, 71, 42, 78, 70, 468, 44, 63, 12, 14, 12, 14, 10, 14, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB0, 0xAC, 0x7F, 0x195, 0x12, 0x20, 0x27, 0x38, 3); // 0x9CE
+            private static Player Tim_Pression = new Player(112, 140, 40, 32, 29, 69, 64, 52, 57, 343, 31, 53, 9, 11, 4, 10, 17, 12, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xAA, 0x72, 0x192, 0x7F, 0x0F, 0x16, 0x23, 0x27, 1); // 0x9CF
+            private static Player Claire_Taker = new Player(129, 109, 48, 50, 48, 52, 52, 48, 52, 350, 38, 39, 10, 9, 9, 9, 8, 9, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x7B, 0x87, 0x7E, 0x154, 0x0B, 0x0F, 0x14, 0x24, 2); // 0x9D0
+            private static Player Heath_Planner = new Player(83, 146, 40, 54, 57, 53, 70, 67, 53, 394, 20, 43, 10, 11, 7, 9, 14, 13, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xE8, 0x148, 0xAE, 0x76, 0x12, 0x1D, 0x24, 0x2C, 1); // 0x9D1
+            private static Player Pace_Keeping = new Player(165, 138, 52, 56, 57, 53, 60, 60, 52, 390, 61, 66, 15, 15, 16, 16, 16, 16, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x6C, 0x72, 0x81, 0x0E, 0x12, 0x17, 0x22, 1); // 0x9D2
+            private static Player Arthur_Easley = new Player(165, 142, 59, 56, 69, 54, 58, 56, 78, 430, 39, 51, 11, 8, 8, 10, 8, 9, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x86, 0xE7, 0x17D, 0x150, 0x0F, 0x1C, 0x23, 0x2C, 3); // 0x9D3
+            private static Player Carl_Rhodes = new Player(125, 125, 55, 60, 49, 63, 44, 63, 44, 378, 30, 37, 8, 6, 11, 13, 9, 12, 6, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6D, 0x7D, 0x16A, 0x75, 0x0A, 0x12, 0x1F, 0x26, 3); // 0x9D4
+            private static Player Eugene_Conwell = new Player(145, 140, 56, 63, 56, 53, 60, 48, 52, 388, 70, 80, 16, 14, 13, 17, 14, 10, 15, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x111, 0x9F, 0x142, 0xC5, 0x01, 0x16, 0x26, 0x2D, 1); // 0x9D5
+            private static Player Arnan_Wheelie = new Player(162, 154, 54, 54, 56, 63, 57, 58, 55, 397, 55, 73, 17, 17, 16, 16, 14, 15, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x10F, 0xC6, 0xE8, 0x6B, 0x15, 0x1D, 0x22, 0x28, 3); // 0x9D6
+            private static Player Stu_Boilin = new Player(145, 129, 56, 63, 63, 60, 53, 53, 62, 410, 57, 63, 14, 10, 14, 11, 10, 11, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x3C, 0x80, 0x85, 0x6A, 0x01, 0x18, 0x24, 0x3B, 3); // 0x9D7
+            private static Player Marvin_Reading = new Player(143, 152, 70, 52, 53, 36, 55, 56, 79, 401, 43, 50, 10, 11, 10, 6, 11, 14, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB2, 0xAE, 0xD5, 0x194, 0x12, 0x1B, 0x1E, 0x27, 1); // 0x9D8
+            private static Player Callie_Graffy = new Player(134, 137, 55, 62, 47, 71, 60, 62, 58, 415, 26, 47, 10, 10, 13, 14, 12, 17, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xD6, 0x173, 0x154, 0x174, 0x12, 0x20, 0x2D, 0x3B, 3); // 0x9D9
+            private static Player Ant_Anomy = new Player(134, 158, 68, 60, 65, 65, 70, 63, 60, 451, 46, 29, 4, 4, 8, 5, 4, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x8D, 0x6C, 0x148, 0x7F, 0x12, 0x17, 0x22, 0x26, 2); // 0x9DA
+            private static Player Laurie_Nowlin = new Player(129, 100, 49, 53, 52, 44, 53, 55, 47, 353, 51, 47, 14, 14, 12, 12, 12, 13, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x146, 0x16A, 0x19F, 0xA5, 0x10, 0x1C, 0x20, 0x26, 3); // 0x9DB
+            private static Player Lucille_Strummon = new Player(79, 142, 66, 60, 63, 64, 28, 64, 55, 400, 40, 46, 11, 10, 11, 13, 9, 8, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0x85, 0x81, 0x149, 0x0C, 0x1B, 0x27, 0x2F, 1); // 0x9DC
+            private static Player Leon_Hotair = new Player(167, 136, 55, 58, 63, 63, 52, 52, 53, 396, 61, 72, 15, 14, 14, 14, 15, 17, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x66, 0x10F, 0x9D, 0xC8, 0x0B, 0x15, 0x23, 0x43, 1); // 0x9DD
+            private static Player John_Bleach = new Player(110, 141, 44, 52, 62, 56, 65, 54, 53, 386, 27, 45, 13, 9, 11, 9, 15, 10, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xCD, 0xBE, 0x6C, 0x10D, 0x10, 0x19, 0x1F, 0x2E, 1); // 0x9DE
+            private static Player Carey_Filling = new Player(132, 118, 40, 47, 48, 43, 42, 48, 48, 316, 40, 36, 8, 8, 10, 7, 10, 11, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x83, 0x6B, 0x80, 0x125, 0x11, 0x1A, 0x25, 0x31, 2); // 0x9DF
+            private static Player Conn_Fuchus = new Player(129, 156, 75, 68, 69, 79, 45, 72, 64, 472, 51, 59, 14, 13, 14, 13, 13, 13, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA3, 0xB5, 0xB4, 0xC4, 0x0E, 0x21, 0x2D, 0x38, 2); // 0x9E0
+            private static Player Iain_Igma = new Player(154, 132, 63, 60, 60, 60, 52, 60, 60, 415, 61, 63, 15, 15, 15, 15, 16, 14, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7D, 0xD5, 0xE7, 0x7F, 0x0A, 0x1A, 0x22, 0x28, 1); // 0x9E1
+            private static Player Carrie_O_Kea = new Player(138, 109, 54, 52, 52, 47, 44, 52, 52, 353, 50, 55, 12, 14, 12, 13, 12, 11, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x88, 0x16A, 0x150, 0x154, 0x10, 0x1E, 0x29, 0x2D, 3); // 0x9E2
+            private static Player Ebirina = new Player(171, 132, 45, 56, 66, 49, 52, 56, 53, 377, 43, 53, 9, 12, 17, 9, 9, 7, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x3A, 0x7F, 0x141, 0x149, 0x01, 0x12, 0x1F, 0x2D, 2); // 0x9E3
+            private static Player Stuart_Leafe = new Player(134, 133, 55, 52, 55, 56, 63, 60, 54, 395, 30, 52, 11, 10, 7, 8, 16, 11, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x3B, 0x66, 0x10F, 0x125, 0x01, 0x0A, 0x12, 0x27, 2); // 0x9E4
+            private static Player Cole_Stoaker = new Player(114, 144, 49, 34, 34, 52, 79, 53, 53, 354, 32, 28, 8, 8, 5, 7, 6, 6, 4, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xAF, 0x81, 0x148, 0x6B, 0x0F, 0x17, 0x1B, 0x23, 2); // 0x9E5
+            private static Player Justin_Primm = new Player(134, 148, 50, 53, 54, 52, 62, 67, 54, 392, 28, 47, 9, 7, 10, 9, 12, 14, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xA3, 0xE8, 0x7F, 0x194, 0x16, 0x1A, 0x27, 0x2F, 1); // 0x9E6
+            private static Player Mark_Smudge = new Player(127, 140, 56, 71, 45, 68, 60, 64, 52, 416, 22, 58, 8, 7, 10, 14, 12, 16, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA1, 0xE7, 0x192, 0x17D, 0x11, 0x19, 0x25, 0x35, 2); // 0x9E7
+            private static Player Travis_Borer = new Player(167, 170, 62, 63, 68, 68, 71, 60, 29, 421, 42, 38, 14, 14, 9, 7, 8, 7, 5, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x82, 0x6B, 0x81, 0x143, 0x0B, 0x13, 0x1C, 0x27, 1); // 0x9E8
+            private static Player Anton_Donce = new Player(116, 118, 53, 56, 42, 72, 42, 58, 61, 384, 37, 36, 13, 12, 8, 9, 9, 10, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x87, 0x148, 0x65, 0x7F, 0x15, 0x1E, 0x27, 0x2C, 2); // 0x9E9
+            private static Player Chase_Spoor = new Player(140, 140, 64, 57, 62, 60, 52, 64, 52, 411, 38, 43, 16, 7, 14, 14, 10, 9, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x70, 0x9F, 0x143, 0xB5, 0x0F, 0x1B, 0x22, 0x29, 1); // 0x9EA
+            private static Player George_Barros = new Player(143, 176, 62, 76, 64, 76, 65, 66, 68, 477, 55, 48, 13, 12, 14, 18, 14, 15, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xC2, 0xC7, 0xC5, 0x14F, 0x15, 0x20, 0x2E, 0x3A, 2); // 0x9EB
+            private static Player Olivia_Baker = new Player(169, 156, 59, 60, 78, 59, 60, 67, 66, 449, 55, 49, 10, 15, 17, 13, 14, 12, 12, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x48, 0xD9, 0x8B, 0x14A, 0x01, 0x1B, 0x22, 0x2B, 1); // 0x9EC
+            private static Player Gem_Shorn = new Player(123, 84, 73, 72, 76, 79, 56, 72, 71, 499, 44, 70, 17, 16, 20, 21, 18, 19, 20, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0x40, 0x1A1, 0x16F, 0x1A4, 0x01, 0x01, 0x19, 0x32, 3); // 0x9ED
+            private static Player Lou_Daguerre = new Player(136, 100, 52, 56, 51, 46, 44, 61, 53, 363, 32, 20, 15, 14, 9, 9, 10, 9, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xE8, 0x7F, 0x65, 0x142, 0x16, 0x21, 0x2C, 0x37, 3); // 0x9EE
+            private static Player Ollie_Tuckney = new Player(171, 152, 52, 60, 76, 56, 70, 60, 68, 442, 52, 58, 14, 15, 17, 12, 14, 14, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x10F, 0x68, 0x145, 0x171, 0x0F, 0x1A, 0x21, 0x2F, 1); // 0x9EF
+            private static Player Manuel_Kinart = new Player(96, 140, 50, 63, 52, 62, 77, 63, 57, 424, 27, 36, 12, 11, 9, 10, 17, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x43, 0x74, 0x81, 0x65, 0x01, 0x18, 0x1B, 0x23, 2); // 0x9F0
+            private static Player Skip_Vinall = new Player(125, 152, 70, 66, 64, 75, 51, 79, 60, 465, 50, 63, 11, 13, 11, 15, 14, 12, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x193, 0x196, 0x16C, 0x19C, 0x13, 0x22, 0x2A, 0x39, 2); // 0x9F1
+            private static Player Junior_Gambit = new Player(81, 158, 49, 60, 58, 55, 79, 57, 59, 417, 21, 34, 7, 5, 6, 7, 6, 8, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x87, 0x6C, 0xE7, 0x81, 0x0D, 0x15, 0x19, 0x21, 3); // 0x9F2
+            private static Player Len_Guist = new Player(217, 152, 63, 79, 61, 54, 60, 77, 59, 453, 56, 78, 14, 16, 15, 13, 14, 16, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x38, 0x9F, 0x148, 0xB5, 0x01, 0x16, 0x21, 0x28, 2); // 0x9F3
+            private static Player Clark_Tappen = new Player(88, 158, 40, 56, 62, 61, 62, 64, 56, 401, 18, 29, 6, 4, 6, 5, 6, 7, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB0, 0xA3, 0x17A, 0xAE, 0x15, 0x1E, 0x25, 0x2E, 2); // 0x9F4
+            private static Player Ryan_O_Laugh = new Player(162, 144, 54, 57, 56, 55, 58, 58, 60, 398, 55, 74, 17, 13, 14, 13, 15, 14, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x86, 0x68, 0x81, 0x16B, 0x11, 0x16, 0x25, 0x30, 1); // 0x9F5
+            private static Player Rod_Sweeper = new Player(134, 152, 63, 60, 62, 68, 52, 61, 56, 422, 34, 40, 11, 7, 8, 15, 8, 12, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xC1, 0x74, 0x76, 0x118, 0x10, 0x16, 0x23, 0x2F, 2); // 0x9F6
+            private static Player Reg_Strimmer = new Player(81, 154, 60, 57, 58, 60, 63, 68, 58, 424, 38, 50, 14, 8, 10, 16, 8, 9, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x38, 0xE8, 0x72, 0x192, 0x01, 0x13, 0x1A, 0x22, 1); // 0x9F7
+            private static Player Will_Ramin = new Player(107, 142, 41, 61, 52, 58, 70, 63, 56, 401, 30, 38, 14, 8, 7, 9, 15, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x38, 0x7F, 0x148, 0x174, 0x01, 0x23, 0x27, 0x2D, 1); // 0x9F8
+            private static Player Andy_Fudge = new Player(145, 156, 68, 78, 76, 65, 44, 73, 63, 467, 54, 34, 15, 11, 13, 17, 15, 19, 13, 1, 5, 1, 5, 1, 5, 1, 1, 1, 0x38, 0x10D, 0x173, 0x8E, 0x01, 0x1A, 0x1C, 0x2B, 2); // 0x9F9
+            private static Player Tate_Immy = new Player(165, 148, 68, 46, 68, 40, 62, 68, 48, 400, 62, 34, 11, 10, 17, 8, 11, 17, 10, 4, 1, 1, 5, 2, 5, 1, 4, 5, 0x77, 0x6B, 0x7E, 0x10D, 0x0A, 0x19, 0x23, 0x2E, 2); // 0x9FA
+            private static Player Gerald_Pourer = new Player(211, 140, 63, 60, 35, 60, 36, 79, 58, 391, 80, 35, 7, 8, 11, 14, 10, 20, 8, 5, 1, 2, 1, 1, 2, 1, 2, 1, 0x68, 0xE7, 0x10E, 0x75, 0x13, 0x19, 0x25, 0x32, 1); // 0x9FB
+            private static Player Nate_Checker = new Player(129, 164, 62, 62, 60, 68, 76, 61, 61, 450, 44, 47, 17, 14, 10, 12, 19, 14, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xD5, 0xC9, 0x16B, 0x8C, 0x14, 0x1B, 0x27, 0x30, 2); // 0x9FC
+            private static Player Bomber_Pikes = new Player(149, 158, 49, 61, 64, 53, 56, 62, 60, 405, 34, 34, 10, 13, 17, 13, 7, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xA6, 0xAF, 0xA8, 0xB5, 0x0C, 0x1B, 0x26, 0x30, 3); // 0x9FD
+            private static Player Gary_Burdine = new Player(99, 98, 71, 70, 69, 72, 76, 36, 73, 467, 28, 36, 12, 11, 11, 14, 14, 8, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x39, 0x86, 0x141, 0x8B, 0x01, 0x15, 0x28, 0x3D, 3); // 0x9FE
+            private static Player Chloe_Glazier = new Player(147, 185, 48, 62, 67, 76, 59, 58, 53, 423, 31, 33, 7, 12, 15, 18, 8, 7, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7B, 0xD5, 0x19B, 0x17D, 0x0D, 0x1F, 0x2C, 0x33, 3); // 0x9FF
+            private static Player Reed_Harpen = new Player(127, 136, 64, 55, 56, 65, 48, 68, 52, 408, 31, 52, 7, 11, 10, 11, 9, 10, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x80, 0x94, 0x125, 0x65, 0x1A, 0x20, 0x30, 0x37, 3); // 0xA00
+            private static Player Beat_Scatton = new Player(129, 129, 52, 51, 48, 60, 65, 61, 60, 397, 37, 39, 9, 7, 6, 11, 15, 10, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x68, 0xE7, 0x8E, 0x194, 0x12, 0x16, 0x25, 0x31, 1); // 0xA01
+            private static Player Al_Itchen = new Player(136, 153, 55, 54, 59, 53, 64, 68, 63, 416, 18, 52, 8, 8, 7, 11, 11, 11, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xCA, 0xE7, 0x148, 0x8F, 0x0F, 0x13, 0x23, 0x2F, 3); // 0xA02
+            private static Player Rock_Poulon = new Player(138, 144, 52, 68, 50, 63, 52, 64, 62, 411, 30, 64, 11, 8, 13, 14, 10, 17, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x19F, 0x193, 0x70, 0xAE, 0x0D, 0x18, 0x23, 0x31, 1); // 0xA03
+            private static Player Beau_Hammock = new Player(145, 141, 60, 61, 59, 60, 55, 63, 54, 412, 58, 64, 10, 12, 13, 12, 13, 11, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x43, 0x173, 0xC7, 0x141, 0x01, 0x1B, 0x1F, 0x2B, 2); // 0xA04
+            private static Player Clef_Bassett = new Player(125, 137, 44, 55, 62, 57, 68, 60, 61, 407, 27, 37, 12, 7, 10, 7, 15, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xB3, 0xBE, 0x81, 0xD3, 0x0D, 0x13, 0x23, 0x2A, 1); // 0xA05
+            private static Player Ovie_Whisker = new Player(167, 166, 72, 57, 66, 40, 55, 52, 58, 400, 38, 63, 11, 10, 15, 9, 8, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7A, 0x8D, 0x7E, 0x75, 0x0E, 0x18, 0x1D, 0x23, 1); // 0xA06
+            private static Player Bill_Clanger = new Player(151, 134, 73, 60, 60, 62, 54, 55, 56, 420, 69, 68, 15, 13, 15, 14, 15, 14, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0x6F, 0x7C, 0x7F, 0x08, 0x13, 0x21, 0x2D, 2); // 0xA07
+            private static Player Mary_Cramer = new Player(90, 124, 29, 47, 45, 50, 60, 49, 40, 320, 20, 31, 10, 4, 8, 5, 12, 11, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x67, 0x77, 0x175, 0x68, 0x0B, 0x0F, 0x1C, 0x27, 1); // 0xA08
+            private static Player Ralph_Vance = new Player(187, 164, 61, 69, 74, 54, 65, 66, 63, 452, 49, 51, 10, 14, 16, 13, 11, 13, 13, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x38, 0xD9, 0x14F, 0x8B, 0x01, 0x20, 0x2A, 0x2C, 2); // 0xA09
+            private static Player Ray_Bowing = new Player(195, 176, 61, 69, 66, 70, 60, 65, 66, 457, 51, 55, 10, 13, 13, 11, 12, 14, 13, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x94, 0xD9, 0x85, 0xC8, 0x10, 0x1B, 0x22, 0x38, 2); // 0xA0A
+            private static Player Vick_Pointer = new Player(151, 129, 68, 60, 53, 57, 61, 61, 62, 422, 55, 24, 20, 17, 10, 13, 12, 11, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x41, 0x95, 0x141, 0x169, 0x01, 0x1A, 0x1E, 0x30, 2); // 0xA0B
+            private static Player Skip_Docker = new Player(132, 154, 76, 71, 70, 70, 50, 68, 62, 467, 45, 39, 8, 7, 6, 8, 7, 5, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x3D, 0xB3, 0xA6, 0x199, 0x01, 0x09, 0x26, 0x35, 1); // 0xA0C
+            private static Player Becky_Shuffle = new Player(149, 152, 68, 72, 70, 68, 48, 68, 69, 463, 52, 28, 17, 13, 15, 17, 16, 20, 10, 1, 5, 1, 5, 1, 5, 1, 1, 1, 0x3A, 0x10C, 0x141, 0x180, 0x01, 0x22, 0x2A, 0x36, 3); // 0xA0D
+            private static Player Esther_Egerer = new Player(149, 137, 75, 52, 57, 63, 52, 61, 68, 428, 56, 29, 18, 16, 11, 12, 11, 10, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x10A, 0x173, 0x14E, 0x11F, 0x12, 0x28, 0x3A, 0x44, 3); // 0xA0E
+            private static Player Mia_Pitchford = new Player(88, 140, 62, 68, 47, 67, 55, 60, 54, 413, 27, 66, 11, 8, 11, 16, 12, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x88, 0x7F, 0x72, 0x116, 0x0F, 0x1B, 0x1E, 0x25, 2); // 0xA0F
+            private static Player Philippa_Konik = new Player(83, 92, 65, 65, 63, 66, 68, 29, 66, 422, 21, 21, 14, 14, 11, 10, 14, 4, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x146, 0x68, 0x154, 0x149, 0x11, 0x19, 0x24, 0x30, 3); // 0xA10
+            private static Player Amy_Stinger = new Player(169, 154, 44, 61, 63, 48, 63, 57, 52, 388, 46, 68, 7, 9, 17, 9, 10, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x87, 0x116, 0x7F, 0xD3, 0x0F, 0x1F, 0x2A, 0x2F, 2); // 0xA11
+            private static Player Nancy_Polearm = new Player(180, 164, 60, 69, 63, 68, 69, 70, 64, 463, 61, 62, 15, 17, 16, 15, 15, 15, 15, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x49, 0x141, 0x171, 0x195, 0x01, 0x1B, 0x27, 0x33, 1); // 0xA12
+            private static Player Sally_Tare = new Player(129, 108, 57, 56, 49, 45, 44, 61, 61, 373, 36, 27, 14, 14, 10, 7, 7, 9, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x111, 0xE8, 0xC6, 0x142, 0x0E, 0x16, 0x23, 0x30, 1); // 0xA13
+            private static Player Anna_Bugeisha = new Player(154, 156, 60, 43, 41, 60, 74, 64, 68, 410, 57, 57, 12, 13, 5, 11, 18, 14, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xC1, 0x10E, 0x141, 0x8C, 0x0E, 0x1C, 0x26, 0x33, 1); // 0xA14
+            private static Player Stu_Hoofer = new Player(193, 152, 56, 64, 76, 52, 63, 62, 68, 441, 58, 54, 11, 15, 18, 13, 14, 13, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x88, 0x68, 0x7F, 0x16C, 0x0B, 0x19, 0x22, 0x35, 3); // 0xA15
+            private static Player Coe_Dachy = new Player(116, 129, 62, 59, 60, 66, 48, 64, 63, 422, 31, 40, 9, 10, 10, 14, 11, 10, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAB, 0xA3, 0x193, 0x194, 0x0B, 0x15, 0x20, 0x28, 2); // 0xA16
+            private static Player Flip_Sliden = new Player(147, 149, 56, 67, 64, 64, 74, 69, 66, 460, 39, 54, 17, 10, 11, 14, 18, 17, 12, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x96, 0x76, 0x95, 0xC5, 0x0D, 0x1B, 0x23, 0x30, 1); // 0xA17
+            private static Player Jesse_Spiller = new Player(158, 129, 68, 66, 56, 61, 56, 67, 71, 445, 43, 33, 19, 17, 10, 12, 12, 12, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x3E, 0x145, 0xD4, 0x8B, 0x01, 0x19, 0x26, 0x29, 4); // 0xA18
+            private static Player Kate_Later = new Player(160, 158, 50, 60, 70, 43, 61, 62, 57, 403, 45, 53, 7, 11, 16, 8, 8, 10, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x87, 0x148, 0x173, 0xC9, 0x10, 0x18, 0x22, 0x2B, 3); // 0xA19
+            private static Player Clara_Tompkins = new Player(136, 102, 68, 36, 41, 32, 40, 61, 58, 336, 31, 32, 13, 7, 8, 6, 9, 9, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x154, 0x86, 0x149, 0x81, 0x14, 0x1A, 0x24, 0x2B, 2); // 0xA1A
+            private static Player Betty_Backer = new Player(158, 152, 53, 73, 70, 70, 48, 68, 69, 451, 45, 66, 16, 12, 15, 15, 13, 20, 12, 5, 5, 1, 5, 1, 5, 1, 1, 1, 0x8D, 0xD9, 0x14E, 0x180, 0x17, 0x22, 0x38, 0x3B, 3); // 0xA1B
+            private static Player Thomas_Worth = new Player(140, 169, 69, 60, 69, 67, 65, 69, 68, 467, 45, 58, 14, 15, 14, 16, 14, 16, 17, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0x39, 0xAC, 0x8B, 0x19C, 0x01, 0x22, 0x30, 0x39, 3); // 0xA1C
+            private static Player Brenda_Brandish = new Player(77, 194, 68, 61, 60, 64, 31, 64, 55, 403, 32, 42, 11, 10, 9, 12, 5, 7, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x97, 0x7D, 0x85, 0x8C, 0x0D, 0x12, 0x22, 0x32, 3); // 0xA1D
+            private static Player Isla_Pullens = new Player(110, 166, 79, 65, 60, 79, 49, 68, 68, 468, 58, 57, 12, 13, 13, 17, 12, 12, 14, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA6, 0x19B, 0x195, 0x191, 0x0B, 0x25, 0x32, 0x46, 3); // 0xA1E
+            private static Player Bob_Jammen = new Player(96, 168, 79, 67, 71, 73, 29, 79, 68, 466, 27, 29, 7, 5, 5, 5, 7, 8, 7, 5, 1, 5, 1, 1, 2, 5, 2, 1, 0xA8, 0x195, 0x7F, 0x191, 0x15, 0x26, 0x2D, 0x51, 2); // 0xA1F
+            private static Player Hank_Cranker = new Player(114, 140, 57, 67, 44, 69, 52, 60, 55, 404, 24, 66, 11, 9, 10, 17, 12, 16, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6D, 0x9F, 0x6B, 0xD9, 0x09, 0x13, 0x19, 0x26, 1); // 0xA20
+            private static Player Prunella_Keep = new Player(162, 129, 57, 52, 55, 59, 53, 61, 58, 395, 54, 52, 12, 14, 11, 12, 11, 12, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x3F, 0x10F, 0x10D, 0x169, 0x01, 0x14, 0x22, 0x39, 3); // 0xA21
+            private static Player Jimmy_Brim = new Player(123, 113, 43, 44, 63, 51, 46, 50, 53, 350, 18, 39, 8, 8, 11, 8, 7, 5, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x67, 0x77, 0x80, 0x148, 0x09, 0x0F, 0x17, 0x21, 1); // 0xA22
+            private static Player Verity_Soliz = new Player(151, 198, 44, 60, 60, 51, 60, 62, 57, 394, 36, 73, 8, 9, 14, 10, 11, 9, 10, 4, 2, 1, 2, 2, 5, 1, 4, 1, 0x9E, 0x6B, 0xE7, 0x149, 0x0F, 0x1D, 0x21, 0x30, 3); // 0xA23
+            private static Player Yve_Dunbar = new Player(209, 126, 55, 70, 65, 76, 60, 79, 79, 484, 58, 55, 13, 12, 11, 23, 12, 11, 23, 2, 5, 5, 1, 2, 2, 1, 2, 2, 0x47, 0x19B, 0x8A, 0x19D, 0x01, 0x01, 0x2D, 0x38, 4); // 0xA24
+            private static Player Cat_Selima = new Player(105, 132, 63, 68, 57, 60, 57, 70, 53, 428, 30, 55, 13, 12, 10, 17, 12, 19, 13, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x70, 0x80, 0x7F, 0x17A, 0x10, 0x16, 0x21, 0x25, 1); // 0xA25
+            private static Player Aurie_Garmer = new Player(129, 136, 56, 66, 44, 70, 52, 65, 56, 409, 26, 47, 9, 9, 12, 17, 11, 16, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x67, 0xBE, 0xE8, 0x154, 0x0C, 0x19, 0x21, 0x34, 3); // 0xA26
+            private static Player Lana_Service = new Player(156, 193, 62, 77, 66, 74, 66, 62, 71, 478, 44, 62, 10, 14, 12, 17, 11, 16, 14, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x16A, 0x8B, 0x180, 0x14F, 0x18, 0x2D, 0x35, 0x3B, 3); // 0xA27
+            private static Player Claire_Voyant = new Player(160, 180, 64, 69, 66, 68, 66, 60, 61, 454, 49, 55, 12, 12, 11, 18, 13, 14, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xD5, 0x116, 0x180, 0xD4, 0x14, 0x1E, 0x31, 0x3C, 3); // 0xA28
+            private static Player Algy_Kelp = new Player(94, 140, 62, 68, 48, 65, 60, 62, 56, 421, 19, 29, 6, 8, 7, 4, 5, 5, 6, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x10F, 0x72, 0x142, 0x81, 0x15, 0x19, 0x21, 0x28, 2); // 0xA29
+            private static Player Ann_Taisie = new Player(189, 149, 71, 64, 68, 67, 65, 63, 70, 468, 60, 72, 16, 16, 17, 13, 16, 14, 16, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x3A, 0xD9, 0xC4, 0x180, 0x01, 0x1B, 0x20, 0x2F, 2); // 0xA2A
+            private static Player Kelly_Scrivens = new Player(151, 112, 61, 56, 52, 52, 54, 60, 52, 387, 40, 20, 14, 11, 8, 7, 8, 7, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x99, 0x154, 0x116, 0xE7, 0x12, 0x1F, 0x2C, 0x30, 3); // 0xA2B
+            private static Player Fern_Mycota = new Player(121, 105, 58, 55, 52, 57, 49, 57, 48, 376, 33, 27, 5, 5, 4, 10, 5, 6, 5, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7B, 0x88, 0x70, 0x16A, 0x07, 0x0D, 0x17, 0x22, 2); // 0xA2C
+            private static Player Lara_Creamer = new Player(169, 180, 51, 59, 60, 40, 58, 56, 56, 380, 43, 38, 11, 12, 14, 9, 8, 7, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0x83, 0x6B, 0x7F, 0x0E, 0x12, 0x1D, 0x2A, 2); // 0xA2D
+            private static Player Kim_Knotted = new Player(96, 134, 45, 59, 56, 62, 68, 57, 60, 407, 24, 34, 14, 8, 11, 11, 15, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x87, 0x10F, 0x7F, 0x142, 0x11, 0x18, 0x23, 0x2F, 3); // 0xA2E
+            private static Player Nina_Trowel = new Player(140, 122, 61, 53, 46, 45, 40, 56, 54, 355, 44, 39, 17, 12, 8, 11, 8, 8, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7B, 0x87, 0x81, 0x74, 0x0A, 0x15, 0x20, 0x26, 3); // 0xA2F
+            private static Player Harriet_Reaching = new Player(182, 153, 60, 65, 67, 64, 62, 62, 65, 445, 68, 76, 16, 14, 16, 15, 13, 17, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xAF, 0x194, 0x145, 0x199, 0x10, 0x21, 0x30, 0x3C, 3); // 0xA30
+            private static Player Sadey_Stewer = new Player(110, 144, 61, 57, 62, 54, 60, 63, 56, 413, 36, 52, 17, 9, 13, 13, 7, 10, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xBF, 0xD6, 0x71, 0x7E, 0x0C, 0x13, 0x19, 0x24, 2); // 0xA31
+            private static Player June_Stagner = new Player(118, 133, 55, 56, 61, 59, 61, 65, 60, 417, 26, 51, 8, 10, 9, 9, 13, 10, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x88, 0x68, 0xD3, 0x17D, 0x0E, 0x1A, 0x22, 0x2E, 1); // 0xA32
+            private static Player Lacey_Threader = new Player(171, 153, 52, 48, 49, 64, 71, 71, 64, 419, 58, 47, 14, 14, 7, 10, 17, 15, 13, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x42, 0x145, 0x10E, 0x180, 0x01, 0x1B, 0x23, 0x33, 1); // 0xA33
+            private static Player Marcy_Laise = new Player(127, 133, 62, 56, 60, 54, 60, 68, 60, 420, 38, 47, 15, 11, 12, 17, 8, 10, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xD6, 0x16A, 0x154, 0x10A, 0x10, 0x1C, 0x27, 0x35, 3); // 0xA34
+            private static Player Bella_Shaded = new Player(121, 149, 73, 71, 64, 68, 54, 74, 71, 475, 55, 49, 10, 13, 14, 15, 14, 14, 14, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB2, 0x148, 0x19B, 0x199, 0x10, 0x1B, 0x23, 0x2C, 2); // 0xA35
+            private static Player Walter_Trope = new Player(134, 164, 69, 70, 60, 77, 68, 76, 60, 480, 30, 62, 14, 11, 13, 18, 14, 20, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7E, 0x81, 0x141, 0xD2, 0x12, 0x19, 0x27, 0x3A, 2); // 0xA36
+            private static Player Flora_Summars = new Player(140, 153, 62, 65, 63, 71, 53, 52, 58, 424, 36, 39, 11, 10, 11, 15, 11, 11, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x3A, 0xCA, 0x116, 0x149, 0x01, 0x12, 0x24, 0x2D, 1); // 0xA37
+            private static Player Lucia_Ander = new Player(154, 152, 55, 58, 60, 60, 56, 52, 63, 404, 55, 76, 16, 14, 17, 13, 13, 13, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0xD5, 0x149, 0x17A, 0x0C, 0x1C, 0x26, 0x2E, 3); // 0xA38
+            private static Player Rosy_Roker = new Player(88, 136, 46, 54, 63, 55, 69, 69, 63, 419, 33, 35, 8, 11, 7, 10, 11, 11, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xE7, 0x10F, 0x65, 0x174, 0x13, 0x19, 0x24, 0x34, 1); // 0xA39
+            private static Player Pam_Vision = new Player(173, 169, 61, 71, 61, 71, 70, 70, 68, 472, 51, 54, 14, 14, 11, 19, 10, 17, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x86, 0x71, 0x17D, 0x16C, 0x15, 0x1A, 0x27, 0x32, 2); // 0xA3A
+            private static Player Ruth_Karnes = new Player(215, 148, 61, 63, 53, 63, 61, 73, 60, 434, 67, 42, 13, 9, 11, 16, 10, 19, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x9E, 0x154, 0xC7, 0x17A, 0x0E, 0x1E, 0x23, 0x2A, 1); // 0xA3B
+            private static Player Eden_Growing = new Player(116, 136, 70, 59, 53, 70, 45, 60, 52, 409, 43, 37, 9, 10, 10, 10, 9, 7, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x66, 0x116, 0x6C, 0x7F, 0x10, 0x15, 0x1D, 0x27, 3); // 0xA3C
+            private static Player Bailey_Sitter = new Player(143, 138, 63, 64, 53, 56, 56, 69, 62, 423, 51, 28, 20, 15, 12, 12, 11, 13, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x3C, 0x9D, 0xD4, 0xC5, 0x01, 0x17, 0x31, 0x3E, 3); // 0xA3D
+            private static Player Adel_Tactor = new Player(107, 130, 66, 60, 63, 64, 32, 64, 75, 424, 36, 48, 10, 11, 11, 12, 10, 7, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xE8, 0x80, 0x154, 0x19E, 0x13, 0x1A, 0x25, 0x27, 2); // 0xA3E
+            private static Player Emma_Barres = new Player(129, 109, 45, 50, 47, 55, 45, 53, 54, 349, 42, 40, 7, 11, 11, 11, 9, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x146, 0xE8, 0x173, 0x74, 0x10, 0x16, 0x1B, 0x24, 2); // 0xA3F
+            private static Player Orpah_Talkington = new Player(147, 152, 52, 44, 43, 71, 69, 68, 64, 411, 54, 58, 13, 13, 6, 12, 18, 13, 12, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x99, 0x95, 0x180, 0x14E, 0x10, 0x1C, 0x2A, 0x37, 3); // 0xA40
+            private static Player Sable_Tatter = new Player(149, 152, 60, 64, 64, 64, 70, 68, 69, 459, 46, 52, 16, 12, 11, 11, 17, 14, 14, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x10D, 0xC7, 0x113, 0x14F, 0x1A, 0x1E, 0x2A, 0x35, 2); // 0xA41
+            private static Player Shu_Maimai = new Player(165, 142, 70, 53, 60, 68, 32, 64, 79, 426, 33, 53, 8, 9, 10, 12, 8, 6, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7D, 0x9D, 0xE7, 0x142, 0x0B, 0x17, 0x1E, 0x2C, 1); // 0xA42
+            private static Player Sym_Copate = new Player(125, 152, 71, 75, 63, 76, 71, 72, 68, 496, 27, 62, 12, 10, 14, 18, 15, 19, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x90, 0xB5, 0x118, 0x169, 0x12, 0x21, 0x29, 0x3B, 3); // 0xA43
+            private static Player Jerry_Bateman = new Player(140, 129, 53, 51, 51, 52, 71, 52, 56, 386, 45, 33, 8, 9, 8, 11, 15, 12, 7, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x10F, 0xBE, 0x76, 0x10C, 0x0E, 0x12, 0x1B, 0x25, 1); // 0xA44
+            private static Player Charity_Foder_ = new Player(156, 129, 62, 53, 60, 62, 58, 59, 59, 413, 49, 47, 12, 14, 12, 12, 11, 12, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x6C, 0x80, 0x116, 0x150, 0x16, 0x1E, 0x25, 0x2E, 2); // 0xA45
+            private static Player Beck_Hand = new Player(138, 152, 56, 60, 70, 68, 72, 72, 71, 469, 31, 49, 12, 10, 11, 12, 15, 16, 13, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x3B, 0xC6, 0x10D, 0x199, 0x01, 0x0F, 0x20, 0x32, 2); // 0xA46
+            private static Player Sandra_Mudd = new Player(143, 129, 47, 62, 70, 44, 56, 61, 61, 401, 30, 44, 11, 10, 13, 8, 7, 9, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x96, 0xBE, 0x116, 0x154, 0x17, 0x22, 0x2E, 0x34, 3); // 0xA47
+            private static Player Alexis_Watchorn = new Player(134, 129, 46, 48, 41, 59, 66, 59, 54, 373, 30, 48, 8, 8, 8, 7, 16, 12, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xC1, 0x148, 0x10A, 0xC7, 0x13, 0x1C, 0x22, 0x26, 3); // 0xA48
+            private static Player Pete_Manter = new Player(151, 138, 63, 62, 72, 56, 54, 55, 52, 414, 51, 48, 12, 12, 12, 12, 10, 14, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7D, 0x70, 0x7E, 0x81, 0x0C, 0x15, 0x1C, 0x30, 3); // 0xA49
+            private static Player Chris_Country = new Player(156, 165, 52, 45, 44, 68, 68, 60, 71, 408, 45, 64, 10, 13, 4, 10, 20, 14, 12, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x43, 0x16A, 0x65, 0xC4, 0x01, 0x17, 0x22, 0x2E, 3); // 0xA4A
+            private static Player Paul_Steed = new Player(92, 172, 71, 76, 72, 64, 48, 68, 68, 467, 32, 63, 16, 14, 14, 14, 13, 18, 13, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x172, 0xA8, 0x14F, 0xE6, 0x0D, 0x1C, 0x2D, 0x39, 2); // 0xA4B
+            private static Player Ben_Whistler = new Player(140, 132, 53, 42, 43, 60, 71, 60, 54, 383, 33, 52, 9, 8, 7, 11, 16, 13, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x88, 0x148, 0x7E, 0x143, 0x10, 0x18, 0x1F, 0x2F, 3); // 0xA4C
+            private static Player Roman_Blac = new Player(145, 188, 60, 76, 60, 68, 68, 64, 62, 458, 50, 55, 13, 10, 11, 17, 12, 14, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x80, 0x174, 0x178, 0x14A, 0x12, 0x23, 0x2F, 0x35, 3); // 0xA4D
+            private static Player Lewis_Brownie = new Player(77, 102, 61, 69, 63, 79, 64, 72, 64, 472, 27, 68, 12, 10, 17, 19, 16, 17, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x36, 0x3C, 0x34, 0x43, 0x01, 0x01, 0x1E, 0x32, 3); // 0xA4E
+            private static Player Connor_Seuer = new Player(187, 157, 62, 61, 70, 66, 60, 60, 60, 439, 55, 76, 15, 17, 15, 15, 15, 16, 16, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x41, 0x145, 0x8B, 0x14B, 0x01, 0x1D, 0x25, 0x35, 2); // 0xA4F
+            private static Player Kaya_Haskell = new Player(88, 134, 69, 61, 52, 66, 39, 64, 52, 403, 39, 40, 8, 7, 10, 11, 9, 11, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x3A, 0x9D, 0x116, 0x125, 0x01, 0x16, 0x1E, 0x26, 3); // 0xA50
+            private static Player Minnie_Stratio = new Player(145, 156, 40, 55, 65, 50, 52, 57, 56, 375, 32, 78, 11, 10, 16, 9, 7, 11, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAD, 0x80, 0x142, 0x194, 0x10, 0x18, 0x26, 0x2E, 2); // 0xA51
+            private static Player Elegance_Stuckon = new Player(121, 140, 54, 68, 44, 67, 56, 68, 55, 412, 22, 55, 9, 10, 12, 15, 14, 14, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9D, 0xBE, 0x125, 0x149, 0x1B, 0x24, 0x30, 0x33, 3); // 0xA52
+            private static Player Odette_Musetta = new Player(132, 129, 64, 55, 61, 60, 44, 62, 53, 399, 43, 48, 8, 10, 7, 14, 9, 11, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA6, 0xAF, 0x6C, 0xAC, 0x11, 0x1C, 0x24, 0x2F, 3); // 0xA53
+            private static Player Gertrude_Choker = new Player(158, 148, 52, 59, 54, 52, 60, 57, 54, 388, 61, 63, 14, 14, 17, 17, 14, 16, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAB, 0xB0, 0xA8, 0xB5, 0x0D, 0x1A, 0x26, 0x32, 1); // 0xA54
+            private static Player Polly_Targest = new Player(145, 164, 55, 66, 59, 71, 53, 52, 55, 411, 44, 45, 7, 8, 8, 15, 11, 12, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6E, 0x94, 0xE8, 0x74, 0x0E, 0x19, 0x22, 0x30, 3); // 0xA55
+            private static Player Odessa_Ryder = new Player(145, 137, 52, 57, 58, 56, 52, 60, 56, 391, 58, 49, 12, 12, 13, 14, 11, 10, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x42, 0x10D, 0x16C, 0x199, 0x01, 0x20, 0x36, 0x3E, 3); // 0xA56
+            private static Player Robyn_Weaver = new Player(125, 121, 52, 47, 49, 49, 52, 52, 48, 349, 45, 39, 8, 9, 9, 7, 10, 11, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xB3, 0xA1, 0x19E, 0x154, 0x10, 0x1A, 0x22, 0x2D, 5); // 0xA57
+            private static Player Tess_Masters = new Player(121, 153, 67, 56, 54, 60, 41, 62, 61, 401, 46, 45, 10, 10, 11, 12, 9, 8, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x98, 0x68, 0xC9, 0x142, 0x0D, 0x17, 0x22, 0x28, 2); // 0xA58
+            private static Player Cale_Sticklin = new Player(145, 164, 59, 60, 61, 68, 55, 61, 58, 422, 38, 48, 8, 9, 9, 13, 11, 14, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9A, 0x148, 0xC2, 0x10D, 0x10, 0x19, 0x22, 0x2F, 3); // 0xA59
+            private static Player Farris_Stickman = new Player(123, 152, 56, 66, 60, 60, 56, 60, 56, 414, 42, 36, 9, 9, 10, 15, 8, 13, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x78, 0x72, 0x7C, 0x08, 0x1C, 0x24, 0x2B, 3); // 0xA5A
+            private static Player Tim_Personator = new Player(121, 145, 66, 56, 56, 68, 47, 70, 60, 423, 31, 37, 7, 9, 8, 11, 8, 10, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xC0, 0x71, 0xE8, 0x10E, 0x0E, 0x17, 0x1F, 0x2D, 3); // 0xA5B
+            private static Player Sherlock_Sagers = new Player(90, 156, 68, 54, 52, 69, 28, 68, 60, 399, 32, 51, 8, 7, 9, 12, 7, 8, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0x70, 0xAF, 0xB5, 0x0A, 0x15, 0x20, 0x33, 3); // 0xA5C
+            private static Player Ryan_Haywood = new Player(154, 148, 54, 53, 52, 55, 56, 52, 53, 375, 46, 57, 11, 10, 12, 10, 13, 13, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x88, 0xE7, 0x72, 0x65, 0x18, 0x1E, 0x20, 0x2E, 3); // 0xA5D
+            private static Player Osier_Twining = new Player(145, 132, 47, 44, 47, 52, 63, 59, 63, 375, 36, 43, 11, 10, 7, 8, 13, 12, 9, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7B, 0xC6, 0xE7, 0x85, 0x0E, 0x19, 0x22, 0x30, 3); // 0xA5E
+            private static Player Rock_Scowlon = new Player(138, 144, 48, 47, 40, 60, 64, 56, 57, 372, 46, 39, 9, 8, 7, 10, 16, 11, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x88, 0xD6, 0x68, 0x81, 0x0C, 0x12, 0x1C, 0x24, 3); // 0xA5F
+            private static Player Al_Stringer = new Player(149, 138, 52, 54, 52, 57, 52, 61, 52, 380, 54, 50, 10, 14, 12, 11, 11, 13, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x77, 0x68, 0x6C, 0x0E, 0x13, 0x1E, 0x2E, 3); // 0xA60
+            private static Player Bill_Fierce = new Player(171, 132, 64, 60, 53, 61, 53, 62, 55, 408, 56, 39, 15, 7, 14, 15, 8, 15, 10, 2, 1, 2, 1, 1, 2, 5, 2, 1, 0x77, 0xE7, 0x72, 0x17A, 0x0D, 0x16, 0x1D, 0x2C, 3); // 0xA61
+            private static Player Rob_Otts = new Player(140, 113, 43, 46, 45, 44, 44, 41, 43, 306, 42, 34, 5, 7, 5, 8, 6, 5, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xAB, 0xAD, 0xB0, 0xA8, 0x0B, 0x15, 0x1D, 0x26, 3); // 0xA62
+            private static Player Chad_Jowell = new Player(90, 148, 72, 62, 63, 61, 60, 60, 55, 433, 40, 39, 15, 11, 12, 17, 11, 10, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x82, 0x19F, 0xB0, 0x192, 0x0A, 0x0F, 0x21, 0x2C, 3); // 0xA63
+            private static Player Egon_Omercer = new Player(136, 157, 76, 68, 52, 60, 52, 64, 71, 443, 49, 63, 10, 15, 11, 12, 12, 14, 12, 5, 1, 2, 1, 1, 1, 1, 1, 1, 0xB3, 0x172, 0xAE, 0xB4, 0x0C, 0x19, 0x27, 0x38, 3); // 0xA64
+            private static Player Luis_Springs = new Player(173, 140, 56, 52, 55, 53, 58, 63, 79, 416, 58, 50, 12, 11, 10, 10, 11, 11, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAA, 0xA3, 0xD3, 0xA5, 0x0E, 0x17, 0x20, 0x26, 3); // 0xA65
+            private static Player Bruce_Barkley = new Player(217, 121, 78, 77, 55, 68, 70, 76, 77, 501, 46, 51, 20, 14, 11, 11, 10, 11, 23, 2, 5, 2, 1, 5, 5, 1, 2, 2, 0x3D, 0x94, 0x118, 0x14C, 0x01, 0x10, 0x24, 0x40, 4); // 0xA66
+            private static Player Chip_Spacek = new Player(121, 153, 70, 69, 69, 77, 47, 73, 62, 467, 55, 56, 10, 14, 13, 15, 14, 14, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA6, 0x85, 0x194, 0xA7, 0x0D, 0x17, 0x25, 0x33, 2); // 0xA67
+            private static Player Mason_Tirell = new Player(129, 132, 54, 60, 55, 60, 63, 62, 62, 416, 26, 48, 11, 11, 11, 10, 12, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x6E, 0x72, 0x80, 0x81, 0x0F, 0x19, 0x23, 0x2E, 3); // 0xA68
+            private static Player Dale_Riverhead = new Player(110, 172, 71, 64, 60, 64, 65, 71, 62, 457, 50, 65, 12, 14, 13, 15, 16, 15, 15, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0xAC, 0x172, 0xB5, 0xA7, 0x0F, 0x1F, 0x25, 0x34, 3); // 0xA69
+            private static Player Adelpha_Lovelace = new Player(151, 177, 71, 68, 65, 72, 67, 60, 67, 470, 57, 59, 11, 13, 12, 19, 13, 17, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7D, 0x85, 0xD4, 0x8B, 0x10, 0x20, 0x35, 0x42, 5); // 0xA6A
+            private static Player Egon_Timing = new Player(107, 144, 51, 54, 48, 52, 42, 51, 43, 341, 34, 36, 7, 7, 8, 13, 6, 8, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x67, 0x9C, 0x148, 0x80, 0x0E, 0x19, 0x22, 0x27, 3); // 0xA6B
+            private static Player Tony_Frogge = new Player(138, 112, 54, 60, 45, 46, 52, 56, 56, 369, 31, 28, 17, 14, 9, 9, 10, 9, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x9D, 0x6C, 0xC9, 0x143, 0x0F, 0x17, 0x21, 0x2F, 2); // 0xA6C
+            private static Player Fred_Punch = new Player(145, 154, 50, 68, 74, 68, 60, 57, 52, 429, 38, 78, 7, 8, 15, 11, 8, 9, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x146, 0x88, 0xE7, 0x7F, 0x11, 0x1A, 0x22, 0x28, 3); // 0xA6D
+            private static Player Hannibal_Whipp = new Player(160, 134, 41, 62, 64, 40, 55, 58, 63, 383, 34, 36, 8, 15, 13, 7, 7, 8, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xE7, 0x148, 0xA5, 0x192, 0x12, 0x1E, 0x25, 0x2C, 1); // 0xA6E
+            private static Player Luke_Severin = new Player(162, 144, 56, 62, 56, 52, 57, 62, 63, 408, 42, 60, 11, 12, 14, 11, 12, 13, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x4B, 0x146, 0x112, 0x143, 0x01, 0x0D, 0x29, 0x32, 2); // 0xA6F
+            private static Player Harry_Keenan = new Player(158, 181, 67, 68, 67, 79, 71, 71, 62, 485, 55, 52, 11, 13, 13, 16, 13, 15, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x94, 0x80, 0xD9, 0xC5, 0x10, 0x18, 0x1E, 0x2A, 2); // 0xA70
+            private static Player Nick_Uman = new Player(134, 129, 70, 60, 56, 60, 55, 60, 53, 414, 31, 49, 16, 10, 11, 16, 9, 9, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xC2, 0x6C, 0x9C, 0xC4, 0x11, 0x17, 0x1E, 0x27, 2); // 0xA71
+            private static Player Mac_Robat = new Player(110, 149, 61, 76, 58, 71, 70, 78, 65, 479, 22, 60, 12, 14, 14, 19, 15, 19, 13, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x111, 0xD5, 0x8C, 0x14A, 0x0E, 0x1A, 0x23, 0x31, 2); // 0xA72
+            private static Player Ace_Slider = new Player(125, 154, 72, 67, 64, 73, 48, 68, 68, 460, 46, 59, 13, 12, 14, 15, 10, 14, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x3B, 0xA8, 0xAC, 0x169, 0x01, 0x0F, 0x2A, 0x37, 3); // 0xA73
+            private static Player Olivia_Twist = new Player(167, 132, 71, 60, 55, 56, 55, 64, 68, 429, 54, 28, 17, 16, 10, 11, 13, 13, 13, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x45, 0x116, 0xC4, 0x141, 0x01, 0x1C, 0x29, 0x34, 3); // 0xA74
+            private static Player Wiley_Blinks = new Player(154, 146, 54, 64, 35, 61, 33, 55, 60, 362, 68, 68, 17, 13, 8, 17, 5, 14, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xCD, 0x6C, 0x75, 0x117, 0x14, 0x1D, 0x22, 0x2F, 3); // 0xA75
+            private static Player Shona_Shopbell = new Player(127, 152, 76, 64, 62, 60, 62, 64, 60, 448, 43, 51, 13, 15, 16, 16, 16, 17, 13, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0x3A, 0xB3, 0x19B, 0x199, 0x01, 0x07, 0x17, 0x2F, 4); // 0xA76
+            private static Player Crystal_Clears = new Player(149, 130, 54, 60, 62, 56, 71, 59, 54, 416, 60, 68, 13, 17, 16, 14, 14, 13, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xBE, 0xC7, 0x154, 0x81, 0x15, 0x24, 0x2A, 0x2E, 1); // 0xA77
+            private static Player Beata_Pummel = new Player(195, 84, 29, 64, 62, 61, 68, 71, 70, 425, 56, 34, 6, 15, 16, 17, 15, 15, 13, 1, 1, 4, 1, 1, 1, 1, 1, 1, 0x111, 0x8F, 0x76, 0x8E, 0x0D, 0x18, 0x25, 0x2D, 1); // 0xA78
+            private static Player Aya_Strand = new Player(180, 174, 71, 61, 64, 68, 64, 69, 68, 465, 42, 63, 16, 12, 12, 13, 12, 11, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB3, 0xAE, 0x180, 0x194, 0x0C, 0x1B, 0x29, 0x35, 3); // 0xA79
+            private static Player Tara_Gaudier = new Player(132, 160, 64, 73, 63, 68, 60, 72, 63, 463, 22, 60, 12, 10, 17, 18, 14, 18, 13, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xE7, 0x14A, 0x180, 0x145, 0x17, 0x29, 0x36, 0x3F, 3); // 0xA7A
+            private static Player James_Hearson = new Player(121, 110, 44, 49, 44, 41, 45, 51, 40, 314, 76, 85, 19, 16, 16, 20, 16, 18, 17, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x66, 0x88, 0x148, 0x74, 0x09, 0x12, 0x1A, 0x22, 1); // 0xA7B
+            private static Player Anne_Somnia = new Player(79, 130, 44, 52, 52, 60, 67, 60, 52, 387, 18, 43, 10, 10, 7, 9, 10, 12, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x87, 0x71, 0x142, 0x7E, 0x0D, 0x15, 0x26, 0x2D, 1); // 0xA7C
+            private static Player Pearl_Wann = new Player(107, 158, 49, 59, 58, 62, 78, 56, 57, 419, 18, 34, 12, 9, 9, 9, 18, 13, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xD6, 0x86, 0x7E, 0x7F, 0x12, 0x19, 0x22, 0x2B, 2); // 0xA7D
+            private static Player Dec_Tective = new Player(123, 170, 76, 68, 67, 78, 44, 72, 65, 470, 48, 58, 14, 13, 14, 16, 14, 13, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAA, 0xA5, 0x10A, 0x19C, 0x0C, 0x17, 0x28, 0x34, 1); // 0xA7E
+            private static Player Steve_Squander = new Player(189, 153, 77, 63, 36, 67, 28, 64, 76, 411, 60, 80, 17, 17, 7, 13, 5, 15, 17, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0xCA, 0x10E, 0x8E, 0x155, 0x0C, 0x21, 0x2A, 0x38, 1); // 0xA7F
+            private static Player Lehman_Rind = new Player(173, 130, 40, 54, 68, 45, 58, 59, 58, 382, 30, 47, 10, 12, 17, 7, 8, 10, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x9E, 0x68, 0xE8, 0x173, 0x0F, 0x1C, 0x22, 0x2E, 3); // 0xA80
+            private static Player Leigh_Childs = new Player(112, 148, 51, 36, 30, 53, 76, 60, 53, 359, 42, 50, 11, 8, 8, 9, 17, 10, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x87, 0x80, 0x10F, 0xC6, 0x11, 0x19, 0x20, 0x29, 2); // 0xA81
+            private static Player Zach_Putter = new Player(165, 132, 59, 52, 54, 56, 54, 52, 58, 385, 61, 77, 13, 15, 16, 17, 17, 14, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0xC6, 0x74, 0x150, 0x0A, 0x13, 0x20, 0x2D, 2); // 0xA82
+            private static Player Juan_Word = new Player(121, 109, 60, 56, 45, 48, 52, 52, 57, 370, 31, 32, 15, 13, 9, 8, 10, 9, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xA4, 0xA1, 0x17A, 0xAE, 0x0D, 0x1A, 0x28, 0x31, 3); // 0xA83
+            private static Player Alex_Copple = new Player(125, 152, 72, 71, 68, 69, 68, 64, 67, 479, 43, 49, 13, 15, 16, 15, 14, 16, 15, 5, 1, 2, 4, 4, 4, 4, 4, 4, 0x43, 0xB0, 0xB5, 0x197, 0x01, 0x14, 0x22, 0x3E, 2); // 0xA84
+            private static Player Jan_Jared = new Player(129, 117, 59, 54, 52, 59, 45, 53, 50, 372, 30, 20, 5, 7, 6, 8, 5, 5, 5, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x19E, 0x173, 0x174, 0x0E, 0x17, 0x1C, 0x28, 3); // 0xA85
+            private static Player Bigsby_Pigford = new Player(156, 152, 56, 53, 51, 64, 68, 60, 68, 420, 46, 52, 14, 13, 4, 11, 16, 14, 12, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x38, 0xC4, 0x10C, 0xD4, 0x01, 0x26, 0x2C, 0x39, 3); // 0xA86
+            private static Player Erica_Hogland = new Player(149, 145, 44, 59, 66, 53, 52, 52, 57, 383, 33, 41, 9, 13, 16, 9, 10, 8, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xCD, 0xBE, 0x65, 0xC7, 0x12, 0x1B, 0x28, 0x30, 1); // 0xA87
+            private static Player Ramona_Wriston = new Player(103, 130, 60, 71, 65, 60, 39, 49, 62, 406, 42, 44, 7, 9, 9, 12, 8, 7, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xC1, 0x10F, 0x148, 0x6C, 0x12, 0x19, 0x24, 0x28, 1); // 0xA88
+            private static Player Mark_Izushy = new Player(123, 164, 79, 64, 61, 77, 51, 69, 70, 471, 56, 58, 12, 12, 13, 15, 11, 11, 13, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAD, 0xAE, 0x196, 0xB1, 0x0B, 0x1A, 0x2A, 0x41, 3); // 0xA89
+            private static Player Vince_Tinct = new Player(125, 152, 76, 70, 61, 56, 60, 69, 68, 460, 58, 58, 13, 15, 14, 14, 13, 10, 11, 5, 1, 2, 1, 1, 1, 1, 1, 1, 0xAD, 0xB0, 0x85, 0x195, 0x0F, 0x17, 0x26, 0x36, 3); // 0xA8A
+            private static Player Daryl_Floor = new Player(132, 133, 70, 60, 60, 52, 63, 71, 52, 428, 32, 33, 13, 9, 13, 15, 9, 7, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x99, 0x16A, 0x149, 0xCC, 0x10, 0x19, 0x2E, 0x39, 3); // 0xA8B
+            private static Player Becca_Pilgreen = new Player(160, 177, 64, 76, 60, 74, 68, 66, 71, 479, 44, 56, 10, 13, 12, 18, 12, 17, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x3C, 0xE8, 0x75, 0x8B, 0x01, 0x12, 0x1F, 0x2E, 1); // 0xA8C
+            private static Player Langley_Span = new Player(136, 140, 56, 64, 54, 69, 57, 61, 63, 424, 21, 47, 9, 11, 10, 13, 11, 17, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7D, 0xE7, 0x72, 0x143, 0x09, 0x11, 0x1D, 0x2A, 2); // 0xA8D
+            private static Player Swithin_Sainte = new Player(160, 138, 52, 62, 52, 61, 57, 62, 56, 402, 58, 59, 11, 13, 14, 10, 10, 14, 10, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x86, 0xD5, 0x10A, 0x7F, 0x11, 0x1E, 0x2B, 0x34, 3); // 0xA8E
+            private static Player Dan_Cawarry = new Player(154, 156, 69, 53, 52, 63, 56, 62, 71, 426, 57, 62, 12, 13, 12, 14, 11, 13, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x92, 0xC2, 0x6B, 0xC4, 0x0A, 0x15, 0x23, 0x30, 1); // 0xA8F
+            private static Player Hans_Freesing = new Player(136, 165, 68, 71, 76, 65, 44, 73, 65, 462, 19, 68, 13, 13, 16, 14, 15, 16, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xE7, 0x16A, 0xD3, 0x178, 0x11, 0x19, 0x24, 0x36, 3); // 0xA90
+            private static Player Peter_Fakhoury = new Player(77, 134, 50, 52, 57, 63, 79, 60, 63, 424, 26, 50, 10, 9, 10, 8, 14, 12, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x146, 0xE8, 0x75, 0x65, 0x0C, 0x1C, 0x28, 0x34, 3); // 0xA91
+            private static Player Steve_Sancey = new Player(92, 80, 68, 69, 72, 70, 73, 33, 78, 463, 31, 32, 13, 13, 10, 11, 11, 4, 12, 1, 1, 2, 2, 2, 2, 2, 1, 2, 0x70, 0xC1, 0x143, 0x7F, 0x12, 0x1B, 0x27, 0x2C, 2); // 0xA92
+            private static Player Michael_Gibe = new Player(158, 136, 56, 62, 63, 52, 72, 53, 63, 421, 69, 65, 15, 16, 15, 17, 16, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x77, 0x6B, 0x80, 0x142, 0x0D, 0x1B, 0x24, 0x33, 3); // 0xA93
+            private static Player Skeet_Blaston = new Player(154, 198, 57, 53, 56, 63, 55, 56, 61, 401, 64, 69, 17, 13, 15, 16, 17, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0x68, 0x173, 0x95, 0x09, 0x14, 0x21, 0x2E, 2); // 0xA94
+            private static Player Achilles_Chinner = new Player(180, 156, 61, 63, 61, 70, 68, 69, 68, 460, 63, 73, 13, 13, 13, 17, 16, 15, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0xAB, 0xAA, 0x193, 0xAC, 0x0E, 0x18, 0x26, 0x2B, 2); // 0xA95
+            private static Player Scott_Tickle = new Player(90, 130, 56, 71, 44, 64, 55, 61, 53, 404, 33, 54, 8, 8, 11, 16, 11, 16, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0xD5, 0x6C, 0x10D, 0x11, 0x1B, 0x20, 0x24, 2); // 0xA96
+            private static Player Junior_Cage = new Player(107, 138, 42, 59, 58, 60, 79, 55, 63, 416, 21, 43, 12, 9, 8, 8, 10, 11, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x87, 0x70, 0x72, 0x81, 0x0E, 0x17, 0x22, 0x2D, 2); // 0xA97
+            private static Player Terry_Namby = new Player(125, 104, 49, 41, 42, 47, 40, 45, 46, 310, 32, 69, 14, 8, 9, 11, 7, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xC0, 0x148, 0x9D, 0x10C, 0x12, 0x1C, 0x26, 0x31, 2); // 0xA98
+            private static Player Joe_Chugger = new Player(158, 180, 64, 77, 66, 73, 65, 66, 63, 474, 45, 62, 14, 11, 10, 19, 13, 16, 14, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x3B, 0x17A, 0xD4, 0x16C, 0x01, 0x1C, 0x29, 0x30, 1); // 0xA99
+            private static Player Sonny_Cinders = new Player(132, 118, 73, 55, 46, 47, 46, 55, 54, 376, 33, 38, 16, 12, 11, 10, 10, 8, 8, 1, 5, 5, 1, 1, 1, 1, 1, 1, 0x6B, 0x17A, 0xD3, 0x143, 0x14, 0x1E, 0x24, 0x32, 1); // 0xA9A
+            private static Player Cash_Winfall = new Player(147, 140, 45, 56, 67, 50, 56, 53, 53, 380, 38, 47, 9, 14, 14, 10, 10, 11, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x83, 0xE7, 0x74, 0x148, 0x0F, 0x1D, 0x24, 0x2C, 3); // 0xA9B
+            private static Player Lou_Fauntleroy = new Player(138, 170, 57, 67, 68, 61, 72, 68, 71, 464, 40, 54, 13, 13, 12, 13, 18, 15, 13, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x10F, 0x72, 0x142, 0x8B, 0x0C, 0x15, 0x24, 0x2C, 4); // 0xA9C
+            private static Player Carol_Chanter = new Player(116, 144, 46, 61, 54, 54, 64, 60, 52, 391, 33, 51, 9, 8, 9, 9, 13, 14, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x88, 0x86, 0x149, 0xD5, 0x10, 0x19, 0x25, 0x2A, 2); // 0xA9D
+            private static Player Guy_Kogan = new Player(125, 149, 60, 76, 74, 60, 46, 69, 60, 445, 18, 63, 16, 10, 15, 13, 13, 16, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x94, 0x16A, 0x7F, 0x178, 0x0B, 0x17, 0x28, 0x38, 1); // 0xA9E
+            private static Player Max_Motto = new Player(151, 198, 63, 55, 57, 56, 54, 55, 56, 396, 60, 72, 16, 13, 16, 14, 15, 14, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x9A, 0x9F, 0xD5, 0x85, 0x0A, 0x14, 0x20, 0x27, 1); // 0xA9F
+            private static Player Perry_Postiche = new Player(217, 138, 70, 59, 56, 61, 56, 55, 57, 414, 44, 44, 17, 8, 12, 15, 9, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x19F, 0xB2, 0x193, 0x192, 0x0D, 0x18, 0x24, 0x2F, 2); // 0xAA0
+            private static Player Nelson_Levene = new Player(116, 141, 60, 59, 52, 64, 51, 62, 56, 404, 44, 35, 8, 9, 11, 11, 11, 11, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x87, 0xD6, 0x74, 0x17D, 0x0F, 0x1A, 0x26, 0x37, 3); // 0xAA1
+            private static Player Kurt_Sermons = new Player(136, 164, 78, 67, 60, 74, 53, 69, 64, 465, 49, 55, 12, 14, 13, 15, 12, 13, 12, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA3, 0xD3, 0x196, 0xA9, 0x12, 0x21, 0x31, 0x46, 2); // 0xAA2
+            private static Player Ed_Hartsell = new Player(90, 140, 61, 61, 58, 62, 52, 64, 58, 416, 30, 51, 13, 10, 13, 14, 11, 9, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x7A, 0x67, 0x6B, 0x81, 0x0C, 0x13, 0x1C, 0x25, 2); // 0xAA3
+            private static Player Chester_Takes = new Player(123, 176, 60, 68, 63, 68, 59, 52, 56, 426, 32, 85, 8, 11, 10, 14, 8, 14, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6E, 0x8D, 0xC7, 0x6C, 0x0D, 0x18, 0x26, 0x2E, 2); // 0xAA4
+            private static Player Curtis_Rebell = new Player(169, 152, 56, 61, 74, 62, 60, 62, 68, 443, 58, 60, 11, 15, 17, 13, 10, 13, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x90, 0x10C, 0x14F, 0x112, 0x12, 0x21, 0x34, 0x42, 1); // 0xAA5
+            private static Player Cody_Fink = new Player(116, 149, 57, 67, 62, 66, 70, 78, 65, 465, 19, 66, 12, 13, 12, 14, 15, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9F, 0x76, 0x141, 0x169, 0x16, 0x1E, 0x26, 0x34, 1); // 0xAA6
+            private static Player Siria_Chattsley = new Player(169, 177, 64, 72, 61, 69, 67, 60, 68, 461, 51, 54, 11, 12, 10, 19, 11, 15, 13, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xC2, 0xC7, 0x180, 0xCC, 0x12, 0x1F, 0x30, 0x37, 3); // 0xAA7
+            private static Player Darren_Catt = new Player(132, 136, 68, 58, 53, 61, 40, 67, 60, 407, 39, 35, 10, 11, 11, 12, 8, 9, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x96, 0x68, 0x9C, 0x8E, 0x0E, 0x1D, 0x23, 0x2C, 3); // 0xAA8
+            private static Player Garry_Planer = new Player(171, 145, 52, 54, 63, 54, 62, 54, 60, 399, 40, 49, 8, 14, 15, 8, 7, 8, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAB, 0x6F, 0x175, 0xA5, 0x0B, 0x17, 0x22, 0x2E, 3); // 0xAA9
+            private static Player Glenn_Broth = new Player(167, 152, 55, 60, 52, 61, 60, 52, 56, 396, 54, 80, 14, 13, 16, 16, 17, 16, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x82, 0x78, 0x6F, 0x173, 0x08, 0x18, 0x22, 0x27, 2); // 0xAAA
+            private static Player Harry_Angue = new Player(134, 137, 53, 68, 53, 61, 57, 69, 59, 420, 25, 63, 10, 9, 12, 15, 14, 16, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7B, 0xD5, 0x7F, 0x195, 0x0B, 0x17, 0x22, 0x32, 1); // 0xAAB
+            private static Player Benny_Terra = new Player(77, 118, 35, 32, 29, 44, 56, 40, 72, 308, 19, 39, 7, 4, 4, 8, 13, 9, 7, 5, 5, 1, 1, 5, 1, 2, 5, 2, 0x7D, 0x6D, 0x111, 0x10F, 0x09, 0x0D, 0x18, 0x1E, 1); // 0xAAC
+            private static Player Jasmine_Veile = new Player(149, 161, 72, 60, 70, 72, 52, 72, 65, 463, 46, 47, 12, 11, 14, 15, 10, 11, 12, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xD9, 0x6B, 0x9B, 0x141, 0x18, 0x20, 0x2C, 0x39, 1); // 0xAAD
+            private static Player Belle_Allure = new Player(145, 161, 62, 55, 44, 62, 72, 66, 69, 430, 52, 56, 12, 11, 7, 11, 17, 15, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x37, 0x7E, 0x180, 0x145, 0x01, 0x17, 0x2E, 0x35, 3); // 0xAAE
+            private static Player Doug_Lapp = new Player(167, 172, 66, 76, 62, 76, 67, 64, 70, 481, 49, 62, 13, 11, 12, 20, 14, 14, 14, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x7C, 0x7F, 0x76, 0x178, 0x10, 0x18, 0x28, 0x36, 3); // 0xAAF
+            private static Player Eric_Motter = new Player(149, 132, 49, 53, 60, 79, 53, 54, 59, 407, 43, 39, 9, 12, 13, 7, 7, 7, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x19F, 0x83, 0xAF, 0xA8, 0x0E, 0x13, 0x22, 0x26, 3); // 0xAB0
+            private static Player Gyll_Netters = new Player(125, 156, 40, 38, 36, 60, 60, 61, 76, 371, 45, 53, 8, 9, 5, 10, 15, 12, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x9E, 0x6C, 0x7F, 0x10D, 0x0F, 0x18, 0x22, 0x29, 1); // 0xAB1
+            private static Player Farrah_Fairway = new Player(143, 198, 54, 62, 52, 59, 63, 52, 60, 402, 46, 48, 12, 14, 11, 13, 12, 13, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x3E, 0x10E, 0x117, 0x155, 0x01, 0x17, 0x28, 0x34, 1); // 0xAB2
+            private static Player Jess_Winkles = new Player(195, 165, 61, 69, 70, 69, 68, 65, 71, 473, 54, 76, 17, 14, 13, 15, 16, 17, 16, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x9D, 0xD3, 0x6A, 0x113, 0x15, 0x24, 0x33, 0x3C, 3); // 0xAB3
+            private static Player Barbara_Clector = new Player(99, 136, 44, 57, 59, 53, 71, 52, 63, 399, 32, 51, 12, 9, 9, 7, 17, 13, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x88, 0xAF, 0x81, 0xB5, 0x0F, 0x1C, 0x22, 0x36, 3); // 0xAB4
+            private static Player Marilyn_Henshaw = new Player(138, 172, 68, 66, 71, 74, 49, 75, 60, 463, 48, 66, 13, 12, 12, 14, 12, 10, 14, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x3D, 0xAD, 0x193, 0x195, 0x01, 0x11, 0x19, 0x25, 2); // 0xAB5
+            private static Player Nancy_Pickney = new Player(116, 100, 56, 60, 51, 41, 49, 54, 63, 374, 32, 39, 13, 14, 10, 8, 8, 10, 7, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x7B, 0x70, 0x80, 0x173, 0x0A, 0x12, 0x1C, 0x25, 3); // 0xAB6
+            private static Player Clay_Turnor = new Player(209, 152, 76, 68, 60, 71, 44, 78, 65, 462, 79, 62, 12, 13, 12, 15, 14, 13, 12, 2, 1, 2, 1, 1, 2, 5, 2, 1, 0xA6, 0xA2, 0xB5, 0x196, 0x0E, 0x1C, 0x29, 0x35, 2); // 0xAB7
+            private static Player Horace_Shlock = new Player(154, 144, 53, 63, 61, 52, 57, 52, 53, 391, 55, 60, 11, 11, 12, 11, 13, 11, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x46, 0x94, 0xD9, 0x76, 0x01, 0x14, 0x20, 0x2D, 2); // 0xAB8
+            private static Player Sabrina_Passman = new Player(129, 153, 78, 70, 67, 71, 53, 69, 70, 478, 42, 54, 12, 12, 14, 17, 12, 11, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x69, 0xC2, 0xC4, 0x143, 0x01, 0x11, 0x21, 0x31, 1); // 0xAB9
+            private static Player Harpo_Thermier = new Player(147, 130, 56, 52, 59, 70, 53, 62, 59, 411, 55, 72, 16, 16, 15, 17, 16, 15, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x67, 0x6B, 0xE7, 0x76, 0x0B, 0x1B, 0x23, 0x32, 3); // 0xABA
+            private static Player August_Dyers = new Player(171, 161, 70, 61, 62, 66, 70, 62, 60, 451, 64, 60, 13, 17, 17, 17, 14, 14, 17, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x39, 0x148, 0x173, 0x16C, 0x01, 0x15, 0x22, 0x37, 2); // 0xABB
+            private static Player Nev_Puffer = new Player(176, 157, 58, 68, 70, 52, 70, 65, 64, 447, 57, 59, 12, 16, 20, 10, 10, 12, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x3B, 0x86, 0xD5, 0x178, 0x01, 0x14, 0x1E, 0x38, 1); // 0xABC
+            private static Player Elata_Mighty = new Player(162, 80, 63, 76, 64, 79, 68, 69, 66, 485, 42, 46, 10, 13, 13, 18, 13, 15, 13, 1, 5, 1, 5, 1, 5, 1, 1, 1, 0x43, 0x16F, 0x16D, 0x177, 0x01, 0x01, 0x21, 0x3A, 2); // 0xABD
+            private static Player Ben_Danna = new Player(127, 169, 60, 72, 57, 75, 69, 71, 62, 466, 32, 66, 13, 14, 14, 19, 16, 20, 13, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x82, 0x9D, 0x173, 0x117, 0x0C, 0x14, 0x1E, 0x2C, 1); // 0xABE
+            private static Player Elsa_Roamer = new Player(132, 194, 28, 48, 52, 37, 40, 40, 48, 293, 26, 28, 7, 9, 12, 7, 4, 6, 6, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x97, 0x99, 0x67, 0x10F, 0x0A, 0x1B, 0x1F, 0x25, 3); // 0xABF
+            private static Player Archy_Seago = new Player(171, 197, 66, 64, 79, 57, 56, 61, 64, 447, 58, 28, 20, 17, 7, 10, 12, 13, 14, 1, 5, 1, 1, 5, 1, 1, 1, 1, 0x9F, 0xD5, 0x199, 0xC8, 0x0D, 0x1C, 0x2A, 0x35, 2); // 0xAC0
+            private static Player Erhardt_Knead = new Player(217, 142, 48, 33, 38, 53, 79, 38, 54, 343, 92, 39, 10, 9, 5, 9, 21, 5, 7, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7A, 0xD6, 0x86, 0x7E, 0x0E, 0x12, 0x1B, 0x24, 2); // 0xAC1
+            private static Player Lynne_Mandel = new Player(151, 133, 63, 60, 59, 59, 59, 63, 54, 417, 62, 78, 14, 16, 15, 15, 15, 15, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x87, 0xBF, 0xE8, 0x154, 0x0C, 0x13, 0x21, 0x2D, 3); // 0xAC2
+            private static Player Craig_Placid = new Player(149, 136, 61, 63, 57, 63, 57, 58, 79, 438, 58, 59, 13, 10, 12, 12, 11, 14, 12, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0xCA, 0x6B, 0xC6, 0x10D, 0x11, 0x1B, 0x23, 0x2E, 1); // 0xAC3
+            private static Player Leon_Morcey = new Player(134, 160, 62, 72, 58, 70, 66, 76, 65, 469, 30, 76, 12, 14, 15, 20, 13, 18, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x87, 0xE7, 0x7F, 0x8B, 0x0E, 0x18, 0x26, 0x31, 1); // 0xAC4
+            private static Player Dom_Edarry = new Player(143, 133, 57, 54, 56, 52, 59, 52, 60, 390, 42, 49, 10, 10, 11, 12, 14, 12, 12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xC1, 0xC5, 0xD4, 0xB5, 0x1C, 0x2F, 0x36, 0x3B, 3); // 0xAC5
+            private static Player Jay_Asher = new Player(151, 189, 69, 70, 73, 63, 49, 69, 60, 453, 45, 63, 17, 11, 17, 13, 17, 18, 14, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x40, 0x7E, 0x141, 0x14A, 0x01, 0x23, 0x2C, 0x4B, 5); // 0xAC6
+            private static Player Toby_Cohill = new Player(162, 172, 61, 52, 52, 54, 58, 59, 76, 412, 51, 66, 14, 12, 13, 13, 13, 14, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x88, 0x6C, 0x7F, 0x155, 0x14, 0x1C, 0x23, 0x31, 3); // 0xAC7
+            private static Player Nolene_Ider = new Player(110, 132, 53, 56, 54, 60, 62, 68, 55, 408, 28, 47, 11, 11, 11, 7, 12, 13, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xCA, 0x148, 0x65, 0xE8, 0x11, 0x1D, 0x26, 0x2C, 2); // 0xAC8
+            private static Player Hoots_Knightly = new Player(140, 173, 69, 76, 52, 70, 65, 74, 63, 469, 30, 62, 11, 11, 15, 19, 14, 19, 13, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x99, 0x6B, 0x173, 0x16C, 0x18, 0x1D, 0x23, 0x34, 1); // 0xAC9
+            private static Player Bash_Beaton = new Player(162, 184, 60, 77, 70, 68, 67, 68, 68, 478, 48, 47, 10, 13, 13, 19, 13, 14, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x90, 0xD3, 0xC4, 0x14B, 0x13, 0x1B, 0x27, 0x38, 2); // 0xACA
+            private static Player Terry_Toolan = new Player(169, 158, 55, 63, 54, 60, 56, 61, 78, 427, 61, 77, 17, 15, 14, 14, 15, 16, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x98, 0x9C, 0x6B, 0x155, 0x0C, 0x1C, 0x23, 0x2F, 1); // 0xACB
+            private static Player Callum_Biddy = new Player(118, 100, 43, 44, 66, 44, 65, 51, 53, 366, 30, 42, 10, 8, 14, 10, 17, 10, 7, 5, 5, 1, 5, 2, 5, 2, 5, 1, 0x88, 0x72, 0xAF, 0x193, 0x10, 0x19, 0x22, 0x27, 3); // 0xACC
+            private static Player Alan_Sumner = new Player(215, 173, 44, 68, 76, 79, 77, 68, 72, 484, 64, 80, 12, 15, 17, 20, 14, 16, 16, 5, 5, 5, 2, 5, 2, 5, 5, 5, 0x36, 0x85, 0xCE, 0x179, 0x01, 0x01, 0x2E, 0x3F, 4); // 0xACD
+            private static Player Trixy_Wonder = new Player(173, 133, 63, 60, 62, 55, 63, 59, 59, 421, 45, 60, 13, 12, 12, 12, 13, 11, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x48, 0xD6, 0x141, 0x169, 0x01, 0x0D, 0x22, 0x35, 4); // 0xACE
+            private static Player Colet_First = new Player(171, 130, 61, 52, 55, 60, 60, 58, 52, 398, 64, 20, 4, 5, 6, 8, 6, 7, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x90, 0xC6, 0x85, 0x11, 0x16, 0x1D, 0x25, 1); // 0xACF
+            private static Player Mac_Gabbon = new Player(145, 142, 79, 52, 61, 52, 54, 63, 58, 419, 50, 65, 18, 13, 14, 12, 10, 11, 10, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x94, 0x9F, 0xC2, 0x8E, 0x0F, 0x1B, 0x23, 0x2E, 3); // 0xAD0
+            private static Player Tip_Bolster = new Player(151, 136, 44, 60, 70, 46, 58, 55, 52, 385, 34, 36, 8, 12, 13, 7, 7, 10, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x77, 0x82, 0x7C, 0x75, 0x0E, 0x15, 0x1E, 0x26, 1); // 0xAD1
+            private static Player Draco_Scallon = new Player(173, 137, 56, 52, 57, 52, 61, 56, 56, 390, 57, 56, 13, 10, 14, 13, 11, 12, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x97, 0x8D, 0x6F, 0xC4, 0x10, 0x18, 0x1D, 0x29, 1); // 0xAD2
+            private static Player Sofia_Brashier = new Player(151, 172, 61, 68, 61, 78, 71, 64, 68, 471, 48, 64, 11, 12, 12, 19, 14, 13, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x96, 0x10D, 0x146, 0xC4, 0x0F, 0x18, 0x1D, 0x2C, 4); // 0xAD3
+            private static Player Oleta_Isaman = new Player(134, 172, 62, 68, 71, 60, 70, 60, 62, 453, 40, 66, 17, 12, 14, 14, 19, 16, 13, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x146, 0x6C, 0x180, 0xD4, 0x11, 0x1D, 0x28, 0x2F, 2); // 0xAD4
+            private static Player Mat_Halled = new Player(156, 177, 64, 75, 60, 72, 66, 62, 67, 466, 49, 47, 11, 12, 13, 16, 11, 16, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x87, 0xE7, 0x178, 0x14F, 0x07, 0x18, 0x2D, 0x2E, 2); // 0xAD5
+            private static Player James_Strang = new Player(217, 140, 49, 53, 60, 60, 60, 78, 56, 416, 72, 42, 13, 7, 10, 9, 17, 16, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xCA, 0xCD, 0x6B, 0x10E, 0x10, 0x1C, 0x21, 0x28, 1); // 0xAD6
+            private static Player Ian_Watchen = new Player(118, 149, 55, 70, 61, 67, 72, 72, 60, 457, 18, 56, 14, 10, 12, 11, 14, 15, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x70, 0xC1, 0x171, 0x19C, 0x0A, 0x10, 0x2D, 0x37, 1); // 0xAD7
+            private static Player Rose_Snelgrove = new Player(134, 108, 55, 57, 51, 44, 51, 59, 54, 371, 30, 35, 14, 14, 9, 9, 10, 9, 9, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x87, 0xE8, 0x154, 0x16A, 0x12, 0x18, 0x24, 0x2C, 3); // 0xAD8
+            private static Player Bert_Emmerson = new Player(154, 140, 40, 63, 72, 45, 55, 56, 52, 383, 40, 36, 10, 13, 15, 9, 7, 11, 11, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0x10F, 0x9C, 0xC7, 0x0A, 0x16, 0x1C, 0x24, 2); // 0xAD9
+            private static Player Irving_Gusher = new Player(169, 153, 76, 66, 63, 60, 71, 60, 71, 467, 30, 20, 17, 6, 7, 5, 8, 8, 4, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x74, 0x8D, 0x95, 0x9B, 0x11, 0x1B, 0x23, 0x2B, 2); // 0xADA
+            private static Player Lionel_Silent = new Player(121, 160, 76, 71, 58, 56, 60, 63, 60, 444, 54, 51, 10, 13, 12, 14, 11, 10, 13, 5, 1, 2, 1, 1, 1, 1, 1, 1, 0x193, 0xAC, 0x80, 0x195, 0x0E, 0x1C, 0x21, 0x2F, 2); // 0xADB
+            private static Player Owen_Rage = new Player(121, 110, 46, 64, 51, 48, 44, 51, 43, 347, 42, 48, 9, 9, 11, 10, 10, 9, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0x148, 0x72, 0x173, 0x0C, 0x1D, 0x28, 0x32, 3); // 0xADC
+            private static Player Alice_Nutty = new Player(112, 148, 67, 54, 52, 52, 54, 64, 52, 395, 38, 37, 16, 10, 11, 14, 9, 8, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x39, 0x87, 0x88, 0x7F, 0x01, 0x0D, 0x13, 0x22, 3); // 0xADD
+            private static Player Conrad_Jacket = new Player(118, 158, 58, 75, 69, 71, 78, 55, 52, 458, 39, 35, 11, 11, 8, 7, 11, 9, 10, 2, 2, 2, 3, 3, 3, 3, 2, 2, 0x6B, 0xBE, 0x17A, 0xC9, 0x11, 0x19, 0x27, 0x2C, 1); // 0xADE
+            private static Player Hilda_Bronski = new Player(140, 140, 66, 60, 60, 64, 46, 62, 55, 413, 36, 45, 10, 8, 8, 11, 11, 11, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x111, 0xC1, 0x16A, 0x10C, 0x0E, 0x19, 0x23, 0x30, 2); // 0xADF
+            private static Player Clint_Peacock = new Player(169, 145, 63, 52, 63, 55, 55, 55, 58, 401, 55, 68, 14, 13, 15, 15, 17, 17, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0x86, 0x9F, 0x150, 0x0B, 0x14, 0x1D, 0x27, 2); // 0xAE0
+            private static Player Pace_Maker = new Player(81, 152, 64, 56, 60, 70, 34, 61, 60, 405, 37, 53, 10, 10, 9, 13, 7, 10, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x10F, 0x9F, 0x6C, 0x7F, 0x13, 0x16, 0x1A, 0x21, 1); // 0xAE1
+            private static Player Vanity_Percy = new Player(121, 129, 62, 52, 62, 71, 42, 66, 61, 416, 36, 36, 11, 8, 9, 14, 10, 7, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xB3, 0x86, 0x19E, 0x194, 0x0C, 0x15, 0x21, 0x2E, 3); // 0xAE2
+            private static Player Phil_Pagoda = new Player(149, 172, 68, 63, 64, 71, 45, 68, 61, 440, 58, 66, 14, 13, 12, 17, 11, 12, 13, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xA4, 0x193, 0x10D, 0xA7, 0x0B, 0x1A, 0x25, 0x34, 3); // 0xAE3
+            private static Player Niki_Colbeck = new Player(129, 132, 55, 64, 51, 68, 59, 65, 59, 421, 27, 51, 10, 7, 12, 13, 11, 13, 7, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x6D, 0x86, 0x148, 0x7F, 0x09, 0x16, 0x1D, 0x28, 2); // 0xAE4
+            private static Player Guy_Pinnay = new Player(182, 158, 60, 55, 54, 62, 58, 71, 61, 421, 31, 51, 15, 8, 10, 17, 11, 11, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x90, 0x9D, 0x68, 0x17A, 0x0D, 0x16, 0x21, 0x2D, 2); // 0xAE5
+            private static Player Wayne_Fluke = new Player(156, 198, 56, 52, 62, 57, 60, 56, 53, 396, 56, 93, 12, 11, 10, 13, 12, 11, 10, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xA6, 0xB2, 0x88, 0xB5, 0x10, 0x1C, 0x21, 0x26, 4); // 0xAE6
+            private static Player Red_Dayers = new Player(143, 152, 60, 63, 57, 60, 52, 60, 57, 409, 37, 48, 9, 9, 9, 16, 10, 10, 9, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x83, 0x148, 0x173, 0x81, 0x0D, 0x1A, 0x27, 0x2E, 1); // 0xAE7
+            private static Player Shay_Diebold = new Player(169, 133, 68, 64, 58, 52, 63, 60, 67, 432, 54, 35, 19, 16, 11, 12, 13, 11, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xBF, 0x74, 0xBE, 0x9B, 0x0E, 0x19, 0x23, 0x34, 2); // 0xAE8
+            private static Player Tigh_Gerwhite = new Player(217, 177, 79, 76, 44, 79, 71, 40, 68, 457, 66, 81, 17, 15, 9, 19, 17, 5, 16, 2, 5, 2, 5, 5, 5, 5, 2, 5, 0x35, 0xCA, 0x10D, 0x119, 0x01, 0x01, 0x23, 0x37, 2); // 0xAE9
+            private static Player Cerise_Crane = new Player(189, 172, 48, 77, 71, 76, 72, 76, 72, 492, 64, 76, 14, 15, 14, 18, 13, 16, 14, 5, 5, 5, 2, 5, 2, 5, 5, 5, 0x37, 0x67, 0x8F, 0x11F, 0x01, 0x01, 0x1D, 0x3A, 4); // 0xAEA
+            private static Player Drack_Gorn = new Player(217, 190, 71, 37, 79, 72, 74, 71, 70, 474, 57, 63, 15, 10, 17, 15, 16, 14, 15, 5, 5, 5, 2, 2, 5, 5, 5, 5, 0x36, 0x88, 0x8D, 0x183, 0x01, 0x01, 0x21, 0x34, 2); // 0xAEB
+            private static Player Terry_Pinn = new Player(118, 169, 42, 76, 72, 70, 79, 68, 78, 485, 45, 76, 14, 17, 17, 14, 17, 20, 16, 5, 5, 5, 5, 5, 5, 2, 2, 5, 0x33, 0xA6, 0xB6, 0xB1, 0x01, 0x01, 0x19, 0x37, 2); // 0xAEC
+            private static Player Justin_Cush = new Player(145, 152, 71, 70, 69, 76, 52, 77, 70, 485, 44, 54, 12, 10, 13, 16, 10, 12, 12, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x47, 0xB2, 0x195, 0x1A6, 0x01, 0x13, 0x26, 0x4B, 2); // 0xAED
+            private static Player Bert_McClure = new Player(147, 133, 44, 50, 50, 52, 63, 63, 54, 376, 36, 37, 10, 8, 7, 8, 13, 14, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x88, 0x148, 0x6B, 0x173, 0x0F, 0x1E, 0x26, 0x30, 2); // 0xAEE
+            private static Player Richard_Trogg = new Player(154, 157, 54, 53, 47, 71, 72, 64, 65, 426, 55, 62, 10, 13, 8, 11, 18, 14, 14, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x39, 0x90, 0x95, 0x119, 0x01, 0x11, 0x21, 0x3C, 2); // 0xAEF
+            private static Player Shirly_Quirk = new Player(110, 104, 44, 48, 44, 52, 60, 52, 55, 355, 22, 29, 8, 6, 6, 7, 12, 8, 7, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x7B, 0x87, 0x74, 0x81, 0x0D, 0x13, 0x1E, 0x2D, 3); // 0xAF0
+            private static Player Elias_Lens = new Player(88, 140, 60, 67, 48, 69, 55, 60, 52, 411, 30, 65, 10, 10, 11, 15, 13, 15, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x86, 0x71, 0x85, 0x125, 0x14, 0x1D, 0x27, 0x2F, 2); // 0xAF1
+            private static Player Terry_Dryden = new Player(121, 112, 45, 47, 41, 47, 50, 51, 50, 331, 39, 39, 8, 8, 9, 10, 8, 7, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0xCA, 0x68, 0x76, 0x08, 0x10, 0x1C, 0x24, 1); // 0xAF2
+            private static Player Ardel_Kernel = new Player(81, 130, 40, 53, 59, 55, 69, 61, 54, 391, 26, 47, 9, 8, 10, 9, 12, 12, 10, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0xE7, 0x72, 0xD3, 0x0B, 0x1A, 0x20, 0x2E, 1); // 0xAF3
+            private static Player Carl_Belcher = new Player(169, 136, 52, 57, 59, 60, 55, 56, 62, 401, 46, 61, 14, 12, 11, 12, 12, 11, 13, 5, 1, 1, 1, 1, 1, 1, 1, 1, 0xB3, 0xA5, 0xD3, 0xAC, 0x0F, 0x1F, 0x28, 0x31, 1); // 0xAF4
+            private static Player Mal_Maroon = new Player(77, 142, 45, 53, 56, 54, 67, 60, 56, 391, 19, 38, 10, 8, 8, 7, 11, 12, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x7B, 0x68, 0x76, 0x174, 0x09, 0x19, 0x24, 0x36, 3); // 0xAF5
+            private static Player Ralph_Fary = new Player(167, 144, 68, 67, 60, 58, 60, 61, 64, 438, 54, 21, 19, 17, 14, 11, 11, 13, 13, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x9C, 0xC7, 0x6A, 0x113, 0x10, 0x20, 0x2E, 0x37, 2); // 0xAF6
+            private static Player Floyd_Spades = new Player(112, 132, 64, 52, 63, 57, 56, 64, 62, 418, 44, 39, 17, 7, 14, 13, 7, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAD, 0x90, 0x10E, 0x74, 0x12, 0x17, 0x1E, 0x26, 1); // 0xAF7
+            private static Player Remy_Diggun = new Player(165, 129, 58, 61, 54, 56, 62, 59, 54, 404, 64, 66, 15, 13, 17, 13, 13, 17, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6E, 0x72, 0x7A, 0x7E, 0x0C, 0x1A, 0x1D, 0x25, 1); // 0xAF8
+            private static Player Bern_Macmahon = new Player(171, 129, 55, 55, 57, 53, 60, 57, 60, 397, 64, 70, 17, 16, 16, 14, 15, 15, 13, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xCA, 0xBE, 0x70, 0x141, 0x0F, 0x1E, 0x26, 0x31, 2); // 0xAF9
+            private static Player Wally_Cooper = new Player(173, 144, 70, 65, 48, 60, 63, 71, 52, 429, 50, 54, 8, 9, 12, 14, 10, 17, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x39, 0x70, 0x10E, 0x173, 0x01, 0x17, 0x20, 0x28, 2); // 0xAFA
+            private static Player Griff_Hardcasel = new Player(169, 148, 61, 63, 70, 62, 63, 60, 66, 445, 45, 27, 17, 15, 16, 14, 17, 13, 17, 1, 5, 1, 4, 4, 4, 4, 4, 4, 0x111, 0xD9, 0x10C, 0x155, 0x0C, 0x1C, 0x22, 0x30, 2); // 0xAFB
+            private static Player Pat_Lubow = new Player(123, 109, 51, 47, 49, 40, 49, 44, 45, 325, 93, 107, 21, 20, 23, 21, 22, 21, 22, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0xE7, 0xE8, 0x17A, 0x7F, 0x10, 0x18, 0x27, 0x2D, 2); // 0xAFC
+            private static Player Wilma_Morgan = new Player(162, 138, 64, 60, 52, 80, 56, 69, 61, 442, 56, 29, 19, 14, 13, 14, 14, 12, 11, 1, 5, 1, 1, 1, 2, 1, 1, 1, 0x3E, 0xA1, 0x19B, 0x19C, 0x01, 0x0F, 0x23, 0x35, 2); // 0xAFD
+            private static Player Carys_Chaparon = new Player(145, 170, 78, 55, 62, 82, 78, 55, 56, 466, 46, 51, 11, 12, 13, 11, 13, 13, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xC1, 0xE7, 0x149, 0x10C, 0x10, 0x1B, 0x2C, 0x32, 3); // 0xAFE
+            private static Player Ann_Tendant = new Player(173, 133, 69, 60, 60, 56, 59, 60, 61, 425, 48, 36, 19, 15, 11, 12, 14, 14, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x42, 0xC1, 0x154, 0x95, 0x01, 0x0E, 0x1D, 0x26, 2); // 0xAFF
+            private static Player Katy_Punter = new Player(158, 176, 49, 53, 66, 51, 57, 57, 62, 395, 43, 68, 9, 10, 14, 7, 8, 7, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x111, 0x10D, 0xE7, 0x16B, 0x12, 0x21, 0x28, 0x39, 1); // 0xB00
+            private static Player Pete_Pimento = new Player(180, 136, 67, 53, 63, 52, 52, 61, 60, 408, 45, 38, 15, 11, 12, 17, 9, 11, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x92, 0xC6, 0xC4, 0x6B, 0x0D, 0x1D, 0x2D, 0x37, 1); // 0xB01
+            private static Player Mary_Hugland = new Player(121, 115, 74, 73, 76, 42, 48, 49, 46, 408, 44, 40, 11, 9, 9, 9, 10, 8, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xA4, 0xA3, 0x175, 0x19B, 0x0C, 0x15, 0x20, 0x2A, 3); // 0xB02
+            private static Player Lee_Screener = new Player(167, 184, 48, 61, 78, 44, 55, 52, 60, 398, 36, 68, 7, 7, 14, 10, 10, 7, 9, 5, 2, 5, 5, 2, 5, 5, 5, 5, 0x82, 0xCA, 0x172, 0xC6, 0x08, 0x0F, 0x1B, 0x24, 1); // 0xB03
+            private static Player Camilla_Textor = new Player(138, 137, 44, 53, 63, 52, 71, 52, 56, 391, 32, 33, 12, 11, 11, 11, 15, 12, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x90, 0x72, 0xC6, 0x10D, 0x11, 0x1A, 0x23, 0x2F, 3); // 0xB04
+            private static Player Bish_Beaton = new Player(158, 130, 68, 76, 70, 62, 49, 73, 62, 460, 54, 24, 13, 13, 16, 17, 15, 16, 12, 1, 5, 1, 5, 1, 5, 1, 1, 1, 0x77, 0x10F, 0xC7, 0x118, 0x0D, 0x14, 0x1D, 0x2D, 2); // 0xB05
+            private static Player Sully_Crossied = new Player(147, 132, 68, 67, 56, 54, 62, 69, 64, 440, 43, 22, 19, 15, 13, 14, 14, 10, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xC0, 0x8D, 0x112, 0x143, 0x12, 0x17, 0x2A, 0x37, 3); // 0xB06
+            private static Player Stu_Borneman = new Player(151, 142, 58, 63, 56, 58, 57, 59, 74, 425, 48, 54, 12, 12, 13, 12, 12, 10, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x87, 0x80, 0x6C, 0xD3, 0x0C, 0x15, 0x1E, 0x27, 1); // 0xB07
+            private static Player Herb_Growan = new Player(134, 124, 50, 48, 61, 43, 44, 44, 52, 342, 18, 37, 5, 11, 12, 7, 8, 4, 8, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAD, 0xA1, 0xB0, 0xB2, 0x0F, 0x19, 0x1D, 0x27, 3); // 0xB08
+            private static Player Arvin_Inkwell = new Player(149, 150, 54, 56, 57, 61, 56, 54, 52, 390, 22, 28, 4, 8, 7, 6, 6, 4, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0x7A, 0x85, 0x17D, 0x178, 0x0A, 0x1D, 0x25, 0x35, 1); // 0xB09
+            private static Player Rayce_Sprinton = new Player(165, 198, 48, 56, 64, 49, 63, 60, 56, 396, 31, 73, 9, 9, 16, 7, 11, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0xC2, 0x72, 0x143, 0x0A, 0x18, 0x23, 0x30, 2); // 0xB0A
+            private static Player Dreama_Bartle = new Player(125, 149, 67, 59, 60, 52, 62, 65, 58, 423, 45, 39, 17, 10, 12, 14, 9, 9, 11, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x9E, 0x10A, 0x116, 0x76, 0x0F, 0x1B, 0x24, 0x2A, 3); // 0xB0B
+            private static Player Jane_Ledbelly = new Player(125, 101, 44, 50, 52, 53, 48, 53, 52, 352, 42, 45, 10, 9, 8, 8, 8, 10, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x146, 0x10F, 0xE8, 0x7F, 0x0F, 0x19, 0x24, 0x28, 3); // 0xB0C
+            private static Player Dory_O_Bonn = new Player(129, 110, 42, 40, 51, 40, 43, 40, 51, 307, 42, 42, 10, 11, 11, 10, 11, 9, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x87, 0x67, 0x7E, 0x74, 0x0D, 0x15, 0x23, 0x30, 1); // 0xB0D
+            private static Player Selma_Heaver = new Player(169, 174, 42, 53, 63, 43, 61, 61, 62, 385, 43, 74, 8, 7, 16, 7, 8, 7, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x19F, 0x7A, 0xB0, 0x1A2, 0x11, 0x17, 0x1E, 0x35, 3); // 0xB0E
+            private static Player Kath_Leaflin = new Player(169, 156, 52, 53, 60, 56, 56, 57, 56, 390, 69, 72, 15, 14, 17, 17, 13, 15, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7A, 0xB2, 0x19E, 0x7E, 0x0D, 0x19, 0x24, 0x28, 2); // 0xB0F
+            private static Player Marg_Shuttle = new Player(127, 136, 64, 58, 56, 55, 60, 68, 60, 421, 36, 47, 17, 9, 12, 13, 8, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x146, 0xBF, 0x68, 0x81, 0x14, 0x23, 0x28, 0x2E, 1); // 0xB10
+            private static Player Duke_Scrubine = new Player(123, 156, 56, 71, 60, 60, 55, 55, 60, 417, 32, 40, 8, 11, 10, 17, 8, 10, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA1, 0x67, 0xA5, 0x192, 0x0D, 0x13, 0x1E, 0x2B, 1); // 0xB11
+            private static Player Waylon_Tripp = new Player(169, 136, 60, 57, 56, 62, 60, 54, 55, 404, 55, 51, 10, 12, 14, 13, 11, 14, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x98, 0xC1, 0x68, 0x9F, 0x0F, 0x18, 0x21, 0x27, 3); // 0xB12
+            private static Player Jim_Bunner = new Player(114, 129, 53, 60, 62, 58, 70, 62, 59, 424, 21, 47, 10, 8, 7, 9, 14, 14, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x82, 0xAB, 0x193, 0xA8, 0x08, 0x0C, 0x17, 0x23, 3); // 0xB13
+            private static Player Jon_Izumo = new Player(136, 153, 63, 68, 56, 73, 67, 76, 66, 469, 18, 60, 12, 13, 15, 17, 13, 17, 10, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x3E, 0x9F, 0xD9, 0x6C, 0x01, 0x17, 0x22, 0x27, 4); // 0xB14
+            private static Player Del_Brighton = new Player(110, 133, 60, 60, 48, 68, 56, 60, 58, 410, 18, 58, 9, 11, 10, 15, 10, 15, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x99, 0x66, 0x10E, 0xC7, 0x16, 0x1B, 0x2A, 0x34, 3); // 0xB15
+            private static Player Haden_Safe = new Player(160, 137, 60, 60, 52, 62, 52, 62, 69, 417, 50, 33, 18, 15, 11, 11, 11, 12, 13, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x3B, 0x96, 0x75, 0x118, 0x01, 0x10, 0x1A, 0x33, 1); // 0xB16
+            private static Player Lisle_Plotter = new Player(147, 140, 68, 63, 57, 52, 60, 64, 64, 428, 58, 21, 17, 15, 12, 13, 13, 14, 12, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x39, 0x111, 0xC9, 0x12E, 0x01, 0x0D, 0x18, 0x2E, 3); // 0xB17
+            private static Player Fen_Skates = new Player(110, 132, 52, 70, 44, 65, 57, 65, 52, 405, 28, 59, 11, 8, 13, 17, 11, 15, 8, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x3A, 0x94, 0x68, 0x116, 0x01, 0x11, 0x1C, 0x25, 1); // 0xB18
+            private static Player Rhoda_Dough = new Player(94, 134, 65, 57, 54, 61, 48, 66, 62, 413, 32, 40, 9, 7, 11, 12, 11, 9, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xE7, 0x66, 0x7E, 0x143, 0x12, 0x16, 0x1C, 0x2D, 1); // 0xB19
+            private static Player Neil_Seating = new Player(123, 192, 59, 52, 76, 40, 48, 61, 52, 388, 32, 36, 13, 12, 8, 10, 9, 11, 9, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0x77, 0x6B, 0x90, 0x7F, 0x10, 0x1D, 0x26, 0x32, 3); // 0xB1A
+            private static Player Flo_Nighting = new Player(96, 198, 47, 54, 48, 56, 45, 47, 51, 348, 26, 27, 6, 8, 7, 13, 6, 11, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6D, 0x88, 0xC2, 0x16A, 0x0A, 0x10, 0x1A, 0x20, 3); // 0xB1B
+            private static Player Elinor_Maven = new Player(158, 149, 57, 55, 45, 65, 77, 62, 61, 422, 43, 66, 11, 14, 6, 12, 19, 13, 11, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x3C, 0xC0, 0xC2, 0x116, 0x01, 0x0C, 0x1B, 0x27, 1); // 0xB1C
+            private static Player Kay_Gateley = new Player(123, 154, 62, 68, 62, 68, 56, 60, 71, 447, 45, 43, 7, 9, 10, 17, 11, 14, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xE7, 0x6C, 0x149, 0x8C, 0x12, 0x18, 0x29, 0x35, 1); // 0xB1D
+            private static Player Dexter_Caise = new Player(83, 152, 68, 57, 56, 63, 34, 62, 59, 399, 44, 47, 9, 9, 10, 13, 9, 8, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xE8, 0x71, 0xC2, 0x16B, 0x13, 0x19, 0x23, 0x2E, 1); // 0xB1E
+            private static Player Serena_Besse = new Player(191, 176, 64, 70, 70, 70, 69, 60, 65, 468, 30, 35, 10, 11, 17, 10, 9, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0xD6, 0x154, 0x149, 0x180, 0x0A, 0x1B, 0x23, 0x2F, 3); // 0xB1F
+            private static Player Adrian_Heartly = new Player(123, 164, 71, 64, 70, 63, 66, 60, 63, 457, 44, 23, 5, 8, 4, 6, 8, 8, 6, 1, 5, 5, 5, 5, 5, 5, 5, 5, 0x6D, 0x7D, 0xE8, 0x80, 0x0D, 0x13, 0x1E, 0x2A, 3); // 0xB20
+            private static Player Cary_Fearless = new Player(105, 152, 65, 61, 60, 58, 61, 70, 68, 443, 32, 53, 13, 9, 12, 16, 10, 9, 9, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x111, 0x6B, 0x10E, 0x112, 0x11, 0x1D, 0x26, 0x2F, 3); // 0xB21
+            private static Player Wally_Waymire = new Player(149, 137, 53, 56, 61, 55, 52, 62, 53, 392, 45, 47, 13, 11, 12, 11, 13, 12, 14, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x7B, 0x86, 0xD5, 0x85, 0x0B, 0x19, 0x24, 0x2A, 3); // 0xB22
+            private static Player Ted_Autumn = new Player(217, 173, 78, 69, 46, 78, 68, 44, 74, 457, 78, 90, 16, 16, 9, 20, 13, 8, 13, 2, 5, 2, 5, 5, 5, 5, 2, 5, 0x33, 0xB0, 0xA7, 0x191, 0x01, 0x01, 0x2E, 0x41, 4); // 0xB23
+            private static Player Boomer_Smolen = new Player(125, 136, 60, 65, 46, 64, 54, 70, 57, 416, 25, 52, 7, 7, 14, 13, 13, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x19F, 0x80, 0x7E, 0x193, 0x0A, 0x14, 0x20, 0x27, 3); // 0xB24
+            private static Player Hank_Ershef = new Player(125, 141, 45, 56, 56, 60, 69, 63, 63, 412, 21, 36, 14, 8, 11, 7, 17, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0xD6, 0xE7, 0x8D, 0x6C, 0x10, 0x18, 0x1D, 0x25, 2); // 0xB25
+            private static Player Tim_Opener = new Player(134, 182, 45, 39, 34, 74, 77, 55, 59, 383, 33, 93, 11, 8, 6, 17, 15, 14, 10, 5, 5, 1, 1, 5, 2, 2, 5, 1, 0xC0, 0x88, 0x16A, 0x81, 0x13, 0x18, 0x20, 0x30, 1); // 0xB26
+            private static Player Hide_King = new Player(103, 130, 49, 60, 55, 69, 65, 62, 55, 415, 18, 38, 8, 7, 10, 10, 10, 14, 9, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x88, 0xD5, 0xE7, 0x85, 0x0E, 0x1A, 0x1F, 0x2D, 2); // 0xB27
+            private static Player Beth_Doodle = new Player(116, 132, 50, 55, 62, 62, 70, 70, 57, 426, 19, 47, 9, 10, 8, 8, 10, 10, 11, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x3A, 0x9D, 0xE7, 0x154, 0x01, 0x15, 0x1B, 0x28, 1); // 0xB28
+            private static Player Lamar_Bonesteel = new Player(121, 140, 46, 28, 28, 53, 65, 55, 52, 327, 43, 50, 8, 8, 4, 9, 14, 13, 8, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x88, 0x8F, 0x74, 0xC4, 0x12, 0x1B, 0x23, 0x32, 1); // 0xB29
+            private static Player Dom_Round = new Player(134, 117, 44, 46, 48, 49, 44, 48, 55, 334, 30, 47, 10, 11, 9, 11, 8, 8, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x83, 0xCD, 0x148, 0x80, 0x11, 0x1D, 0x26, 0x2C, 3); // 0xB2A
+            private static Player Chip_Stocks = new Player(151, 176, 65, 73, 67, 78, 62, 66, 64, 475, 58, 49, 14, 11, 11, 17, 10, 15, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x9F, 0xD5, 0x76, 0xC5, 0x10, 0x17, 0x24, 0x31, 3); // 0xB2B
+            private static Player Blake_Nailor = new Player(169, 70, 48, 69, 75, 78, 32, 60, 54, 416, 38, 20, 9, 13, 16, 16, 8, 9, 7, 4, 1, 1, 2, 2, 2, 1, 4, 1, 0xAB, 0xA1, 0x193, 0xAE, 0x0A, 0x12, 0x1C, 0x24, 2); // 0xB2C
+            private static Player Dotty_Hickman = new Player(114, 149, 53, 68, 61, 61, 76, 72, 65, 456, 27, 49, 11, 14, 10, 10, 13, 14, 12, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x99, 0xD3, 0x7F, 0x14E, 0x14, 0x20, 0x2A, 0x39, 1); // 0xB2D
+            private static Player Wright_Tandem = new Player(162, 129, 56, 60, 61, 63, 53, 56, 58, 407, 56, 72, 13, 15, 15, 13, 17, 14, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x98, 0x7B, 0x16A, 0x7F, 0x09, 0x11, 0x1E, 0x2A, 1); // 0xB2E
+            private static Player Shaun_Bonnie = new Player(118, 65, 46, 46, 45, 47, 46, 43, 44, 317, 28, 33, 6, 4, 8, 8, 7, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x7D, 0x86, 0x111, 0xE8, 0x0F, 0x1A, 0x23, 0x27, 3); // 0xB2F
+            private static Player Andrew_Hooper = new Player(187, 130, 62, 64, 63, 63, 55, 72, 62, 441, 68, 28, 16, 14, 14, 14, 11, 16, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x8D, 0x10D, 0x8E, 0x14A, 0x15, 0x1D, 0x2C, 0x35, 1); // 0xB30
+            private static Player Toya_Boyde = new Player(132, 120, 49, 53, 44, 48, 54, 51, 47, 346, 42, 36, 9, 11, 11, 8, 8, 7, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x7D, 0xD6, 0xE8, 0x148, 0x10, 0x1C, 0x22, 0x27, 1); // 0xB31
+            private static Player Taryn_Shyder = new Player(162, 132, 63, 68, 68, 71, 71, 63, 66, 470, 57, 21, 19, 13, 17, 16, 15, 17, 16, 1, 5, 1, 4, 4, 4, 4, 4, 4, 0x46, 0x9F, 0x116, 0x14B, 0x01, 0x11, 0x26, 0x3F, 4); // 0xB32
+            private static Player Jasmin_Trier = new Player(110, 136, 43, 46, 68, 52, 51, 44, 72, 376, 31, 78, 7, 11, 17, 16, 11, 11, 10, 4, 3, 4, 4, 3, 2, 4, 4, 4, 0xE8, 0x10A, 0x7E, 0x150, 0x13, 0x1E, 0x24, 0x2F, 1); // 0xB33
+            private static Player Dave_Lung = new Player(145, 185, 66, 76, 70, 74, 70, 66, 69, 491, 42, 66, 14, 11, 13, 17, 12, 17, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA8, 0x75, 0x80, 0x19C, 0x11, 0x19, 0x23, 0x31, 1); // 0xB34
+            private static Player Teal_Redsky = new Player(149, 172, 77, 54, 60, 63, 55, 60, 79, 448, 37, 53, 15, 9, 9, 10, 11, 8, 15, 1, 1, 2, 1, 1, 1, 1, 1, 2, 0x49, 0x111, 0x9C, 0xC3, 0x01, 0x16, 0x1B, 0x37, 4); // 0xB35
+            private static Player Truman_Verdy = new Player(173, 152, 54, 53, 56, 79, 60, 61, 79, 442, 30, 50, 7, 10, 7, 17, 7, 10, 16, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0x3E, 0x7D, 0x80, 0x171, 0x01, 0x01, 0x17, 0x2B, 2); // 0xB36
+            private static Player Chance_Cerulean = new Player(158, 154, 58, 77, 60, 59, 55, 52, 79, 440, 37, 47, 11, 16, 9, 9, 10, 8, 14, 1, 1, 1, 2, 1, 1, 1, 1, 2, 0x3D, 0x71, 0x7F, 0x142, 0x01, 0x0E, 0x17, 0x2D, 2); // 0xB37
+            private static Player Amy_Peach = new Player(162, 160, 63, 57, 76, 52, 60, 57, 79, 444, 37, 42, 9, 8, 15, 10, 10, 11, 15, 1, 1, 1, 1, 2, 1, 1, 1, 2, 0x3A, 0x141, 0x145, 0x180, 0x01, 0x1B, 0x22, 0x2F, 2); // 0xB38
+            private static Player Virgil_Amber = new Player(145, 160, 60, 56, 60, 76, 55, 61, 76, 444, 38, 47, 8, 7, 7, 16, 10, 8, 14, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0x44, 0xA8, 0xE7, 0xB5, 0x01, 0x01, 0x1C, 0x34, 3); // 0xB39
+            private static Player Grant_Stodgell = new Player(154, 154, 79, 52, 56, 52, 56, 57, 44, 396, 19, 44, 12, 5, 5, 7, 4, 6, 6, 1, 2, 2, 1, 1, 1, 1, 1, 1, 0xC0, 0x9F, 0xD9, 0x113, 0x01, 0x19, 0x25, 0x30, 4); // 0xB3A
+            private static Player Payne_Outler = new Player(147, 130, 61, 61, 58, 78, 55, 52, 42, 407, 50, 34, 6, 11, 7, 12, 6, 6, 7, 2, 1, 1, 2, 1, 2, 1, 1, 1, 0x7A, 0x7F, 0x17D, 0x178, 0x01, 0x1B, 0x2A, 0x3A, 3); // 0xB3B
+            private static Player Malcolm_Shirker = new Player(167, 134, 63, 79, 52, 53, 68, 70, 44, 429, 26, 23, 6, 14, 5, 7, 9, 11, 7, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0x86, 0x71, 0x10E, 0x76, 0x0F, 0x18, 0x25, 0x2B, 2); // 0xB3C
+            private static Player Hanna_Slack = new Player(158, 162, 56, 52, 79, 53, 58, 56, 49, 403, 26, 47, 7, 5, 10, 4, 5, 6, 5, 1, 2, 1, 1, 2, 1, 1, 1, 1, 0xD6, 0x99, 0x86, 0x14E, 0x0C, 0x15, 0x1D, 0x34, 2); // 0xB3D
+            private static Player Dom_Poppy = new Player(165, 142, 63, 66, 60, 79, 56, 58, 49, 431, 20, 29, 5, 9, 5, 13, 7, 7, 7, 1, 1, 1, 2, 1, 2, 1, 1, 1, 0x19F, 0xB0, 0xE8, 0x192, 0x01, 0x19, 0x21, 0x28, 3); // 0xB3E
+            private static Player Portia_Maricle = new Player(114, 137, 55, 63, 59, 55, 65, 71, 58, 426, 19, 47, 11, 10, 8, 8, 14, 13, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x87, 0x72, 0x173, 0x9C, 0x0A, 0x12, 0x20, 0x2D, 3); // 0xB3F
+            private static Player Susan_Doiley = new Player(118, 129, 67, 52, 59, 54, 63, 71, 54, 420, 44, 41, 14, 10, 12, 13, 10, 11, 7, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x146, 0xD5, 0x7E, 0x149, 0x0F, 0x15, 0x23, 0x29, 1); // 0xB40
+            private static Player Hannah_Breer = new Player(138, 112, 40, 44, 50, 49, 44, 46, 46, 319, 44, 40, 9, 9, 8, 9, 11, 8, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xC0, 0x68, 0x10A, 0xC4, 0x14, 0x20, 0x29, 0x2D, 2); // 0xB41
+            private static Player Phil_Seebold = new Player(143, 129, 60, 56, 61, 56, 62, 54, 57, 406, 46, 55, 10, 12, 11, 10, 13, 14, 13, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x88, 0x74, 0x9F, 0xD9, 0x0F, 0x19, 0x20, 0x2B, 1); // 0xB42
+            private static Player Bobbie_Tomey = new Player(145, 140, 60, 72, 56, 56, 53, 61, 65, 423, 57, 28, 18, 14, 13, 10, 14, 12, 11, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x96, 0x9D, 0x14F, 0xC5, 0x0B, 0x1A, 0x2A, 0x38, 3); // 0xB43
+            private static Player Randolph_Lords = new Player(123, 166, 56, 70, 55, 62, 56, 60, 60, 419, 38, 39, 8, 8, 9, 13, 9, 12, 11, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xA6, 0x88, 0x70, 0x8B, 0x0D, 0x1F, 0x28, 0x35, 2); // 0xB44
+            private static Player Robin_Traylor = new Player(134, 160, 60, 71, 61, 68, 78, 71, 60, 469, 32, 51, 13, 13, 14, 12, 16, 16, 13, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x94, 0x75, 0x10A, 0x145, 0x0C, 0x1C, 0x23, 0x2C, 2); // 0xB45
+            private static Player Fawn_Blossom = new Player(121, 144, 46, 55, 55, 40, 46, 52, 53, 347, 25, 56, 6, 8, 13, 5, 7, 8, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x7A, 0x7D, 0x16A, 0x146, 0x07, 0x0E, 0x1B, 0x22, 2); // 0xB46
+            private static Player Isabell_Mish = new Player(154, 181, 67, 70, 68, 79, 68, 68, 61, 481, 48, 47, 11, 12, 14, 18, 12, 16, 12, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xD6, 0x99, 0x180, 0x14E, 0x11, 0x20, 0x2B, 0x38, 1); // 0xB47
+            private static Player Rudy_Stemper = new Player(112, 130, 44, 36, 35, 54, 68, 52, 69, 358, 34, 44, 9, 9, 7, 11, 14, 13, 10, 5, 5, 1, 1, 5, 1, 2, 5, 1, 0x72, 0x10F, 0xE8, 0x75, 0x18, 0x1E, 0x24, 0x29, 2); // 0xB48
+            private static Player Betty_Evenson = new Player(149, 153, 50, 57, 68, 55, 54, 55, 52, 391, 46, 64, 7, 11, 17, 9, 11, 9, 9, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x10F, 0x146, 0x7E, 0x154, 0x15, 0x1A, 0x25, 0x2E, 3); // 0xB49
+            private static Player Harpo_Kendrick = new Player(134, 161, 62, 65, 71, 60, 78, 72, 63, 471, 27, 62, 14, 13, 14, 12, 16, 16, 14, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9C, 0xD3, 0x142, 0x12E, 0x12, 0x1D, 0x2A, 0x33, 2); // 0xB4A
+            private static Player Colin_Glower = new Player(169, 172, 47, 56, 76, 48, 60, 56, 56, 399, 45, 77, 9, 8, 14, 8, 9, 11, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x69, 0x96, 0x72, 0x10D, 0x09, 0x13, 0x23, 0x2B, 1); // 0xB4B
+            private static Player Tailor_Wilden = new Player(151, 128, 57, 56, 45, 52, 53, 60, 58, 381, 39, 36, 14, 12, 9, 7, 10, 9, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x97, 0x70, 0xC1, 0xC7, 0x0E, 0x13, 0x1D, 0x26, 1); // 0xB4C
+            private static Player Sim_Cebus = new Player(151, 164, 79, 66, 64, 79, 51, 71, 60, 470, 48, 55, 10, 14, 13, 14, 14, 10, 12, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x40, 0xA2, 0x194, 0x196, 0x01, 0x12, 0x20, 0x31, 4); // 0xB4D
+            private static Player Sam_Banks = new Player(96, 156, 54, 56, 58, 77, 28, 79, 68, 420, 18, 51, 14, 13, 11, 13, 7, 21, 14, 5, 1, 1, 1, 1, 1, 1, 5, 1, 0x83, 0x6F, 0x7C, 0x75, 0x10, 0x1D, 0x24, 0x27, 1); // 0xB4E
+            private static Player Frank_Homey = new Player(90, 134, 40, 53, 60, 53, 64, 68, 60, 398, 24, 39, 11, 10, 7, 9, 14, 10, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x172, 0x82, 0xD5, 0x7C, 0x19, 0x1E, 0x27, 0x2D, 2); // 0xB4F
+            private static Player Gregg_Deremer = new Player(156, 150, 76, 56, 67, 45, 62, 63, 28, 397, 30, 65, 7, 10, 14, 11, 9, 9, 7, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0xAB, 0x7C, 0xA3, 0xA8, 0x10, 0x20, 0x25, 0x30, 3); // 0xB50
+            private static Player Verne_Spring = new Player(200, 188, 71, 44, 77, 72, 79, 73, 78, 494, 63, 68, 14, 13, 16, 15, 17, 14, 17, 5, 5, 5, 2, 2, 5, 5, 5, 5, 0x37, 0x8D, 0x112, 0x106, 0x01, 0x01, 0x28, 0x46, 4); // 0xB51
+            private static Player Bryan_Klamm = new Player(134, 133, 51, 56, 55, 55, 66, 59, 53, 395, 30, 36, 14, 9, 10, 7, 13, 11, 8, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x66, 0x71, 0x6C, 0x7E, 0x0A, 0x17, 0x1E, 0x27, 3); // 0xB52
+            private static Player Colt_Youngstein = new Player(171, 178, 69, 72, 79, 63, 50, 71, 62, 466, 52, 47, 15, 13, 15, 15, 15, 18, 14, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0xE7, 0x150, 0x17D, 0x145, 0x11, 0x20, 0x2E, 0x39, 2); // 0xB53
+            private static Player Will_Kilmon = new Player(143, 109, 51, 49, 52, 48, 44, 53, 55, 352, 45, 43, 10, 7, 10, 7, 9, 11, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x6E, 0xE8, 0xD3, 0x173, 0x14, 0x1A, 0x25, 0x2D, 3); // 0xB54
+            private static Player Milly_Vacey = new Player(147, 140, 68, 70, 55, 59, 55, 71, 64, 442, 45, 27, 18, 16, 14, 11, 12, 12, 10, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x3A, 0xD9, 0x141, 0x171, 0x01, 0x1B, 0x21, 0x2A, 4); // 0xB55
+            private static Player Dany_Destiny = new Player(202, 149, 54, 61, 62, 54, 60, 68, 62, 421, 69, 35, 16, 16, 12, 15, 12, 20, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x67, 0xE8, 0x174, 0x155, 0x08, 0x18, 0x26, 0x32, 2); // 0xB56
+            private static Player Gary_Primo = new Player(147, 170, 79, 57, 52, 55, 54, 60, 40, 397, 31, 46, 12, 6, 7, 6, 5, 6, 8, 1, 2, 2, 1, 1, 1, 1, 1, 1, 0x9E, 0x10A, 0xC7, 0x110, 0x01, 0x15, 0x1E, 0x35, 4); // 0xB57
+            private static Player Bobby_Duo = new Player(151, 142, 62, 60, 55, 79, 60, 53, 51, 420, 55, 21, 4, 8, 5, 13, 5, 5, 5, 2, 1, 1, 2, 1, 2, 1, 1, 1, 0x77, 0x6C, 0xE8, 0x16A, 0x08, 0x12, 0x18, 0x1C, 2); // 0xB58
+            private static Player Stan_Treece = new Player(143, 140, 56, 79, 59, 57, 65, 66, 51, 433, 22, 38, 4, 11, 5, 6, 8, 8, 6, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0xE7, 0x6C, 0xE8, 0x65, 0x0F, 0x14, 0x17, 0x25, 2); // 0xB59
+            private static Player Lillie_Quattro = new Player(160, 156, 53, 60, 79, 58, 53, 54, 48, 405, 34, 38, 4, 6, 10, 6, 8, 6, 8, 1, 2, 1, 1, 2, 1, 1, 1, 1, 0xC0, 0xD5, 0x81, 0x116, 0x0B, 0x13, 0x1F, 0x2A, 2); // 0xB5A
+            private static Player Eddy_Pentaris = new Player(154, 146, 55, 71, 60, 78, 55, 56, 40, 415, 33, 28, 8, 10, 6, 12, 8, 5, 8, 1, 1, 1, 2, 1, 2, 1, 1, 1, 0xA3, 0x78, 0xA5, 0x195, 0x01, 0x14, 0x1D, 0x2D, 3); // 0xB5B
+            private static Player Candice_Mell = new Player(81, 132, 69, 52, 61, 53, 60, 61, 55, 411, 31, 47, 7, 11, 11, 9, 14, 13, 7, 5, 5, 1, 1, 1, 1, 2, 5, 1, 0x9A, 0x10F, 0xD5, 0xD9, 0x0A, 0x13, 0x1F, 0x26, 3); // 0xB5C
+            private static Player Alex_Dauger = new Player(165, 182, 71, 76, 68, 73, 64, 63, 63, 478, 49, 62, 12, 14, 12, 20, 10, 13, 14, 1, 1, 1, 5, 1, 5, 1, 1, 1, 0x172, 0x7C, 0xD4, 0x169, 0x0E, 0x18, 0x26, 0x33, 1); // 0xB5D
+            private static Player Joe_Divide = new Player(147, 144, 61, 62, 52, 56, 59, 63, 63, 416, 54, 35, 19, 15, 10, 12, 12, 11, 13, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xCA, 0x10A, 0x95, 0xCE, 0x09, 0x15, 0x27, 0x36, 3); // 0xB5E
+            private static Player Sam_Willing = new Player(165, 136, 55, 63, 56, 52, 55, 60, 62, 403, 43, 48, 12, 10, 14, 10, 13, 12, 10, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x41, 0x81, 0x141, 0x178, 0x01, 0x13, 0x29, 0x38, 1); // 0xB5F
+            private static Player Mary_Antoine = new Player(132, 173, 76, 77, 79, 68, 76, 44, 47, 467, 28, 103, 10, 13, 22, 10, 21, 7, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x4B, 0x37, 0x149, 0x19B, 0x12, 0x01, 0x2A, 0x41, 5); // 0xB60
+            private static Player Edward_Baron = new Player(147, 169, 79, 76, 74, 77, 44, 48, 52, 450, 34, 72, 23, 18, 18, 19, 6, 4, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x4B, 0x43, 0x12E, 0x145, 0x01, 0x01, 0x30, 0x43, 5); // 0xB61
+            private static Player Tim_Platton = new Player(145, 132, 52, 60, 60, 53, 63, 60, 52, 400, 51, 55, 12, 10, 12, 11, 12, 12, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0x148, 0x9D, 0x173, 0x7F, 0x13, 0x1C, 0x24, 0x2A, 2); // 0xB62
+            private static Player Argento_Salvage = new Player(193, 172, 60, 65, 60, 66, 70, 68, 69, 458, 62, 62, 17, 17, 17, 14, 17, 13, 17, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0xE7, 0x17A, 0x75, 0x169, 0x12, 0x1C, 0x25, 0x2D, 2); // 0xB63
+            private static Player Finn_Geld = new Player(217, 173, 79, 68, 77, 79, 43, 79, 46, 471, 81, 66, 23, 19, 18, 19, 7, 20, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x45, 0x38, 0xD9, 0x113, 0x01, 0x01, 0x22, 0x3C, 5); // 0xB64
+            private static Player Ian_Moray = new Player(165, 140, 63, 60, 52, 56, 52, 60, 54, 397, 62, 72, 16, 15, 16, 14, 15, 14, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x77, 0x16A, 0x6B, 0x7F, 0x0D, 0x1B, 0x22, 0x28, 2); // 0xB65
+            private static Player Gil_Holden = new Player(149, 156, 44, 60, 66, 50, 57, 60, 61, 398, 42, 80, 7, 8, 13, 11, 10, 9, 10, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x87, 0xA1, 0x72, 0xAE, 0x10, 0x18, 0x1B, 0x23, 3); // 0xB66
+            private static Player Doyle_Palmer = new Player(162, 133, 59, 55, 57, 57, 63, 53, 56, 400, 60, 60, 15, 15, 15, 15, 16, 15, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0xB3, 0x6B, 0xAC, 0x82, 0x12, 0x19, 0x22, 0x28, 2); // 0xB67
+            private static Player Audry_Orange = new Player(134, 112, 52, 53, 48, 48, 48, 56, 44, 349, 28, 24, 10, 5, 8, 14, 6, 7, 6, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x67, 0xCD, 0x80, 0xD8, 0x11, 0x1A, 0x21, 0x27, 3); // 0xB68
+            private static Player May_Apple = new Player(127, 132, 40, 44, 52, 48, 46, 44, 49, 323, 34, 47, 6, 7, 11, 8, 8, 4, 4, 4, 1, 1, 2, 2, 5, 1, 4, 1, 0x67, 0xE8, 0x148, 0x72, 0x09, 0x10, 0x1C, 0x21, 3); // 0xB69
+            private static Player Ginny_White = new Player(110, 80, 51, 52, 48, 40, 44, 52, 47, 334, 28, 20, 12, 9, 7, 6, 6, 7, 4, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x99, 0x67, 0xC9, 0x68, 0x0E, 0x11, 0x1A, 0x20, 2); // 0xB6A
+            private static Player Angus_Hogg = new Player(136, 61, 44, 44, 41, 44, 43, 45, 54, 315, 27, 32, 12, 11, 7, 7, 7, 8, 8, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0xCA, 0x111, 0xCD, 0xC2, 0x10, 0x15, 0x1A, 0x1F, 3); // 0xB6B
+            private static Player In_Chikita = new Player(143, 146, 66, 66, 59, 62, 61, 60, 68, 442, 52, 29, 17, 15, 10, 14, 13, 14, 13, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x39, 0x80, 0x17A, 0x14F, 0x01, 0x0F, 0x1B, 0x30, 2); // 0xB6C
+            private static Player Sabrina_Carow = new Player(165, 136, 68, 63, 60, 60, 52, 68, 69, 440, 43, 33, 18, 15, 13, 13, 12, 12, 14, 1, 5, 1, 1, 1, 1, 1, 1, 1, 0x3C, 0x87, 0x81, 0x180, 0x01, 0x01, 0x23, 0x31, 2); // 0xB6D
+            private static Player Bob_Beelzy = new Player(127, 165, 68, 69, 64, 73, 52, 78, 67, 471, 46, 51, 13, 10, 10, 15, 12, 13, 10, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0x38, 0xB3, 0xAC, 0xB6, 0x01, 0x01, 0x22, 0x30, 4); // 0xB6E
+            private static Player Patt_Howell = new Player(149, 146, 61, 60, 60, 53, 60, 56, 63, 413, 70, 66, 17, 14, 15, 17, 14, 16, 15, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0x69, 0xE7, 0xC2, 0x173, 0x0A, 0x16, 0x1D, 0x23, 3); // 0xB6F
+            private static Player Hugo_Sniffin = new Player(83, 132, 69, 56, 57, 64, 36, 62, 62, 406, 43, 39, 9, 10, 9, 12, 9, 7, 8, 5, 1, 2, 1, 1, 2, 5, 2, 1, 0xAD, 0xB0, 0x82, 0xB5, 0x0B, 0x17, 0x1E, 0x27, 3); // 0xB70
+            private static Player Tom_Skipper = new Player(217, 140, 76, 72, 79, 64, 56, 52, 79, 478, 79, 101, 23, 21, 19, 12, 13, 5, 14, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0x41, 0xD1, 0xB4, 0x109, 0x01, 0x01, 0x01, 0x55, 4); // 0xB71
+            private static Player Axel_Blaze_IE1 = new Player(200, 176, 79, 66, 76, 64, 72, 68, 60, 485, 49, 63, 18, 16, 13, 14, 14, 12, 12, 1, 2, 2, 2, 1, 1, 1, 1, 1, 0x8F, 0x6B, 0x7D, 0x8C, 0x01, 0x01, 0x01, 0x01, 2); // 0xB72
+
+
+            public static IDictionary<int, Player> IEPlayer = new Dictionary<int, Player>
+            {
+                { 0x01, Mark_Evans},
+{ 0x02, Nathan_Swift},
+{ 0x03, Jack_Wallside},
+{ 0x04, Jim_Wraith},
+{ 0x05, Tod_Ironside},
+{ 0x06, Steve_Grim},
+{ 0x07, Tim_Saunders},
+{ 0x08, Sam_Kincaid},
+{ 0x09, Maxwell_Carson},
+{ 0x0A, Axel_Blaze},
+{ 0x0B, Kevin_Dragonfly},
+{ 0x0C, William_Glass},
+{ 0x0D, Nelly_Raimon_IE1},
+{ 0x0E, Celia_Hills_IE1},
+{ 0x0F, Silvia_Woods_IE1},
+{ 0x10, Nash},
+{ 0x11, Sater},
+{ 0x12, Isaacs},
+{ 0x13, Frank_Wintersea},
+{ 0x15, Joseph_King_RA},
+{ 0x16, Peter_Drent},
+{ 0x17, Ben_Simmons},
+{ 0x18, Alan_Master},
+{ 0x19, Gus_Martin},
+{ 0x1A, Herman_Waldon},
+{ 0x1B, John_Bloom},
+{ 0x1C, Derek_Swing},
+{ 0x1D, Daniel_Hatch},
+{ 0x1E, Jude_Sharp_RA},
+{ 0x1F, David_Samford_RA},
+{ 0x20, Bob_Carlton},
+{ 0x21, Cliff_Tomlinson},
+{ 0x22, Jim_Lawrenson},
+{ 0x23, Barry_Potts},
+{ 0x24, Steve_Ingham},
+{ 0x29, Nathan_Jones},
+{ 0x2A, Russell_Walk},
+{ 0x2B, Jason_Jones},
+{ 0x2C, Ken_Furan},
+{ 0x2D, Jerry_Fulton},
+{ 0x2E, Ray_Mannings},
+{ 0x2F, Robert_Mayer},
+{ 0x30, Alexander_Brave},
+{ 0x31, Johan_Tassman},
+{ 0x32, Troy_Moon},
+{ 0x33, Burt_Wolf},
+{ 0x34, Rob_Crombie},
+{ 0x35, Chuck_Dollman},
+{ 0x36, Uxley_Allen},
+{ 0x37, Phil_Noir},
+{ 0x38, Mick_Askley},
+{ 0x3D, Charlie_Boardfield},
+{ 0x3E, Hugo_Tallgeese},
+{ 0x3F, Wilson_Fishman},
+{ 0x40, Peter_Johnson_},
+{ 0x41, Leonard_O_Shea},
+{ 0x42, Cham_Lion},
+{ 0x43, Steve_Eagle},
+{ 0x44, Bruce_Monkey},
+{ 0x45, Gary_Lancaster},
+{ 0x46, Harry_Snake},
+{ 0x47, Adrian_Speed},
+{ 0x48, Alan_Coe},
+{ 0x49, Philip_Anders},
+{ 0x4A, Rocky_Rackham},
+{ 0x4B, Matt_Mouseman},
+{ 0x4C, Chad_Bullford},
+{ 0x51, Thomas_Feldt},
+{ 0x52, Harry_Leading},
+{ 0x53, Terry_Stronger},
+{ 0x54, Philip_Marvel},
+{ 0x55, Noel_Good},
+{ 0x56, Tyron_Rock},
+{ 0x57, Francis_Tell},
+{ 0x58, Samuel_Buster},
+{ 0x59, Jonathan_Seller},
+{ 0x5A, Victor_Kind},
+{ 0x5B, Neil_Turner},
+{ 0x5C, Reg_Underwood},
+{ 0x5D, Patrick_Stiller},
+{ 0x5E, Charles_Oughtry},
+{ 0x5F, Clive_Mooney},
+{ 0x60, Neil_Waters},
+{ 0x65, Sam_Idol},
+{ 0x66, Marcus_Train},
+{ 0x67, Light_Nobel},
+{ 0x68, Walter_Valiant},
+{ 0x69, Spencer_Gates},
+{ 0x6A, Josh_Spear},
+{ 0x6B, Gaby_Farmer},
+{ 0x6C, A__Woodbridge},
+{ 0x6D, Gus_Gamer},
+{ 0x6E, Mark_Gambling},
+{ 0x6F, Theodore_Master},
+{ 0x70, Ham_Signalman},
+{ 0x71, Bill_Formby},
+{ 0x72, Grant_Eldorado},
+{ 0x73, Mike_Vox},
+{ 0x74, Ollie_Webb},
+{ 0x79, Morgan_Sanders},
+{ 0x7A, Newton_Flust},
+{ 0x7B, Jim_Hillfort},
+{ 0x7C, Galen_Thunderbird},
+{ 0x7D, Finn_Stoned},
+{ 0x7E, Phil_Wingate},
+{ 0x7F, Jez_Shell},
+{ 0x80, Jupiter_Jumper},
+{ 0x81, Sam_Samurai},
+{ 0x82, Hank_Sullivan},
+{ 0x83, Sail_Bluesea},
+{ 0x84, John_Reynolds},
+{ 0x85, Dan_Hopper},
+{ 0x86, Cal_Trops},
+{ 0x87, Winston_Falls},
+{ 0x88, Kevin_Castle},
+{ 0x8D, Albert_Green},
+{ 0x8E, Seward_Hayseed},
+{ 0x8F, Kent_Work},
+{ 0x90, Mark_Hillvalley_},
+{ 0x91, Herb_Sherman},
+{ 0x92, Joe_Small},
+{ 0x93, Ike_Steiner},
+{ 0x94, Orville_Newman},
+{ 0x95, Tom_Walters},
+{ 0x96, Daniel_Dawson},
+{ 0x97, Stuart_Racoonfur},
+{ 0x98, Lorne_Mower},
+{ 0x99, Homer_Grower},
+{ 0x9A, Rolf_Howells},
+{ 0x9B, Luke_Lively},
+{ 0x9C, Ben_Nevis},
+{ 0xA1, John_Neville},
+{ 0xA2, Malcolm_Night},
+{ 0xA3, Alfred_Meenan},
+{ 0xA4, Dan_Mirthful},
+{ 0xA5, Ricky_Clover},
+{ 0xA6, Toby_Damian},
+{ 0xA7, York_Nashmith},
+{ 0xA8, Zachary_Moore},
+{ 0xA9, Marvin_Murdock},
+{ 0xAA, Thomas_Murdock},
+{ 0xAB, Tyler_Murdock},
+{ 0xAC, Simon_Calier},
+{ 0xAD, Brody_Gloom},
+{ 0xAE, Victor_Talis},
+{ 0xAF, Eren_Middleton},
+{ 0xB0, Peter_Wells},
+{ 0xB5, Paul_Siddon},
+{ 0xB6, Apollo_Light},
+{ 0xB7, Jeff_Iron},
+{ 0xB8, Lane_War},
+{ 0xB9, Danny_Wood},
+{ 0xBA, Artie_Mishman},
+{ 0xBB, Arion_Matlock},
+{ 0xBC, Wesley_Knox},
+{ 0xBD, Jonas_Demetrius},
+{ 0xBE, Byron_Love},
+{ 0xBF, Henry_House},
+{ 0xC0, Iggy_Russ},
+{ 0xC1, Gus_Heeley},
+{ 0xC2, Harry_Closs},
+{ 0xC3, Andy_Chronic},
+{ 0xC4, Ned_Yousef},
+{ 0xC9, Herman_Muller},
+{ 0xCA, Keth_Claus},
+{ 0xCB, Robert_Silver},
+{ 0xCC, Izzy_Island},
+{ 0xCD, Sothern_Newman},
+{ 0xCE, Irwin_Hall},
+{ 0xCF, Taylor_Higgins},
+{ 0xD0, Jamie_Cool},
+{ 0xD1, Hans_Randall},
+{ 0xD2, Michael_Riverside},
+{ 0xD3, Millie_Moonlight},
+{ 0xD4, Karl_Blue},
+{ 0xD5, Theakston_Plank},
+{ 0xD6, Ken_Cake},
+{ 0xD7, Mitch_Grumble},
+{ 0xD8, Bart_Grantham},
+{ 0xDD, Joe_Ingram},
+{ 0xDE, Kendall_Sefton},
+{ 0xDF, Jason_Strike},
+{ 0xE0, Norman_Porter},
+{ 0xE1, Maxwell_Claus},
+{ 0xE2, Bruce_Chaney},
+{ 0xE3, Leroy_Rhymes},
+{ 0xE4, Mildford_Scott},
+{ 0xE5, Lou_Edmonds},
+{ 0xE6, Cameron_Morefield},
+{ 0xE7, Greg_Bernard},
+{ 0xE8, Peter_Banker},
+{ 0xE9, Saul_Tunk},
+{ 0xEA, Alan_Most},
+{ 0xEB, Paul_Caperock},
+{ 0xEC, Julius_Molehill},
+{ 0xF1, Suzanne_Yuma},
+{ 0xF2, Tammy_Fielding},
+{ 0xF3, Alex_Lovely},
+{ 0xF4, Louis_Hillside},
+{ 0xF5, Ness_Sheldon},
+{ 0xF6, Lizzy_Squirrel},
+{ 0xF7, Kippy_Jones},
+{ 0xF8, Fayette_Riversong},
+{ 0xF9, Samantha_Moonlight},
+{ 0xFA, Mitch_Sandstone},
+{ 0xFB, Eddie_Prentice},
+{ 0xFC, Alf_Holmes},
+{ 0xFD, Ian_Stager},
+{ 0xFE, Fred_Crumb},
+{ 0xFF, Doug_Baughan},
+{ 0x100, Pip_Daltry},
+{ 0x105, Seymour_Hillman},
+{ 0x106, Charles_Island},
+{ 0x107, Garret_Hairtown},
+{ 0x108, Arthur_Sweet},
+{ 0x109, Peter_Mildred},
+{ 0x10A, Josh_Nathaniel},
+{ 0x10B, Edward_Gladstone},
+{ 0x10C, Tyler_Thomas},
+{ 0x10D, Joseph_Yosemite},
+{ 0x10E, Ian_Suffolk},
+{ 0x10F, Constant_Builder},
+{ 0x110, Ted_Poe},
+{ 0x111, Marshall_Heart},
+{ 0x112, Dom_Foreman},
+{ 0x113, Slot_MacHines},
+{ 0x114, Bill_Steakspear},
+{ 0x119, Layton},
+{ 0x11A, Luke},
+{ 0x11B, Anton},
+{ 0x11C, Don_Paolo},
+{ 0x11D, Flora},
+{ 0x11E, Chelmey},
+{ 0x12D, Jimmy_Mach},
+{ 0x12E, Tony_Hacker},
+{ 0x12F, Dan_Rhino},
+{ 0x130, Vin_Fleetwood},
+{ 0x131, George_Winters},
+{ 0x132, Den_Hidden},
+{ 0x133, Shaun_Imago},
+{ 0x134, Joe_Straiter},
+{ 0x135, Rupert_Spiers},
+{ 0x136, Mark_Sudor},
+{ 0x137, Ringo_Stagg},
+{ 0x138, Jody_MacGough},
+{ 0x139, Jeeves_Dropper},
+{ 0x13A, Dan_Dandy},
+{ 0x13B, Rory_Boomer},
+{ 0x13C, Tim_Toppel},
+{ 0x13D, Ames_Shivers},
+{ 0x13E, Chris_Glover},
+{ 0x13F, Thor_Toise},
+{ 0x140, Colin_Salts},
+{ 0x141, Christian_Dear},
+{ 0x142, Iggy_Loyaller},
+{ 0x143, Conan_Fox},
+{ 0x144, Spike_Coiffs},
+{ 0x145, Roger_Rocket},
+{ 0x146, Bill_Teller},
+{ 0x147, Billy_Nomates},
+{ 0x148, Harry_Caine},
+{ 0x149, Martin_Sheller},
+{ 0x14A, Alfie_Fine},
+{ 0x14B, Cameron_Mann},
+{ 0x14C, Don_Keys},
+{ 0x14D, Sonny_East},
+{ 0x14E, Dan_Carpenter},
+{ 0x14F, Doug_Walker},
+{ 0x150, Frank_Drake},
+{ 0x151, Chris_Massey},
+{ 0x152, Carl_Sacks},
+{ 0x153, Biff_Beeston},
+{ 0x154, Lou_Beigh},
+{ 0x155, Marv_Errick},
+{ 0x156, Bob_Whittle},
+{ 0x157, Bert_Neptune},
+{ 0x158, Sol_Crater},
+{ 0x159, Percy_Coldstair},
+{ 0x15A, Dusky_Sunfield},
+{ 0x15B, Rocky_Shears},
+{ 0x15C, Percy_Stent},
+{ 0x15D, Art_Pendragon},
+{ 0x15E, Dom_Ittory},
+{ 0x15F, Chaz_Biggins},
+{ 0x160, Sly_O_Hands},
+{ 0x161, Sean_Lavender},
+{ 0x162, Ace_Server},
+{ 0x163, Horace_Nelson},
+{ 0x164, Rex_George},
+{ 0x165, Philip_Prince},
+{ 0x166, Heath_Rower},
+{ 0x167, Kim_Arite},
+{ 0x168, Jay_Archer},
+{ 0x169, Bo_Ling},
+{ 0x16A, Chuck_Hardy},
+{ 0x16B, Ben_Evolent},
+{ 0x16C, Will_Noble},
+{ 0x16D, Jack_Frosty},
+{ 0x16E, Larry_Helps},
+{ 0x16F, Monty_Patten},
+{ 0x170, Chunk_Gorman},
+{ 0x171, Balt_Decker},
+{ 0x172, Drew_Crenshaw},
+{ 0x173, Stan_Trum},
+{ 0x174, Sham_Spike},
+{ 0x175, Rainier_Welkin},
+{ 0x176, Evan_Yielding},
+{ 0x177, Phil_Anthropic},
+{ 0x178, Fane_Club},
+{ 0x179, Slim_Lanky},
+{ 0x17A, Doug_Lee},
+{ 0x17B, Edward_Albion},
+{ 0x17C, Stu_Dent},
+{ 0x17D, Barry_Straw},
+{ 0x17E, Bobby_Peel},
+{ 0x17F, Dan_Castella},
+{ 0x180, Bill_Moony},
+{ 0x181, Buddy_Goodman},
+{ 0x182, Dex_Territy},
+{ 0x183, Vinny_O_Gaines},
+{ 0x184, Ray_Deo},
+{ 0x185, Archie_Meades},
+{ 0x186, Dave_Chaucer},
+{ 0x187, Billy_Blanc},
+{ 0x188, Creed_Craving},
+{ 0x189, Phil_Rosey},
+{ 0x18A, Harry_Redcastle},
+{ 0x18B, Sonny_Welkin},
+{ 0x18C, Teddy_Kodiak},
+{ 0x18D, Lloyd_Tabb},
+{ 0x18E, Francis_Paine},
+{ 0x18F, Griff_Strummer},
+{ 0x190, Bryce_Bergman},
+{ 0x191, Fingus_Inky},
+{ 0x192, Walter_Geyser},
+{ 0x193, Les_Knightley},
+{ 0x194, Conor_Abley},
+{ 0x195, Ainsley_Burns},
+{ 0x196, Pete_Grimes},
+{ 0x197, Manny_Steele},
+{ 0x198, Trey_Hugger},
+{ 0x199, Jack_Mate},
+{ 0x19A, Mike_Chequer},
+{ 0x19B, Berty_Adman},
+{ 0x19C, Troy_Carr},
+{ 0x19D, Hollis_Ticure},
+{ 0x19E, Guy_Dance},
+{ 0x19F, Jack_Trumper},
+{ 0x1A0, John_Corder},
+{ 0x1A1, Nigel_Bramel},
+{ 0x1A2, Hank_O_Chief},
+{ 0x1A3, Jess_Uplement},
+{ 0x1A4, Alec_Smart},
+{ 0x1A5, Rob_Anchor},
+{ 0x1A6, Brent_Cross},
+{ 0x1A7, Albert_Wister},
+{ 0x1A8, Nev_Erin},
+{ 0x1A9, Caz_Yewell},
+{ 0x1AA, Conor_Trail},
+{ 0x1AB, Manuel_Gere},
+{ 0x1AC, Per_Hockside},
+{ 0x1AD, Lee_Gleagle},
+{ 0x1AE, Paul_Pitcher},
+{ 0x1AF, Turner_Fortune},
+{ 0x1B0, Walter_Walken},
+{ 0x1B1, Sal_Curie},
+{ 0x1B2, Silver_Platt},
+{ 0x1B3, Nick_Yergrub},
+{ 0x1B4, Mal_Inger},
+{ 0x1B5, Jim_Cook},
+{ 0x1B6, Gus_Potter},
+{ 0x1B7, Handel_Turnon},
+{ 0x1B8, Peter_Malus},
+{ 0x1B9, Colin_Lection},
+{ 0x1BA, Brock_Twigg},
+{ 0x1BB, Paddy_Rise},
+{ 0x1BC, Dustin_Westend},
+{ 0x1BD, Alfonse_Way},
+{ 0x1BE, Pippin_Flowers},
+{ 0x1BF, Euan_Stamper},
+{ 0x1C0, Paddy_Prunus},
+{ 0x1C1, Brian_Presser},
+{ 0x1C2, Pete_LeGume},
+{ 0x1C3, Shylock_Watson},
+{ 0x1C4, Ed_Ripp},
+{ 0x1C5, Hike_Basher},
+{ 0x1C6, Anthony_Phinder},
+{ 0x1C7, Duncan_Jump},
+{ 0x1C8, Lucky_Winn},
+{ 0x1C9, Gene_Bates},
+{ 0x1CA, Randolf_Finn},
+{ 0x1CB, Ron_Away},
+{ 0x1CC, Rick_Hatter},
+{ 0x1CD, Grant_Mardy},
+{ 0x1CE, Shawn_Broker},
+{ 0x1CF, Anthony_Coyne},
+{ 0x1D0, Healey_Proctor},
+{ 0x1D1, Ade_Posting},
+{ 0x1D2, Doug_Outon},
+{ 0x1D3, Ebenezer_Marner},
+{ 0x1D4, Davy_Johns},
+{ 0x1D5, Bos_Horne},
+{ 0x1D6, Nick_Orner},
+{ 0x1D7, Nathin_Gaunt},
+{ 0x1D8, Quentin_Quartz},
+{ 0x1D9, Andrew_Meikle},
+{ 0x1DA, Gary_Salmon},
+{ 0x1DB, Fontaine_Tapper},
+{ 0x1DC, Leon_Lawn},
+{ 0x1DD, Jim_Sweatman},
+{ 0x1DE, Cole_Coaker},
+{ 0x1DF, Stu_Born},
+{ 0x1E0, Romeo_Montague},
+{ 0x1E1, Drew_Straitedge},
+{ 0x1E2, Dash_Dotter},
+{ 0x1E3, Gill_O_Mend},
+{ 0x1E4, Pay_Chance},
+{ 0x1E5, Bill_Aegis},
+{ 0x1E6, Tosh_Coach},
+{ 0x1E7, Carl_Gnu},
+{ 0x1E8, Paul_Sapp},
+{ 0x1E9, Macky_Valley},
+{ 0x1EA, Troy_Trucker},
+{ 0x1EB, Haden_Seek},
+{ 0x1EC, Kevin_Doors},
+{ 0x1ED, Skip_Rooter},
+{ 0x1EE, Rip_Airman},
+{ 0x1EF, Stu_Shiner},
+{ 0x1F0, Matt_Matickal},
+{ 0x1F1, Philip_Flagg},
+{ 0x1F2, Alf_Groundsman},
+{ 0x1F3, Ernie_Riddell},
+{ 0x1F4, Len_Stint},
+{ 0x1F5, Holly_Cricket},
+{ 0x1F6, Dave_Altair},
+{ 0x1F7, Jim_Reed},
+{ 0x1F8, Gwyn_Penn},
+{ 0x1F9, Spike_Needle},
+{ 0x1FA, Ifan_Tassy},
+{ 0x1FB, Eggbert_Heading},
+{ 0x1FC, Pascal_Blaise},
+{ 0x1FD, Will_Whist},
+{ 0x1FE, Ewan_Liner},
+{ 0x1FF, Buster_Locke},
+{ 0x200, Rex_Plorer},
+{ 0x201, Webber_Poster},
+{ 0x202, Sid_Parting},
+{ 0x203, Eaton_Rampage},
+{ 0x204, Parker_Leaper},
+{ 0x205, Hank_Halberd},
+{ 0x206, Robin_Catching},
+{ 0x207, Trey_Spotter},
+{ 0x208, Onslow_Ball},
+{ 0x209, Tex_Tingle},
+{ 0x20A, Sam_Gale},
+{ 0x20B, Ryder_Waverly},
+{ 0x20C, Leaf_Scarlett},
+{ 0x20D, Horace_Coop},
+{ 0x20E, Ness_Lockley},
+{ 0x20F, Olef_Tennant},
+{ 0x210, Len_Scapp},
+{ 0x211, Monty_Hillary},
+{ 0x212, Penfold_Pulper},
+{ 0x213, Thomas_Cott},
+{ 0x214, Spike_Thorne},
+{ 0x215, Lincoln_Hawking},
+{ 0x216, Ted_Larkin},
+{ 0x217, Madison_Cabinet},
+{ 0x218, Odo_Cologne},
+{ 0x219, Nester_Damus},
+{ 0x21A, Herb_Ivore},
+{ 0x21B, Homer_Pidgeon},
+{ 0x21C, Rob_Ottley},
+{ 0x21D, Scott_Springer},
+{ 0x21E, Viv_Grey},
+{ 0x21F, Don_Snow},
+{ 0x220, Hal_Mullet},
+{ 0x221, Isaiah_Shutt},
+{ 0x222, Ace_Irvin},
+{ 0x223, Spike_Pitt},
+{ 0x224, Innes_Caving},
+{ 0x225, Keanu_Dell},
+{ 0x226, Casey_Novak},
+{ 0x227, Ed_Halley},
+{ 0x228, Burt_Mocking},
+{ 0x229, Oscar_Petty},
+{ 0x22A, Waite_Forrit},
+{ 0x22B, Bennett_Byers},
+{ 0x22C, Mo_Eisner},
+{ 0x22D, Miles_Seaford},
+{ 0x22E, Sayer_Lemon},
+{ 0x22F, Carey_Ginu},
+{ 0x230, Cass_Crocker},
+{ 0x231, Paul_Downs},
+{ 0x232, Darrel_Jeeling},
+{ 0x233, Nobby_Shinn},
+{ 0x234, Theo_Broma},
+{ 0x235, Ramsey_Faroe},
+{ 0x236, Buster_Chopps},
+{ 0x237, Vince_Bull},
+{ 0x238, Pat_Maclean},
+{ 0x239, Walter_Card},
+{ 0x23A, Derek_Terr},
+{ 0x23B, Alton_Oldhat},
+{ 0x23C, Cal_Cooler},
+{ 0x23D, Tom_Felix},
+{ 0x23E, Terry_Orr},
+{ 0x23F, Rudolph_Rainder},
+{ 0x240, Nick_Swagg},
+{ 0x241, Hal_Leeward},
+{ 0x242, Arthur_Dox},
+{ 0x243, Reese_Ickle},
+{ 0x244, Finn_Attick},
+{ 0x245, Col_Lector},
+{ 0x246, Crispin_Shooter},
+{ 0x247, Stu_Perstitious},
+{ 0x248, Ashley_Fay},
+{ 0x249, Luke_Raffles},
+{ 0x24A, Stu_Helmsley},
+{ 0x24B, Terrence_Anthem},
+{ 0x24C, Gene_Bottle},
+{ 0x24D, Sam_O_Reilly},
+{ 0x24E, Ches_Nutcracker},
+{ 0x24F, Victor_Grand},
+{ 0x250, Ant_Hophila},
+{ 0x251, Hunter_Glory},
+{ 0x252, Joe_Rassock},
+{ 0x253, Patch_Borgnine},
+{ 0x254, Ted_Fast},
+{ 0x255, Clay_Modlin},
+{ 0x256, Alan_Mode},
+{ 0x257, Harry_Harper},
+{ 0x258, Pascal_Richter},
+{ 0x259, Beau_Fort},
+{ 0x25A, Reid_Scarlet},
+{ 0x25B, Joe_Lamkin},
+{ 0x25C, Dylan_Magpie},
+{ 0x25D, Gil_Rivers},
+{ 0x25E, Des_Tiny},
+{ 0x25F, Saul_Dowd},
+{ 0x260, Kit_Chapman},
+{ 0x261, Fry_Vollity},
+{ 0x262, Clark_Roach},
+{ 0x263, Samuel_Peeps},
+{ 0x264, Dai_Hart},
+{ 0x265, Horty_Courture},
+{ 0x266, Bob_Baggum},
+{ 0x267, Ollie_Twister},
+{ 0x268, Fred_Makepeace},
+{ 0x269, Walker_Sleep},
+{ 0x26A, Sean_Trawler},
+{ 0x26B, Ken_Sewer},
+{ 0x26C, Bamber_Shoot},
+{ 0x26D, Sly_Winker},
+{ 0x26E, Teller_Scoap},
+{ 0x26F, Sam_Firman},
+{ 0x270, Bear_Turnbull},
+{ 0x271, Tabor_Drummond},
+{ 0x272, Brook_Atwater},
+{ 0x273, Ike_Doerflinger},
+{ 0x274, Aessop_Fabel},
+{ 0x275, Grant_Slammer},
+{ 0x276, Robin_Cruise},
+{ 0x277, Mark_Perfect},
+{ 0x278, Rolly_Kerr},
+{ 0x279, Moses_Pumper},
+{ 0x27A, Knight_Reader},
+{ 0x27B, Cash_Barganier},
+{ 0x27C, Brendan_Branch},
+{ 0x27D, Clark_Rain},
+{ 0x27E, Luther_Rio},
+{ 0x27F, Florian_Hutter},
+{ 0x280, Scamp_Shrimplin},
+{ 0x281, Adam_Nesiac},
+{ 0x282, Rab_Acus},
+{ 0x283, Chris_Miles},
+{ 0x284, Shemmy_Ramis},
+{ 0x285, Lon_Grainger},
+{ 0x286, Manny_Atom},
+{ 0x287, Bill_Tardy},
+{ 0x288, Fox_Copier},
+{ 0x289, Cletus_Badden},
+{ 0x28A, Skip_Sofrenic},
+{ 0x28B, Mat_Char},
+{ 0x28C, Trey_Cultivator},
+{ 0x28D, Vinny_Trioquist},
+{ 0x28E, Ton_Nino},
+{ 0x28F, Oscar_Esher},
+{ 0x290, Saul_Searcher},
+{ 0x291, Gerry_Attrick},
+{ 0x292, Adam_Icklock},
+{ 0x293, Sol_Stiss},
+{ 0x294, Des_Ainer},
+{ 0x295, Homer_Sockshell},
+{ 0x296, Harley_Trotter},
+{ 0x297, Mark_Skidfree},
+{ 0x298, Del_Iverryboy},
+{ 0x299, Scean_Spector},
+{ 0x29A, Nick_Knack},
+{ 0x29B, Dusty_Rellicks},
+{ 0x29C, Sandy_Insolls},
+{ 0x29D, Gregory_Bones},
+{ 0x29E, Loughrey_Mose},
+{ 0x29F, Willow_Withers},
+{ 0x2A0, Winn_deBreeze},
+{ 0x2A1, Buster_Clout},
+{ 0x2A2, Errol_Lorre},
+{ 0x2A3, Fred_Ferrell},
+{ 0x2A4, Rod_Headstock},
+{ 0x2A5, Tim_Piece},
+{ 0x2A6, Patrick_Edie},
+{ 0x2A7, Art_Teest},
+{ 0x2A8, Bill_Mumm},
+{ 0x2A9, Luke_O_Cyte},
+{ 0x2AA, Ernest_Byer},
+{ 0x2AB, Isaac_Goss},
+{ 0x2AC, Walter_Poseur},
+{ 0x2AD, Andy_Roff},
+{ 0x2AE, Ashley_Dale},
+{ 0x2AF, Rich_Cave},
+{ 0x2B0, Taka_Tanaka},
+{ 0x2B1, Manny_Carbs},
+{ 0x2B2, Al_Reddie},
+{ 0x2B3, Rush_Tooset},
+{ 0x2B4, Rod_Opsin},
+{ 0x2B5, Peyton_Pope},
+{ 0x2B6, Drew_Straws},
+{ 0x2B7, Trey_Dalbum},
+{ 0x2B8, Harly_Profett},
+{ 0x2B9, Hank_O_Buff},
+{ 0x2BA, Ash_Cloud},
+{ 0x2BB, Stan_Dupp},
+{ 0x2BC, Max_Bright},
+{ 0x2BD, Bill_Phee},
+{ 0x2BE, Lee_Figreene},
+{ 0x2BF, Den_Taligene},
+{ 0x2C0, Adam_Hesive},
+{ 0x2C1, Mel_Lowe},
+{ 0x2C2, Rip_Winkle},
+{ 0x2C3, Ben_deLimms},
+{ 0x2C4, Pauly_Ontology},
+{ 0x2C5, Walter_Mendip},
+{ 0x2C6, Bud_Hunter},
+{ 0x2C7, Sonny_Rentman},
+{ 0x2C8, Cam_Vass},
+{ 0x2C9, Shay_Chez},
+{ 0x2CA, Cory_Andish},
+{ 0x2CB, Glen_Adeer},
+{ 0x2CC, Norry_Sheets},
+{ 0x2CD, Lou_Paster},
+{ 0x2CE, Aran_Cheeks},
+{ 0x2CF, Abe_Seiler},
+{ 0x2D0, Al_Urgy},
+{ 0x2D1, Conn_Pass},
+{ 0x2D2, Heath_Cover},
+{ 0x2D3, Mack_Ramey},
+{ 0x2D4, Miles_Ryan},
+{ 0x2D5, Ike_Banner},
+{ 0x2D6, Frank_Meyer},
+{ 0x2D7, Phil_Fog},
+{ 0x2D8, Bob_Lioteck},
+{ 0x2D9, Rory_Polisher},
+{ 0x2DA, Tex_Curvator},
+{ 0x2DB, Perry_Pincher},
+{ 0x2DC, Al_Plates},
+{ 0x2DD, Bane_Marie},
+{ 0x2DE, Cam_Broadsheet},
+{ 0x2DF, Mo_Hawkes},
+{ 0x2E0, Chris_Pecracker},
+{ 0x2E1, Andy_Crafter},
+{ 0x2E2, Boe_Tyer},
+{ 0x2E3, Dave_O_Resis},
+{ 0x2E4, Victor_Mancey},
+{ 0x2E5, Ray_Dioset},
+{ 0x2E6, Preston_Gumbs},
+{ 0x2E7, Tiny_Forester},
+{ 0x2E8, Cardin_Hands},
+{ 0x2E9, Callan_Trens},
+{ 0x2EA, Tim_Mittus},
+{ 0x2EB, Keenan_Brainard},
+{ 0x2EC, Orson_Douvre},
+{ 0x2ED, Sandy_Hope},
+{ 0x2EE, Ort_Omaton},
+{ 0x2EF, Clerk_Welcome},
+{ 0x2F0, Rob_Ottman},
+{ 0x2F1, Cam_O_Miles},
+{ 0x2F2, Jack_Pott},
+{ 0x2F3, Florian_Selles},
+{ 0x2F4, Finn_Sawyer},
+{ 0x2F5, Bobby_Constable},
+{ 0x2F6, Ray_Menn},
+{ 0x2F7, Odo_Toilette},
+{ 0x2F8, Tel_Egram},
+{ 0x2F9, Char_Shumaker},
+{ 0x2FA, Sim_Pathy},
+{ 0x2FB, Jon_Driedon},
+{ 0x2FC, Monty_Burrows},
+{ 0x2FD, Gaston_Berry},
+{ 0x2FE, Cruz_Ligner},
+{ 0x2FF, Irv_Washinton},
+{ 0x300, Shem_Bassey},
+{ 0x301, Pres_Cripton},
+{ 0x302, Winston_Windfall},
+{ 0x303, Rich_Eden},
+{ 0x304, Teagen_Brewer},
+{ 0x305, Ry_Sling},
+{ 0x306, Bard_Crooner},
+{ 0x307, Armstrong_Peck},
+{ 0x308, Carey_Vanpark},
+{ 0x309, Garland_Gathers},
+{ 0x30A, David_Burnum},
+{ 0x30B, Tad_Trinket},
+{ 0x30C, Harvey_Lifter},
+{ 0x30D, Kurt_Price},
+{ 0x30E, Cameron_Hameha},
+{ 0x30F, Will_Stonehead},
+{ 0x310, Hugh_Marble},
+{ 0x311, Urson_Brown},
+{ 0x312, Bo_Luger},
+{ 0x313, Kim_Ono},
+{ 0x314, Bully_Thrower},
+{ 0x315, Bill_Wordsworthy},
+{ 0x316, Mo_Lusk},
+{ 0x317, Ben_Curd},
+{ 0x318, Powers_Squatts},
+{ 0x319, Paisley_Onepiece},
+{ 0x31A, Gauge_Diven},
+{ 0x31B, Zane_Laughead},
+{ 0x31C, Daz_Tighthead},
+{ 0x31D, Sandy_Beecher},
+{ 0x31E, Ty_Priter},
+{ 0x31F, Nick_Savers},
+{ 0x320, Percy_Wrench},
+{ 0x321, Max_Scara},
+{ 0x322, Jonny_Strutt},
+{ 0x323, Larry_Oldman},
+{ 0x324, Dom_Anding},
+{ 0x325, Pip_Goodweather},
+{ 0x326, Bamber_Mandrina},
+{ 0x327, Scrap_Salvadge},
+{ 0x328, Michael_Angeloni},
+{ 0x329, Ryder_Wheeling},
+{ 0x32A, Stu_Venier},
+{ 0x32B, Linden_Dray},
+{ 0x32C, Patsy_Cornish},
+{ 0x32D, Sharkey_Gobble},
+{ 0x32E, Olly_Popman},
+{ 0x32F, Tyche_Winham},
+{ 0x330, Page_Helper},
+{ 0x331, Barry_Lugh},
+{ 0x332, Jen_Quibble},
+{ 0x333, Dan_Drobium},
+{ 0x334, Lyle_O_Day},
+{ 0x335, Crane_Clawson},
+{ 0x336, Raven_Crowe},
+{ 0x337, Shirley_Ladyman},
+{ 0x338, Cody_Barani},
+{ 0x339, Bob_Shishker},
+{ 0x33A, Pica_Vellosum},
+{ 0x33B, Sascha_Powder},
+{ 0x33C, Gore_Lyath},
+{ 0x33D, Marty_Gras},
+{ 0x33E, Bob_Dingnagian},
+{ 0x33F, Hugh_Dyer},
+{ 0x340, Carl_Penter},
+{ 0x341, Jebb_Ettow},
+{ 0x342, Julian_Siezer},
+{ 0x343, Bill_Dozer},
+{ 0x344, Benny_Factor},
+{ 0x345, Roman_Candler},
+{ 0x346, Ray_Whitehead},
+{ 0x347, Aston_Isher},
+{ 0x348, Grover_Bearing},
+{ 0x349, Andy_Sided},
+{ 0x34A, Phil_O_Biblist},
+{ 0x34B, Roy_Plimsole},
+{ 0x34C, Jem_Paste},
+{ 0x34D, Mike_Creasewell},
+{ 0x34E, Hale_Quinn},
+{ 0x34F, Al_Askan},
+{ 0x350, Scot_Chopper},
+{ 0x351, Nick_Templeton},
+{ 0x352, Butler_Chambers},
+{ 0x353, Pip_Skinner},
+{ 0x354, Dan_Vega},
+{ 0x355, Manny_Kinsland},
+{ 0x356, Chick_Adiddy},
+{ 0x357, Jig_Charleston},
+{ 0x358, Powers_Flawless},
+{ 0x359, Alistair_Horizon},
+{ 0x35A, Tim_Bergoods},
+{ 0x35B, Lux_Sidebottom},
+{ 0x35C, Nat_Picker},
+{ 0x35D, Harold_Derry},
+{ 0x35E, Josh_Rogan},
+{ 0x35F, Ronny_O_Mania},
+{ 0x360, Buck_Teachey},
+{ 0x361, Rayburn_Lightly},
+{ 0x362, Pat_Greene},
+{ 0x363, Sylver_Stone},
+{ 0x364, Equin_Knocks},
+{ 0x365, Hans_Bigger},
+{ 0x366, Creed_Wrighter},
+{ 0x367, Fran_Zimmer},
+{ 0x368, Chaz_Anover},
+{ 0x369, Kurt_O_Graphy},
+{ 0x36A, Pace_Storey},
+{ 0x36B, Paddy_Streehan},
+{ 0x36C, Carson_Haynes},
+{ 0x36D, Earl_Grayson},
+{ 0x36E, Pip_Aminty},
+{ 0x36F, Noel_Vacancies},
+{ 0x370, Jon_Quill},
+{ 0x371, Bill_Looney},
+{ 0x372, Dan_Nettles},
+{ 0x373, Clark_Watcher},
+{ 0x374, Tim_Eisback},
+{ 0x375, Sam_Aritan},
+{ 0x376, Cal_Emarry},
+{ 0x377, Bambis_Shakin},
+{ 0x378, Zin_Giber},
+{ 0x379, Wes_Abbey},
+{ 0x37A, Alec_Dote},
+{ 0x37B, Dougie_McFlea},
+{ 0x37C, Jacky_Lantern},
+{ 0x37D, Matt_Tudor},
+{ 0x37E, Gabriel_Shekinah},
+{ 0x37F, Biron_Pendexter},
+{ 0x380, Rod_Entwhistle},
+{ 0x381, Toby_Patient},
+{ 0x382, Glen_Garry},
+{ 0x383, Bill_Yards},
+{ 0x384, Kay_Acker},
+{ 0x385, Django_Keyes},
+{ 0x386, John_Demi},
+{ 0x387, Sage_Wisdom},
+{ 0x388, Nick_Washing},
+{ 0x389, Steve_Pinner},
+{ 0x38A, Vance_Bookings},
+{ 0x38B, Bud_Dahman},
+{ 0x38C, Reagan_Boneman},
+{ 0x38D, Erhard_Blower},
+{ 0x38E, Jack_Tradesman},
+{ 0x38F, Rufus_Judge},
+{ 0x390, Ace_Fettick},
+{ 0x391, Lance_Lotts},
+{ 0x392, Attley_Hightable},
+{ 0x393, Jim_Nastick},
+{ 0x394, Theo_Riser},
+{ 0x395, Weldon_Wrought},
+{ 0x396, Seymour_Senary},
+{ 0x397, Finn_Carper},
+{ 0x398, Herc_Bigsby},
+{ 0x399, Bramley_Cox},
+{ 0x39A, Mitch_Hett},
+{ 0x39B, Mo_Zarella},
+{ 0x39C, Scout_Messenger},
+{ 0x39D, Paul_Chucker},
+{ 0x39E, Andy_Wallpole},
+{ 0x39F, Solomon_Justice},
+{ 0x3A0, Mark_Tinney},
+{ 0x3A1, Archy_Medez},
+{ 0x3A2, Jay_Pan},
+{ 0x3A3, Jonah_Troutman},
+{ 0x3A4, Carl_Nivor},
+{ 0x3A5, Phil_Occifer},
+{ 0x3A6, Noah_Gerkin},
+{ 0x3A7, Colin_Eager},
+{ 0x3A8, Don_Ringo},
+{ 0x3A9, Nick_Crew},
+{ 0x3AA, Ivor_Parrot},
+{ 0x3AB, Matthew_Pencil},
+{ 0x3AC, Ropert_Chapp},
+{ 0x3AD, Hal_LeButt},
+{ 0x3AE, Al_Chemmy},
+{ 0x3AF, Rob_Zervatory},
+{ 0x3B0, Joe_Stick},
+{ 0x3B1, Nick_Turine},
+{ 0x3B2, Marc_O_Lepsy},
+{ 0x3B3, Jim_Makegood},
+{ 0x3B4, Vin_Spinner},
+{ 0x3B5, Grew_Driver},
+{ 0x3B6, Ed_Dupee},
+{ 0x3B7, Hank_Shortman},
+{ 0x3B8, Aaron_Peacy},
+{ 0x3B9, Harvey_Sweats},
+{ 0x3BA, Harry_Overton},
+{ 0x3BB, Archie_Tate},
+{ 0x3BC, Neville_List},
+{ 0x3BD, Lee_Dorr},
+{ 0x3BE, Sam_Which},
+{ 0x3BF, Dwight_Self},
+{ 0x3C0, Shep_Shank},
+{ 0x3C1, Dylan_Swan},
+{ 0x3C2, Theo_Bernoulli},
+{ 0x3C3, Sul_Tarner},
+{ 0x3C4, Silas_Scrooge},
+{ 0x3C5, Mario_Nette},
+{ 0x3C6, Telly_Fonbocks},
+{ 0x3C7, Bones_Size},
+{ 0x3C8, Frank_Koshar},
+{ 0x3C9, Keifer_Tiliser},
+{ 0x3CA, Jak_Hammerslam},
+{ 0x3CB, Rob_Freeby},
+{ 0x3CC, Chris_Talise},
+{ 0x3CD, Derek_Longhand},
+{ 0x3CE, Manny_Gerry},
+{ 0x3CF, Des_Count},
+{ 0x3D0, Rocky_Rollans},
+{ 0x3D1, Shaun_Staid},
+{ 0x3D2, Heath_Freke},
+{ 0x3D3, Olly_Gammy},
+{ 0x3D4, Aidan_Model},
+{ 0x3D5, Mick_Thatcher},
+{ 0x3D6, Owen_Greenfield},
+{ 0x3D7, Charlie_Krelborn},
+{ 0x3D8, Rory_Circles},
+{ 0x3D9, Barry_Sterr},
+{ 0x3DA, John_Baird},
+{ 0x3DB, Tyson_Moodey},
+{ 0x3DC, Al_Istatin},
+{ 0x3DD, Paddy_Popper},
+{ 0x3DE, Dwayne_Woo},
+{ 0x3DF, Pete_Sadow},
+{ 0x3E0, Troy_Glodight},
+{ 0x3E1, Chris_Hypogee},
+{ 0x3E2, Connor_Bation},
+{ 0x3E3, Rhys_Masher},
+{ 0x3E4, Charlie_Shearing},
+{ 0x3E5, Al_Mannack},
+{ 0x3E6, Nathan_Weyton},
+{ 0x3E7, Simon_Stryker},
+{ 0x3E8, Will_Bayeux},
+{ 0x3E9, Thomas_Ediston},
+{ 0x3EA, Aubry_Dient},
+{ 0x3EB, Les_Tarrant},
+{ 0x3EC, Sim_Cope},
+{ 0x3ED, Cal_O_Rees},
+{ 0x3EE, Ringo_Spinning},
+{ 0x3EF, Dec_O_Rator},
+{ 0x3F0, Pat_Shinko},
+{ 0x3F1, Ryan_Ferry},
+{ 0x3F2, Les_Belisha},
+{ 0x3F3, Tim_Crochett},
+{ 0x3F4, Hiroshi_Dot},
+{ 0x3F5, Jack_Nimble},
+{ 0x3F6, Patch_Upright},
+{ 0x3F7, Joe_Nalist},
+{ 0x3F8, Esau_Fagus},
+{ 0x3F9, Braden_Bakewell},
+{ 0x3FA, Virgil_Lantis},
+{ 0x3FB, Norm_Drilling},
+{ 0x3FC, Kurt_Tweedy},
+{ 0x3FD, Solomon_Osaka},
+{ 0x3FE, Pike_Tucker},
+{ 0x3FF, Gary_Osoto},
+{ 0x400, Dec_Orum},
+{ 0x401, Alan_Carte},
+{ 0x402, Morgan_Iser},
+{ 0x403, Ken_Broad},
+{ 0x404, Scot_Enguard},
+{ 0x405, Dick_Turbin},
+{ 0x406, Benedict_Eggers},
+{ 0x407, Beau_Painton},
+{ 0x408, Butch_Pythons},
+{ 0x409, Sam_Murray},
+{ 0x40A, Eathan_Ringer},
+{ 0x40B, Jack_Lumbar},
+{ 0x40C, Todd_Tempole},
+{ 0x40D, Jacob_Grimley},
+{ 0x40E, John_Coralli},
+{ 0x40F, Drew_Faxon},
+{ 0x410, Cole_Easteroll},
+{ 0x411, Cam_Lensman},
+{ 0x412, Tighe_Windsor},
+{ 0x413, Phil_Dippedes},
+{ 0x414, Lenny_Lakeman},
+{ 0x415, Vaughn_DeVille},
+{ 0x416, Arthur_Myrddin},
+{ 0x417, Guy_Forker},
+{ 0x418, Bob_Stretcher},
+{ 0x419, Spike_Clutcher},
+{ 0x41A, Austin_Tayssus},
+{ 0x41B, Tom_Stevenson},
+{ 0x41C, Ricky_Charmers},
+{ 0x41D, Max_Hurt},
+{ 0x41E, Dexter_Raleigh},
+{ 0x41F, Pete_Pang},
+{ 0x420, Sam_Fitspire},
+{ 0x421, Carter_Nightly},
+{ 0x422, Daley_Switcher},
+{ 0x423, Dexter_Ambie},
+{ 0x424, Gill_Able},
+{ 0x425, Drew_Reiner},
+{ 0x426, Kevin_Boardman},
+{ 0x427, Andy_Craft},
+{ 0x428, Julius_Vernon},
+{ 0x429, Robin_Sherwood},
+{ 0x42A, Ei_King},
+{ 0x42B, Travis_McClean},
+{ 0x42C, Rusty_Spoakes},
+{ 0x42D, Clint_Wester},
+{ 0x42E, Pete_Nokeyo},
+{ 0x42F, Will_Racer},
+{ 0x430, Ollie_Seeker},
+{ 0x431, Graham_Hush},
+{ 0x432, Ronny_Knowles},
+{ 0x433, Les_Abel},
+{ 0x434, Reg_Thrift},
+{ 0x435, Jools_Iceberg},
+{ 0x436, Mark_Brent},
+{ 0x437, Vern_Ironfist},
+{ 0x438, Rob_Burnsides},
+{ 0x439, Ace_Bragg},
+{ 0x43A, Claude_Snap},
+{ 0x43B, Paul_Rush},
+{ 0x43C, Guile_Crocket},
+{ 0x43D, Carey_Bean},
+{ 0x43E, John_Maggie},
+{ 0x43F, Chops_Denton},
+{ 0x440, Bobby_Yellow},
+{ 0x441, Ace_Breaker},
+{ 0x442, Percy_Verence},
+{ 0x443, Erik_Eagle},
+{ 0x444, Bobby_Shearer},
+{ 0x445, Paul_Peabody},
+{ 0x446, Chester_Horse_Jr},
+{ 0x447, Chester_Horse_Jr_2},
+{ 0x448, Sagaminator},
+{ 0x449, Jude_Sharp},
+{ 0x44A, Shadow_Cimmerian},
+/*{ 0x44D, Arnold_Horrel},
+{ 0x44E, Donovan_Lardy},
+{ 0x44F, Sonny_Raimon},
+{ 0x450, Ray_Dark},
+{ 0x451, George_Firewill},
+{ 0x452, Gregory_Smith},
+{ 0x453, David_Evans},
+{ 0x454, Tom_Dark},
+{ 0x455, Gregory_Smith_2},
+{ 0x456, Celia_Hills_2},
+{ 0x457, Julia_Blaze},
+{ 0x458, Harry_Evans},
+{ 0x459, Sharon_Evans},
+{ 0x45A, Unknown},
+{ 0x45B, Shearer_shadow},
+{ 0x45C, Wintersea_shadow},
+{ 0x45D, Zak_Wallside},
+{ 0x45E, Mr_Veteran},
+{ 0x45F, Dark_shadow},
+{ 0x461, Stephen_Black},
+{ 0x462, Hekyll_Jyde},
+{ 0x463, Harry_Savage},
+{ 0x464, Newton_Thomas},
+{ 0x465, Manny_Artic},
+{ 0x466, Sammy_Igajima},
+{ 0x467, Turtle_Newfield},
+{ 0x468, Seth_Nichols},
+{ 0x469, Clint_Loggan},
+{ 0x47F, Thug_1},
+{ 0x480, Thug_2},
+{ 0x481, Thug_3},
+{ 0x482, Thug_4},
+{ 0x483, Suit},
+{ 0x484, Suit},
+{ 0x485, Suit},
+{ 0x486, Suit},
+{ 0x487, Suit},
+{ 0x488, Suit},
+{ 0x489, Suit},
+{ 0x48A, Suit},
+{ 0x48B, Suit},
+{ 0x48C, Suit},
+{ 0x48D, Suit},
+{ 0x48E, Suit},
+{ 0x515, Aquilina_Schiller},
+{ 0x516, Astram_B__Schiller},
+{ 0x517, Godric_Wyles},
+{ 0x518, Stewart_Vanguard},
+{ 0x519, US_President},
+{ 0x51A, Shawn_Froste_Kid},
+{ 0x51B, Aiden_Froste_Kid},
+{ 0x51C, Xavier_Foster},
+{ 0x51D, Lina_shadow},
+{ 0x51E, Axel_robe},
+{ 0x51F, Character_robe},
+{ 0x520, Alpine_coach},
+{ 0x521, Cloister_coach},
+{ 0x522, Fauxshore_coach},
+{ 0x523, Mary_Times_Coach},
+{ 0x525, Swimmer_(M)},
+{ 0x526, Swimmer_(M)},
+{ 0x527, Swimmer_(M)},
+{ 0x528, Swimmer_(F)},
+{ 0x529, Swimmer_(F)},
+{ 0x52A, Swimmer_(F)},
+{ 0x52B, Aloha_(M)},
+{ 0x52C, Aloha_(M)},
+{ 0x52D, Aloha_(M)},
+{ 0x52E, Kimono_(F)},
+{ 0x52F, Kimono_(F)},
+{ 0x530, Kimono_(F)},
+{ 0x531, Arctic_Suit_(M)},
+{ 0x532, Arctic_Suit_(M)},
+{ 0x533, Arctic_Suit_(M)},
+{ 0x534, Alius_Staff},
+{ 0x535, Alius_Staff},
+{ 0x536, Alius_Staff},*/
+/*{ 0x539, Umbrella_pupil_(M)},
+{ 0x53A, Umbrella_pupil_(M)},
+{ 0x53B, Umbrella_pupil_(M)},
+{ 0x53C, Umbrella_pupil_(M)},
+{ 0x53D, Umbrella_pupil_(F)},
+{ 0x53E, Umbrella_pupil_(F)},
+{ 0x53F, Umbrella_pupil_(F)},
+{ 0x540, Umbrella_pupil_(F)},
+{ 0x541, Alpine_pupil_(M)},
+{ 0x542, Alpine_pupil_(M)},
+{ 0x543, Alpine_pupil_(M)},
+{ 0x544, Alpine_pupil_(M)},
+{ 0x545, Alpine_pupil_(F)},
+{ 0x546, Alpine_pupil_(F)},
+{ 0x547, Alpine_pupil_(F)},
+{ 0x548, Alpine_pupil_(F)},
+{ 0x549, Cloister_pupil_(M)},
+{ 0x54A, Cloister_pupil_(M)},
+{ 0x54B, Cloister_pupil_(M)},
+{ 0x54C, Cloister_pupil_(M)},
+{ 0x54D, Cloister_pupil_(F)},
+{ 0x54E, Cloister_pupil_(F)},
+{ 0x54F, Cloister_pupil_(F)},
+{ 0x550, Cloister_pupil_(F)},
+{ 0x551, Fauxshore_pupil_(M)},
+{ 0x552, Fauxshore_pupil_(M)},
+{ 0x553, Fauxshore_pupil_(M)},
+{ 0x554, Fauxshore_pupil_(M)},
+{ 0x555, Fauxshore_pupil_(F)},
+{ 0x556, Fauxshore_pupil_(F)},
+{ 0x557, Fauxshore_pupil_(F)},
+{ 0x558, Fauxshore_pupil_(F)},
+{ 0x559, Mary_Times_pupil_(M)},
+{ 0x55A, Mary_Times_pupil_(M)},
+{ 0x55B, Mary_Times_pupil_(M)},
+{ 0x55C, Mary_Times_pupil_(M)},
+{ 0x55D, Mary_Times_pupil_(F)},
+{ 0x55E, Mary_Times_pupil_(F)},
+{ 0x55F, Mary_Times_pupil_(F)},
+{ 0x560, Mary_Times_pupil_(F)},
+{ 0x561, Redux_pupil_(M)},
+{ 0x562, Redux_pupil_(M)},
+{ 0x563, Redux_pupil_(M)},
+{ 0x564, Redux_pupil_(M)},
+{ 0x565, Redux_pupil_(F)},
+{ 0x566, Redux_pupil_(F)},
+{ 0x567, Redux_pupil_(F)},
+{ 0x568, Redux_pupil_(F)},
+{ 0x569, Sue_s_mother},
+{ 0x56A, Froste_s_father},
+{ 0x56B, Froste_s_mother},
+{ 0x56C, Julia_wheelchair},
+{ 0x56D, RG_Field_Stop},
+{ 0x56E, RG_Goal_Stop},
+{ 0x56F, Reception_Robot},
+{ 0x5DD, Raimon_boy_1},
+{ 0x5DE, Raimon_boy_2},
+{ 0x5DF, Raimon_boy_3},
+{ 0x5E0, Raimon_boy_4},
+{ 0x5E1, Raimon_boy_5},
+{ 0x5E2, Raimon_boy_6},
+{ 0x5E3, Raimon_boy_7},
+{ 0x5E4, Raimon_boy_8},
+{ 0x5E5, Raimon_boy_9},
+{ 0x5E6, Raimon_boy_10},
+{ 0x5E7, Raimon_boy_11},
+{ 0x5E8, Raimon_boy_12},
+{ 0x5E9, Raimon_boy_13},
+{ 0x5EA, Raimon_boy_14},
+{ 0x5EB, Raimon_boy_15},
+{ 0x5EC, Raimon_boy_16},
+{ 0x5ED, Raimon_boy_17},
+{ 0x5EE, Raimon_boy_18},
+{ 0x5EF, Raimon_boy_19},
+{ 0x5F0, Raimon_boy_20},
+{ 0x5F1, Raimon_boy_21},
+{ 0x5F2, Raimon_boy_22},
+{ 0x5F3, Raimon_boy_23},
+{ 0x5F4, Raimon_boy_24},
+{ 0x5F5, Raimon_boy_25},
+{ 0x5F6, Raimon_boy_26},
+{ 0x5F7, Raimon_boy_27},
+{ 0x5F8, Raimon_boy_28},
+{ 0x5F9, Raimon_boy_29},
+{ 0x5FA, Raimon_boy_30},
+{ 0x5FB, Raimon_boy_31},
+{ 0x5FC, Raimon_boy_32},
+{ 0x5FD, Raimon_boy_33},
+{ 0x5FE, Raimon_boy_34},
+{ 0x5FF, Raimon_boy_35},
+{ 0x600, Raimon_boy_36},
+{ 0x601, Raimon_boy_37},
+{ 0x602, Raimon_boy_38},
+{ 0x603, Raimon_boy_39},
+{ 0x604, Raimon_boy_40},
+{ 0x605, Raimon_boy_41},
+{ 0x606, Raimon_boy_42},
+{ 0x607, Raimon_boy_43},
+{ 0x608, Raimon_boy_44},
+{ 0x609, Raimon_boy_45},
+{ 0x60A, Raimon_boy_46},
+{ 0x60B, Raimon_boy_47},
+{ 0x60C, Raimon_boy_48},
+{ 0x60D, Raimon_boy_49},
+{ 0x60E, Raimon_boy_50},
+{ 0x60F, Raimon_boy_51},
+{ 0x610, Raimon_boy_52},
+{ 0x611, Raimon_boy_53},
+{ 0x612, Raimon_boy_54},
+{ 0x613, Connor_Newlin},
+{ 0x614, Raimon_boy_56},
+{ 0x615, Raimon_boy_57},
+{ 0x616, Raimon_boy_58},
+{ 0x617, Raimon_boy_59},
+{ 0x618, Raimon_boy_60},
+{ 0x619, Raimon_girl_1},
+{ 0x61A, Raimon_girl_2},
+{ 0x61B, Raimon_girl_3},
+{ 0x61C, Raimon_girl_4},
+{ 0x61D, Raimon_girl_5},
+{ 0x61E, Raimon_girl_6},
+{ 0x61F, Raimon_girl_7},
+{ 0x620, Raimon_girl_8},
+{ 0x621, Raimon_girl_9},
+{ 0x622, Raimon_girl_10},
+{ 0x623, Raimon_girl_11},
+{ 0x624, Raimon_girl_12},
+{ 0x625, Raimon_girl_13},
+{ 0x626, Raimon_girl_14},
+{ 0x627, Raimon_girl_15},
+{ 0x628, Raimon_girl_16},
+{ 0x629, Raimon_girl_17},
+{ 0x62A, Raimon_girl_18},
+{ 0x62B, Raimon_girl_19},
+{ 0x62C, Raimon_girl_20},
+{ 0x62D, Raimon_girl_21},
+{ 0x62E, Raimon_girl_22},
+{ 0x62F, Raimon_girl_23},
+{ 0x630, Raimon_girl_24},
+{ 0x631, Raimon_girl_25},
+{ 0x632, Raimon_girl_26},
+{ 0x633, Raimon_girl_27},
+{ 0x634, Raimon_girl_28},
+{ 0x635, Raimon_girl_29},
+{ 0x636, Raimon_girl_30},
+{ 0x641, Teacher_1},
+{ 0x642, Teacher_2},
+{ 0x643, Teacher_3},
+{ 0x644, Teacher_4},
+{ 0x645, Teacher_5},
+{ 0x646, Teacher_6},
+{ 0x647, Teacher_7},
+{ 0x648, Teacher_8},
+{ 0x649, Teacher_9},
+{ 0x655, Lady_teacher_1},
+{ 0x656, Lady_teacher_2},
+{ 0x657, Lady_teacher_3},
+{ 0x658, Lady_teacher_4},
+{ 0x659, Lady_teacher_5},
+{ 0x65A, Lady_teacher_6},
+{ 0x65B, Lady_teacher_7},
+{ 0x65C, Lady_teacher_8},
+{ 0x65D, Lady_teacher_9},
+{ 0x669, Cat},
+{ 0x66A, Chicken},
+{ 0x66B, Dog},
+{ 0x66C, Rabbit},
+{ 0x673, Regular_guy_1},
+{ 0x674, Regular_guy_2},
+{ 0x675, Regular_guy_3},
+{ 0x676, Regular_guy_4},
+{ 0x677, Regular_guy_5},
+{ 0x678, Regular_guy_6},
+{ 0x679, Regular_guy_7},
+{ 0x67A, Regular_guy_8},
+{ 0x67B, Regular_guy_9},
+{ 0x67C, Regular_guy_10},
+{ 0x67D, Regular_guy_11},
+{ 0x67E, Regular_guy_12},
+{ 0x687, Regular_girl_1},
+{ 0x688, Regular_girl_2},
+{ 0x689, Regular_girl_3},
+{ 0x68A, Regular_girl_4},
+{ 0x68B, Regular_girl_5},
+{ 0x68C, Regular_girl_6},
+{ 0x68D, Regular_girl_7},
+{ 0x68E, Regular_girl_8},
+{ 0x68F, Regular_girl_9},
+{ 0x690, Regular_girl_10},
+{ 0x691, Regular_girl_11},
+{ 0x692, Regular_girl_12},
+{ 0x693, Ken_s_mum},
+{ 0x69B, Old_man_1},
+{ 0x69C, Old_man_2},
+{ 0x69D, Old_man_3},
+{ 0x69E, Old_man_4},
+{ 0x69F, Old_man_5},
+{ 0x6A0, Old_man_6},
+{ 0x6A1, Old_man},
+{ 0x6A5, Old_woman_1},
+{ 0x6A6, Old_woman_2},
+{ 0x6A7, Old_woman_3},
+{ 0x6A8, Old_woman_4},
+{ 0x6A9, Old_woman_5},
+{ 0x6AA, Old_woman_6},
+{ 0x6AF, Boy_1},
+{ 0x6B0, Boy_2},
+{ 0x6B1, Boy_3},
+{ 0x6B2, Boy_4},
+{ 0x6B3, Boy_5},
+{ 0x6B4, Boy_6},
+{ 0x6B5, Ken},
+{ 0x6B6, Oswald},
+{ 0x6B9, Girl_1},
+{ 0x6BA, Girl_2},
+{ 0x6BB, Girl_3},
+{ 0x6BC, Girl_4},
+{ 0x6BD, Girl_5},
+{ 0x6BE, Girl_6},
+{ 0x6C3, Staff_1},
+{ 0x6C4, Staff_2},
+{ 0x6C5, Staff_3},
+{ 0x6C6, Staff_4},
+{ 0x6C7, Shopkeeper},
+{ 0x6C8, Maid_1},
+{ 0x6C9, Maid_2},
+{ 0x6CA, Maid_3},
+{ 0x6CD, Doctor_1},
+{ 0x6CE, Doctor_2},
+{ 0x6D2, Nurse_1},
+{ 0x6D3, Nurse_2},
+{ 0x6D4, Nurse_3},
+{ 0x6D7, Railway_worker_1},
+{ 0x6D8, Railman_Unused},
+{ 0x6D9, Police_officer_1},
+{ 0x6DA, Police_officer},
+{ 0x6DB, Flash_staff},
+{ 0x6DC, Nelly_s_aide},
+{ 0x6DD, Zeus_clerk_1},
+{ 0x6DE, Zeus_suit},
+{ 0x6E1, Academy_guy_1},
+{ 0x6E2, Academy_guy_2},
+{ 0x6E3, Academy_guy_3},
+{ 0x6E6, Wild_guy_1},
+{ 0x6E7, Wild_guy_2},
+{ 0x6E8, Wild_guy_3},
+{ 0x7D1, Mountford},
+{ 0x7D2, Oldfield},
+{ 0x7D3, Map_point_1},
+{ 0x7D4, Map_point_2},*/
+{ 0x821, Grent_Chaos},
+{ 0x822, Baller_Chaos},
+{ 0x823, Clear_Chaos},
+{ 0x824, Gocker_Chaos},
+{ 0x825, Bomber_Chaos},
+{ 0x826, Heat_Chaos},
+{ 0x827, Droll_Chaos},
+{ 0x828, Rhine_Chaos},
+{ 0x829, Bryce_Whitingale_Chaos},
+{ 0x82A, Claude_Beacons_Chaos},
+{ 0x82B, Neppten_Chaos},
+{ 0x835, Galileo},
+{ 0x836, Coral},
+{ 0x837, Gigs},
+{ 0x838, Ganymede},
+{ 0x839, Charon},
+{ 0x83A, Pandora},
+{ 0x83B, Grengo},
+{ 0x83C, Io},
+{ 0x83D, Rihm},
+{ 0x83E, Janus},
+{ 0x83F, Diam},
+{ 0x849, Dvalin},
+{ 0x84A, Kenville},
+{ 0x84B, Mole},
+{ 0x84C, Kayson},
+{ 0x84D, Tytan},
+{ 0x84E, Fedora},
+{ 0x84F, Krypto},
+{ 0x850, Sworm},
+{ 0x851, Mercury},
+{ 0x852, Metron},
+{ 0x853, Zell},
+{ 0x854, Dvalin_FW},
+{ 0x85D, Nero},
+{ 0x85E, Gele},
+{ 0x85F, Kiburn},
+{ 0x860, Zohen},
+{ 0x861, Hauser},
+{ 0x862, Kormer},
+{ 0x863, Kiwill},
+{ 0x864, Ark},
+{ 0x865, Wittz},
+{ 0x866, Bellatrix},
+{ 0x867, Xene},
+{ 0x871, Dvalin2},
+{ 0x872, Kenville2},
+{ 0x873, Mole2},
+{ 0x874, Kayson2},
+{ 0x875, Tytan2},
+{ 0x876, Fedora2},
+{ 0x877, Krypto2},
+{ 0x878, Sworm2},
+{ 0x879, Mercury2},
+{ 0x87A, Metron2},
+{ 0x87B, Zell2},
+{ 0x885, Cam_Mando},
+{ 0x886, Harry_Boufante},
+{ 0x887, Stu_Shroom},
+{ 0x888, Aspen_Blewit},
+{ 0x889, Marismus_Oregon},
+{ 0x88A, Garjan_Cypress},
+{ 0x88B, Judas_Deathcap},
+{ 0x88C, Chase_Faithfull},
+{ 0x88D, Chris_Ticker},
+{ 0x88E, Roy_Daring},
+{ 0x88F, Scaber_Enoki},
+{ 0x899, Robot_S},
+{ 0x89A, Robot_P},
+{ 0x89B, Robot_T},
+{ 0x89C, Robot_V},
+{ 0x89D, Robot_C},
+{ 0x89E, Robot_O},
+{ 0x89F, Robot_B},
+{ 0x8A0, Robot_G},
+{ 0x8A1, Robot_K},
+{ 0x8A2, Robot_F},
+{ 0x8A3, Robot_L},
+{ 0x8AD, Seymour_Hillman_young},
+{ 0x8AE, Charles_Island_young},
+{ 0x8AF, Garret_Hairtown_young},
+{ 0x8B0, Arthur_Sweet_young},
+{ 0x8B1, Peter_Mildred_young},
+{ 0x8B2, Josh_Nathaniel_young},
+{ 0x8B3, Edward_Gladstone_young},
+{ 0x8B4, Tyler_Thomas_young},
+{ 0x8B5, Joseph_Yosemite_young},
+{ 0x8B6, Ian_Suffolk_young},
+{ 0x8B7, Constant_Builder_young},
+{ 0x8C1, Grent},
+{ 0x8C2, Baller},
+{ 0x8C3, Balcke},
+{ 0x8C4, Seats},
+{ 0x8C5, Bomber},
+{ 0x8C6, Heat},
+{ 0x8C7, Lean},
+{ 0x8C8, Bountine},
+{ 0x8C9, Sidern},
+{ 0x8CA, Claude_Beacons},
+{ 0x8CB, Neppten},
+{ 0x8D5, Beluga},
+{ 0x8D6, Arkew},
+{ 0x8D7, Clear},
+{ 0x8D8, Gocker},
+{ 0x8D9, Icer},
+{ 0x8DA, Balen},
+{ 0x8DB, Droll},
+{ 0x8DC, Rhine},
+{ 0x8DD, Blown},
+{ 0x8DE, Bryce_Whitingale},
+{ 0x8DF, Frost},
+{ 0x8FD, Ken_Ironwall},
+{ 0x8FE, Timothy_Western},
+{ 0x8FF, Wallace_Hammond},
+{ 0x900, Shirley_Stevens},
+{ 0x901, Ian_Smith},
+{ 0x902, Taylor_Firepool},
+{ 0x903, Marge_Fielding},
+{ 0x904, Marshall_Firsthand},
+{ 0x905, Holly_Mirror},
+{ 0x906, Victoria_Vanguard},
+{ 0x907, Joe_Kenneddy},
+{ 0x908, Ian_Sights},
+{ 0x909, Greene_Beray},
+{ 0x90A, Ryan_Tappin},
+{ 0x90B, Linda_Shadey},
+{ 0x90C, Sid_Safehouse},
+{ 0x911, Adam_Ropes},
+{ 0x912, Joaquine_Downtown},
+{ 0x913, Milton_Bindings},
+{ 0x914, Spike_Gleeson},
+{ 0x915, Sean_Snowfield},
+{ 0x916, Kerry_Bootgaiter},
+{ 0x917, Maddox_Rock},
+{ 0x918, Robert_Skipolson},
+{ 0x919, Shawn_Froste},
+{ 0x91A, Roland_Climbstein},
+{ 0x91B, Quentin_Rackner},
+{ 0x91C, Steve_Camping},
+{ 0x91D, Martin_Ursus},
+{ 0x91E, Pete_Bogg},
+{ 0x91F, Gem_Strata},
+{ 0x920, Horace_Onlign},
+{ 0x921, Shawn_Froste_Aiden},
+{ 0x922, Shawn_Froste_Fusion},
+{ 0x925, Gen_Fenced},
+{ 0x926, Key_Enlightened},
+{ 0x927, Howard_Light},
+{ 0x928, Mike_Luck},
+{ 0x929, Silas_Unbend},
+{ 0x92A, Junior_Fardream},
+{ 0x92B, Ike_Learning},
+{ 0x92C, Manny_Riverun},
+{ 0x92D, Albert_Heavenside},
+{ 0x92E, Mel_Shadow},
+{ 0x92F, Ulbert_Heavenside},
+{ 0x930, Scott_Banyan},
+{ 0x931, Earnest_Search},
+{ 0x932, Phil_Actery},
+{ 0x933, Brand_Gozan},
+{ 0x934, Dan_Omination},
+{ 0x935, Scott_Banyan_FW},
+{ 0x939, Joseph_King_Redux},
+{ 0x93A, Rowan_Beltzer},
+{ 0x93B, Blade_Healen},
+{ 0x93C, Topher_Groin},
+{ 0x93D, Lee_Bamboo},
+{ 0x93E, Eton_Messer},
+{ 0x93F, Jonah_Spark},
+{ 0x940, Sue_Sparrow},
+{ 0x941, Riley_Jamm},
+{ 0x942, Caleb_Stonewall},
+{ 0x943, David_Samford_Redux},
+{ 0x944, Jimbo_Cellar},
+{ 0x945, Zenn_Wildhorse},
+{ 0x946, Dawson_Little},
+{ 0x947, Cosimo_Beck},
+{ 0x948, Maston_Color},
+{ 0x94D, Darren_LaChance},
+{ 0x94E, Orson_Pot},
+{ 0x94F, Mick_Mishap},
+{ 0x950, Louis_Leave},
+{ 0x951, Maurice_Badgame},
+{ 0x952, Cannon_Random},
+{ 0x953, Ulric_Richmen},
+{ 0x954, Dave_Fate},
+{ 0x955, Spencer_Duskplay},
+{ 0x956, Jonathan_Luckyman},
+{ 0x957, Joe_Poker},
+{ 0x958, Wiley_Cracker},
+{ 0x959, Mark_Failing},
+{ 0x95A, Alton_Cotts},
+{ 0x95B, Mike_Passing},
+{ 0x95C, Knowle_Bathers},
+{ 0x961, Rocky_Black},
+{ 0x962, Chad_Taylor},
+{ 0x963, Victor_Hills},
+{ 0x964, Hurley_Kane},
+{ 0x965, Hector_Redding},
+{ 0x966, Mackenzie_Fordline},
+{ 0x967, Cadence_Soundtown},
+{ 0x968, Dora_Delight},
+{ 0x969, Tom_Contented},
+{ 0x96A, Joston_Easton},
+{ 0x96B, Spring_Millpond},
+{ 0x96C, Gaston_Cooley},
+{ 0x96D, Barnaby_Pension},
+{ 0x96E, Jack_Griddle},
+{ 0x96F, Stan_Andagi},
+{ 0x970, Coral_Talent},
+{ 0x975, Thomas_Feldt2},
+{ 0x976, Malcolm_Night2},
+{ 0x977, Shadow_Cimmerian2},
+{ 0x978, Jim_Wraith2},
+{ 0x979, Tod_Ironside2},
+{ 0x97A, Steve_Grim2},
+{ 0x97B, Tim_Saunders2},
+{ 0x97C, Sam_Kincaid2},
+{ 0x97D, Maxwell_Carson2},
+{ 0x97E, Nathan_Swift2},
+{ 0x97F, Kevin_Dragonfly2},
+{ 0x989, Daisy_Fields},
+{ 0x98A, Alexia_Sand},
+{ 0x98B, Hellen_Hearth},
+{ 0x98C, Rose_Pinkpetal},
+{ 0x98D, Esther_Greenland},
+{ 0x98E, Bela_Bluebells},
+{ 0x98F, Natalie_Sunrise},
+{ 0x990, Hillary_Bush},
+{ 0x991, Mary_Moor},
+{ 0x992, Suzette_Hartland},
+{ 0x993, Lily_Willow},
+{ 0x994, Dell_Closeout},
+{ 0x995, Amy_Spires},
+{ 0x996, Peony_Cash},
+{ 0x997, Gayle_Revel},
+{ 0x998, Janine_Brook},
+{ 0x99D, Colin_Binder},
+{ 0x99E, Larry_Pogue},
+{ 0x99F, Rob_Cardson},
+{ 0x9A0, Ken_Mayfield},
+{ 0x9A1, Casey_Leather},
+{ 0x9A2, Ethan_Swallow},
+{ 0x9A3, Bob_Daruma},
+{ 0x9A4, Mitch_Blackston},
+{ 0x9A5, Aurelia_Dingle},
+{ 0x9A6, Canon_Evans},
+{ 0x9A7, Syon_Blaze},
+{ 0x9A8, Thor_Stoutberg},
+{ 0x9A9, Nelly_Raimon},
+{ 0x9AA, Celia_Hills},
+{ 0x9AB, Silvia_Woods},
+{ 0x9AC, Hidetoshi_Nakata},
+/*{ 0x9B1, ???},
+{ 0x9B2, ???},
+{ 0x9B3, ???},
+{ 0x9B4, ???},
+{ 0x9B5, ???},
+{ 0x9B6, ???},
+{ 0x9B7, ???},
+{ 0x9B8, ???},
+{ 0x9B9, ???},
+{ 0x9BA, ???},
+{ 0x9BB, ???},*/
+{ 0x9C5, Curtis_Croon},
+{ 0x9C6, Georgio_Plumber},
+{ 0x9C7, Vince_Firewall},
+{ 0x9C8, Roy_Diggins},
+{ 0x9C9, Quill_Inker},
+{ 0x9CA, Bertram_Manning},
+{ 0x9CB, Laura_Quilter},
+{ 0x9CC, Des_Igner},
+{ 0x9CD, Jarmon_Fisk},
+{ 0x9CE, Hugh_Tinter},
+{ 0x9CF, Tim_Pression},
+{ 0x9D0, Claire_Taker},
+{ 0x9D1, Heath_Planner},
+{ 0x9D2, Pace_Keeping},
+{ 0x9D3, Arthur_Easley},
+{ 0x9D4, Carl_Rhodes},
+{ 0x9D5, Eugene_Conwell},
+{ 0x9D6, Arnan_Wheelie},
+{ 0x9D7, Stu_Boilin},
+{ 0x9D8, Marvin_Reading},
+{ 0x9D9, Callie_Graffy},
+{ 0x9DA, Ant_Anomy},
+{ 0x9DB, Laurie_Nowlin},
+{ 0x9DC, Lucille_Strummon},
+{ 0x9DD, Leon_Hotair},
+{ 0x9DE, John_Bleach},
+{ 0x9DF, Carey_Filling},
+{ 0x9E0, Conn_Fuchus},
+{ 0x9E1, Iain_Igma},
+{ 0x9E2, Carrie_O_Kea},
+{ 0x9E3, Ebirina},
+{ 0x9E4, Stuart_Leafe},
+{ 0x9E5, Cole_Stoaker},
+{ 0x9E6, Justin_Primm},
+{ 0x9E7, Mark_Smudge},
+{ 0x9E8, Travis_Borer},
+{ 0x9E9, Anton_Donce},
+{ 0x9EA, Chase_Spoor},
+{ 0x9EB, George_Barros},
+{ 0x9EC, Olivia_Baker},
+{ 0x9ED, Gem_Shorn},
+{ 0x9EE, Lou_Daguerre},
+{ 0x9EF, Ollie_Tuckney},
+{ 0x9F0, Manuel_Kinart},
+{ 0x9F1, Skip_Vinall},
+{ 0x9F2, Junior_Gambit},
+{ 0x9F3, Len_Guist},
+{ 0x9F4, Clark_Tappen},
+{ 0x9F5, Ryan_O_Laugh},
+{ 0x9F6, Rod_Sweeper},
+{ 0x9F7, Reg_Strimmer},
+{ 0x9F8, Will_Ramin},
+{ 0x9F9, Andy_Fudge},
+{ 0x9FA, Tate_Immy},
+{ 0x9FB, Gerald_Pourer},
+{ 0x9FC, Nate_Checker},
+{ 0x9FD, Bomber_Pikes},
+{ 0x9FE, Gary_Burdine},
+{ 0x9FF, Chloe_Glazier},
+{ 0xA00, Reed_Harpen},
+{ 0xA01, Beat_Scatton},
+{ 0xA02, Al_Itchen},
+{ 0xA03, Rock_Poulon},
+{ 0xA04, Beau_Hammock},
+{ 0xA05, Clef_Bassett},
+{ 0xA06, Ovie_Whisker},
+{ 0xA07, Bill_Clanger},
+{ 0xA08, Mary_Cramer},
+{ 0xA09, Ralph_Vance},
+{ 0xA0A, Ray_Bowing},
+{ 0xA0B, Vick_Pointer},
+{ 0xA0C, Skip_Docker},
+{ 0xA0D, Becky_Shuffle},
+{ 0xA0E, Esther_Egerer},
+{ 0xA0F, Mia_Pitchford},
+{ 0xA10, Philippa_Konik},
+{ 0xA11, Amy_Stinger},
+{ 0xA12, Nancy_Polearm},
+{ 0xA13, Sally_Tare},
+{ 0xA14, Anna_Bugeisha},
+{ 0xA15, Stu_Hoofer},
+{ 0xA16, Coe_Dachy},
+{ 0xA17, Flip_Sliden},
+{ 0xA18, Jesse_Spiller},
+{ 0xA19, Kate_Later},
+{ 0xA1A, Clara_Tompkins},
+{ 0xA1B, Betty_Backer},
+{ 0xA1C, Thomas_Worth},
+{ 0xA1D, Brenda_Brandish},
+{ 0xA1E, Isla_Pullens},
+{ 0xA1F, Bob_Jammen},
+{ 0xA20, Hank_Cranker},
+{ 0xA21, Prunella_Keep},
+{ 0xA22, Jimmy_Brim},
+{ 0xA23, Verity_Soliz},
+{ 0xA24, Yve_Dunbar},
+{ 0xA25, Cat_Selima},
+{ 0xA26, Aurie_Garmer},
+{ 0xA27, Lana_Service},
+{ 0xA28, Claire_Voyant},
+{ 0xA29, Algy_Kelp},
+{ 0xA2A, Ann_Taisie},
+{ 0xA2B, Kelly_Scrivens},
+{ 0xA2C, Fern_Mycota},
+{ 0xA2D, Lara_Creamer},
+{ 0xA2E, Kim_Knotted},
+{ 0xA2F, Nina_Trowel},
+{ 0xA30, Harriet_Reaching},
+{ 0xA31, Sadey_Stewer},
+{ 0xA32, June_Stagner},
+{ 0xA33, Lacey_Threader},
+{ 0xA34, Marcy_Laise},
+{ 0xA35, Bella_Shaded},
+{ 0xA36, Walter_Trope},
+{ 0xA37, Flora_Summars},
+{ 0xA38, Lucia_Ander},
+{ 0xA39, Rosy_Roker},
+{ 0xA3A, Pam_Vision},
+{ 0xA3B, Ruth_Karnes},
+{ 0xA3C, Eden_Growing},
+{ 0xA3D, Bailey_Sitter},
+{ 0xA3E, Adel_Tactor},
+{ 0xA3F, Emma_Barres},
+{ 0xA40, Orpah_Talkington},
+{ 0xA41, Sable_Tatter},
+{ 0xA42, Shu_Maimai},
+{ 0xA43, Sym_Copate},
+{ 0xA44, Jerry_Bateman},
+{ 0xA45, Charity_Foder_},
+{ 0xA46, Beck_Hand},
+{ 0xA47, Sandra_Mudd},
+{ 0xA48, Alexis_Watchorn},
+{ 0xA49, Pete_Manter},
+{ 0xA4A, Chris_Country},
+{ 0xA4B, Paul_Steed},
+{ 0xA4C, Ben_Whistler},
+{ 0xA4D, Roman_Blac},
+{ 0xA4E, Lewis_Brownie},
+{ 0xA4F, Connor_Seuer},
+{ 0xA50, Kaya_Haskell},
+{ 0xA51, Minnie_Stratio},
+{ 0xA52, Elegance_Stuckon},
+{ 0xA53, Odette_Musetta},
+{ 0xA54, Gertrude_Choker},
+{ 0xA55, Polly_Targest},
+{ 0xA56, Odessa_Ryder},
+{ 0xA57, Robyn_Weaver},
+{ 0xA58, Tess_Masters},
+{ 0xA59, Cale_Sticklin},
+{ 0xA5A, Farris_Stickman},
+{ 0xA5B, Tim_Personator},
+{ 0xA5C, Sherlock_Sagers},
+{ 0xA5D, Ryan_Haywood},
+{ 0xA5E, Osier_Twining},
+{ 0xA5F, Rock_Scowlon},
+{ 0xA60, Al_Stringer},
+{ 0xA61, Bill_Fierce},
+{ 0xA62, Rob_Otts},
+{ 0xA63, Chad_Jowell},
+{ 0xA64, Egon_Omercer},
+{ 0xA65, Luis_Springs},
+{ 0xA66, Bruce_Barkley},
+{ 0xA67, Chip_Spacek},
+{ 0xA68, Mason_Tirell},
+{ 0xA69, Dale_Riverhead},
+{ 0xA6A, Adelpha_Lovelace},
+{ 0xA6B, Egon_Timing},
+{ 0xA6C, Tony_Frogge},
+{ 0xA6D, Fred_Punch},
+{ 0xA6E, Hannibal_Whipp},
+{ 0xA6F, Luke_Severin},
+{ 0xA70, Harry_Keenan},
+{ 0xA71, Nick_Uman},
+{ 0xA72, Mac_Robat},
+{ 0xA73, Ace_Slider},
+{ 0xA74, Olivia_Twist},
+{ 0xA75, Wiley_Blinks},
+{ 0xA76, Shona_Shopbell},
+{ 0xA77, Crystal_Clears},
+{ 0xA78, Beata_Pummel},
+{ 0xA79, Aya_Strand},
+{ 0xA7A, Tara_Gaudier},
+{ 0xA7B, James_Hearson},
+{ 0xA7C, Anne_Somnia},
+{ 0xA7D, Pearl_Wann},
+{ 0xA7E, Dec_Tective},
+{ 0xA7F, Steve_Squander},
+{ 0xA80, Lehman_Rind},
+{ 0xA81, Leigh_Childs},
+{ 0xA82, Zach_Putter},
+{ 0xA83, Juan_Word},
+{ 0xA84, Alex_Copple},
+{ 0xA85, Jan_Jared},
+{ 0xA86, Bigsby_Pigford},
+{ 0xA87, Erica_Hogland},
+{ 0xA88, Ramona_Wriston},
+{ 0xA89, Mark_Izushy},
+{ 0xA8A, Vince_Tinct},
+{ 0xA8B, Daryl_Floor},
+{ 0xA8C, Becca_Pilgreen},
+{ 0xA8D, Langley_Span},
+{ 0xA8E, Swithin_Sainte},
+{ 0xA8F, Dan_Cawarry},
+{ 0xA90, Hans_Freesing},
+{ 0xA91, Peter_Fakhoury},
+{ 0xA92, Steve_Sancey},
+{ 0xA93, Michael_Gibe},
+{ 0xA94, Skeet_Blaston},
+{ 0xA95, Achilles_Chinner},
+{ 0xA96, Scott_Tickle},
+{ 0xA97, Junior_Cage},
+{ 0xA98, Terry_Namby},
+{ 0xA99, Joe_Chugger},
+{ 0xA9A, Sonny_Cinders},
+{ 0xA9B, Cash_Winfall},
+{ 0xA9C, Lou_Fauntleroy},
+{ 0xA9D, Carol_Chanter},
+{ 0xA9E, Guy_Kogan},
+{ 0xA9F, Max_Motto},
+{ 0xAA0, Perry_Postiche},
+{ 0xAA1, Nelson_Levene},
+{ 0xAA2, Kurt_Sermons},
+{ 0xAA3, Ed_Hartsell},
+{ 0xAA4, Chester_Takes},
+{ 0xAA5, Curtis_Rebell},
+{ 0xAA6, Cody_Fink},
+{ 0xAA7, Siria_Chattsley},
+{ 0xAA8, Darren_Catt},
+{ 0xAA9, Garry_Planer},
+{ 0xAAA, Glenn_Broth},
+{ 0xAAB, Harry_Angue},
+{ 0xAAC, Benny_Terra},
+{ 0xAAD, Jasmine_Veile},
+{ 0xAAE, Belle_Allure},
+{ 0xAAF, Doug_Lapp},
+{ 0xAB0, Eric_Motter},
+{ 0xAB1, Gyll_Netters},
+{ 0xAB2, Farrah_Fairway},
+{ 0xAB3, Jess_Winkles},
+{ 0xAB4, Barbara_Clector},
+{ 0xAB5, Marilyn_Henshaw},
+{ 0xAB6, Nancy_Pickney},
+{ 0xAB7, Clay_Turnor},
+{ 0xAB8, Horace_Shlock},
+{ 0xAB9, Sabrina_Passman},
+{ 0xABA, Harpo_Thermier},
+{ 0xABB, August_Dyers},
+{ 0xABC, Nev_Puffer},
+{ 0xABD, Elata_Mighty},
+{ 0xABE, Ben_Danna},
+{ 0xABF, Elsa_Roamer},
+{ 0xAC0, Archy_Seago},
+{ 0xAC1, Erhardt_Knead},
+{ 0xAC2, Lynne_Mandel},
+{ 0xAC3, Craig_Placid},
+{ 0xAC4, Leon_Morcey},
+{ 0xAC5, Dom_Edarry},
+{ 0xAC6, Jay_Asher},
+{ 0xAC7, Toby_Cohill},
+{ 0xAC8, Nolene_Ider},
+{ 0xAC9, Hoots_Knightly},
+{ 0xACA, Bash_Beaton},
+{ 0xACB, Terry_Toolan},
+{ 0xACC, Callum_Biddy},
+{ 0xACD, Alan_Sumner},
+{ 0xACE, Trixy_Wonder},
+{ 0xACF, Colet_First},
+{ 0xAD0, Mac_Gabbon},
+{ 0xAD1, Tip_Bolster},
+{ 0xAD2, Draco_Scallon},
+{ 0xAD3, Sofia_Brashier},
+{ 0xAD4, Oleta_Isaman},
+{ 0xAD5, Mat_Halled},
+{ 0xAD6, James_Strang},
+{ 0xAD7, Ian_Watchen},
+{ 0xAD8, Rose_Snelgrove},
+{ 0xAD9, Bert_Emmerson},
+{ 0xADA, Irving_Gusher},
+{ 0xADB, Lionel_Silent},
+{ 0xADC, Owen_Rage},
+{ 0xADD, Alice_Nutty},
+{ 0xADE, Conrad_Jacket},
+{ 0xADF, Hilda_Bronski},
+{ 0xAE0, Clint_Peacock},
+{ 0xAE1, Pace_Maker},
+{ 0xAE2, Vanity_Percy},
+{ 0xAE3, Phil_Pagoda},
+{ 0xAE4, Niki_Colbeck},
+{ 0xAE5, Guy_Pinnay},
+{ 0xAE6, Wayne_Fluke},
+{ 0xAE7, Red_Dayers},
+{ 0xAE8, Shay_Diebold},
+{ 0xAE9, Tigh_Gerwhite},
+{ 0xAEA, Cerise_Crane},
+{ 0xAEB, Drack_Gorn},
+{ 0xAEC, Terry_Pinn},
+{ 0xAED, Justin_Cush},
+{ 0xAEE, Bert_McClure},
+{ 0xAEF, Richard_Trogg},
+{ 0xAF0, Shirly_Quirk},
+{ 0xAF1, Elias_Lens},
+{ 0xAF2, Terry_Dryden},
+{ 0xAF3, Ardel_Kernel},
+{ 0xAF4, Carl_Belcher},
+{ 0xAF5, Mal_Maroon},
+{ 0xAF6, Ralph_Fary},
+{ 0xAF7, Floyd_Spades},
+{ 0xAF8, Remy_Diggun},
+{ 0xAF9, Bern_Macmahon},
+{ 0xAFA, Wally_Cooper},
+{ 0xAFB, Griff_Hardcasel},
+{ 0xAFC, Pat_Lubow},
+{ 0xAFD, Wilma_Morgan},
+{ 0xAFE, Carys_Chaparon},
+{ 0xAFF, Ann_Tendant},
+{ 0xB00, Katy_Punter},
+{ 0xB01, Pete_Pimento},
+{ 0xB02, Mary_Hugland},
+{ 0xB03, Lee_Screener},
+{ 0xB04, Camilla_Textor},
+{ 0xB05, Bish_Beaton},
+{ 0xB06, Sully_Crossied},
+{ 0xB07, Stu_Borneman},
+{ 0xB08, Herb_Growan},
+{ 0xB09, Arvin_Inkwell},
+{ 0xB0A, Rayce_Sprinton},
+{ 0xB0B, Dreama_Bartle},
+{ 0xB0C, Jane_Ledbelly},
+{ 0xB0D, Dory_O_Bonn},
+{ 0xB0E, Selma_Heaver},
+{ 0xB0F, Kath_Leaflin},
+{ 0xB10, Marg_Shuttle},
+{ 0xB11, Duke_Scrubine},
+{ 0xB12, Waylon_Tripp},
+{ 0xB13, Jim_Bunner},
+{ 0xB14, Jon_Izumo},
+{ 0xB15, Del_Brighton},
+{ 0xB16, Haden_Safe},
+{ 0xB17, Lisle_Plotter},
+{ 0xB18, Fen_Skates},
+{ 0xB19, Rhoda_Dough},
+{ 0xB1A, Neil_Seating},
+{ 0xB1B, Flo_Nighting},
+{ 0xB1C, Elinor_Maven},
+{ 0xB1D, Kay_Gateley},
+{ 0xB1E, Dexter_Caise},
+{ 0xB1F, Serena_Besse},
+{ 0xB20, Adrian_Heartly},
+{ 0xB21, Cary_Fearless},
+{ 0xB22, Wally_Waymire},
+{ 0xB23, Ted_Autumn},
+{ 0xB24, Boomer_Smolen},
+{ 0xB25, Hank_Ershef},
+{ 0xB26, Tim_Opener},
+{ 0xB27, Hide_King},
+{ 0xB28, Beth_Doodle},
+{ 0xB29, Lamar_Bonesteel},
+{ 0xB2A, Dom_Round},
+{ 0xB2B, Chip_Stocks},
+{ 0xB2C, Blake_Nailor},
+{ 0xB2D, Dotty_Hickman},
+{ 0xB2E, Wright_Tandem},
+{ 0xB2F, Shaun_Bonnie},
+{ 0xB30, Andrew_Hooper},
+{ 0xB31, Toya_Boyde},
+{ 0xB32, Taryn_Shyder},
+{ 0xB33, Jasmin_Trier},
+{ 0xB34, Dave_Lung},
+{ 0xB35, Teal_Redsky},
+{ 0xB36, Truman_Verdy},
+{ 0xB37, Chance_Cerulean},
+{ 0xB38, Amy_Peach},
+{ 0xB39, Virgil_Amber},
+{ 0xB3A, Grant_Stodgell},
+{ 0xB3B, Payne_Outler},
+{ 0xB3C, Malcolm_Shirker},
+{ 0xB3D, Hanna_Slack},
+{ 0xB3E, Dom_Poppy},
+{ 0xB3F, Portia_Maricle},
+{ 0xB40, Susan_Doiley},
+{ 0xB41, Hannah_Breer},
+{ 0xB42, Phil_Seebold},
+{ 0xB43, Bobbie_Tomey},
+{ 0xB44, Randolph_Lords},
+{ 0xB45, Robin_Traylor},
+{ 0xB46, Fawn_Blossom},
+{ 0xB47, Isabell_Mish},
+{ 0xB48, Rudy_Stemper},
+{ 0xB49, Betty_Evenson},
+{ 0xB4A, Harpo_Kendrick},
+{ 0xB4B, Colin_Glower},
+{ 0xB4C, Tailor_Wilden},
+{ 0xB4D, Sim_Cebus},
+{ 0xB4E, Sam_Banks},
+{ 0xB4F, Frank_Homey},
+{ 0xB50, Gregg_Deremer},
+{ 0xB51, Verne_Spring},
+{ 0xB52, Bryan_Klamm},
+{ 0xB53, Colt_Youngstein},
+{ 0xB54, Will_Kilmon},
+{ 0xB55, Milly_Vacey},
+{ 0xB56, Dany_Destiny},
+{ 0xB57, Gary_Primo},
+{ 0xB58, Bobby_Duo},
+{ 0xB59, Stan_Treece},
+{ 0xB5A, Lillie_Quattro},
+{ 0xB5B, Eddy_Pentaris},
+{ 0xB5C, Candice_Mell},
+{ 0xB5D, Alex_Dauger},
+{ 0xB5E, Joe_Divide},
+{ 0xB5F, Sam_Willing},
+{ 0xB60, Mary_Antoine},
+{ 0xB61, Edward_Baron},
+{ 0xB62, Tim_Platton},
+{ 0xB63, Argento_Salvage},
+{ 0xB64, Finn_Geld},
+{ 0xB65, Ian_Moray},
+{ 0xB66, Gil_Holden},
+{ 0xB67, Doyle_Palmer},
+{ 0xB68, Audry_Orange},
+{ 0xB69, May_Apple},
+{ 0xB6A, Ginny_White},
+{ 0xB6B, Angus_Hogg},
+{ 0xB6C, In_Chikita},
+{ 0xB6D, Sabrina_Carow},
+{ 0xB6E, Bob_Beelzy},
+{ 0xB6F, Patt_Howell},
+{ 0xB70, Hugo_Sniffin},
+{ 0xB71, Tom_Skipper},
+{ 0xB72, Axel_Blaze_IE1},
+            };
+
         }
 
         public static class IE2
@@ -8241,9 +12376,9 @@ namespace Inazuma_Eleven_Toolbox.Logic
 { 0xBFA, Paekyeong_Park },
 { 0xBFB, Byron_Love },
 { 0xBFC, Eunyeong_Kim },
-{ 0xBFD, Claude_Beacons },
+{ 0xBFD, Claude_Beacons_FD },
 { 0xBFE, Changsu_Choi },
-{ 0xBFF, Bryce_Whitingale },
+{ 0xBFF, Bryce_Whitingale_FD },
 { 0xC00, Chi_Won_Ho },
 { 0xC01, Dong_Hyun_Seul },
 { 0xC02, Jung_Hoon_Yi },

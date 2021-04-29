@@ -88,7 +88,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 PlayerStartOffset = 0x13F8;
                 Checksum2BlockLength = 0x7E8C;
             }
-            else if ((GameVersion == "INAZUMA_ELEVEN3") && (SavedataFull[0x38] != 0)) // make sure we know it's not the japanese version of the 123 release 
+            else if ((GameVersion == "INAZUMA_ELEVEN3") && (SavedataFull[0x28] == 0xFF)) // make sure we know it's not the japanese version of the 123 release 
             {
                 isIE3 = true;
                 max_Training = 20;
@@ -178,7 +178,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 }
                 ItemClass.getItemSaveFilePos(isIE3);
                 Moves.getMoveGrowth(isIE3);
-                PlayerClass.getPlayerClass(isIE3);
+                PlayerClass.getPlayerClass(isIE3, isIE2);
                 label4.Text = Game;
                 dataGridView1.Rows.Clear();
                 dataGridView2.Rows.Clear();
@@ -498,24 +498,22 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         public string SetReadOnly(NumericUpDown MoveLevel, ComboBox MoveName)
         {
-            MoveLevel.ReadOnly = false;
-
-            if (!Moves.MoveGrowth.ContainsKey(MoveName.Text))
-            {
-                MoveLevel.ReadOnly = true;
-            }
-            else return Moves.MoveGrowth[MoveName.Text];
-
             // there are no movelevels in IE1 so don't edit them
             if (isIE1)
             {
                 MoveLevel.ReadOnly = true;
                 return "";
             }
-            else
+
+            if (!Moves.MoveGrowth.ContainsKey(MoveName.Text))
             {
                 MoveLevel.ReadOnly = true;
                 return "";
+            }
+            else
+            {
+                MoveLevel.ReadOnly = false;
+                return Moves.MoveGrowth[MoveName.Text];
             }
 
         }
@@ -928,6 +926,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
             {
                 e.Handled = true;
             }
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

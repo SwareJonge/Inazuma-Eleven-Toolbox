@@ -69,7 +69,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 PlayerIndex = 0x66;
             }
 
-            //StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
             byte[] NameBlock = new byte[UnitBaseBlockLength];
             byte[] StatsBlock = new byte[UnitStatBlockLength];
@@ -178,8 +178,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 ushort StatsTotal = (ushort)(MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina);
                 short Freedom = (short)(Maxtotal - StatsTotal); // has to be signed since in IE3 it can be negative
-                
-                /*string consoleOutput = String.Concat("private static Player ", FullPlayerName.Replace(" ", "_").Replace("\'", "_").Replace(".", "_").Replace("-", "_").Replace("’", "_").Replace("?", "_"), " = new Player(" +
+#if DEBUG
+                string consoleOutput = String.Concat("private static Player ", FullPlayerName.Replace(" ", "_").Replace("\'", "_").Replace(".", "_").Replace("-", "_").Replace("’", "_").Replace("?", "_"), " = new Player(" +
                 MaxFP, ", ", MaxTP, ", ", (byte)MaxKick, ", ", (byte)MaxBody, ", ", (byte)MaxControl, ", ", (byte)MaxGuard, ", ", (byte)MaxSpeed, ", ", (byte)MaxStamina, ", ", (byte)MaxGuts, ", ", StatsTotal, ", "
                 , MinFP, ", ", MinTP, ", ", (byte)MinKick, ", ", (byte)MinBody, ", ", (byte)MinControl, ", ", (byte)MinGuard, ", ", (byte)MinSpeed, ", ", (byte)MinStamina, ", ", (byte)MinGuts, ", "
                 , FPgrowthRate, ", ", TPgrowthRate, ", ", growthRate[0], ", ", growthRate[1], ", ", growthRate[3], ", ", growthRate[2], ", ", growthRate[4], ", ", growthRate[6], ", ", growthRate[5], ", "
@@ -187,9 +187,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 , "0x", Move1ObtainLevel.ToString("X2"), ", 0x", Move2ObtainLevel.ToString("X2"), ", 0x", Move3ObtainLevel.ToString("X2"), ", 0x", Move4ObtainLevel.ToString("X2"), ", "
                  , EXPType, "); // 0x", ScoutHexID.ToString("X2")); // Code for dumping structs
                 sb.AppendLine(consoleOutput);
-                Console.WriteLine((i / UnitBaseBlockLength).ToString("X2"));*/                          
-
-                 dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
+                Console.WriteLine((i / UnitBaseBlockLength).ToString("X2"));
+#else
+                dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
                     D.PosByteToString(Position), D.GenderToString[Gender], D.SizeToString(PlayerSize), D.ElementToStr[Element], 
                     MaxFP, MaxTP, MaxKick, MaxBody, MaxControl, MaxGuard, MaxSpeed, MaxStamina, MaxGuts, Freedom, StatsTotal, Maxtotal,
                     D.MoveToStr[Move1], D.MoveObtainLevel(Move1ObtainLevel),
@@ -200,8 +200,12 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     ScoutHexID.ToString("X2")
                     );
 
+#endif
+
+
+
             }
-            //Console.WriteLine(sb.ToString());
+            Console.WriteLine(sb.ToString());
 
         }
 
