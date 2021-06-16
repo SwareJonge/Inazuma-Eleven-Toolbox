@@ -52,7 +52,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte ScoutIDOffset = 0x42;
             byte ElementOffset = 0x5A;
             byte GenderOffset = 0x52;
-            byte PlayerIndex = 0x5E;
 
             byte[] NameFile = FileIO.ReadFile(PlayerNamesFileName);
             byte[] StatsFile = FileIO.ReadFile(StatsFileName);
@@ -66,7 +65,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 NickNameLength = 0x10;
                 GenderOffset = 0x5A;
                 NicknameStartPosJAP = 0x1C;
-                PlayerIndex = 0x66;
             }
 
             StringBuilder sb = new StringBuilder();
@@ -77,8 +75,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
             for (int i = UnitBaseBlockLength; i <= UnitBaseEndOffset; i += UnitBaseBlockLength)
             {
                 NameBlock = NameFile.Skip(i).Take(UnitBaseBlockLength).ToArray();
-                ushort index = BitConverter.ToUInt16(NameBlock.Skip(PlayerIndex).Take(2).ToArray(), 0);
-                StatsBlock = StatsFile.Skip(index * UnitStatBlockLength).Take(UnitStatBlockLength).ToArray();
+                ushort scoutID = BitConverter.ToUInt16(NameBlock.Skip(0x4E).Take(2).ToArray(), 0);
+                StatsBlock = StatsFile.Skip((i / UnitBaseBlockLength) * UnitStatBlockLength).Take(UnitStatBlockLength).ToArray();
 
                 if (Game == "IE3")
                 {
@@ -91,22 +89,17 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 {
                     case "EUR":
                         {
-                            // Currently using SJIS as text encoding
-                            // Still need a better text encoding for IE3, German, Spanish and some French names are incorrect
-                            FullPlayerName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(0).Take(0x1C).ToArray());
-                            PlayerNickName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(StringLength).Take(NickNameLength).ToArray());
+                            FullPlayerName = TextDecoder.Decode(NameBlock.Skip(0).Take(0x1C).ToArray(), false);
+                            PlayerNickName = TextDecoder.Decode(NameBlock.Skip(StringLength).Take(NickNameLength).ToArray(), false);
                             break;
                         }
                     case "JAP":
                         {
-                            FullPlayerName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(0).Take(0x10).ToArray());
-                            PlayerNickName = Encoding.GetEncoding(932).GetString(NameBlock.Skip(NicknameStartPosJAP).Take(0x10).ToArray());
+                            FullPlayerName = TextDecoder.Decode(NameBlock.Skip(0).Take(0x10).ToArray(), true);
+                            PlayerNickName = TextDecoder.Decode(NameBlock.Skip(NicknameStartPosJAP).Take(0x10).ToArray(), true);
                             break;
                         }
-
                 }
-                FullPlayerName = FullPlayerName.Replace("\0", "");
-                PlayerNickName = PlayerNickName.Replace("\0", "");
 
                 ushort ScoutHexID = BitConverter.ToUInt16(NameBlock.Skip(ScoutIDOffset).Take(2).ToArray(), 0);
                 byte EXPType = NameBlock[EXPOffset];
@@ -185,10 +178,10 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 , FPgrowthRate, ", ", TPgrowthRate, ", ", growthRate[0], ", ", growthRate[1], ", ", growthRate[3], ", ", growthRate[2], ", ", growthRate[4], ", ", growthRate[6], ", ", growthRate[5], ", "
                 , "0x", Move1.ToString("X2"), ", 0x", Move2.ToString("X2"), ", 0x", Move3.ToString("X2"), ", 0x", Move4.ToString("X2"), ", "
                 , "0x", Move1ObtainLevel.ToString("X2"), ", 0x", Move2ObtainLevel.ToString("X2"), ", 0x", Move3ObtainLevel.ToString("X2"), ", 0x", Move4ObtainLevel.ToString("X2"), ", "
-                 , EXPType, "); // 0x", ScoutHexID.ToString("X2")); // Code for dumping structs
+                , EXPType, "); // 0x", ScoutHexID.ToString("X2")); // Code for dumping structs
                 sb.AppendLine(consoleOutput);
-                Console.WriteLine((i / UnitBaseBlockLength).ToString("X2"));
 #else
+                //Console.WriteLine("0x" + index.ToString("X2") + " 0x" + scoutID.ToString("X2") + " 0x" + (i / UnitBaseBlockLength).ToString("X2"));
                 dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
                     D.PosByteToString(Position), D.GenderToString[Gender], D.SizeToString(PlayerSize), D.ElementToStr[Element], 
                     MaxFP, MaxTP, MaxKick, MaxBody, MaxControl, MaxGuard, MaxSpeed, MaxStamina, MaxGuts, Freedom, StatsTotal, Maxtotal,
@@ -199,14 +192,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     "0x" +
                     ScoutHexID.ToString("X2")
                     );
-
 #endif
-
-
-
             }
+#if DEBUG
             Console.WriteLine(sb.ToString());
-
+#endif
         }
 
 

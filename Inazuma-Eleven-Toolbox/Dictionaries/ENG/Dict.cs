@@ -8,21 +8,10 @@ namespace Inazuma_Eleven_Toolbox.Dictionaries.ENG
 {
     public class IECommonDictionary
     {
-        public IDictionary<int, string> ElementToStr = new Dictionary<int, string>()
-                {
-                {0,"NPC"},
-                     {1,"Wind"},
-                     {2,"Wood"},
-                     {3,"Fire"},
-                     {4,"Earth"}
-                };
+        public string[] ElementToStr = { "None", "Air", "Wood", "Fire", "Earth" };
 
-        public IDictionary<int, string> GenderToString = new Dictionary<int, string>()
-                {
-                {0,"NPC"},
-                     {1,"Male"},
-                     {2,"Female"}
-                };
+        public string[] GenderToString = { "NPC", "Male", "Female" };
+
         public string SizeToString(byte size)
         {
             switch (size)

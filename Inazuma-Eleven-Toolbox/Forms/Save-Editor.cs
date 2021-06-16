@@ -30,6 +30,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
         public bool isIE3 = false;
         public bool isIE2 = false;
         public bool isIE1 = false;
+        public bool JapaneseSave = false;
 
         int Checksum1Offset = 0x40;
         int Checksum1BlockStart = 0x44;
@@ -75,21 +76,29 @@ namespace Inazuma_Eleven_Toolbox.Forms
             if (GameVersion == "INAZUMA_11_EU" || JAPIE2) // The European version of IE1 is based of the Japanese version of IE2.
             {
                 if (JAPIE2)
+                {
+                    JapaneseSave = true;
                     isIE2 = true;
+                }                    
                 else
+                {
+                    JapaneseSave = false;
                     isIE1 = true;
+                }                    
 
                 PlayerStartOffset = 0x124C;
                 Checksum2BlockLength = 0x7D44;
             }
             else if (GameVersion == "INAZUMA2_12_EU")
             {
+                JapaneseSave = false;
                 isIE2 = true;
                 PlayerStartOffset = 0x13F8;
                 Checksum2BlockLength = 0x7E8C;
             }
             else if ((GameVersion == "INAZUMA_ELEVEN3") && (SavedataFull[0x28] == 0xFF)) // make sure we know it's not the japanese version of the 123 release 
             {
+                JapaneseSave = false;
                 isIE3 = true;
                 max_Training = 20;
                 PrestigePointsOffset = 0x4E8;
@@ -104,6 +113,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             }
             else if (GameVersion.Contains("INAZUMA_ELEVEN")) // Inazuma eleven 1-2-3, Japanese Inazuma Eleven, USA Release of Inazuma Eleven 1
             {
+                JapaneseSave = true;
                 if (GameVersion.Contains("2"))
                 {
                     isIE2 = true;
@@ -160,10 +170,18 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 string Game = Encoding.ASCII.GetString(SavedataFull.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
                 string ndsTitleID = Encoding.ASCII.GetString(SavedataFull.Skip(0x14).Take(0x4).ToArray()).Replace("\0", "");
-                bool isNDSSave = Filename.EndsWith(".sav");
+                bool isNDSSave = Filename.ToLower().EndsWith(".sav");
 
                 if (Game == "INAZUMA_ELEVEN3" && isNDSSave)
                 {
+#if DEBUG
+                    Cryptography.EncodeDecodeSave(true, SavedataFull, 0x7F80);
+                    //Cryptography.EncodeDecodeSave(false, SavedataFull.Skip(0x40).ToArray(), 0x7F80);
+                    using (BinaryWriter binWriter = new BinaryWriter(File.Open(Filename + ".DEC", FileMode.Create)))
+                    {
+                        binWriter.Write(SavedataFull);
+                    }
+#endif
                     MessageBox.Show("The Japanese Version of IE3 is encrypted, the method to decrypt and encrypt has not been found yet.");
                     return;
                 }
@@ -185,7 +203,10 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericPrestige.Enabled = true;
                 numericFriendship.Enabled = true;
                 textBox22.Enabled = true;
-                txtBoxName.Enabled = true;
+
+                txtBoxName.Enabled = false; // currently disabled as i've not added the code to decode the text yet
+                button7.Enabled = false;
+
                 dataGridView1.Enabled = true;
                 dataGridView2.Enabled = true;
                 numericUpDown1.Enabled = true;
@@ -201,8 +222,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 button3.Enabled = true;
                 button4.Enabled = true;
                 button5.Enabled = true;
-                button6.Enabled = true;
-                button7.Enabled = true;
+                button6.Enabled = true;                
 
                 numericUpDown1.ReadOnly = false;
                 numericUpDown2.ReadOnly = false;
@@ -254,8 +274,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 numericPrestige.Value = BitConverter.ToInt32(SavedataFull.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
                 numericFriendship.Value = BitConverter.ToInt32(SavedataFull.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);
-                // Need to figure out what encoding this game uses
-                txtBoxName.Text = Encoding.UTF8.GetString(SavedataFull.Skip(NameOffset).Take(10).ToArray()).Replace("\0", "");
+
+                txtBoxName.Text = TextDecoder.Decode(SavedataFull.Skip(NameOffset).Take(0x16).ToArray(), false);
 
                 LoadItems();
 

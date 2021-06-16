@@ -38,5 +38,11 @@ namespace Inazuma_Eleven_Toolbox
         {
 
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Forms.MoveForm Movfrm = new Forms.MoveForm();
+            Movfrm.Show();
+        }
     }
 }

@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\MoveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MoveForm.Designer.cs">
+      <DependentUpon>MoveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Save-Editor\Config\Config.cs" />
     <Compile Include="Dictionaries\ENG\Dict.cs" />
     <Compile Include="Dictionaries\ENG\Items.cs" />
@@ -66,6 +72,7 @@
     </Compile>
     <Compile Include="Logic\EXP.cs" />
     <Compile Include="Logic\Player.cs" />
+    <Compile Include="Logic\TextDecoder.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +85,9 @@
     <Compile Include="Logic\Cryptography.cs" />
     <Compile Include="Utils\FileIO.cs" />
     <Compile Include="Utils\NFFM3_Plugin.cs" />
+    <EmbeddedResource Include="Forms\MoveForm.resx">
+      <DependentUpon>MoveForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Save-Editor.resx">
       <DependentUpon>Save-Editor.cs</DependentUpon>
     </EmbeddedResource>
