@@ -8,7 +8,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
 {
     public static class Cryptography
     {
-        // CRC Algorithm used by IE3?
+        // CRC Algorithm used by IE3 NDS?
         public static UInt32 CRC32ACompute(byte[] buf, UInt32 len)
         {
             UInt32 crc = 0xffffffff;
@@ -20,12 +20,12 @@ namespace Inazuma_Eleven_Toolbox.Logic
                 for (int bit = 0; bit < 8; bit++)
                 {
                     if ((crc & 0x80000000) != 0)
-                        crc = POLY ^ (crc << 1);
+                        crc = (crc << 1) ^ POLY;
                     else
                         crc = crc << 1;
                 }
             }
-            return ~crc;
+            return crc ^0xffffffff;
         }
 
         static void shiftBytes(byte[] buff, byte Byte1, byte Byte2)
@@ -226,43 +226,40 @@ namespace Inazuma_Eleven_Toolbox.Logic
             uint idk = (len - 0xc);
             if (flag)
             {
-                idk2 = 0x344A; // This seems to be random
+                idk2 = 0xC74E; // This seems to be random
 
                 for (int i = 0; i < 3; i++)
                 {
                     uVar13 = idk2 * Mask3 + Mask1;
                     idk2 = uVar13 * Mask3 + Mask1;
-                    local[i] = (idk2 >> 0x10) | (uVar13 & 0xfff0000);
+                    local[i] = idk2 >> 0x10 | uVar13 & 0xffff0000;
                 }
 
                 if (idk != 0)
                 {
-                    for (int i = 0; i < len; i++)
+                    for (int i = 0; i < idk; i++)
                     {
                         local[1] = Mask3 * local[1] + Mask1;
                         local[2] = Mask3 * local[2] + Mask1;
                         if (i < 4 || 0x13 < i)
                         {
-                            int b = buf[i];
-                            buf[i] = (byte)((b >> (int)(8 - (((local[2] >> 0x10) << 3) >> 0x10) & 0xff)));
-                            buf[i] = (byte)(b ^ (((local[1] >> 0x10) << 8) >> 0x10));
+                            buf[i] = (byte)((buf[i] >> (int)(8 - (((local[2] >> 0x10) << 3) >> 0x10) & 0xff)));
+                            buf[i] = (byte)(buf[i] ^ (((local[1] >> 0x10) << 8) >> 0x10));
                         }
                     }
 
-                    int iVar9;
-                    int j = 0;
-                    do
+
+                    for(int i = 0; i < 0x100; i++)
                     {
                         local[0] = Mask3 * local[0] + Mask1;
-                        iVar9 = j + 1;
-                        local_21c[j] = (ushort)(local[0] >> 0x10);
-                        j = iVar9;
-                    } while (iVar9 < 0x100);
+                        local_21c[i] = (ushort)(local[0] >> 0x10);
+                    }
 
-                    //uint r9 = len - 0xd;
-                    for (int r9 = (int)len - 0xd; len > 0xffffffff; len--)
+                    //int r9 = (int)idk - 1;
+                    for (int r9 = (int)idk - 1; (uint)r9 > 0xffffffff; r9--)
                     {
                         int iVar7 = r9 >> 0x1f;
+                        // Same applies here, this screws up the encryption
                         uint r0 = EncodeHelperFunc((uint)(r9 + (idk * local_21c[((r9 * 0x1000000 + iVar7) >> 0x18 | iVar7 << 8) - iVar7] >> 0x10)), idk);
                         if (((r9 < 4) || (r9 > 0x13)) && ((r0 < 4) || (r0 > 0x13)))
                         {
@@ -280,88 +277,83 @@ namespace Inazuma_Eleven_Toolbox.Logic
                     else
                         uVar4 = uVar8 * (Mask2 >> 0x10) >> 0x10;
 
-                    //byte idk3 = buf[uVar4 + 0x20];
+                    byte[] unk5 = new byte[0xc];
+                    Buffer.BlockCopy(local, 0, unk5, 0, 0);
 
-                    byte[] part1 = BitConverter.GetBytes(local[0]);
-                    byte[] part2 = BitConverter.GetBytes(local[1]);
-                    byte[] part3 = BitConverter.GetBytes(local[2]);
-                    byte[] unk5 = { part1[0], part1[1], part1[2], part1[3], part2[0], part2[1], part2[2], part2[3], part3[0], part3[1], part3[2], part3[3] };
+                    uint uVar3 = Mask2;
+                    uint _uVar5 = uVar4 + 0x20;
 
-                    uint k = 0;
-                    do
+                    for(int i = 0; i < 0xc; i++)
                     {
-                        uint uVar3 = Mask3 * Mask2 + Mask1;
+                        uVar3 = Mask3 * uVar3 + Mask1;
                         uVar6 = uVar3 >> 0x10;
                         if (uVar8 != 0)
                         {
                             uVar6 = uVar6 * uVar8 >> 0x10;
                         }
+                        _uVar5 = _uVar5 + uVar6 + 0x2;
 
-                        buf[uVar4 + 0x20 + k] = buf[uVar4 + 0x20 + k + uVar6 + 0x2];
-                        buf[uVar4 + k] = unk5[k];
-
-                        //byte uVar1 = unk5[k];
-
-                        k++;
-
-                    } while (k < 0xC);
+                        byte bVar1 = unk5[i];
+                        buf[idk + i] = buf[_uVar5];
+                        buf[_uVar5] = bVar1;
+                    }
 
                     return;
                 }
             }
             else // Reverse Encrypt basically
             {
-                local[0] = 0x1E0C2E5; // NOTE These values come from the stack: Todo: find out what writes it to the stack
-                local[1] = 0xF0FFFF3A;
-                local[2] = 0x809DE5;
+                byte[] unk5 = new byte[0xc];
 
-                byte[] part1 = BitConverter.GetBytes(local[0]);
-                byte[] part2 = BitConverter.GetBytes(local[1]);
-                byte[] part3 = BitConverter.GetBytes(local[2]);
-                byte[] unk5 = { part1[0], part1[1], part1[2], part1[3], part2[0], part2[1], part2[2], part2[3], part3[0], part3[1], part3[2], part3[3] };
-
-                idk2 = (uint)((int)idk * 0x10000) >> 0x14;
+                idk2 = (idk * 0x10000) >> 0x14;
+                uint uVar5;
                 if (idk2 == 0)
                 {
-                    uVar6 = Mask2 >> 0x10;
+                    uVar5 = Mask2 >> 0x10;
                 }
                 else
                 {
-                    uVar6 = idk2 * (Mask2 >> 0x10) >> 0x10;
+                    uVar5 = idk2 * (Mask2 >> 0x10) >> 0x10;
                 }
 
-                uint k = 0;
-                do
+                uint uVar3 = Mask2;
+                uint _Uvar5 = uVar5 + 0x20;
+
+                for (int i = 0; i < 0xC; i++)
                 {
-                    uint uVar3 = Mask3 * Mask2 + Mask1;
-                    uVar6 = uVar3 >> 0x10;
+                    uVar3 = (Mask3 * uVar3) + Mask1;
+                    uint _uVar6 = uVar3 >> 0x10;
                     if (idk2 != 0)
                     {
-                        uVar6 = uVar6 * idk2 >> 0x10;
+                        _uVar6 = (_uVar6 * idk2) >> 0x10;
                     }
 
-                    buf[uVar6 + 0x20 + k] = buf[uVar6 + 0x20 + k + uVar6 + 0x2];
-                    buf[uVar6 + k] = unk5[k];
+                    _Uvar5 = _Uvar5 + _uVar6 + 0x2;
 
-                    //byte uVar1 = unk5[k];
+#if DEBUG // for When i actually finish this
+                    // Check if it matches the game code(it does now)
+                    Console.WriteLine("r0: 0x" + (0x022EFA44 + _Uvar5).ToString("X2"));
+                    Console.WriteLine("r1: 0x" + i.ToString("X2"));
+                    Console.WriteLine("r12: 0x" + (_uVar6 + 0x2).ToString("X2"));
+#endif
 
-                    k++;
+                    byte bVar1 = buf[_Uvar5];
+                    buf[_Uvar5] = buf[idk + i];
+                    unk5[i] = bVar1;
+                }
+                
+                Buffer.BlockCopy(unk5, 0, local, 0, unk5.Length);
 
-                } while (k < 0xC);
-
-                int iVar9;
-                int j = 0;
-                do
+                for(int i = 0; i< 0x100; i++)
                 {
                     local[0] = Mask3 * local[0] + Mask1;
-                    iVar9 = j + 1;
-                    local_21c[j] = (ushort)(local[0] >> 0x10);
-                    j = iVar9;
-                } while (iVar9 < 0x100);
+                    local_21c[i] = (ushort)(local[0] >> 0x10);
+                }
 
-                for (int r9 = (int)len - 0xd; len > 0xffffffff; len--)
+                for (int r9 = (int)len - 0xd; (uint)r9 > 0xffffffff; r9--)
                 {
                     int iVar7 = r9 >> 0x1f;
+                    // This function here most likely screws up the algorithm
                     uint r0 = EncodeHelperFunc((uint)(r9 + (idk * local_21c[((r9 * 0x1000000 + iVar7) >> 0x18 | iVar7 << 8) - iVar7] >> 0x10)), idk);
                     if (((r9 < 4) || (r9 > 0x13)) && ((r0 < 4) || (r0 > 0x13)))
                     {
@@ -377,11 +369,12 @@ namespace Inazuma_Eleven_Toolbox.Logic
                     local[2] = Mask3 * local[2] + Mask1;
                     if (i < 4 || 0x13 < i)
                     {
-                        int b = buf[i];
-                        buf[i] = (byte)((b >> (int)(8 - (((local[2] >> 0x10) << 3) >> 0x10) & 0xff)));
-                        buf[i] = (byte)(b ^ (((local[1] >> 0x10) << 8) >> 0x10));
+                        buf[i] = (byte)(buf[i] ^ (((local[1] >> 0x10) << 8) >> 0x10));
+                        buf[i] = (byte)((buf[i] >> (int)(8 - (((local[2] >> 0x10) << 3) >> 0x10) & 0xff)));                        
                     }
                 }
+
+
             }
         }
 #endif

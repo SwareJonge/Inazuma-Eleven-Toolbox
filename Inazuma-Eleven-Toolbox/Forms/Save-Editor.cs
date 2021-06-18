@@ -170,13 +170,16 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 string Game = Encoding.ASCII.GetString(SavedataFull.Skip(0x4).Take(0x10).ToArray()).Replace("\0", "");
                 string ndsTitleID = Encoding.ASCII.GetString(SavedataFull.Skip(0x14).Take(0x4).ToArray()).Replace("\0", "");
-                bool isNDSSave = Filename.ToLower().EndsWith(".sav");
+                bool isNDSSave = Filename.ToLower().EndsWith(".sav") || Filename.ToLower().EndsWith(".dsv");
 
                 if (Game == "INAZUMA_ELEVEN3" && isNDSSave)
                 {
 #if DEBUG
-                    Cryptography.EncodeDecodeSave(true, SavedataFull, 0x7F80);
-                    //Cryptography.EncodeDecodeSave(false, SavedataFull.Skip(0x40).ToArray(), 0x7F80);
+                    //Cryptography.EncodeDecodeSave(true, SavedataFull, 0x7F80);
+                    //Cryptography.EncodeDecodeSave(false, SavedataFull, 0x7F80);
+                    //Cryptography.EncodeDecodeSave(true, SavedataFull, 0x80);
+                    //Cryptography.EncodeDecodeSave(false, SavedataFull, 0x80);
+
                     using (BinaryWriter binWriter = new BinaryWriter(File.Open(Filename + ".DEC", FileMode.Create)))
                     {
                         binWriter.Write(SavedataFull);
