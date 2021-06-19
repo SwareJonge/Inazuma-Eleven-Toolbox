@@ -175,12 +175,12 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 if (Game == "INAZUMA_ELEVEN3" && isNDSSave)
                 {
 #if DEBUG
-                    //Cryptography.EncodeDecodeSave(true, SavedataFull, 0x7F80);
-                    //Cryptography.EncodeDecodeSave(false, SavedataFull, 0x7F80);
-                    //Cryptography.EncodeDecodeSave(true, SavedataFull, 0x80);
-                    //Cryptography.EncodeDecodeSave(false, SavedataFull, 0x80);
+                    Cryptography.NDSIE3 NDSIE3Crypt = new Cryptography.NDSIE3();
 
-                    using (BinaryWriter binWriter = new BinaryWriter(File.Open(Filename + ".DEC", FileMode.Create)))
+                    NDSIE3Crypt.DecryptSave(SavedataFull, 0x7F80); // Decrypt the original data
+                    //NDSIE3Crypt.EncryptSave(SavedataFull, 0x7F80); // Encrypt the data back
+                    //NDSIE3Crypt.DecryptSave(SavedataFull, 0x7F80); // See if this matches with the original encrypted data
+                    using (BinaryWriter binWriter = new BinaryWriter(File.Open(Filename + ".ENC", FileMode.Create)))
                     {
                         binWriter.Write(SavedataFull);
                     }
