@@ -44,6 +44,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
             string PlayerNamesFileName = @"Game Files/" + region + "/" + Game + "/unitbase.dat";
             string StatsFileName = @"Game Files/" + region + "/" + Game + "/unitstat.dat";
+            string MoveFileName = @"Game Files/" + region + "/" + Game + "/command.dat";
+            string MoveNameFileName = @"Game Files/" + region + "/" + Game + "/command.STR";
 
             byte NicknameStartPosJAP = 0x10;
             byte StringLength = 0x20;
@@ -52,6 +54,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte ScoutIDOffset = 0x42;
             byte ElementOffset = 0x5A;
             byte GenderOffset = 0x52;
+            int commandDatBlockSize = 0x1C;
+            int cmdStrOffset = 0x14;
+
 
             byte[] NameFile = FileIO.ReadFile(PlayerNamesFileName);
             byte[] StatsFile = FileIO.ReadFile(StatsFileName);
@@ -65,6 +70,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 NickNameLength = 0x10;
                 GenderOffset = 0x5A;
                 NicknameStartPosJAP = 0x1C;
+                commandDatBlockSize = 0x24;
+                cmdStrOffset = 0x18;
             }
 
             StringBuilder sb = new StringBuilder();
@@ -137,47 +144,48 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     growthRate[K] = StatsBlock[0x12 + (K * 4)];
                 }
 
-                ushort Move1, Move1ObtainLevel;
-                ushort Move2, Move2ObtainLevel;
-                ushort Move3, Move3ObtainLevel;
-                ushort Move4, Move4ObtainLevel;
+                ushort[] Move = new ushort[4];
+                ushort[] MoveObtainLevel = new ushort[4];
+
+                string[] movenames = new string[4];
 
                 ushort Maxtotal;
 
                 if (Game == "IE" && region == "JAP")
                 {
-                    Move1 = StatsBlock[0x2C];
-                    Move1ObtainLevel = StatsBlock[0x2D];
-                    Move2 = StatsBlock[0x2E];
-                    Move2ObtainLevel = StatsBlock[0x2F];
-                    Move3 = StatsBlock[0x30];
-                    Move3ObtainLevel = StatsBlock[0x31];
-                    Move4 = StatsBlock[0x32];
-                    Move4ObtainLevel = StatsBlock[0x33];
+                    for(int j = 0; j < 4; j++)
+                    {
+                        Move[j] = StatsBlock[0x2C + (j * 2)];
+                        MoveObtainLevel[j] = StatsBlock[0x2D + (j * 2)];
+                        movenames[j] = D.MoveToStr[Move[j]];
+                    }
                     Maxtotal = BitConverter.ToUInt16(StatsBlock.Skip(0x34).Take(2).ToArray(), 0);
                 }
                 else
                 {
-                    Move1 = BitConverter.ToUInt16(StatsBlock.Skip(0x2C).Take(2).ToArray(), 0);
-                    Move1ObtainLevel = StatsBlock[0x2E];
-                    Move2 = BitConverter.ToUInt16(StatsBlock.Skip(0x30).Take(2).ToArray(), 0);
-                    Move2ObtainLevel = StatsBlock[0x32];
-                    Move3 = BitConverter.ToUInt16(StatsBlock.Skip(0x34).Take(2).ToArray(), 0);
-                    Move3ObtainLevel = StatsBlock[0x36];
-                    Move4 = BitConverter.ToUInt16(StatsBlock.Skip(0x38).Take(2).ToArray(), 0);
-                    Move4ObtainLevel = StatsBlock[0x3A];
+                    byte[] cmd_dat = FileIO.ReadFile(MoveFileName);
+                    byte[] cmd_STR = FileIO.ReadFile(MoveNameFileName);
+                    for (int j = 0; j < 4; j++)
+                    {
+                        Move[j] = BitConverter.ToUInt16(StatsBlock.Skip(0x2C + (j * 4)).Take(2).ToArray(), 0);
+                        MoveObtainLevel[j] = StatsBlock[0x2E + (j * 4)]; // might be a 2 byte value too but since it can't be higher than 100 anyway, i'll leave it 1 byte
+                        ushort cmdstrNameIdx = BitConverter.ToUInt16(cmd_dat.Skip((Move[j] * commandDatBlockSize) + cmdStrOffset).Take(2).ToArray(), 0);
+                        movenames[j] = TextDecoder.Decode(cmd_STR.Skip(cmdstrNameIdx * 0x20).Take(0x20).ToArray(), false);
+                    }
+                    Array.Sort(MoveObtainLevel, movenames);
                     Maxtotal = BitConverter.ToUInt16(StatsBlock.Skip(0x3C).Take(2).ToArray(), 0);
                 }
 
                 ushort StatsTotal = (ushort)(MaxKick + MaxBody + MaxGuard + MaxControl + MaxSpeed + MaxGuts + MaxStamina);
-                short Freedom = (short)(Maxtotal - StatsTotal); // has to be signed since in IE3 it can be negative
+                short Freedom = (short)(Maxtotal - StatsTotal); // has to be signed since in IE3 it can be negative               
+
 #if DEBUG
                 string consoleOutput = String.Concat("private static Player ", FullPlayerName.Replace(" ", "_").Replace("\'", "_").Replace(".", "_").Replace("-", "_").Replace("’", "_").Replace("?", "_"), " = new Player(" +
                 MaxFP, ", ", MaxTP, ", ", (byte)MaxKick, ", ", (byte)MaxBody, ", ", (byte)MaxControl, ", ", (byte)MaxGuard, ", ", (byte)MaxSpeed, ", ", (byte)MaxStamina, ", ", (byte)MaxGuts, ", ", StatsTotal, ", "
                 , MinFP, ", ", MinTP, ", ", (byte)MinKick, ", ", (byte)MinBody, ", ", (byte)MinControl, ", ", (byte)MinGuard, ", ", (byte)MinSpeed, ", ", (byte)MinStamina, ", ", (byte)MinGuts, ", "
                 , FPgrowthRate, ", ", TPgrowthRate, ", ", growthRate[0], ", ", growthRate[1], ", ", growthRate[3], ", ", growthRate[2], ", ", growthRate[4], ", ", growthRate[6], ", ", growthRate[5], ", "
-                , "0x", Move1.ToString("X2"), ", 0x", Move2.ToString("X2"), ", 0x", Move3.ToString("X2"), ", 0x", Move4.ToString("X2"), ", "
-                , "0x", Move1ObtainLevel.ToString("X2"), ", 0x", Move2ObtainLevel.ToString("X2"), ", 0x", Move3ObtainLevel.ToString("X2"), ", 0x", Move4ObtainLevel.ToString("X2"), ", "
+                , "0x", Move[0].ToString("X2"), ", 0x", Move[1].ToString("X2"), ", 0x", Move[2].ToString("X2"), ", 0x", Move[3].ToString("X2"), ", "
+                , "0x", MoveObtainLevel[0].ToString("X2"), ", 0x", MoveObtainLevel[1].ToString("X2"), ", 0x", MoveObtainLevel[2].ToString("X2"), ", 0x", MoveObtainLevel[3].ToString("X2"), ", "
                 , EXPType, "); // 0x", ScoutHexID.ToString("X2")); // Code for dumping structs
                 sb.AppendLine(consoleOutput);
 #else
@@ -185,10 +193,10 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 dataGridViewStats.Rows.Add(FullPlayerName, PlayerNickName,
                     D.PosByteToString(Position), D.GenderToString[Gender], D.SizeToString(PlayerSize), D.ElementToStr[Element], 
                     MaxFP, MaxTP, MaxKick, MaxBody, MaxControl, MaxGuard, MaxSpeed, MaxStamina, MaxGuts, Freedom, StatsTotal, Maxtotal,
-                    D.MoveToStr[Move1], D.MoveObtainLevel(Move1ObtainLevel),
-                    D.MoveToStr[Move2], D.MoveObtainLevel(Move2ObtainLevel),
-                    D.MoveToStr[Move3], D.MoveObtainLevel(Move3ObtainLevel),
-                    D.MoveToStr[Move4], D.MoveObtainLevel(Move4ObtainLevel),
+                    movenames[0], D.MoveObtainLevel(MoveObtainLevel[0]),
+                    movenames[1], D.MoveObtainLevel(MoveObtainLevel[1]),
+                    movenames[2], D.MoveObtainLevel(MoveObtainLevel[2]),
+                    movenames[3], D.MoveObtainLevel(MoveObtainLevel[3]),
                     "0x" +
                     ScoutHexID.ToString("X2")
                     );
