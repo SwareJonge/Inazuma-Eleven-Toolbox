@@ -99,7 +99,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
             static uint Mask2 = 0xB5BDCF5A;
             static uint Mask3 = 0x5D588B65;
 
-            // FUN_02062b34 / FUN_0205FFB0 // Attempt at encrypting the IE3 NDS Saves but not with 100% success
+            // FUN_02062b34(Spark/Bomber) / FUN_0205FFB0(Ogre)
             // buf: savefile buffer
             // len: Length: either 0x7F80 or 0x80 depending on how far you're in the game(0x7F80 99% of the time)
             public void EncryptSave(byte[] buf, UInt32 len)
@@ -123,20 +123,13 @@ namespace Inazuma_Eleven_Toolbox.Logic
 
                 for (int i = 0; i < idk; i++)
                 {
+                    local[1] = Mask3 * local[1] + Mask1;
                     local[2] = Mask3 * local[2] + Mask1;
                     if (i < 4 || 0x13 < i)
                     {
                         byte[] b = { buf[i], buf[i] };
                         ushort c = BitConverter.ToUInt16(b, 0); // concatenate these 2 bytes
                         buf[i] = (byte)(c >> (ushort)(8 - (((local[2] >> 0x10) << 3) >> 0x10)));
-                    }
-                }
-
-                for (int i = 0; i < idk; i++)
-                {
-                    local[1] = Mask3 * local[1] + Mask1;
-                    if (i < 4 || 0x13 < i)
-                    {
                         buf[i] ^= (byte)(((local[1] >> 0x10) << 8) >> 0x10);
                     }
                 }
@@ -147,7 +140,6 @@ namespace Inazuma_Eleven_Toolbox.Logic
                     local_21c[i] = (ushort)(local[0] >> 0x10);
                 }
 
-                //int r9 = (int)idk - 1;
                 for (uint i = idk - 1; -1 < (int)i; i--)
                 {
                     int iVar7 = (int)i >> 0x1f;
