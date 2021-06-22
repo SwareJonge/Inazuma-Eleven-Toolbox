@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using DamienG.Security.Cryptography;
 
 namespace Inazuma_Eleven_Toolbox.Logic
 {
@@ -89,7 +90,6 @@ namespace Inazuma_Eleven_Toolbox.Logic
                 b ^= 0xAD;
                 data[i] = b;
             }
-
         }
 
 
@@ -98,26 +98,6 @@ namespace Inazuma_Eleven_Toolbox.Logic
             static uint Mask1 = 0x00269EC3; // these are seeds and hash values
             static uint Mask2 = 0xB5BDCF5A;
             static uint Mask3 = 0x5D588B65;
-
-            // CRC Algorithm used by IE3 NDS?
-            public UInt32 CRC32ACompute(byte[] buf, UInt32 len)
-            {
-                UInt32 crc = 0xffffffff;
-                UInt32 POLY = 0x04c11db7;
-
-                for (int i = 0; i < len; i++)
-                {
-                    crc = crc ^ buf[i];
-                    for (int bit = 0; bit < 8; bit++)
-                    {
-                        if ((crc & 0x80000000) != 0)
-                            crc = (crc << 1) ^ POLY;
-                        else
-                            crc = crc << 1;
-                    }
-                }
-                return crc ^ 0xffffffff;
-            }
 
             // FUN_02062b34 / FUN_0205FFB0 // Attempt at encrypting the IE3 NDS Saves but not with 100% success
             // buf: savefile buffer
@@ -129,15 +109,17 @@ namespace Inazuma_Eleven_Toolbox.Logic
 
                 uint idk = (len - 0xc);
 
-                // should be a reverse decrypt but it doesn't work yet
-                uint idk2 = 0xDEAD; // This seems to be random
+                uint idk2 = 0xDEAD;
 
                 for (int i = 0; i < 3; i++)
                 {
                     uint uVar13 = (idk2 * Mask3) + Mask1;
                     idk2 = (uVar13 * Mask3) + Mask1;
-                    local[i] = (idk2 >> 0x10) | (uVar13 & 0xffff0000);
+                    local[i] = idk2 >> 0x10 | uVar13 & 0xffff0000;
                 }
+                // The last Stage uses the first generated seeds So copy that to unk5 now
+                byte[] unk5 = new byte[0xc];
+                Buffer.BlockCopy(local, 0, unk5, 0, 0xc);
 
                 for (int i = 0; i < idk; i++)
                 {
@@ -145,8 +127,8 @@ namespace Inazuma_Eleven_Toolbox.Logic
                     if (i < 4 || 0x13 < i)
                     {
                         byte[] b = { buf[i], buf[i] };
-                        short c = BitConverter.ToInt16(b, 0); // concatenate these 2 bytes
-                        buf[i] = (byte)(c >> (short)(8 - (((local[2] >> 0x10) << 3) >> 0x10)));
+                        ushort c = BitConverter.ToUInt16(b, 0); // concatenate these 2 bytes
+                        buf[i] = (byte)(c >> (ushort)(8 - (((local[2] >> 0x10) << 3) >> 0x10)));
                     }
                 }
 
@@ -159,7 +141,6 @@ namespace Inazuma_Eleven_Toolbox.Logic
                     }
                 }
 
-
                 for (int i = 0; i < 0x100; i++)
                 {
                     local[0] = Mask3 * local[0] + Mask1;
@@ -167,7 +148,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
                 }
 
                 //int r9 = (int)idk - 1;
-                for (uint i = idk - 1; i > 0xffffffff; i--)
+                for (uint i = idk - 1; -1 < (int)i; i--)
                 {
                     int iVar7 = (int)i >> 0x1f;
                     Math.DivRem((int)(i + (idk * local_21c[((i * 0x1000000 + iVar7) >> 0x18 | iVar7 << 8) - iVar7] >> 0x10)), (int)idk, out int remainder);
@@ -187,9 +168,6 @@ namespace Inazuma_Eleven_Toolbox.Logic
                 else
                     uVar4 = uVar8 * (Mask2 >> 0x10) >> 0x10;
 
-                byte[] unk5 = new byte[0xc];
-                Buffer.BlockCopy(local, 0, unk5, 0, 0);
-
                 uint uVar3 = Mask2;
                 uint _uVar5 = uVar4 + 0x20;
 
@@ -203,9 +181,8 @@ namespace Inazuma_Eleven_Toolbox.Logic
                     }
                     _uVar5 = _uVar5 + uVar6 + 0x2;
 
-                    byte bVar1 = unk5[i];
                     buf[idk + i] = buf[_uVar5];
-                    buf[_uVar5] = bVar1;
+                    buf[_uVar5] = unk5[i];
                 }
                 return;
             }

@@ -61,6 +61,15 @@ namespace Inazuma_Eleven_Toolbox.Forms
             byte[] NameFile = FileIO.ReadFile(PlayerNamesFileName);
             byte[] StatsFile = FileIO.ReadFile(StatsFileName);
 
+            byte[] cmd_dat = { };
+            byte[] cmd_STR = { };
+
+            if(!((Game == "IE") && (region == "JAP")))
+            {
+                cmd_dat = FileIO.ReadFile(MoveFileName);
+                cmd_STR = FileIO.ReadFile(MoveNameFileName);
+            }
+
             if (Game == "IE3")
             {
                 EXPOffset = 0x4C;
@@ -163,8 +172,6 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 }
                 else
                 {
-                    byte[] cmd_dat = FileIO.ReadFile(MoveFileName);
-                    byte[] cmd_STR = FileIO.ReadFile(MoveNameFileName);
                     for (int j = 0; j < 4; j++)
                     {
                         Move[j] = BitConverter.ToUInt16(StatsBlock.Skip(0x2C + (j * 4)).Take(2).ToArray(), 0);
