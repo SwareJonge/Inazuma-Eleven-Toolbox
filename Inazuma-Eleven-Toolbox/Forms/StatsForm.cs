@@ -105,14 +105,14 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 {
                     case "EUR":
                         {
-                            FullPlayerName = TextDecoder.Decode(NameBlock.Skip(0).Take(0x1C).ToArray(), false);
-                            PlayerNickName = TextDecoder.Decode(NameBlock.Skip(StringLength).Take(NickNameLength).ToArray(), false);
+                            FullPlayerName = TextDecoder.Decode(NameBlock.Skip(0).Take(0x1C).ToArray());
+                            PlayerNickName = TextDecoder.Decode(NameBlock.Skip(StringLength).Take(NickNameLength).ToArray());
                             break;
                         }
                     case "JAP":
                         {
-                            FullPlayerName = TextDecoder.Decode(NameBlock.Skip(0).Take(0x10).ToArray(), true);
-                            PlayerNickName = TextDecoder.Decode(NameBlock.Skip(NicknameStartPosJAP).Take(0x10).ToArray(), true);
+                            FullPlayerName = TextDecoder.Decode(NameBlock.Skip(0).Take(0x10).ToArray());
+                            PlayerNickName = TextDecoder.Decode(NameBlock.Skip(NicknameStartPosJAP).Take(0x10).ToArray());
                             break;
                         }
                 }
@@ -177,7 +177,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                         Move[j] = BitConverter.ToUInt16(StatsBlock.Skip(0x2C + (j * 4)).Take(2).ToArray(), 0);
                         MoveObtainLevel[j] = StatsBlock[0x2E + (j * 4)]; // might be a 2 byte value too but since it can't be higher than 100 anyway, i'll leave it 1 byte
                         ushort cmdstrNameIdx = BitConverter.ToUInt16(cmd_dat.Skip((Move[j] * commandDatBlockSize) + cmdStrOffset).Take(2).ToArray(), 0);
-                        movenames[j] = TextDecoder.Decode(cmd_STR.Skip(cmdstrNameIdx * 0x20).Take(0x20).ToArray(), false);
+                        movenames[j] = TextDecoder.Decode(cmd_STR.Skip(cmdstrNameIdx * 0x20).Take(0x20).ToArray());
                     }
                     Array.Sort(MoveObtainLevel, movenames);
                     Maxtotal = BitConverter.ToUInt16(StatsBlock.Skip(0x3C).Take(2).ToArray(), 0);

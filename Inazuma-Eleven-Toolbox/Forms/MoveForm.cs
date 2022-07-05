@@ -121,7 +121,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     blockSize = 0x24;
                 }
                 ushort STRIdx = BitConverter.ToUInt16(cmd.Skip((restriction * blockSize) + cmdStrOffset).Take(2).ToArray(), 0);
-                return "Player With " + TextDecoder.Decode(cmd_str.Skip(STRIdx * 0x20).Take(0x20).ToArray(), false);
+                return "Player With " + TextDecoder.Decode(cmd_str.Skip(STRIdx * 0x20).Take(0x20).ToArray());
             }            
             // Different Type of restriction, either body type, gender or Element.
             else return "";
@@ -148,7 +148,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 for (int i = 0; i < cmd.Length; i += BlockSize)
                 {
                     ushort cmdstrNameIdx = BitConverter.ToUInt16(cmd.Skip(i + cmdStrOffset).Take(2).ToArray(), 0);
-                    string MoveName = TextDecoder.Decode(cmd_str.Skip(cmdstrNameIdx * 32).Take(0x20).ToArray(), false);
+                    string MoveName = TextDecoder.Decode(cmd_str.Skip(cmdstrNameIdx * 32).Take(0x20).ToArray());
 
                     if (MoveName == "") // No Need for empty spaces
                         continue;
@@ -157,7 +157,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                     byte FoulRate = cmd[i + 0x1];
 
                     ushort cmdstrSummaryIdx = BitConverter.ToUInt16(cmd.Skip(i + cmdStrOffset + 2).Take(2).ToArray(), 0);
-                    string MoveSummary = TextDecoder.Decode(cmd_str.Skip((cmdstrSummaryIdx) * 32).ToArray(), false);
+                    string MoveSummary = TextDecoder.Decode(cmd_str.Skip((cmdstrSummaryIdx) * 32).ToArray());
                     byte TP = cmd[i + 4];
                     byte power = cmd[i + 6];
                     byte Element = cmd[i + 8];

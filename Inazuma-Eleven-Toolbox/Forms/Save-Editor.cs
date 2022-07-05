@@ -278,7 +278,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
                 numericPrestige.Value = BitConverter.ToInt32(SavedataFull.Skip(PrestigePointsOffset).Take(4).ToArray(), 0);
                 numericFriendship.Value = BitConverter.ToInt32(SavedataFull.Skip(FriendshipPointsOffset).Take(4).ToArray(), 0);
 
-                txtBoxName.Text = TextDecoder.Decode(SavedataFull.Skip(NameOffset).Take(0x16).ToArray(), false);
+                txtBoxName.Text = TextDecoder.Decode(SavedataFull.Skip(NameOffset).Take(0x16).ToArray());
 
                 LoadItems();
 

@@ -8,7 +8,7 @@ namespace Inazuma_Eleven_Toolbox.Logic
 {
     public static class TextDecoder
     {
-        static IDictionary<byte, string> CharTable = new Dictionary<byte, string>
+        static IDictionary<byte, string> CustomCharTable = new Dictionary<byte, string>
         {
             {0x7B, "ß"}, {0x7C, "Ÿ"}, {0x7D, "ª"}, {0x7E, "º"},
             {0xA1, "Ù"}, {0xA2, "Ú"}, {0xA3, "Û"}, {0xA4, "Ü"},
@@ -31,36 +31,44 @@ namespace Inazuma_Eleven_Toolbox.Logic
             {0xDE, "Ý"}, {0xDF, "¡"}
         };
 
-        public static string Decode(byte[] input, bool Japanese)
-        {
-            string output = "";
-            int i = 0;
-            if (!Japanese)
-            {
-                do
-                {
-                    if (input[i] == 0)
-                        return "";
-                    else if (input[i] < 0x7B)
-                    {
-                        output = String.Concat(output, Encoding.GetEncoding(932).GetString(input.Skip(i).Take(0x1).ToArray()));
-                        i += 1;
-                    }
-                    else if (input[i] > 0x80 && input[i] < 0xA0) // Japanese Character
-                    {
-                        output = String.Concat(output, Encoding.GetEncoding(932).GetString(input.Skip(i).Take(0x2).ToArray()));
-                        i += 2;
-                    }
-                    else // use our custom table
-                    {
-                        output = String.Concat(output, CharTable[input[i]]);
-                        i += 1;
-                    }
 
+        // original by me(i think) modified by Obluda, modified by me again to work with this
+        public static string Decode(byte[] input)
+        {
+            var i = 0;
+            var output = "";
+            if (input.Length < 1)
+                return "";
+
+            do
+            {
+                // HalfWidth char
+                if (input[i] < 0x7b)
+                {
+                    if (input[i] == 0x0a)
+                        output += "{returnline}";
+                    else
+                        output += Encoding.GetEncoding("sjis").GetString(input.Skip(i).Take(1).ToArray());
+                    i += 1;
                 }
-                while (input[i] != 0);
+
+                // FullWidth char
+                else if ((input[i] > 0x80 && input[i] < 0xA0) || input[i] >= 0xe0)
+                {
+                    output += Encoding.GetEncoding("sjis").GetString(input.Skip(i).Take(2).ToArray());
+                    i += 2;
+                }
+
+                // Custom accent
+                else
+                {
+                    output += CustomCharTable[input[i]];
+                    i += 1;
+                }
+                if (i == input.Length)
+                    break;
             }
-            else output = Encoding.GetEncoding(932).GetString(input).Replace("\0", "");
+            while (input[i] != 0);
 
             return output;
         }

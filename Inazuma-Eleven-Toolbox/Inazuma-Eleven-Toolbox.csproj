@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formats\SaveFile.cs" />
     <Compile Include="Forms\MoveForm.cs">
       <SubType>Form</SubType>
     </Compile>
