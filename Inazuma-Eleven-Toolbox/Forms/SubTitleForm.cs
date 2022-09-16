@@ -21,7 +21,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
             InitializeComponent();
         }
 
-        public string openedFile;
+        public string openedFile = @"Subtitle.dat";
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
