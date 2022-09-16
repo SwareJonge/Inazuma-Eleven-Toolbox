@@ -71,12 +71,12 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void btnInsertUp_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Insert(dataGridView1.CurrentRow.Index);
+            dataGridView1.Rows.Insert(dataGridView1.CurrentRow.Index, "", "", "");
         }
 
         private void btnInsertDown_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Insert(dataGridView1.CurrentRow.Index + 1);
+            dataGridView1.Rows.Insert(dataGridView1.CurrentRow.Index + 1, "", "", "");
         }
     }
 }
