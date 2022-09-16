@@ -20,11 +20,10 @@ namespace Inazuma_Eleven_Toolbox.Formats
         {
             startFrame = StartFrame;
             endFrame = EndFrame;
-            string testText = txt;
-            textLen = TextDecoder.GetPaddedLength(testText.Replace("\0", "").Length);
+            byte[] encText = TextDecoder.Encode(txt);
+            textLen = TextDecoder.GetPaddedLength(encText.Length);
             text = txt;
-            padding = new byte[textLen - txt.Length];
-            Console.WriteLine(text);
+            padding = new byte[textLen - encText.Length];
         }
 
         public byte[] GetBytes() // there must be a faster way to do this but for now i'll use this
@@ -40,11 +39,11 @@ namespace Inazuma_Eleven_Toolbox.Formats
                 bytes[i + 8] = BitConverter.GetBytes(textLen)[i];
 
             byte[] encText = TextDecoder.Encode(text);
-            for (int i = 0; i < text.Length; i++)
+            for (int i = 0; i < encText.Length; i++)
                 bytes[i + 0xc] = encText[i];
 
             for (int i = 0; i < padding.Length; i++)
-                bytes[i + text.Length + 0xC] = padding[i];
+                bytes[i + encText.Length + 0xC] = padding[i];
 
             return bytes;
         }
