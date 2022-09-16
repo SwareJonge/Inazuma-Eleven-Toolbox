@@ -21,8 +21,11 @@ namespace Inazuma_Eleven_Toolbox.Forms
             InitializeComponent();
         }
 
+        public string openedFile;
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            File.WriteAllBytes(openedFile + ".bak", File.ReadAllBytes(openedFile)); // Create a backup of the existing file just in case
             if (dataGridView1.Rows.Count != 0)
             {
                 int rowCnt = dataGridView1.Rows.Count - 1;
@@ -42,7 +45,7 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
                 filebytes = FileIO.Combine(filebytes, new byte[]{0xff, 0xff, 0xff, 0xff});
 
-                File.WriteAllBytes(@"out.dat", filebytes);
+                File.WriteAllBytes(openedFile, filebytes);
             }
         }
 
@@ -53,11 +56,27 @@ namespace Inazuma_Eleven_Toolbox.Forms
             ofd.FileName = "";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                openedFile = ofd.FileName;
                 dataGridView1.Rows.Clear();
-                SubTitle[] subs = SubTitle.Read(ofd.FileName);
+                SubTitle[] subs = SubTitle.Read(openedFile);
                 for(int i = 0; i < subs.Length; i++)
                     dataGridView1.Rows.Add(subs[i].startFrame, subs[i].endFrame, subs[i].text);                
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
+        }
+
+        private void btnInsertUp_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Insert(dataGridView1.CurrentRow.Index);
+        }
+
+        private void btnInsertDown_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Insert(dataGridView1.CurrentRow.Index + 1);
         }
     }
 }

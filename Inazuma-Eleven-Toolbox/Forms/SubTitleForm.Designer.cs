@@ -35,6 +35,9 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnInsertUp = new System.Windows.Forms.Button();
+            this.btnInsertDown = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -46,9 +49,9 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 58);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 411);
+            this.dataGridView1.Size = new System.Drawing.Size(776, 380);
             this.dataGridView1.TabIndex = 0;
             // 
             // menuStrip1
@@ -92,11 +95,44 @@
             this.Column3.Name = "Column3";
             this.Column3.Width = 500;
             // 
+            // btnInsertUp
+            // 
+            this.btnInsertUp.Location = new System.Drawing.Point(12, 29);
+            this.btnInsertUp.Name = "btnInsertUp";
+            this.btnInsertUp.Size = new System.Drawing.Size(86, 23);
+            this.btnInsertUp.TabIndex = 4;
+            this.btnInsertUp.Text = "Insert Above";
+            this.btnInsertUp.UseVisualStyleBackColor = true;
+            this.btnInsertUp.Click += new System.EventHandler(this.btnInsertUp_Click);
+            // 
+            // btnInsertDown
+            // 
+            this.btnInsertDown.Location = new System.Drawing.Point(104, 29);
+            this.btnInsertDown.Name = "btnInsertDown";
+            this.btnInsertDown.Size = new System.Drawing.Size(86, 23);
+            this.btnInsertDown.TabIndex = 5;
+            this.btnInsertDown.Text = "Insert Below";
+            this.btnInsertDown.UseVisualStyleBackColor = true;
+            this.btnInsertDown.Click += new System.EventHandler(this.btnInsertDown_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(196, 29);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 6;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.button3_Click);
+            // 
             // SubTitleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnInsertDown);
+            this.Controls.Add(this.btnInsertUp);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -119,5 +155,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Button btnInsertUp;
+        private System.Windows.Forms.Button btnInsertDown;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
