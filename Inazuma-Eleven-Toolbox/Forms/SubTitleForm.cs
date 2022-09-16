@@ -25,7 +25,8 @@ namespace Inazuma_Eleven_Toolbox.Forms
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            File.WriteAllBytes(openedFile + ".bak", File.ReadAllBytes(openedFile)); // Create a backup of the existing file just in case
+            if(File.Exists(openedFile))
+                File.WriteAllBytes(openedFile + ".bak", File.ReadAllBytes(openedFile)); // Create a backup of the existing file just in case
             if (dataGridView1.Rows.Count != 0)
             {
                 int rowCnt = dataGridView1.Rows.Count - 1;
