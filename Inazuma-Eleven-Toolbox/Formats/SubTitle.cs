@@ -12,43 +12,29 @@ namespace Inazuma_Eleven_Toolbox.Formats
     {
         public int startFrame;
         public int endFrame;
-        public int textLen; // should be length of text
-        public string text;
-        byte[] padding;
+        public int textLen; // Padded Length of Text
+        public byte[] text;
 
         public SubTitle(int StartFrame, int EndFrame, string txt)
         {
-            startFrame = StartFrame;
-            endFrame = EndFrame;
             byte[] encText = TextDecoder.Encode(txt);
+
+            startFrame = StartFrame;
+            endFrame = EndFrame;            
             textLen = TextDecoder.GetPaddedLength(encText.Length);
-            text = txt;
-            padding = new byte[textLen - encText.Length];
+            text = encText;
         }
 
-        public byte[] GetBytes() // there must be a faster way to do this but for now i'll use this
+        public void Write(BinaryWriter bw)
         {
-            byte[] bytes = new byte[0xC + textLen];
-            for (int i = 0; i < 4; i++)
-                bytes[i] = BitConverter.GetBytes(startFrame)[i];
+            bw.Write(startFrame);
+            bw.Write(endFrame);
+            bw.Write(textLen);
+            bw.Write(text);
+            bw.BaseStream.Position += (textLen - text.Length); // the worst way i could think of to make this more optimal but hey, it works
+        } 
 
-            for (int i = 0; i < 4; i++)
-                bytes[i + 4] = BitConverter.GetBytes(endFrame)[i];
-
-            for (int i = 0; i < 4; i++)
-                bytes[i + 8] = BitConverter.GetBytes(textLen)[i];
-
-            byte[] encText = TextDecoder.Encode(text);
-            for (int i = 0; i < encText.Length; i++)
-                bytes[i + 0xc] = encText[i];
-
-            for (int i = 0; i < padding.Length; i++)
-                bytes[i + encText.Length + 0xC] = padding[i];
-
-            return bytes;
-        }
-
-        public static SubTitle[] Read(string file)
+        public static List<SubTitle> ReadFile(string file)
         {
             List<SubTitle> subTitles = new List<SubTitle>();
 
@@ -61,11 +47,11 @@ namespace Inazuma_Eleven_Toolbox.Formats
                         break;
                     int endFrame = br.ReadInt32();
                     int textLen = br.ReadInt32();
-                    string text = TextDecoder.Decode(br.ReadBytes(textLen)).Replace("\0", "");
+                    string text = TextDecoder.Decode(br.ReadBytes(textLen));
                     subTitles.Add(new SubTitle(startFrame, endFrame, text));
                 }
             }
-            return subTitles.ToArray();
+            return subTitles;
         }
 
     }

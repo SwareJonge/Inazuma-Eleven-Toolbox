@@ -30,23 +30,18 @@ namespace Inazuma_Eleven_Toolbox.Forms
             if (dataGridView1.Rows.Count != 0)
             {
                 int rowCnt = dataGridView1.Rows.Count - 1;
-                SubTitle[] subs = new SubTitle[rowCnt];
 
-                for (int i = 0; i < rowCnt; i++)
+                using (BinaryWriter bw = new BinaryWriter(new FileStream(openedFile, FileMode.Create)))
                 {
-                    int FrameStart = int.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
-                    int FrameEnd = int.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString());
-                    string text = dataGridView1.Rows[i].Cells[2].Value.ToString();
-                    subs[i] = new SubTitle(FrameStart, FrameEnd, text);
+                    for (int i = 0; i < rowCnt; i++)
+                    {
+                        int FrameStart = int.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
+                        int FrameEnd = int.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString());
+                        string text = dataGridView1.Rows[i].Cells[2].Value.ToString();
+                        new SubTitle(FrameStart, FrameEnd, text).Write(bw);
+                    }
+                    bw.Write(0xffffffff); // End of File
                 }
-
-                byte[] filebytes = { };
-                for (int i = 0; i < rowCnt; i++)
-                    filebytes = FileIO.Combine(filebytes, subs[i].GetBytes());
-
-                filebytes = FileIO.Combine(filebytes, new byte[]{0xff, 0xff, 0xff, 0xff});
-
-                File.WriteAllBytes(openedFile, filebytes);
             }
         }
 
@@ -59,9 +54,9 @@ namespace Inazuma_Eleven_Toolbox.Forms
             {
                 openedFile = ofd.FileName;
                 dataGridView1.Rows.Clear();
-                SubTitle[] subs = SubTitle.Read(openedFile);
-                for(int i = 0; i < subs.Length; i++)
-                    dataGridView1.Rows.Add(subs[i].startFrame, subs[i].endFrame, subs[i].text);                
+                List<SubTitle> subs = SubTitle.ReadFile(openedFile);
+                for(int i = 0; i < subs.Count; i++)
+                    dataGridView1.Rows.Add(subs[i].startFrame, subs[i].endFrame, TextDecoder.Decode(subs[i].text));                
             }
         }
 
